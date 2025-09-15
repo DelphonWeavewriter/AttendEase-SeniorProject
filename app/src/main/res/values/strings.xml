@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AttendEaseCampusCompanion</string>
+    <string name="sign_in">Sign In</string>
 </resources>
