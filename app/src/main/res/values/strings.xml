@@ -1,4 +1,28 @@
 <resources>
-    <string name="app_name">AttendEaseCampusCompanion</string>
+    <string name="app_name">AttendEase Campus Companion</string>
+    
+    <!-- Login Screen Strings -->
     <string name="sign_in">Sign In</string>
+    <string name="welcome_back">Welcome Back!</string>
+    <string name="login_subtitle">Sign in to continue to AttendEase</string>
+    
+    <!-- Input Field Hints -->
+    <string name="email_hint">Email Address</string>
+    <string name="password_hint">Password</string>
+    
+    <!-- Additional Login Elements -->
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="remember_me">Remember me</string>
+    <string name="dont_have_account">Don\'t have an account?</string>
+    <string name="sign_up">Sign Up</string>
+    
+    <!-- Error Messages -->
+    <string name="email_required">Email is required</string>
+    <string name="password_required">Password is required</string>
+    <string name="invalid_credentials">Invalid email or password</string>
+    <string name="login_failed">Login failed. Please try again.</string>
+    
+    <!-- Loading States -->
+    <string name="signing_in">Signing in...</string>
+    <string name="please_wait">Please wait</string>
 </resources>
