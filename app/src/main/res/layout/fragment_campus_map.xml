@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- fragment_campus_map.xml -->
+<!-- TEAM: Root declares both android + app namespaces so we can use app:* attrs. -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- SupportMapFragment will render the Google Map -->
+    <!-- Google Map -->
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <!-- Recenter FAB (optional) -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabRecenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/recenter_map"
+        app:srcCompat="@drawable/ic_my_location" />
 </FrameLayout>

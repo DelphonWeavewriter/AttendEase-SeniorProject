@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AttendEase Campus Map</string>
+    <string name="recenter_map">Recenter map</string>
+
 </resources>
