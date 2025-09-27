@@ -1,0 +1,19 @@
+R_DEF: Internal format may change without notice
+local
+color black
+color white
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+drawable ic_my_location
+id container
+id map
+layout activity_main
+layout fragment_campus_map
+mipmap ic_launcher
+mipmap ic_launcher_round
+string app_name
+string recenter_map
+style Base.Theme.AttendEaseCampusMap
+style Theme.AttendEaseCampusMap
+xml backup_rules
+xml data_extraction_rules
