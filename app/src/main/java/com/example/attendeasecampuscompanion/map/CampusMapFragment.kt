@@ -141,6 +141,8 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
 
     @SuppressLint("MissingPermission")
     private fun enableMyLocationLayerAndStartUpdates() {
+
+        android.util.Log.d("CampusMap", "Enabling location layer…")
         // TEAM: Only call after permission is granted
         map?.isMyLocationEnabled = true
         map?.uiSettings?.isMyLocationButtonEnabled = true
