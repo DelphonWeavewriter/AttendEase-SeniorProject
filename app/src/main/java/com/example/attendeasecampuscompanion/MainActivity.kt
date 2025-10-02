@@ -1,77 +1,70 @@
 package com.example.attendeasecampuscompanion
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.attendeasecampuscompanion.ui.theme.AttendEaseCampusCompanionTheme
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : ComponentActivity() {
 
-    lateinit var username : EditText
-    lateinit var password : EditText
-    lateinit var signInButton : Button
-
+    // Added Firebase Auth
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Initialization
+        auth = FirebaseAuth.getInstance()
+
         setContentView(R.layout.signin_layout)
+    }
 
-//        enableEdgeToEdge()
-
-//        setContent {
-//            AttendEaseCampusCompanionTheme {
-//                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-//                    Greeting(
-//                        name = "Android",
-//                        modifier = Modifier.padding(innerPadding)
-//                    )
-//                }
-//            }
-//        }
+    override fun onStart() {
+        super.onStart()
+        // Check if user is already signed in
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            // Navigation to the home screen if logged in
+            Toast.makeText(this, "Already signed in as ${currentUser.email}", Toast.LENGTH_SHORT).show()
+        }
     }
 
     fun signin(view: View) {
-        val username = findViewById<EditText>(R.id.editTextEmailAddress).text.toString()
+        val email = findViewById<EditText>(R.id.editTextEmailAddress).text.toString().trim()
         val password = findViewById<EditText>(R.id.editTextPassword).text.toString()
 
-        if (username == "test@nyit.edu" && password == "password")
-        {
-            Toast.makeText(this, "LOGIN SUCCESSFUL", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Attempting login with: $email", Toast.LENGTH_SHORT).show()
+
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
+            return
         }
-        else
-        {
-            Toast.makeText(this, "LOGIN UNSUCCESSFUL", Toast.LENGTH_SHORT).show()
-        }
+
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    val user = auth.currentUser
+                    Toast.makeText(this, "LOGIN SUCCESSFUL - Welcome ${user?.email}", Toast.LENGTH_LONG).show()
+
+                    // Navigate to home screen
+                    startActivity(Intent(this, HomeActivity::class.java))
+                    finish()
+
+                } else {
+                    val exactError = task.exception?.message ?: "Unknown error"
+                    Toast.makeText(this, "EXACT ERROR: $exactError", Toast.LENGTH_LONG).show()
+                    android.util.Log.e("FirebaseAuth", "Sign in failed", task.exception)
+                }
+            }
     }
 
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    AttendEaseCampusCompanionTheme {
-        Greeting("Android")
+    // Sign out function -> Maybe add it to each part of the app for quick exit?
+    fun signOut() {
+        auth.signOut()
+        Toast.makeText(this, "Signed out", Toast.LENGTH_SHORT).show()
     }
 }
