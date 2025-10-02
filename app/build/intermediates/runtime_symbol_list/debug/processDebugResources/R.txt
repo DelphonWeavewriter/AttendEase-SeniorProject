@@ -3691,6 +3691,7 @@ int id textSpacerNoButtons 0x7f0801e9
 int id textSpacerNoTitle 0x7f0801ea
 int id textStart 0x7f0801eb
 int id textTop 0x7f0801ec
+int id textView 0x7f080225
 int id text_input_end_icon 0x7f0801ed
 int id text_input_error_icon 0x7f0801ee
 int id text_input_start_icon 0x7f0801ef
@@ -3862,6 +3863,7 @@ int layout abc_search_dropdown_item_icons_2line 0x7f0b0018
 int layout abc_search_view 0x7f0b0019
 int layout abc_select_dialog_material 0x7f0b001a
 int layout abc_tooltip 0x7f0b001b
+int layout activity_attendance 0x7f0b0071
 int layout activity_home 0x7f0b001c
 int layout activity_map 0x7f0b001d
 int layout browser_actions_context_menu_page 0x7f0b001e
@@ -3890,6 +3892,7 @@ int layout m3_alert_dialog_actions 0x7f0b0034
 int layout m3_alert_dialog_title 0x7f0b0035
 int layout m3_auto_complete_simple_item 0x7f0b0036
 int layout m3_side_sheet_dialog 0x7f0b0037
+int layout map_tesy 0x7f0b0072
 int layout material_chip_input_combo 0x7f0b0038
 int layout material_clock_display 0x7f0b0039
 int layout material_clock_display_divider 0x7f0b003a

@@ -38,10 +38,13 @@ id nextClass
 id signInButton
 id studentId
 id studentName
+id textView
 id welcomeTitle
+layout activity_attendance
 layout activity_home
 layout activity_map
 layout fragment_campus_map
+layout map_tesy
 layout signin_layout
 mipmap ic_launcher
 mipmap ic_launcher_round

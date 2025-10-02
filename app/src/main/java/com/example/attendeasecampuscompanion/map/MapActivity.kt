@@ -11,6 +11,8 @@ class MapActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        android.util.Log.d("MapActivity", "onCreate()")
+        android.widget.Toast.makeText(this, "Opening Map…", android.widget.Toast.LENGTH_SHORT).show()
         setContentView(R.layout.activity_map)
 
         // Optional: show a back arrow in the top bar

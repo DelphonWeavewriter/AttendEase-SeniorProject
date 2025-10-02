@@ -50,7 +50,7 @@ class HomeActivity : ComponentActivity() {
 
         findViewById<Button>(R.id.btnCampusMap).setOnClickListener {
             Toast.makeText(this, "Rushil", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this, MapActivity::class.java))
+            startActivity(Intent(this, com.example.attendeasecampuscompanion.map.MapActivity::class.java))
         }
 
         findViewById<Button>(R.id.btnFinalsSchedule).setOnClickListener {
