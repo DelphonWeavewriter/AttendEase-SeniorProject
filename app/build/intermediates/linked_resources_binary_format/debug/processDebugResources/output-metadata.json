@@ -4,7 +4,7 @@
     "type": "LINKED_RESOURCES_BINARY_FORMAT",
     "kind": "Directory"
   },
-  "applicationId": "edu.nyitLI.attendease",
+  "applicationId": "com.example.attendeasecampuscompanion",
   "variantName": "debug",
   "elements": [
     {

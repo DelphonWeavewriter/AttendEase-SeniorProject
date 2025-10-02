@@ -4,7 +4,7 @@
     "type": "COMPATIBLE_SCREEN_MANIFEST",
     "kind": "Directory"
   },
-  "applicationId": "edu.nyitLI.attendease",
+  "applicationId": "com.example.attendeasecampuscompanion",
   "variantName": "debug",
   "elements": []
 }

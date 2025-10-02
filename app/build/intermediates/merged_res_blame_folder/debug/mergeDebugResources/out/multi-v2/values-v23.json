@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "edu.nyitLI.attendease.app-mergeDebugResources-32:/values-v23/values-v23.xml",
+            "outputFile": "com.example.attendeasecampuscompanion.app-mergeDebugResources-68:/values-v23/values-v23.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\User\\.gradle\\caches\\8.13\\transforms\\94091e34f724921d9a43b2fff25917f2\\transformed\\appcompat-1.6.1\\res\\values-v23\\values-v23.xml",
+                    "source": "C:\\Users\\User\\.gradle\\caches\\8.13\\transforms\\70ec6fd3bd2d7364ca19db05de3f6b27\\transformed\\appcompat-1.6.1\\res\\values-v23\\values-v23.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,20,34,35,36,39,43,44,45,46",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -15,7 +15,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\User\\.gradle\\caches\\8.13\\transforms\\a18adfab46d20397db75f46da267385f\\transformed\\material-1.12.0\\res\\values-v23\\values-v23.xml",
+                    "source": "C:\\Users\\User\\.gradle\\caches\\8.13\\transforms\\0f4b714816a12d2601ace17179d8b529\\transformed\\material-1.12.0\\res\\values-v23\\values-v23.xml",
                     "from": {
                         "startLines": "2,5,9,13,16,19,22,25,28,32",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4",
@@ -34,7 +34,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\User\\.gradle\\caches\\8.13\\transforms\\cb7f388ec7b0899ca67f60926ef0bf5f\\transformed\\cardview-1.0.0\\res\\values-v23\\values-v23.xml",
+                    "source": "C:\\Users\\User\\.gradle\\caches\\8.13\\transforms\\765790a267cc640d181c60098711b9dd\\transformed\\cardview-1.0.0\\res\\values-v23\\values-v23.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

@@ -22,4 +22,8 @@
     <!-- Loading States -->
     <string name="signing_in">Signing in...</string>
     <string name="please_wait">Please wait</string>
+
+    <!-- Map Strings -->
+    <string name="recenter_map">Recenter map</string>
+
 </resources>

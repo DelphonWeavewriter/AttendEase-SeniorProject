@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import com.example.attendeasecampuscompanion.map.MapActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -46,7 +47,7 @@ class HomeActivity : ComponentActivity() {
 
         findViewById<Button>(R.id.btnCampusMap).setOnClickListener {
             Toast.makeText(this, "Rushil", Toast.LENGTH_SHORT).show()
-            // TODO: Implement the 3D map
+            startActivity(Intent(this, MapActivity::class.java))
         }
 
         findViewById<Button>(R.id.btnFinalsSchedule).setOnClickListener {
