@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlin.jvm.java
 
 class HomeActivity : ComponentActivity() {
 
@@ -32,6 +33,8 @@ class HomeActivity : ComponentActivity() {
         findViewById<Button>(R.id.btnCheckIn).setOnClickListener {
             Toast.makeText(this, "Logan", Toast.LENGTH_SHORT).show()
             // TODO: Implement NFC scanning functionality
+            startActivity(Intent(this, AttendanceActivity::class.java))
+            finish()
         }
 
         // Homescreen buttons
