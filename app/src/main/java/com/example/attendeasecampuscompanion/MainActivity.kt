@@ -4,32 +4,33 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.ComponentActivity
-import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class MainActivity : ComponentActivity() {
 
-    // Added Firebase Auth
     private lateinit var auth: FirebaseAuth
+    private lateinit var db: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         // Initialization
         auth = FirebaseAuth.getInstance()
-
+        db = FirebaseFirestore.getInstance()
         setContentView(R.layout.signin_layout)
     }
 
     override fun onStart() {
         super.onStart()
-        // Check if user is already signed in
         val currentUser = auth.currentUser
         if (currentUser != null) {
-            // Navigation to the home screen if logged in
-            Toast.makeText(this, "Already signed in as ${currentUser.email}", Toast.LENGTH_SHORT).show()
+            // Get user's first name before showing toast
+            fetchUserName(currentUser.uid) { firstName ->
+                Toast.makeText(this, "Already signed in as $firstName", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -48,12 +49,17 @@ class MainActivity : ComponentActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = auth.currentUser
-                    Toast.makeText(this, "LOGIN SUCCESSFUL - Welcome ${user?.email}", Toast.LENGTH_LONG).show()
 
-                    // Navigate to home screen
-                    startActivity(Intent(this, HomeActivity::class.java))
-                    finish()
+                    // Fetch user data from Firestore
+                    user?.uid?.let { uid ->
+                        fetchUserName(uid) { firstName ->
+                            Toast.makeText(this, "Success - Welcome $firstName!", Toast.LENGTH_LONG).show()
 
+                            // Navigate to home screen
+                            startActivity(Intent(this, HomeActivity::class.java))
+                            finish()
+                        }
+                    }
                 } else {
                     val exactError = task.exception?.message ?: "Unknown error"
                     Toast.makeText(this, "EXACT ERROR: $exactError", Toast.LENGTH_LONG).show()
@@ -62,7 +68,23 @@ class MainActivity : ComponentActivity() {
             }
     }
 
-    // Sign out function -> Maybe add it to each part of the app for quick exit?
+    private fun fetchUserName(userId: String, callback: (String) -> Unit) {
+        db.collection("Users").document(userId)
+            .get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    val firstName = document.getString("firstName") ?: "Student"
+                    callback(firstName)
+                } else {
+                    callback("Student")
+                }
+            }
+            .addOnFailureListener { e ->
+                android.util.Log.e("Firestore", "Error fetching user", e)
+                callback("Student")
+            }
+    }
+
     fun signOut() {
         auth.signOut()
         Toast.makeText(this, "Signed out", Toast.LENGTH_SHORT).show()

@@ -7,24 +7,26 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class HomeActivity : ComponentActivity() {
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var db: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
         auth = FirebaseAuth.getInstance()
+        db = FirebaseFirestore.getInstance()
 
-        // Getter
         val user = auth.currentUser
 
-        // Setter
-        findViewById<TextView>(R.id.studentName).text = user?.email?.substringBefore("@") ?: "Student"
-        findViewById<TextView>(R.id.studentId).text = "ID: Coming soon..."
-        findViewById<TextView>(R.id.nextClass).text = "Next Class: Coming soon..."
+        // Fetch and display user data
+        user?.uid?.let { uid ->
+            fetchUserData(uid)
+        }
 
         // NFC Check In button
         findViewById<Button>(R.id.btnCheckIn).setOnClickListener {
@@ -58,5 +60,36 @@ class HomeActivity : ComponentActivity() {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
+    }
+
+    private fun fetchUserData(userId: String) {
+        db.collection("Users").document(userId)
+            .get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    val userData = document.toObject(User::class.java)
+
+                    userData?.let {
+                        findViewById<TextView>(R.id.studentName).text = "${it.firstName} ${it.lastName}"
+                        findViewById<TextView>(R.id.studentId).text = "ID: ${it.studentId}"
+                        findViewById<TextView>(R.id.nextClass).text = "Next Class: Coming soon..."
+
+                        // Date
+                        val dateHeader = findViewById<TextView>(R.id.dateHeader)
+                        val formatter = java.text.SimpleDateFormat("EEEE, MMMM d", java.util.Locale.getDefault())
+                        val currentDate = formatter.format(java.util.Date())
+                        dateHeader.text = currentDate
+                    }
+                }
+                else {
+                    findViewById<TextView>(R.id.studentName).text = auth.currentUser?.email?.substringBefore("@") ?: "Student"
+                    findViewById<TextView>(R.id.studentId).text = "ID: Not found"
+                }
+            }
+            .addOnFailureListener { e ->
+                android.util.Log.e("Firestore", "Error fetching user data", e)
+                Toast.makeText(this, "Error loading profile", Toast.LENGTH_SHORT).show()
+                findViewById<TextView>(R.id.studentName).text = auth.currentUser?.email?.substringBefore("@") ?: "Student"
+            }
     }
 }
