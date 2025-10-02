@@ -1,9 +1,16 @@
 -- Merging decision tree log ---
+meta-data#com.google.android.geo.API_KEY
+INJECTED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:18:9-20:47
+	android:value
+		INJECTED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:20:13-44
+	android:name
+		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:19:13-58
 manifest
-ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:2:1-40:12
-INJECTED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:2:1-40:12
-INJECTED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:2:1-40:12
-INJECTED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:2:1-40:12
+ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:2:1-43:12
+INJECTED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:2:1-43:12
+INJECTED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:2:1-43:12
+INJECTED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:2:1-43:12
 MERGED from [androidx.databinding:viewbinding:8.13.0] C:\Users\User\.gradle\caches\8.13\transforms\9f9567f922eb796a0cc6ee328c3a4e90\transformed\viewbinding-8.13.0\AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.android.material:material:1.12.0] C:\Users\User\.gradle\caches\8.13\transforms\0f4b714816a12d2601ace17179d8b529\transformed\material-1.12.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.2.1] C:\Users\User\.gradle\caches\8.13\transforms\74b0b6552af68a8ff2f58407061dedba\transformed\constraintlayout-2.2.1\AndroidManifest.xml:2:1-9:12
@@ -125,9 +132,23 @@ MERGED from [com.google.firebase:firebase-firestore:25.1.1] C:\Users\User\.gradl
 MERGED from [com.google.firebase:firebase-firestore:25.1.1] C:\Users\User\.gradle\caches\8.13\transforms\83267c33e56d4db48e4916aa5445d4ac\transformed\firebase-firestore-25.1.1\AndroidManifest.xml:11:5-67
 	android:name
 		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:5:22-64
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:6:5-78
+MERGED from [com.google.firebase:firebase-auth:24.0.1] C:\Users\User\.gradle\caches\8.13\transforms\281945536a52740757396b53196f6fef\transformed\firebase-auth-24.0.1\AndroidManifest.xml:26:5-79
+MERGED from [com.google.firebase:firebase-auth:24.0.1] C:\Users\User\.gradle\caches\8.13\transforms\281945536a52740757396b53196f6fef\transformed\firebase-auth-24.0.1\AndroidManifest.xml:26:5-79
+MERGED from [com.google.android.gms:play-services-maps:19.2.0] C:\Users\User\.gradle\caches\8.13\transforms\4251427e2180a439d8bc568d3a4c68b2\transformed\play-services-maps-19.2.0\AndroidManifest.xml:20:5-78
+MERGED from [com.google.android.gms:play-services-maps:19.2.0] C:\Users\User\.gradle\caches\8.13\transforms\4251427e2180a439d8bc568d3a4c68b2\transformed\play-services-maps-19.2.0\AndroidManifest.xml:20:5-78
+MERGED from [com.google.android.recaptcha:recaptcha:18.6.1] C:\Users\User\.gradle\caches\8.13\transforms\ba389e929a83d40aaccda44a54c2fe6b\transformed\recaptcha-18.6.1\AndroidManifest.xml:8:5-79
+MERGED from [com.google.android.recaptcha:recaptcha:18.6.1] C:\Users\User\.gradle\caches\8.13\transforms\ba389e929a83d40aaccda44a54c2fe6b\transformed\recaptcha-18.6.1\AndroidManifest.xml:8:5-79
+MERGED from [com.google.firebase:firebase-firestore:25.1.1] C:\Users\User\.gradle\caches\8.13\transforms\83267c33e56d4db48e4916aa5445d4ac\transformed\firebase-firestore-25.1.1\AndroidManifest.xml:10:5-79
+MERGED from [com.google.firebase:firebase-firestore:25.1.1] C:\Users\User\.gradle\caches\8.13\transforms\83267c33e56d4db48e4916aa5445d4ac\transformed\firebase-firestore-25.1.1\AndroidManifest.xml:10:5-79
+MERGED from [io.grpc:grpc-android:1.62.2] C:\Users\User\.gradle\caches\8.13\transforms\52020b750cf3c1ee90338dc6faa4c739\transformed\grpc-android-1.62.2\AndroidManifest.xml:7:5-79
+MERGED from [io.grpc:grpc-android:1.62.2] C:\Users\User\.gradle\caches\8.13\transforms\52020b750cf3c1ee90338dc6faa4c739\transformed\grpc-android-1.62.2\AndroidManifest.xml:7:5-79
+	android:name
+		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:6:22-76
 application
-ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:7:5-38:19
-INJECTED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:7:5-38:19
+ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:8:5-41:19
+INJECTED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:8:5-41:19
 MERGED from [com.google.android.material:material:1.12.0] C:\Users\User\.gradle\caches\8.13\transforms\0f4b714816a12d2601ace17179d8b529\transformed\material-1.12.0\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.12.0] C:\Users\User\.gradle\caches\8.13\transforms\0f4b714816a12d2601ace17179d8b529\transformed\material-1.12.0\AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.2.1] C:\Users\User\.gradle\caches\8.13\transforms\74b0b6552af68a8ff2f58407061dedba\transformed\constraintlayout-2.2.1\AndroidManifest.xml:7:5-20
@@ -187,57 +208,57 @@ MERGED from [com.google.android.play:core-common:2.0.3] C:\Users\User\.gradle\ca
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.15.0] C:\Users\User\.gradle\caches\8.13\transforms\62d59997aa06825bf3d9e95400f78e74\transformed\core-1.15.0\AndroidManifest.xml:28:18-86
 	android:supportsRtl
-		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:14:9-35
+		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:15:9-35
 	android:label
-		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:12:9-41
+		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:13:9-41
 	android:fullBackupContent
-		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:10:9-54
+		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:11:9-54
 	android:roundIcon
-		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:13:9-54
+		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:14:9-54
 	tools:targetApi
-		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:16:9-29
+		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:17:9-29
 	android:icon
-		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:11:9-43
+		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:12:9-43
 	android:allowBackup
-		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:8:9-35
+		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:9:9-35
 	android:theme
-		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:15:9-63
+		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:16:9-63
 	android:dataExtractionRules
-		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:9:9-65
+		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:10:9-65
 activity#com.example.attendeasecampuscompanion.MainActivity
-ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:18:9-27:20
+ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:21:9-30:20
 	android:label
-		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:21:13-45
+		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:24:13-45
 	android:exported
-		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:20:13-36
+		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:23:13-36
 	android:theme
-		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:22:13-67
+		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:25:13-67
 	android:name
-		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:19:13-41
+		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:22:13-41
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:23:13-26:29
+ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:26:13-29:29
 action#android.intent.action.MAIN
-ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:24:17-69
+ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:27:17-69
 	android:name
-		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:24:25-66
+		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:27:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:25:17-77
+ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:28:17-77
 	android:name
-		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:25:27-74
+		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:28:27-74
 activity#com.example.attendeasecampuscompanion.HomeActivity
-ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:29:9-31:39
+ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:32:9-34:39
 	android:exported
-		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:31:13-37
+		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:34:13-37
 	android:name
-		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:30:13-41
+		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:33:13-41
 activity#com.example.attendeasecampuscompanion.map.MapActivity
-ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:33:9-36:42
+ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:36:9-39:42
 	android:label
-		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:36:13-39
+		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:39:13-39
 	android:exported
-		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:35:13-37
+		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:38:13-37
 	android:name
-		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:34:13-44
+		ADDED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml:37:13-44
 uses-sdk
 INJECTED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\AndroidManifest.xml
@@ -458,18 +479,6 @@ ADDED from [androidx.compose.ui:ui-test-manifest:1.6.6] C:\Users\User\.gradle\ca
 		ADDED from [androidx.compose.ui:ui-test-manifest:1.6.6] C:\Users\User\.gradle\caches\8.13\transforms\27a578f83aa8050f37e3548eaa5dff03\transformed\ui-test-manifest-1.6.6\AndroidManifest.xml:25:13-36
 	android:name
 		ADDED from [androidx.compose.ui:ui-test-manifest:1.6.6] C:\Users\User\.gradle\caches\8.13\transforms\27a578f83aa8050f37e3548eaa5dff03\transformed\ui-test-manifest-1.6.6\AndroidManifest.xml:24:13-63
-uses-permission#android.permission.ACCESS_NETWORK_STATE
-ADDED from [com.google.firebase:firebase-auth:24.0.1] C:\Users\User\.gradle\caches\8.13\transforms\281945536a52740757396b53196f6fef\transformed\firebase-auth-24.0.1\AndroidManifest.xml:26:5-79
-MERGED from [com.google.android.gms:play-services-maps:19.2.0] C:\Users\User\.gradle\caches\8.13\transforms\4251427e2180a439d8bc568d3a4c68b2\transformed\play-services-maps-19.2.0\AndroidManifest.xml:20:5-78
-MERGED from [com.google.android.gms:play-services-maps:19.2.0] C:\Users\User\.gradle\caches\8.13\transforms\4251427e2180a439d8bc568d3a4c68b2\transformed\play-services-maps-19.2.0\AndroidManifest.xml:20:5-78
-MERGED from [com.google.android.recaptcha:recaptcha:18.6.1] C:\Users\User\.gradle\caches\8.13\transforms\ba389e929a83d40aaccda44a54c2fe6b\transformed\recaptcha-18.6.1\AndroidManifest.xml:8:5-79
-MERGED from [com.google.android.recaptcha:recaptcha:18.6.1] C:\Users\User\.gradle\caches\8.13\transforms\ba389e929a83d40aaccda44a54c2fe6b\transformed\recaptcha-18.6.1\AndroidManifest.xml:8:5-79
-MERGED from [com.google.firebase:firebase-firestore:25.1.1] C:\Users\User\.gradle\caches\8.13\transforms\83267c33e56d4db48e4916aa5445d4ac\transformed\firebase-firestore-25.1.1\AndroidManifest.xml:10:5-79
-MERGED from [com.google.firebase:firebase-firestore:25.1.1] C:\Users\User\.gradle\caches\8.13\transforms\83267c33e56d4db48e4916aa5445d4ac\transformed\firebase-firestore-25.1.1\AndroidManifest.xml:10:5-79
-MERGED from [io.grpc:grpc-android:1.62.2] C:\Users\User\.gradle\caches\8.13\transforms\52020b750cf3c1ee90338dc6faa4c739\transformed\grpc-android-1.62.2\AndroidManifest.xml:7:5-79
-MERGED from [io.grpc:grpc-android:1.62.2] C:\Users\User\.gradle\caches\8.13\transforms\52020b750cf3c1ee90338dc6faa4c739\transformed\grpc-android-1.62.2\AndroidManifest.xml:7:5-79
-	android:name
-		ADDED from [com.google.firebase:firebase-auth:24.0.1] C:\Users\User\.gradle\caches\8.13\transforms\281945536a52740757396b53196f6fef\transformed\firebase-auth-24.0.1\AndroidManifest.xml:26:22-76
 activity#com.google.firebase.auth.internal.GenericIdpActivity
 ADDED from [com.google.firebase:firebase-auth:24.0.1] C:\Users\User\.gradle\caches\8.13\transforms\281945536a52740757396b53196f6fef\transformed\firebase-auth-24.0.1\AndroidManifest.xml:29:9-46:20
 	android:excludeFromRecents
