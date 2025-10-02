@@ -4,44 +4,6 @@
     <shared>
       <config />
     </shared>
-    <layouts>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_background.xml">
-        <config>
-          <theme>@style/Theme.AttendEaseCampusMap</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_foreground.xml">
-        <config>
-          <theme>@style/Theme.AttendEaseCampusMap</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_my_location.xml">
-        <config>
-          <theme>@style/Theme.AttendEaseCampusMap</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
-        <config>
-          <state>Portrait</state>
-          <theme>@style/Theme.AttendEaseCampusMap</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_campus_map.xml">
-        <config>
-          <theme>@style/Theme.AttendEaseCampusMap</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/mipmap-anydpi/ic_launcher.xml">
-        <config>
-          <theme>@style/Theme.AttendEaseCampusMap</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/mipmap-anydpi/ic_launcher_round.xml">
-        <config>
-          <theme>@style/Theme.AttendEaseCampusMap</theme>
-        </config>
-      </layout>
-    </layouts>
   </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
@@ -228,7 +190,7 @@
   </component>
   <component name="RunManager" selected="Android App.app">
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
-      <module name="AttendEase_Campus_Map.app" />
+      <module name="AttendEaseCampusCompanion.app" />
       <option name="ANDROID_RUN_CONFIGURATION_SCHEMA_VERSION" value="1" />
       <option name="DEPLOY" value="true" />
       <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
@@ -376,7 +338,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758998356337</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="AttendEase">
+      <option name="closed" value="true" />
+      <created>1759419281477</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1759419281477</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
