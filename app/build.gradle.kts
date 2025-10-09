@@ -15,7 +15,17 @@ secrets {
 android {
     namespace = "com.example.attendeasecampuscompanion"
     compileSdk = 36
+    println("DEBUG_STORE_FILE property = " + project.findProperty("DEBUG_STORE_FILE"))
 
+    signingConfigs {
+        getByName("debug") {
+            // Force path manually — adjust to your real file path
+            storeFile = file("C:/Users/User/AndroidStudioProjects/AttendEaseCampusMap/keystores/debug-shared.keystore")
+            storePassword = "PASSWORD"
+            keyAlias = "debug"
+            keyPassword = "PASSWORD"
+        }
+    }
     defaultConfig {
         applicationId = "com.example.attendeasecampuscompanion"
         minSdk = 24
@@ -27,6 +37,11 @@ android {
     }
 
     buildTypes {
+
+        getByName("debug") {
+            // Make sure the debug type uses the debug signing config above
+            signingConfig = signingConfigs.getByName("debug")
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
