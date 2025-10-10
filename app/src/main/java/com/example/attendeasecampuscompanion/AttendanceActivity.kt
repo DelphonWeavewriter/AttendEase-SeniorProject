@@ -9,6 +9,7 @@ import android.nfc.tech.Ndef
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.firestore.FirebaseFirestore
 import android.widget.TextView
 
 class AttendanceActivity : AppCompatActivity() {
@@ -20,12 +21,16 @@ class AttendanceActivity : AppCompatActivity() {
     private var nfcTagData: String = ""
 
     private lateinit var textView: TextView
+    private lateinit var db: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_attendance)
 
         textView = findViewById(R.id.textView)
+
+        // Firestore Initialized
+        db = FirebaseFirestore.getInstance()
 
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)
 
@@ -65,7 +70,7 @@ class AttendanceActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        // Disable foreground dispatch when app is paused
+        // Disable NFC detection when app is paused
         nfcAdapter?.disableForegroundDispatch(this)
     }
 
@@ -93,6 +98,9 @@ class AttendanceActivity : AppCompatActivity() {
             nfcTagData = "Tag ID: $tagId"
             textView.text = "NFC Tag Read:\n$nfcTagData"
             Toast.makeText(this, "Tag ID saved to variable", Toast.LENGTH_SHORT).show()
+
+            // Send Attendance Record to Firebase
+            sendToFirebase(nfcTagData)
             return
         }
 
@@ -114,7 +122,6 @@ class AttendanceActivity : AppCompatActivity() {
                         // First byte contains the language code length
                         val languageCodeLength = payload[0].toInt() and 0x3F
 
-                        // Extract the text (skip status byte and language code)
                         val text = String(
                             payload,
                             languageCodeLength + 1,
@@ -124,7 +131,7 @@ class AttendanceActivity : AppCompatActivity() {
 
                         sb.append(text).append("\n")
                     } else {
-                        // For non-text records, convert as plain string
+                        // If for some reason the NFC data is not text, convert as plain string
                         val payload = String(record.payload, charset("UTF-8"))
                         sb.append(payload).append("\n")
                     }
@@ -147,6 +154,31 @@ class AttendanceActivity : AppCompatActivity() {
             Toast.makeText(this, "Error reading NFC tag: ${e.message}", Toast.LENGTH_LONG).show()
             e.printStackTrace()
         }
+
+    }
+
+    // Function to send NFC data to the database
+    private fun sendToFirebase(data: String) {
+        val nfcData = hashMapOf(
+            "nfcString" to data
+        )
+
+        db.collection("Test")
+            .add(nfcData)
+            .addOnSuccessListener { documentReference ->
+                Toast.makeText(
+                    this,
+                    "Data saved to Firebase: ${documentReference.id}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(
+                    this,
+                    "Error saving to Firebase: ${e.message}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
     }
 
     // Helper function to convert byte array to hex string
@@ -164,4 +196,7 @@ class AttendanceActivity : AppCompatActivity() {
     fun getSavedNfcData(): String {
         return nfcTagData
     }
+
+
+
 }

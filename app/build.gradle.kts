@@ -20,10 +20,10 @@ android {
     signingConfigs {
         getByName("debug") {
             // Force path manually — adjust to your real file path
-            storeFile = file("C:/Users/User/AndroidStudioProjects/AttendEaseCampusMap/keystores/debug-shared.keystore")
-            storePassword = "PASSWORD"
-            keyAlias = "debug"
-            keyPassword = "PASSWORD"
+//            storeFile = file("C:/Users/User/AndroidStudioProjects/AttendEaseCampusMap/keystores/debug-shared.keystore")
+//            storePassword = "PASSWORD"
+//            keyAlias = "debug"
+//            keyPassword = "PASSWORD"
         }
     }
     defaultConfig {
