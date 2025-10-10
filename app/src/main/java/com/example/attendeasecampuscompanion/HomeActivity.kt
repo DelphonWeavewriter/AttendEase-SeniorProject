@@ -33,7 +33,7 @@ class HomeActivity : ComponentActivity() {
         // NFC Check In button
         findViewById<Button>(R.id.btnCheckIn).setOnClickListener {
             Toast.makeText(this, "Logan", Toast.LENGTH_SHORT).show()
-            // TODO: Implement NFC scanning functionality
+            // TODO: Implement send attendance record to Firebase
             startActivity(Intent(this, AttendanceActivity::class.java))
             finish()
         }

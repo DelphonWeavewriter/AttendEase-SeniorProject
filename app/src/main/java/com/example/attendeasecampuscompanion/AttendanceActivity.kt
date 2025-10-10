@@ -9,7 +9,9 @@ import android.nfc.tech.Ndef
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+
 import android.widget.TextView
 
 class AttendanceActivity : AppCompatActivity() {
@@ -143,6 +145,9 @@ class AttendanceActivity : AppCompatActivity() {
                 // Display the data
                 textView.text = "NFC Tag Read:\n$nfcTagData"
                 Toast.makeText(this, "NFC data saved to variable", Toast.LENGTH_SHORT).show()
+
+                // Send Attendance Record to Firebase
+                sendToFirebase(nfcTagData)
             } else {
                 nfcTagData = "Empty tag"
                 textView.text = nfcTagData
@@ -159,6 +164,13 @@ class AttendanceActivity : AppCompatActivity() {
 
     // Function to send NFC data to the database
     private fun sendToFirebase(data: String) {
+        val currentUser = FirebaseAuth.getInstance().currentUser
+
+        if (currentUser == null) {
+            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         val nfcData = hashMapOf(
             "nfcString" to data
         )
