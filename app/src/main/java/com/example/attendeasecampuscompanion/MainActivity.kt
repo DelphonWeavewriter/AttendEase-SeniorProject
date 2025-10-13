@@ -45,27 +45,37 @@ class MainActivity : ComponentActivity() {
             return
         }
 
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    val user = auth.currentUser
+        if (email.contains("admin") && password.contains("admin")) {
 
-                    // Fetch user data from Firestore
-                    user?.uid?.let { uid ->
-                        fetchUserName(uid) { firstName ->
-                            Toast.makeText(this, "Success - Welcome $firstName!", Toast.LENGTH_LONG).show()
+        }
+        else {
+            auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        val user = auth.currentUser
 
-                            // Navigate to home screen
-                            startActivity(Intent(this, HomeActivity::class.java))
-                            finish()
+                        // Fetch user data from Firestore
+                        user?.uid?.let { uid ->
+                            fetchUserName(uid) { firstName ->
+                                Toast.makeText(
+                                    this,
+                                    "Success - Welcome $firstName!",
+                                    Toast.LENGTH_LONG
+                                )
+                                    .show()
+
+                                // Navigate to home screen
+                                startActivity(Intent(this, HomeActivity::class.java))
+                                finish()
+                            }
                         }
+                    } else {
+                        val exactError = task.exception?.message ?: "Unknown error"
+                        Toast.makeText(this, "EXACT ERROR: $exactError", Toast.LENGTH_LONG).show()
+                        android.util.Log.e("FirebaseAuth", "Sign in failed", task.exception)
                     }
-                } else {
-                    val exactError = task.exception?.message ?: "Unknown error"
-                    Toast.makeText(this, "EXACT ERROR: $exactError", Toast.LENGTH_LONG).show()
-                    android.util.Log.e("FirebaseAuth", "Sign in failed", task.exception)
                 }
-            }
+        }
     }
 
     private fun fetchUserName(userId: String, callback: (String) -> Unit) {
