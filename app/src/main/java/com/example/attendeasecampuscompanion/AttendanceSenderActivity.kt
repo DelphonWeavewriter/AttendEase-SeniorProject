@@ -20,7 +20,7 @@ class AttendanceSenderActivity : AppCompatActivity(){
     private var nfcAdapter: NfcAdapter? = null
     private lateinit var editText: EditText
     private lateinit var statusText: TextView
-    private var attendanceID  = "Hello from NFC Tag"
+    private var attendanceID  = "CSCI456|Test"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
