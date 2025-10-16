@@ -17,7 +17,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Initialization
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
         setContentView(R.layout.signin_layout)
@@ -27,10 +26,7 @@ class MainActivity : ComponentActivity() {
         super.onStart()
         val currentUser = auth.currentUser
         if (currentUser != null) {
-            // Get user's first name before showing toast
-            fetchUserName(currentUser.uid) { firstName ->
-                Toast.makeText(this, "Already signed in as $firstName", Toast.LENGTH_SHORT).show()
-            }
+            checkUserRoleAndNavigate(currentUser.uid)
         }
     }
 
@@ -50,15 +46,8 @@ class MainActivity : ComponentActivity() {
                 if (task.isSuccessful) {
                     val user = auth.currentUser
 
-                    // Fetch user data from Firestore
                     user?.uid?.let { uid ->
-                        fetchUserName(uid) { firstName ->
-                            Toast.makeText(this, "Success - Welcome $firstName!", Toast.LENGTH_LONG).show()
-
-                            // Navigate to home screen
-                            startActivity(Intent(this, HomeActivity::class.java))
-                            finish()
-                        }
+                        checkUserRoleAndNavigate(uid)
                     }
                 } else {
                     val exactError = task.exception?.message ?: "Unknown error"
@@ -68,20 +57,35 @@ class MainActivity : ComponentActivity() {
             }
     }
 
-    private fun fetchUserName(userId: String, callback: (String) -> Unit) {
+    private fun checkUserRoleAndNavigate(userId: String) {
         db.collection("Users").document(userId)
             .get()
             .addOnSuccessListener { document ->
                 if (document != null && document.exists()) {
-                    val firstName = document.getString("firstName") ?: "Student"
-                    callback(firstName)
+                    val userData = document.toObject(User::class.java)
+                    val firstName = userData?.firstName ?: "User"
+                    val role = userData?.role ?: "Student"
+
+                    Toast.makeText(this, "Welcome back, $firstName!", Toast.LENGTH_SHORT).show()
+
+                    val intent = if (role == "Professor") {
+                        Intent(this, ProfessorHomeActivity::class.java)
+                    } else {
+                        Intent(this, HomeActivity::class.java)
+                    }
+                    startActivity(intent)
+                    finish()
                 } else {
-                    callback("Student")
+                    Toast.makeText(this, "User data not found", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, HomeActivity::class.java))
+                    finish()
                 }
             }
             .addOnFailureListener { e ->
                 android.util.Log.e("Firestore", "Error fetching user", e)
-                callback("Student")
+                Toast.makeText(this, "Error checking user role", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, HomeActivity::class.java))
+                finish()
             }
     }
 

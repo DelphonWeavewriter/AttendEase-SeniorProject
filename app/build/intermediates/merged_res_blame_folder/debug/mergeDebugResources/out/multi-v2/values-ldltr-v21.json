@@ -4,7 +4,7 @@
             "outputFile": "com.example.attendeasecampuscompanion.app-mergeDebugResources-68:/values-ldltr-v21/values-ldltr-v21.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\fenna\\.gradle\\caches\\8.13\\transforms\\70ec6fd3bd2d7364ca19db05de3f6b27\\transformed\\appcompat-1.6.1\\res\\values-ldltr-v21\\values-ldltr-v21.xml",
+                    "source": "/Users/steven/.gradle/caches/8.13/transforms/70ec6fd3bd2d7364ca19db05de3f6b27/transformed/appcompat-1.6.1/res/values-ldltr-v21/values-ldltr-v21.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

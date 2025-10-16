@@ -49,7 +49,7 @@ class HomeActivity : ComponentActivity() {
         }
 
         findViewById<Button>(R.id.btnCampusMap).setOnClickListener {
-            Toast.makeText(this, "Rushil", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Opening your campus map...", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, com.example.attendeasecampuscompanion.map.MapActivity::class.java))
         }
 
