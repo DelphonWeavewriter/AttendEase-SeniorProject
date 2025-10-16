@@ -37,6 +37,8 @@ id btnViewCourses
 id dateHeader
 id editTextEmailAddress
 id editTextPassword
+id etCourseName
+id etMessage
 id fabRecenter
 id forgotPassword
 id loginSubtitle
@@ -57,6 +59,7 @@ layout activity_attendance
 layout activity_home
 layout activity_map
 layout activity_professor_home
+layout dialog_announcement
 layout fragment_campus_map
 layout map_tesy
 layout signin_layout

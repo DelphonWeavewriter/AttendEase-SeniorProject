@@ -3411,6 +3411,8 @@ id endToStart
 id enterAlways
 id enterAlwaysCollapsed
 id escape
+id etCourseName
+id etMessage
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
@@ -3899,6 +3901,7 @@ layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
+layout dialog_announcement
 layout fragment_campus_map
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
