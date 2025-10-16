@@ -29,6 +29,11 @@ class AttendanceActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_attendance)
 
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            title = getString(R.string.app_name) + " • Attendance"
+        }
+
         textView = findViewById(R.id.textView)
 
         // Firestore Initialized
