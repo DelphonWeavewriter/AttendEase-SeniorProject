@@ -3412,6 +3412,11 @@ id endToStart
 id enterAlways
 id enterAlwaysCollapsed
 id escape
+id etEventDate
+id etEventDescription
+id etEventLocation
+id etEventName
+id etEventTime
 id etMessage
 id exitUntilCollapsed
 id expand_activities_button
@@ -3661,6 +3666,7 @@ id south
 id spacer
 id special_effects_controller_view_tag
 id spinnerCourse
+id spinnerEventCourse
 id spline
 id split_action_bar
 id spread
@@ -3903,6 +3909,7 @@ layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
 layout dialog_announcement
+layout dialog_create_event
 layout fragment_campus_map
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity

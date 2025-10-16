@@ -38,6 +38,11 @@ id btnViewCourses
 id dateHeader
 id editTextEmailAddress
 id editTextPassword
+id etEventDate
+id etEventDescription
+id etEventLocation
+id etEventName
+id etEventTime
 id etMessage
 id fabRecenter
 id forgotPassword
@@ -50,6 +55,7 @@ id professorId
 id professorName
 id signInButton
 id spinnerCourse
+id spinnerEventCourse
 id studentId
 id studentName
 id textView
@@ -61,6 +67,7 @@ layout activity_home
 layout activity_map
 layout activity_professor_home
 layout dialog_announcement
+layout dialog_create_event
 layout fragment_campus_map
 layout map_tesy
 layout signin_layout

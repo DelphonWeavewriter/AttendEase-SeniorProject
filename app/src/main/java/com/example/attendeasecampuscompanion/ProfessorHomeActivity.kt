@@ -8,8 +8,8 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -46,10 +46,6 @@ class ProfessorHomeActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.btnMySchedule).setOnClickListener {
             Toast.makeText(this, "Opening your schedule...", Toast.LENGTH_SHORT).show()
-        }
-
-        findViewById<Button>(R.id.btnAttendanceReports).setOnClickListener {
-            Toast.makeText(this, "Opening attendance reports...", Toast.LENGTH_SHORT).show()
         }
 
         findViewById<Button>(R.id.btnCreateEvent).setOnClickListener {

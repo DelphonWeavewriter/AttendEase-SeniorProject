@@ -28,26 +28,26 @@ class HomeActivity : ComponentActivity() {
         }
 
         findViewById<Button>(R.id.btnCheckIn).setOnClickListener {
-            Toast.makeText(this, "Logan", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Starting NFC Scanning...", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, AttendanceActivity::class.java))
             finish()
         }
 
         findViewById<Button>(R.id.btnSchedule).setOnClickListener {
-            Toast.makeText(this, "Steven", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Opening Your Schedule...", Toast.LENGTH_SHORT).show()
         }
 
         findViewById<Button>(R.id.btnSocial).setOnClickListener {
-            Toast.makeText(this, "Sam", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Opening SocialEaze...", Toast.LENGTH_SHORT).show()
         }
 
         findViewById<Button>(R.id.btnCampusMap).setOnClickListener {
-            Toast.makeText(this, "Opening your campus map...", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Opening Your Campus Map...", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, com.example.attendeasecampuscompanion.map.MapActivity::class.java))
         }
 
         findViewById<Button>(R.id.btnFinalsSchedule).setOnClickListener {
-            Toast.makeText(this, "Bram", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Checking Your Finals Schedule...", Toast.LENGTH_SHORT).show()
         }
 
         findViewById<Button>(R.id.btnSignOut).setOnClickListener {

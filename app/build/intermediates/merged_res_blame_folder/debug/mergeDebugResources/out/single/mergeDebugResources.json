@@ -16,10 +16,6 @@
         "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-72:/mipmap-xhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.attendeasecampuscompanion.app-debug-70:/layout_dialog_announcement.xml.flat",
-        "source": "com.example.attendeasecampuscompanion.app-main-72:/layout/dialog_announcement.xml"
-    },
-    {
         "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-70:/drawable_input_field_background.xml.flat",
         "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-72:/drawable/input_field_background.xml"
     },
@@ -104,8 +100,8 @@
         "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-72:/layout/activity_home.xml"
     },
     {
-        "merged": "com.example.attendeasecampuscompanion.app-debug-70:/layout_activity_professor_home.xml.flat",
-        "source": "com.example.attendeasecampuscompanion.app-main-72:/layout/activity_professor_home.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-70:/layout_dialog_create_event.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-72:/layout/dialog_create_event.xml"
     },
     {
         "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-70:/mipmap-mdpi_ic_launcher_round.webp.flat",

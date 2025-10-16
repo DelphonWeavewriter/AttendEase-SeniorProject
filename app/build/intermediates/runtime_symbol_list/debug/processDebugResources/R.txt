@@ -3411,6 +3411,11 @@ int id endToStart 0x7f0800d0
 int id enterAlways 0x7f0800d1
 int id enterAlwaysCollapsed 0x7f0800d2
 int id escape 0x7f0800d3
+int id etEventDate 0x7f080237
+int id etEventDescription 0x7f080238
+int id etEventLocation 0x7f080239
+int id etEventName 0x7f08023a
+int id etEventTime 0x7f08023b
 int id etMessage 0x7f0800d5
 int id exitUntilCollapsed 0x7f0800d6
 int id expand_activities_button 0x7f0800d7
@@ -3660,6 +3665,7 @@ int id south 0x7f0801ca
 int id spacer 0x7f0801cb
 int id special_effects_controller_view_tag 0x7f0801cc
 int id spinnerCourse 0x7f080236
+int id spinnerEventCourse 0x7f08023c
 int id spline 0x7f0801cd
 int id split_action_bar 0x7f0801ce
 int id spread 0x7f0801cf
@@ -3902,6 +3908,7 @@ int layout design_navigation_menu_item 0x7f0b002f
 int layout design_text_input_end_icon 0x7f0b0030
 int layout design_text_input_start_icon 0x7f0b0031
 int layout dialog_announcement 0x7f0b0032
+int layout dialog_create_event 0x7f0b0075
 int layout fragment_campus_map 0x7f0b0033
 int layout ime_base_split_test_activity 0x7f0b0034
 int layout ime_secondary_split_test_activity 0x7f0b0035
