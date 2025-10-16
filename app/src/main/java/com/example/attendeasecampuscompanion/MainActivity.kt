@@ -2,95 +2,91 @@ package com.example.attendeasecampuscompanion
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import androidx.activity.ComponentActivity
-import android.widget.EditText
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.ComponentActivity
+import com.example.attendeasecampuscompanion.map.MapActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlin.jvm.java
 
-class MainActivity : ComponentActivity() {
+class HomeActivity : ComponentActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_home)
 
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
-        setContentView(R.layout.signin_layout)
-    }
 
-    override fun onStart() {
-        super.onStart()
-        val currentUser = auth.currentUser
-        if (currentUser != null) {
-            checkUserRoleAndNavigate(currentUser.uid)
+        val user = auth.currentUser
+
+        user?.uid?.let { uid ->
+            fetchUserData(uid)
+        }
+
+        findViewById<Button>(R.id.btnCheckIn).setOnClickListener {
+            Toast.makeText(this, "Logan", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, AttendanceActivity::class.java))
+            finish()
+        }
+
+        findViewById<Button>(R.id.btnSchedule).setOnClickListener {
+            Toast.makeText(this, "Steven", Toast.LENGTH_SHORT).show()
+        }
+
+        findViewById<Button>(R.id.btnSocial).setOnClickListener {
+            Toast.makeText(this, "Sam", Toast.LENGTH_SHORT).show()
+        }
+
+        findViewById<Button>(R.id.btnCampusMap).setOnClickListener {
+            Toast.makeText(this, "Opening your campus map...", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, com.example.attendeasecampuscompanion.map.MapActivity::class.java))
+        }
+
+        findViewById<Button>(R.id.btnFinalsSchedule).setOnClickListener {
+            Toast.makeText(this, "Bram", Toast.LENGTH_SHORT).show()
+        }
+
+        findViewById<Button>(R.id.btnSignOut).setOnClickListener {
+            auth.signOut()
+            Toast.makeText(this, "Signed out successfully", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
     }
 
-    fun signin(view: View) {
-        val email = findViewById<EditText>(R.id.editTextEmailAddress).text.toString().trim()
-        val password = findViewById<EditText>(R.id.editTextPassword).text.toString()
-
-        Toast.makeText(this, "Attempting login with: $email", Toast.LENGTH_SHORT).show()
-
-        if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    val user = auth.currentUser
-
-                    user?.uid?.let { uid ->
-                        checkUserRoleAndNavigate(uid)
-                    }
-                } else {
-                    val exactError = task.exception?.message ?: "Unknown error"
-                    Toast.makeText(this, "EXACT ERROR: $exactError", Toast.LENGTH_LONG).show()
-                    android.util.Log.e("FirebaseAuth", "Sign in failed", task.exception)
-                }
-            }
-    }
-
-    private fun checkUserRoleAndNavigate(userId: String) {
+    private fun fetchUserData(userId: String) {
         db.collection("Users").document(userId)
             .get()
             .addOnSuccessListener { document ->
                 if (document != null && document.exists()) {
                     val userData = document.toObject(User::class.java)
-                    val firstName = userData?.firstName ?: "User"
-                    val role = userData?.role ?: "Student"
 
-                    Toast.makeText(this, "Welcome back, $firstName!", Toast.LENGTH_SHORT).show()
+                    userData?.let {
+                        findViewById<TextView>(R.id.studentName).text = "${it.firstName} ${it.lastName}"
+                        findViewById<TextView>(R.id.studentId).text = "ID: ${it.userId}"
+                        findViewById<TextView>(R.id.nextClass).text = "Next Class: Coming soon..."
 
-                    val intent = if (role == "Professor") {
-                        Intent(this, ProfessorHomeActivity::class.java)
-                    } else {
-                        Intent(this, HomeActivity::class.java)
+                        val dateHeader = findViewById<TextView>(R.id.dateHeader)
+                        val formatter = java.text.SimpleDateFormat("EEEE, MMMM d", java.util.Locale.getDefault())
+                        val currentDate = formatter.format(java.util.Date())
+                        dateHeader.text = currentDate
                     }
-                    startActivity(intent)
-                    finish()
-                } else {
-                    Toast.makeText(this, "User data not found", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this, HomeActivity::class.java))
-                    finish()
+                }
+                else {
+                    findViewById<TextView>(R.id.studentName).text = auth.currentUser?.email?.substringBefore("@") ?: "Student"
+                    findViewById<TextView>(R.id.studentId).text = "ID: Not found"
                 }
             }
             .addOnFailureListener { e ->
-                android.util.Log.e("Firestore", "Error fetching user", e)
-                Toast.makeText(this, "Error checking user role", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, HomeActivity::class.java))
-                finish()
+                android.util.Log.e("Firestore", "Error fetching user data", e)
+                Toast.makeText(this, "Error loading profile", Toast.LENGTH_SHORT).show()
+                findViewById<TextView>(R.id.studentName).text = auth.currentUser?.email?.substringBefore("@") ?: "Student"
             }
-    }
-
-    fun signOut() {
-        auth.signOut()
-        Toast.makeText(this, "Signed out", Toast.LENGTH_SHORT).show()
     }
 }
