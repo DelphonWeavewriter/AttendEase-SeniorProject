@@ -34,11 +34,11 @@ import com.google.android.gms.location.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 // --- NYIT (Old Westbury) key building coordinates ---
-// Anna Rubin Hall: 40.81332, -73.60513
-// Harry J. Schure Hall: 40.81365, -73.60425
-// Theobald Science Center: 40.81296, -73.60435
-// Salten Hall: 40.81381, -73.60554
 
+private val LATLNG_SEROTA   = com.google.android.gms.maps.model.LatLng(40.809875, -73.605744) // Serota Academic Center
+private val LATLNG_RILAND   = com.google.android.gms.maps.model.LatLng(40.808917, -73.605100) // Riland (NYITCOM)
+private val LATLNG_MIDGEC   = com.google.android.gms.maps.model.LatLng(40.802260, -73.598170) // Midge Karr Art & Design Ctr
+private val LATLNG_EDHALL   = com.google.android.gms.maps.model.LatLng(40.799790, -73.596370) // Education Hall
 private val LATLNG_ANNA_RUBIN = com.google.android.gms.maps.model.LatLng(40.81332, -73.60513)
 private val LATLNG_SCHURE     = com.google.android.gms.maps.model.LatLng(40.81365, -73.60425)
 private val LATLNG_THEOBALD   = com.google.android.gms.maps.model.LatLng(40.81296, -73.60435)
@@ -104,6 +104,8 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
             setMinZoomPreference(15f)  // street / campus
             setMaxZoomPreference(21f)  // building level
         }
+
+
         // CampusMapFragment.kt (inside onMapReady)
         val ai = requireContext().packageManager.getApplicationInfo(
             requireContext().packageName, android.content.pm.PackageManager.GET_META_DATA
@@ -113,14 +115,140 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
 
         Log.d("CampusMap", "Map is ready")
 
-        // Bounding box that covers NYIT LI (Old Westbury).
-        // You can tweak these a bit if you want tighter/looser panning.
-        val nyitLiBounds = LatLngBounds(
-            LatLng(40.8060, -73.6230), // SW corner
-            LatLng(40.8260, -73.5920)  // NE corner
+
+        // ===================== CAMPUS BOUNDS (INSERTED) =====================
+        // Include academic quad + NYITCOM + Art & Architecture cluster.
+        // built bounds from all anchor buildings, then add a small cushion.
+
+        val boundsBuilder = com.google.android.gms.maps.model.LatLngBounds.builder()
+        listOf(
+            LATLNG_ANNA_RUBIN, LATLNG_SCHURE, LATLNG_THEOBALD, LATLNG_SALTEN,   // quad
+            LATLNG_RILAND, LATLNG_SEROTA,                                       // medicine (NYITCOM)
+            LATLNG_MIDGEC, LATLNG_EDHALL                                        // art & architecture
+        ).forEach { boundsBuilder.include(it) }
+
+        val campusCore = boundsBuilder.build()
+
+    // ~220m padding each way (~0.002 deg). Tweak smaller/larger after testing.
+        val campusBounds = com.google.android.gms.maps.model.LatLngBounds(
+            com.google.android.gms.maps.model.LatLng(
+                campusCore.southwest.latitude - 0.0016,
+                campusCore.southwest.longitude - 0.0018
+            ),
+            com.google.android.gms.maps.model.LatLng(
+                campusCore.northeast.latitude + 0.0014,
+                campusCore.northeast.longitude + 0.0012
+            )
         )
-        map?.setLatLngBoundsForCameraTarget(nyitLiBounds)
-        map?.moveCamera(CameraUpdateFactory.newLatLngBounds(nyitLiBounds, 64))
+
+// Keep the camera target inside campus; user can’t pan outside this rectangle
+        map?.setLatLngBoundsForCameraTarget(campusBounds)
+
+// Prevent zooming so far out that dragging “escapes” the box (tune as needed)
+        map?.setMinZoomPreference(16.3f)
+        map?.setMaxZoomPreference(20.5f)
+
+// Start centered roughly between Schure (quad) and Serota (NYITCOM)
+        val startCenter = com.google.android.gms.maps.model.LatLng(
+            (LATLNG_SCHURE.latitude + LATLNG_SEROTA.latitude) / 2.0,
+            (LATLNG_SCHURE.longitude + LATLNG_SEROTA.longitude) / 2.0
+        )
+        map?.moveCamera(
+            com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom(startCenter, 16.8f)
+        )
+
+
+
+        // ===================== MARKERS  =====================
+        val buildingIcon = com.google.android.gms.maps.model.BitmapDescriptorFactory.defaultMarker(
+            com.google.android.gms.maps.model.BitmapDescriptorFactory.HUE_RED
+        )
+        val classroomIcon = com.google.android.gms.maps.model.BitmapDescriptorFactory.defaultMarker(
+            com.google.android.gms.maps.model.BitmapDescriptorFactory.HUE_AZURE
+        )
+
+        // Buildings
+        map?.addMarker(
+            com.google.android.gms.maps.model.MarkerOptions()
+                .position(LATLNG_ANNA_RUBIN)
+                .icon(buildingIcon)
+                .title("Anna Rubin Hall")
+                .snippet("Academic building")
+        )
+        map?.addMarker(
+            com.google.android.gms.maps.model.MarkerOptions()
+                .position(LATLNG_SCHURE)
+                .icon(buildingIcon)
+                .title("Harry J. Schure Hall")
+                .snippet("Academic & student services")
+        )
+        map?.addMarker(
+            com.google.android.gms.maps.model.MarkerOptions()
+                .position(LATLNG_THEOBALD)
+                .icon(buildingIcon)
+                .title("Theobald Science Center")
+                .snippet("Science & labs")
+        )
+        map?.addMarker(
+            com.google.android.gms.maps.model.MarkerOptions()
+                .position(LATLNG_SALTEN)
+                .icon(buildingIcon)
+                .title("Salten Hall")
+                .snippet("Library & lounges")
+        )
+
+        // Classrooms (anchored at their building for now)
+        map?.addMarker(
+            com.google.android.gms.maps.model.MarkerOptions()
+                .position(LATLNG_ROOM_ANNARUBIN_306)
+                .icon(classroomIcon)
+                .title("Anna Rubin — Room 306")
+                .snippet("Classroom")
+        )
+        map?.addMarker(
+            com.google.android.gms.maps.model.MarkerOptions()
+                .position(LATLNG_ROOM_ANNARUBIN_303)
+                .icon(classroomIcon)
+                .title("Anna Rubin — Room 303")
+                .snippet("Classroom")
+        )
+        map?.addMarker(
+            com.google.android.gms.maps.model.MarkerOptions()
+                .position(LATLNG_ROOM_SCHURE_227)
+                .icon(classroomIcon)
+                .title("Harry J. Schure — Room 227")
+                .snippet("Classroom")
+        )
+
+        map?.addMarker(
+            com.google.android.gms.maps.model.MarkerOptions()
+                .position(LATLNG_RILAND)
+                .icon(buildingIcon)
+                .title("Riland (NYITCOM)")
+                .snippet("Academic Health Care Center")
+        )
+        map?.addMarker(
+            com.google.android.gms.maps.model.MarkerOptions()
+                .position(LATLNG_SEROTA)
+                .icon(buildingIcon)
+                .title("Serota Academic Center (NYITCOM)")
+                .snippet("Medicine & Health Sciences")
+        )
+        map?.addMarker(
+            com.google.android.gms.maps.model.MarkerOptions()
+                .position(LATLNG_MIDGEC)
+                .icon(buildingIcon)
+                .title("Midge Karr Art & Design Center")
+                .snippet("School of Architecture & Design")
+        )
+        map?.addMarker(
+            com.google.android.gms.maps.model.MarkerOptions()
+                .position(LATLNG_EDHALL)
+                .icon(buildingIcon)
+                .title("Education Hall")
+                .snippet("Architecture & Design")
+        )
+
 
         // TEAM: Kick off permission check → enable blue dot & start updates when granted
 
@@ -129,13 +257,7 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         val center = LatLng(40.816213, -73.60724) // campus center
         map?.addMarker(MarkerOptions().position(center).title("NYIT Long Island"))
 
-        // Smoke test: drop a temporary marker to confirm rendering
-        // (TEAM: delete later once real data is wired)
-        map?.addMarker(
-            MarkerOptions()
-                .position(LatLng(40.8150, -73.0950))
-                .title("Test marker")
-        )
+
     }
 
     private fun ensureLocationPermission() {
