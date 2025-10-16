@@ -25,27 +25,22 @@ class HomeActivity : ComponentActivity() {
 
         val user = auth.currentUser
 
-        // Fetch and display user data
         user?.uid?.let { uid ->
             fetchUserData(uid)
         }
 
-        // NFC Check In button
         findViewById<Button>(R.id.btnCheckIn).setOnClickListener {
             Toast.makeText(this, "Logan", Toast.LENGTH_SHORT).show()
-            // TODO: Implement send attendance record to Firebase
             startActivity(Intent(this, AttendanceActivity::class.java))
             finish()
         }
 
-        // Homescreen buttons
         findViewById<Button>(R.id.btnSchedule).setOnClickListener {
             Toast.makeText(this, "Steven", Toast.LENGTH_SHORT).show()
         }
 
         findViewById<Button>(R.id.btnSocial).setOnClickListener {
             Toast.makeText(this, "Sam", Toast.LENGTH_SHORT).show()
-            // TODO: Implement social media for campuslife
         }
 
         findViewById<Button>(R.id.btnCampusMap).setOnClickListener {
@@ -55,7 +50,6 @@ class HomeActivity : ComponentActivity() {
 
         findViewById<Button>(R.id.btnFinalsSchedule).setOnClickListener {
             Toast.makeText(this, "Bram", Toast.LENGTH_SHORT).show()
-            // TODO: Need the app to read course finals and link with student registered classes
         }
 
         findViewById<Button>(R.id.btnSignOut).setOnClickListener {
@@ -75,10 +69,9 @@ class HomeActivity : ComponentActivity() {
 
                     userData?.let {
                         findViewById<TextView>(R.id.studentName).text = "${it.firstName} ${it.lastName}"
-                        findViewById<TextView>(R.id.studentId).text = "ID: ${it.studentId}"
+                        findViewById<TextView>(R.id.studentId).text = "ID: ${it.userId}"
                         findViewById<TextView>(R.id.nextClass).text = "Next Class: Coming soon..."
 
-                        // Date
                         val dateHeader = findViewById<TextView>(R.id.dateHeader)
                         val formatter = java.text.SimpleDateFormat("EEEE, MMMM d", java.util.Locale.getDefault())
                         val currentDate = formatter.format(java.util.Date())
