@@ -3309,12 +3309,20 @@ id browser_actions_menu_item_icon
 id browser_actions_menu_item_text
 id browser_actions_menu_items
 id browser_actions_menu_view
+id btnAttendanceReports
 id btnCampusMap
 id btnCheckIn
 id btnFinalsSchedule
+id btnManualAttendance
+id btnMySchedule
+id btnProfCampusMap
+id btnProfSignOut
 id btnSchedule
+id btnSendAnnouncement
 id btnSignOut
 id btnSocial
+id btnViewAttendance
+id btnViewCourses
 id buttonPanel
 id cache_measures
 id callMeasure
@@ -3592,6 +3600,9 @@ id pooling_container_listener_holder_tag
 id position
 id postLayout
 id pressed
+id profDateHeader
+id professorId
+id professorName
 id progress_circular
 id progress_horizontal
 id radio
@@ -3721,6 +3732,8 @@ id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
 id triangle
+id tvCoursesList
+id tvNoCourses
 id unchecked
 id uniform
 id unlabeled
@@ -3867,6 +3880,7 @@ layout abc_tooltip
 layout activity_attendance
 layout activity_home
 layout activity_map
+layout activity_professor_home
 layout browser_actions_context_menu_page
 layout browser_actions_context_menu_row
 layout custom_dialog

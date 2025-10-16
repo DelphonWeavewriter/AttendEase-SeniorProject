@@ -3308,12 +3308,20 @@ int id browser_actions_menu_item_icon 0x7f08006a
 int id browser_actions_menu_item_text 0x7f08006b
 int id browser_actions_menu_items 0x7f08006c
 int id browser_actions_menu_view 0x7f08006d
+int id btnAttendanceReports 0x7f080226
 int id btnCampusMap 0x7f08006e
 int id btnCheckIn 0x7f08006f
 int id btnFinalsSchedule 0x7f080070
+int id btnManualAttendance 0x7f080227
+int id btnMySchedule 0x7f080228
+int id btnProfCampusMap 0x7f080229
+int id btnProfSignOut 0x7f08022a
 int id btnSchedule 0x7f080071
+int id btnSendAnnouncement 0x7f08022b
 int id btnSignOut 0x7f080072
 int id btnSocial 0x7f080073
+int id btnViewAttendance 0x7f08022c
+int id btnViewCourses 0x7f08022d
 int id buttonPanel 0x7f080074
 int id cache_measures 0x7f080075
 int id callMeasure 0x7f080076
@@ -3591,6 +3599,9 @@ int id pooling_container_listener_holder_tag 0x7f080185
 int id position 0x7f080186
 int id postLayout 0x7f080187
 int id pressed 0x7f080188
+int id profDateHeader 0x7f08022e
+int id professorId 0x7f08022f
+int id professorName 0x7f080230
 int id progress_circular 0x7f080189
 int id progress_horizontal 0x7f08018a
 int id radio 0x7f08018b
@@ -3720,6 +3731,8 @@ int id transition_position 0x7f080206
 int id transition_scene_layoutid_cache 0x7f080207
 int id transition_transform 0x7f080208
 int id triangle 0x7f080209
+int id tvCoursesList 0x7f080231
+int id tvNoCourses 0x7f080232
 int id unchecked 0x7f08020a
 int id uniform 0x7f08020b
 int id unlabeled 0x7f08020c
@@ -3866,6 +3879,7 @@ int layout abc_tooltip 0x7f0b001b
 int layout activity_attendance 0x7f0b001c
 int layout activity_home 0x7f0b001d
 int layout activity_map 0x7f0b001e
+int layout activity_professor_home 0x7f0b0073
 int layout browser_actions_context_menu_page 0x7f0b001f
 int layout browser_actions_context_menu_row 0x7f0b0020
 int layout custom_dialog 0x7f0b0021

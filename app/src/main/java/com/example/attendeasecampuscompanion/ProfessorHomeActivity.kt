@@ -3,9 +3,11 @@ package com.example.attendeasecampuscompanion
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -27,16 +29,28 @@ class ProfessorHomeActivity : ComponentActivity() {
             fetchProfessorData(uid)
         }
 
-        findViewById<Button>(R.id.btnViewCourses).setOnClickListener {
-            Toast.makeText(this, "Opening your courses...", Toast.LENGTH_SHORT).show()
-        }
-
-        findViewById<Button>(R.id.btnViewStudents).setOnClickListener {
-            Toast.makeText(this, "Opening students list...", Toast.LENGTH_SHORT).show()
+        findViewById<Button>(R.id.btnManualAttendance).setOnClickListener {
+            Toast.makeText(this, "Opening manual attendance...", Toast.LENGTH_SHORT).show()
         }
 
         findViewById<Button>(R.id.btnViewAttendance).setOnClickListener {
             Toast.makeText(this, "Opening attendance records...", Toast.LENGTH_SHORT).show()
+        }
+
+        findViewById<Button>(R.id.btnViewCourses).setOnClickListener {
+            Toast.makeText(this, "Opening your courses...", Toast.LENGTH_SHORT).show()
+        }
+
+        findViewById<Button>(R.id.btnMySchedule).setOnClickListener {
+            Toast.makeText(this, "Opening your schedule...", Toast.LENGTH_SHORT).show()
+        }
+
+        findViewById<Button>(R.id.btnAttendanceReports).setOnClickListener {
+            Toast.makeText(this, "Opening attendance reports...", Toast.LENGTH_SHORT).show()
+        }
+
+        findViewById<Button>(R.id.btnSendAnnouncement).setOnClickListener {
+            showAnnouncementDialog()
         }
 
         findViewById<Button>(R.id.btnProfCampusMap).setOnClickListener {
@@ -89,5 +103,27 @@ class ProfessorHomeActivity : ComponentActivity() {
 
         val coursesText = findViewById<TextView>(R.id.tvCoursesList)
         coursesText.text = "Teaching ${courseIds.size} course(s)"
+    }
+
+    private fun showAnnouncementDialog() {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_announcement, null)
+        val courseInput = dialogView.findViewById<EditText>(R.id.etCourseName)
+        val messageInput = dialogView.findViewById<EditText>(R.id.etMessage)
+
+        AlertDialog.Builder(this)
+            .setTitle("Send Announcement")
+            .setView(dialogView)
+            .setPositiveButton("Send") { _, _ ->
+                val course = courseInput.text.toString().trim()
+                val message = messageInput.text.toString().trim()
+
+                if (course.isEmpty() || message.isEmpty()) {
+                    Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, "Announcement sent to $course", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .setNegativeButton("Cancel") { _, _ -> }
+            .show()
     }
 }
