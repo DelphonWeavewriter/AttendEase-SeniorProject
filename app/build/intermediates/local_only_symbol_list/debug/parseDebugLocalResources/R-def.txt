@@ -20,7 +20,6 @@ drawable input_field_background
 drawable login_background
 drawable signin_button_background
 id appLogo
-id btnAttendanceReports
 id btnCampusMap
 id btnCheckIn
 id btnCreateEvent

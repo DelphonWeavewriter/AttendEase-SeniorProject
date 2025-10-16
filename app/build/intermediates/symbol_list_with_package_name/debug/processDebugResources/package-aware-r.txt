@@ -3309,7 +3309,6 @@ id browser_actions_menu_item_icon
 id browser_actions_menu_item_text
 id browser_actions_menu_items
 id browser_actions_menu_view
-id btnAttendanceReports
 id btnCampusMap
 id btnCheckIn
 id btnCreateEvent
