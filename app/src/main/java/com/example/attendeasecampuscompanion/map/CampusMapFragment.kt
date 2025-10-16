@@ -33,6 +33,22 @@ import androidx.core.content.ContextCompat
 import com.google.android.gms.location.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
+// --- NYIT (Old Westbury) key building coordinates ---
+// Anna Rubin Hall: 40.81332, -73.60513
+// Harry J. Schure Hall: 40.81365, -73.60425
+// Theobald Science Center: 40.81296, -73.60435
+// Salten Hall: 40.81381, -73.60554
+
+private val LATLNG_ANNA_RUBIN = com.google.android.gms.maps.model.LatLng(40.81332, -73.60513)
+private val LATLNG_SCHURE     = com.google.android.gms.maps.model.LatLng(40.81365, -73.60425)
+private val LATLNG_THEOBALD   = com.google.android.gms.maps.model.LatLng(40.81296, -73.60435)
+private val LATLNG_SALTEN     = com.google.android.gms.maps.model.LatLng(40.81381, -73.60554)
+
+// TEAM NOTE: Classroom markers are anchored to building coords for now.
+// Later I can place indoor/entrance-level pins if we collect precise points.
+private val LATLNG_ROOM_ANNARUBIN_306 = LATLNG_ANNA_RUBIN
+private val LATLNG_ROOM_ANNARUBIN_303 = LATLNG_ANNA_RUBIN
+private val LATLNG_ROOM_SCHURE_227     = LATLNG_SCHURE
 
 class CampusMapFragment : Fragment(), OnMapReadyCallback {
 
