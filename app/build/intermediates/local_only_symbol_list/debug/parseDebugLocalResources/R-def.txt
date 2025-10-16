@@ -23,6 +23,7 @@ id appLogo
 id btnAttendanceReports
 id btnCampusMap
 id btnCheckIn
+id btnCreateEvent
 id btnFinalsSchedule
 id btnManualAttendance
 id btnMySchedule
@@ -37,7 +38,6 @@ id btnViewCourses
 id dateHeader
 id editTextEmailAddress
 id editTextPassword
-id etCourseName
 id etMessage
 id fabRecenter
 id forgotPassword
@@ -49,6 +49,7 @@ id profDateHeader
 id professorId
 id professorName
 id signInButton
+id spinnerCourse
 id studentId
 id studentName
 id textView

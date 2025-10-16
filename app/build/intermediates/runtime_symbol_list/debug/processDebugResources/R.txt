@@ -3311,6 +3311,7 @@ int id browser_actions_menu_view 0x7f08006d
 int id btnAttendanceReports 0x7f08006e
 int id btnCampusMap 0x7f08006f
 int id btnCheckIn 0x7f080070
+int id btnCreateEvent 0x7f080235
 int id btnFinalsSchedule 0x7f080071
 int id btnManualAttendance 0x7f080072
 int id btnMySchedule 0x7f080073
@@ -3410,7 +3411,6 @@ int id endToStart 0x7f0800d0
 int id enterAlways 0x7f0800d1
 int id enterAlwaysCollapsed 0x7f0800d2
 int id escape 0x7f0800d3
-int id etCourseName 0x7f0800d4
 int id etMessage 0x7f0800d5
 int id exitUntilCollapsed 0x7f0800d6
 int id expand_activities_button 0x7f0800d7
@@ -3659,6 +3659,7 @@ int id snapMargins 0x7f0801c9
 int id south 0x7f0801ca
 int id spacer 0x7f0801cb
 int id special_effects_controller_view_tag 0x7f0801cc
+int id spinnerCourse 0x7f080236
 int id spline 0x7f0801cd
 int id split_action_bar 0x7f0801ce
 int id spread 0x7f0801cf

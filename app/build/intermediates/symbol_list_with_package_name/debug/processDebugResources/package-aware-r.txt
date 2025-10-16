@@ -3312,6 +3312,7 @@ id browser_actions_menu_view
 id btnAttendanceReports
 id btnCampusMap
 id btnCheckIn
+id btnCreateEvent
 id btnFinalsSchedule
 id btnManualAttendance
 id btnMySchedule
@@ -3411,7 +3412,6 @@ id endToStart
 id enterAlways
 id enterAlwaysCollapsed
 id escape
-id etCourseName
 id etMessage
 id exitUntilCollapsed
 id expand_activities_button
@@ -3660,6 +3660,7 @@ id snapMargins
 id south
 id spacer
 id special_effects_controller_view_tag
+id spinnerCourse
 id spline
 id split_action_bar
 id spread
