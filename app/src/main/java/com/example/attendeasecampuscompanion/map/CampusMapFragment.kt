@@ -35,8 +35,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 // --- NYIT (Old Westbury) key building coordinates ---
 
-private val LATLNG_SEROTA   = com.google.android.gms.maps.model.LatLng(40.809875, -73.605744) // Serota Academic Center
-private val LATLNG_RILAND   = com.google.android.gms.maps.model.LatLng(40.808917, -73.605100) // Riland (NYITCOM)
+private val LATLNG_SEROTA   = com.google.android.gms.maps.model.LatLng(40.81033961078047, -73.6055924044658) // Serota Academic Center
+private val LATLNG_RILAND   = com.google.android.gms.maps.model.LatLng(40.80948290749356, -73.60568361897101) // Riland (NYITCOM)
 private val LATLNG_MIDGEC   = com.google.android.gms.maps.model.LatLng(40.802260, -73.598170) // Midge Karr Art & Design Ctr
 private val LATLNG_EDHALL   = com.google.android.gms.maps.model.LatLng(40.799790, -73.596370) // Education Hall
 private val LATLNG_ANNA_RUBIN = com.google.android.gms.maps.model.LatLng(40.81332, -73.60513)
@@ -46,9 +46,12 @@ private val LATLNG_SALTEN     = com.google.android.gms.maps.model.LatLng(40.8138
 
 // TEAM NOTE: Classroom markers are anchored to building coords for now.
 // Later I can place indoor/entrance-level pins if we collect precise points.
-private val LATLNG_ROOM_ANNARUBIN_306 = LATLNG_ANNA_RUBIN
-private val LATLNG_ROOM_ANNARUBIN_303 = LATLNG_ANNA_RUBIN
-private val LATLNG_ROOM_SCHURE_227     = LATLNG_SCHURE
+//Room 306: 40.81341478105639, -73.60517429269679
+//Room 303: 40.81321380974355, -73.60541569087574
+//Room 227: 40.813808602201426, -73.60447959964215
+private val LATLNG_ROOM_ANNARUBIN_306 = com.google.android.gms.maps.model.LatLng(40.81341478105639, -73.60517429269679)
+private val LATLNG_ROOM_ANNARUBIN_303 = com.google.android.gms.maps.model.LatLng(40.81321380974355, -73.60541569087574)
+private val LATLNG_ROOM_SCHURE_227     =  com.google.android.gms.maps.model.LatLng(40.813808602201426, -73.60447959964215)
 
 class CampusMapFragment : Fragment(), OnMapReadyCallback {
 
@@ -102,7 +105,7 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
             uiSettings.isMyLocationButtonEnabled = true
             // Zoom limits tuned for campus-level navigation
             setMinZoomPreference(15f)  // street / campus
-            setMaxZoomPreference(21f)  // building level
+            setMaxZoomPreference(19.0f)  // building level
         }
 
 
@@ -116,7 +119,7 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         Log.d("CampusMap", "Map is ready")
 
 
-        // ===================== CAMPUS BOUNDS (INSERTED) =====================
+// ===================== CAMPUS BOUNDS (INSERTED) =====================
         // Include academic quad + NYITCOM + Art & Architecture cluster.
         // built bounds from all anchor buildings, then add a small cushion.
 
@@ -129,15 +132,15 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
 
         val campusCore = boundsBuilder.build()
 
-    // ~220m padding each way (~0.002 deg). Tweak smaller/larger after testing.
+        // Asymmetric padding: trim NE (top-right) and SW (bottom-left) harder
         val campusBounds = com.google.android.gms.maps.model.LatLngBounds(
             com.google.android.gms.maps.model.LatLng(
-                campusCore.southwest.latitude - 0.0016,
+                campusCore.southwest.latitude + 0.0012,
                 campusCore.southwest.longitude - 0.0018
             ),
             com.google.android.gms.maps.model.LatLng(
-                campusCore.northeast.latitude + 0.0014,
-                campusCore.northeast.longitude + 0.0012
+                campusCore.northeast.latitude + 0.0003,
+                campusCore.northeast.longitude + 0.0001
             )
         )
 
@@ -154,7 +157,7 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
             (LATLNG_SCHURE.longitude + LATLNG_SEROTA.longitude) / 2.0
         )
         map?.moveCamera(
-            com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom(startCenter, 16.8f)
+            com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom(startCenter, 17.1f)
         )
 
 
