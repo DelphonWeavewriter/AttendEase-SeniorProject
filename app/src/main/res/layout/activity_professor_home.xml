@@ -143,6 +143,18 @@
                     android:gravity="center"/>
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCreateEvent"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_margin="8dp"
+                    android:text="Create Event"
+                    android:textSize="16sp"
+                    app:cornerRadius="32dp"
+                    app:elevation="2dp"
+                    android:backgroundTint="#42A5F5"
+                    android:gravity="center"/>
+
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnSendAnnouncement"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
