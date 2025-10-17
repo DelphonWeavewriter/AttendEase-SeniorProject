@@ -24,7 +24,7 @@ class MarkAttendanceActivity : AppCompatActivity() {
     private val auth = FirebaseAuth.getInstance()
     private val courses = mutableListOf<Course>()
     private val attendanceList = mutableListOf<StudentAttendance>()
-    private lateinit var adapter: AttendanceAdapter
+    private lateinit var adapter: `AttendanceAdapter.kt`
     private var selectedCourse: Course? = null
     private val selectedDate = Calendar.getInstance()
 
@@ -42,7 +42,7 @@ class MarkAttendanceActivity : AppCompatActivity() {
         progressBar = findViewById(R.id.progressBar)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = AttendanceAdapter(attendanceList)
+        adapter = `AttendanceAdapter.kt`(attendanceList)
         recyclerView.adapter = adapter
 
         updateDateText()
