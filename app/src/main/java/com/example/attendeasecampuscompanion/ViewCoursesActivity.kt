@@ -12,7 +12,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 class ViewCoursesActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: CourseAdapter
+    private lateinit var adapter: `CourseAdapter.kt`
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
     private val courses = mutableListOf<Course>()
@@ -27,7 +27,7 @@ class ViewCoursesActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.coursesRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        adapter = CourseAdapter(courses) { course ->
+        adapter = `CourseAdapter.kt`(courses) { course ->
             showCourseDetails(course)
         }
         recyclerView.adapter = adapter
