@@ -25,6 +25,11 @@
           <theme>@style/Theme.AttendEaseCampusCompanion</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_mark_attendance.xml">
+        <config>
+          <theme>@style/Theme.AttendEaseCampusCompanion</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_professor_home.xml">
         <config>
           <theme>@style/Theme.AttendEaseCampusCompanion</theme>
@@ -50,6 +55,16 @@
           <theme>@style/Theme.AttendEaseCampusCompanion</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_attendance.xml">
+        <config>
+          <theme>@style/Theme.AttendEaseCampusCompanion</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_course.xml">
+        <config>
+          <theme>@style/Theme.AttendEaseCampusCompanion</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/signin_layout.xml">
         <config>
           <theme>@style/Theme.AttendEaseCampusCompanion</theme>
@@ -61,7 +76,10 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0a603850-d4e0-44f1-9561-6473d066f17a" name="Changes" comment="What the hell happened to the code" />
+    <list default="true" id="0a603850-d4e0-44f1-9561-6473d066f17a" name="Changes" comment="What the hell happened to the code">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_view_attendance.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_view_attendance.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
