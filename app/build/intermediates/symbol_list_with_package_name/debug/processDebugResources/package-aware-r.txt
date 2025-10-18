@@ -3326,6 +3326,7 @@ id btnViewAttendance
 id btnViewCourses
 id buttonPanel
 id cache_measures
+id calendarView
 id callMeasure
 id cancel_button
 id carryVelocity
@@ -3369,6 +3370,7 @@ id customPanel
 id cut
 id dark
 id dateHeader
+id dateText
 id date_picker_actions
 id decelerate
 id decelerateAndComplete
@@ -3495,6 +3497,7 @@ id line3
 id linear
 id listMode
 id list_item
+id location
 id loginSubtitle
 id m3_side_sheet
 id map
@@ -3623,6 +3626,7 @@ id radio
 id ratio
 id rectangles
 id recyclerViewCourses
+id recyclerViewSchedule
 id report_drawn
 id reverseSawtooth
 id right
@@ -3733,6 +3737,7 @@ id textinput_placeholder
 id textinput_prefix_text
 id textinput_suffix_text
 id time
+id timeRange
 id title
 id titleDividerNoCustom
 id title_template
@@ -3899,6 +3904,7 @@ layout abc_tooltip
 layout activity_attendance
 layout activity_home
 layout activity_map
+layout activity_my_schedule
 layout activity_professor_home
 layout activity_view_courses
 layout browser_actions_context_menu_page
@@ -3925,6 +3931,7 @@ layout fragment_campus_map
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
 layout item_course
+layout item_schedule
 layout m3_alert_dialog
 layout m3_alert_dialog_actions
 layout m3_alert_dialog_title

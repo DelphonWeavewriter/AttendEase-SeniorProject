@@ -29,7 +29,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="View your teaching schedule"
+            android:text="Tap on a specific date for more info"
             android:textSize="14sp"
             android:textColor="#E0E0E0" />
 

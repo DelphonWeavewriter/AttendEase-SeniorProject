@@ -56,7 +56,7 @@ class ProfessorHomeActivity : AppCompatActivity() {
         }
 
         btnMySchedule.setOnClickListener {
-            Toast.makeText(this, "My Schedule - Coming Soon", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, MyScheduleActivity::class.java))
         }
 
         btnSendAnnouncement.setOnClickListener {

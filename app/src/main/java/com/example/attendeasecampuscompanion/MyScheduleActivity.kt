@@ -71,72 +71,105 @@ class MyScheduleActivity : AppCompatActivity() {
     }
 
     private fun loadCourses() {
-        val currentUserId = auth.currentUser?.uid ?: return
+        val currentUserId = auth.currentUser?.uid ?: run {
+            android.util.Log.e("MySchedule", "No user logged in!")
+            return
+        }
+
+        android.util.Log.d("MySchedule", "Starting loadCourses for UID: $currentUserId")
 
         progressBar.visibility = View.VISIBLE
         emptyText.visibility = View.GONE
 
         db.collection("Users").document(currentUserId).get()
             .addOnSuccessListener { userDoc ->
+                android.util.Log.d("MySchedule", "User document loaded successfully")
+
+                if (!userDoc.exists()) {
+                    android.util.Log.e("MySchedule", "User document does not exist!")
+                    progressBar.visibility = View.GONE
+                    emptyText.visibility = View.VISIBLE
+                    emptyText.text = "User not found"
+                    return@addOnSuccessListener
+                }
+
                 val user = userDoc.toObject(User::class.java)
                 val userRole = user?.role ?: "Student"
 
+                android.util.Log.d("MySchedule", "User role: $userRole")
+                android.util.Log.d("MySchedule", "User name: ${user?.firstName} ${user?.lastName}")
+
                 val query = if (userRole == "Professor") {
+                    android.util.Log.d("MySchedule", "Querying as Professor")
                     db.collection("Courses").whereEqualTo("professorId", currentUserId)
                 } else {
+                    android.util.Log.d("MySchedule", "Querying as Student with enrolledStudents")
                     db.collection("Courses").whereArrayContains("enrolledStudents", currentUserId)
                 }
 
                 query.get()
                     .addOnSuccessListener { documents ->
+                        android.util.Log.d("MySchedule", "Query successful! Found ${documents.size()} courses")
                         progressBar.visibility = View.GONE
                         allCourses.clear()
 
                         for (document in documents) {
                             val course = document.toObject(Course::class.java)
+                            android.util.Log.d("MySchedule", "Course found: ${course.courseId} - ${course.courseName}")
                             allCourses.add(course)
                         }
 
+                        android.util.Log.d("MySchedule", "Filtering schedule by date...")
                         filterScheduleByDate()
                     }
-                    .addOnFailureListener {
+                    .addOnFailureListener { e ->
+                        android.util.Log.e("MySchedule", "Query failed: ${e.message}", e)
                         progressBar.visibility = View.GONE
                         emptyText.visibility = View.VISIBLE
-                        emptyText.text = "Error loading schedule"
+                        emptyText.text = "Error loading schedule: ${e.message}"
                     }
             }
-            .addOnFailureListener {
+            .addOnFailureListener { e ->
+                android.util.Log.e("MySchedule", "Failed to load user: ${e.message}", e)
                 progressBar.visibility = View.GONE
                 emptyText.visibility = View.VISIBLE
-                emptyText.text = "Error loading user data"
+                emptyText.text = "Error loading user data: ${e.message}"
             }
     }
 
     private fun filterScheduleByDate() {
         val dayOfWeek = SimpleDateFormat("EEEE", Locale.US).format(selectedDate.time)
+        android.util.Log.d("MySchedule", "Filtering for day: $dayOfWeek")
+
         val scheduleItems = mutableListOf<ScheduleItem>()
 
         for (course in allCourses) {
+            android.util.Log.d("MySchedule", "Checking course ${course.courseId}, schedule size: ${course.schedule.size}")
+
             for (scheduleMap in course.schedule) {
                 val scheduleDayOfWeek = scheduleMap["dayOfWeek"] ?: continue
 
+                android.util.Log.d("MySchedule", "Schedule day: $scheduleDayOfWeek vs Selected: $dayOfWeek")
+
                 if (scheduleDayOfWeek.equals(dayOfWeek, ignoreCase = true)) {
-                    scheduleItems.add(
-                        ScheduleItem(
-                            courseName = course.courseName,
-                            courseCode = course.courseId,
-                            startTime = scheduleMap["startTime"] ?: "",
-                            endTime = scheduleMap["endTime"] ?: "",
-                            building = scheduleMap["building"] ?: "",
-                            room = scheduleMap["room"] ?: "",
-                            roomID = course.roomID
-                        )
+                    val item = ScheduleItem(
+                        courseName = course.courseName,
+                        courseCode = course.courseId,
+                        startTime = scheduleMap["startTime"] ?: "",
+                        endTime = scheduleMap["endTime"] ?: "",
+                        building = scheduleMap["building"] ?: "",
+                        room = scheduleMap["room"] ?: "",
+                        roomID = course.roomID
                     )
+                    scheduleItems.add(item)
+                    android.util.Log.d("MySchedule", "Added schedule item: ${item.courseCode} at ${item.startTime}")
                 }
             }
         }
 
         scheduleItems.sortBy { it.startTime }
+
+        android.util.Log.d("MySchedule", "Total schedule items for $dayOfWeek: ${scheduleItems.size}")
 
         if (scheduleItems.isEmpty()) {
             emptyText.visibility = View.VISIBLE

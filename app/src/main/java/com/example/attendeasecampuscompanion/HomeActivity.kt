@@ -34,7 +34,7 @@ class HomeActivity : ComponentActivity() {
         }
 
         findViewById<Button>(R.id.btnSchedule).setOnClickListener {
-            Toast.makeText(this, "Opening Your Schedule...", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, MyScheduleActivity::class.java))
         }
 
         findViewById<Button>(R.id.btnSocial).setOnClickListener {
