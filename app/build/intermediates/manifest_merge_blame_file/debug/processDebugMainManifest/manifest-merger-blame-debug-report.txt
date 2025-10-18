@@ -23,13 +23,13 @@
 15    <uses-permission android:name="android.permission.NFC" />
 15-->/Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:9:5-61
 15-->/Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:9:22-59
-16    <uses-permission
-16-->/Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:10:5-83
-17        android:name="android.harware.nfc"
-17-->/Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:10:22-56
-18        android:required="true" />
-18-->/Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:10:57-80
-19
+16
+17    <uses-feature
+17-->/Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:10:5-81
+18        android:name="android.hardware.nfc"
+18-->/Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:10:19-54
+19        android:required="true" />
+19-->/Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:10:55-78
 20    <uses-feature
 20-->[com.google.android.gms:play-services-maps:19.2.0] /Users/steven/.gradle/caches/8.13/transforms/4251427e2180a439d8bc568d3a4c68b2/transformed/play-services-maps-19.2.0/AndroidManifest.xml:22:5-24:33
 21        android:glEsVersion="0x00020000"

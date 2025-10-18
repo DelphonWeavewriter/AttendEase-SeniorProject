@@ -1,4 +1,4 @@
-#Thu Oct 16 15:48:53 EDT 2025
+#Fri Oct 17 21:19:15 EDT 2025
 base.0=/Users/steven/AttendEase-SeniorProject/app/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex
 base.1=/Users/steven/AttendEase-SeniorProject/app/build/intermediates/dex/debug/mergeProjectDexDebug/0/classes.dex
 base.2=/Users/steven/AttendEase-SeniorProject/app/build/intermediates/dex/debug/mergeProjectDexDebug/12/classes.dex

@@ -68,7 +68,7 @@ layout activity_professor_home
 layout dialog_announcement
 layout dialog_create_event
 layout fragment_campus_map
-layout map_tesy
+layout map_test
 layout signin_layout
 mipmap ic_launcher
 mipmap ic_launcher_round
@@ -92,6 +92,8 @@ string recenter_map
 string sign_in
 string signing_in
 string welcome_back
+style CalendarDateTextAppearance
+style CalendarWeekDayTextAppearance
 style Theme.AttendEaseCampusCompanion
 xml backup_rules
 xml data_extraction_rules

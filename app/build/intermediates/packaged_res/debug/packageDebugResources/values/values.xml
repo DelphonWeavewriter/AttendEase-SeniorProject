@@ -27,5 +27,14 @@
     <string name="sign_in">Sign In</string>
     <string name="signing_in">Signing in...</string>
     <string name="welcome_back">Welcome Back!</string>
+    <style name="CalendarDateTextAppearance" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#212121</item>
+    </style>
+    <style name="CalendarWeekDayTextAppearance" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">#757575</item>
+        <item name="android:textStyle">bold</item>
+    </style>
     <style name="Theme.AttendEaseCampusCompanion" parent="Theme.MaterialComponents.Light.DarkActionBar"/>
 </resources>

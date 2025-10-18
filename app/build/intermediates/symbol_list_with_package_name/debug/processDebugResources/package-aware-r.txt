@@ -3917,7 +3917,7 @@ layout m3_alert_dialog_actions
 layout m3_alert_dialog_title
 layout m3_auto_complete_simple_item
 layout m3_side_sheet_dialog
-layout map_tesy
+layout map_test
 layout material_chip_input_combo
 layout material_clock_display
 layout material_clock_display_divider
@@ -4551,6 +4551,8 @@ style Base_Widget_MaterialComponents_Snackbar
 style Base_Widget_MaterialComponents_TextInputEditText
 style Base_Widget_MaterialComponents_TextInputLayout
 style Base_Widget_MaterialComponents_TextView
+style CalendarDateTextAppearance
+style CalendarWeekDayTextAppearance
 style CardView
 style CardView_Dark
 style CardView_Light

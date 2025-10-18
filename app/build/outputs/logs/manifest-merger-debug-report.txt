@@ -158,12 +158,12 @@ uses-permission#android.permission.NFC
 ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:9:5-61
 	android:name
 		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:9:22-59
-uses-permission#android.harware.nfc
-ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:10:5-83
+uses-feature#android.hardware.nfc
+ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:10:5-81
 	android:required
-		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:10:57-80
+		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:10:55-78
 	android:name
-		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:10:22-56
+		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:10:19-54
 application
 ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:12:5-67:19
 INJECTED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:12:5-67:19

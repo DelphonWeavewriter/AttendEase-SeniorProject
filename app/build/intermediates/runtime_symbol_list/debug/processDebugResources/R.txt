@@ -3916,7 +3916,7 @@ int layout m3_alert_dialog_actions 0x7f0b0038
 int layout m3_alert_dialog_title 0x7f0b0039
 int layout m3_auto_complete_simple_item 0x7f0b003a
 int layout m3_side_sheet_dialog 0x7f0b003b
-int layout map_tesy 0x7f0b003c
+int layout map_test 0x7f0b007e
 int layout material_chip_input_combo 0x7f0b003d
 int layout material_clock_display 0x7f0b003e
 int layout material_clock_display_divider 0x7f0b003f
@@ -4550,6 +4550,8 @@ int style Base_Widget_MaterialComponents_Snackbar 0x7f11011b
 int style Base_Widget_MaterialComponents_TextInputEditText 0x7f11011c
 int style Base_Widget_MaterialComponents_TextInputLayout 0x7f11011d
 int style Base_Widget_MaterialComponents_TextView 0x7f11011e
+int style CalendarDateTextAppearance 0x7f11046c
+int style CalendarWeekDayTextAppearance 0x7f11046d
 int style CardView 0x7f11011f
 int style CardView_Dark 0x7f110120
 int style CardView_Light 0x7f110121
