@@ -87,6 +87,10 @@
             android:name="com.example.attendeasecampuscompanion.ProfessorHomeActivity"
             android:exported="false" />
         <activity
+            android:name="com.example.attendeasecampuscompanion.ViewCoursesActivity"
+            android:exported="false"
+            android:label="View Courses" />
+        <activity
             android:name="com.example.attendeasecampuscompanion.AttendanceActivity"
             android:exported="false"
             android:label="Attendance" />

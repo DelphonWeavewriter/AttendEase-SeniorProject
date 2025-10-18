@@ -55,6 +55,11 @@
             android:exported="false"/>
 
         <activity
+            android:name=".ViewCoursesActivity"
+            android:exported="false"
+            android:label="View Courses" />
+
+        <activity
             android:name=".AttendanceActivity"
             android:exported="false"
             android:label="Attendance" />

@@ -3359,6 +3359,8 @@ id continuousVelocity
 id coordinator
 id cos
 id counterclockwise
+id courseCode
+id courseName
 id cradle
 id currentState
 id custom
@@ -3406,8 +3408,10 @@ id edit_query
 id edit_text_id
 id elastic
 id embed
+id emptyText
 id end
 id endToStart
+id enrollmentInfo
 id enterAlways
 id enterAlwaysCollapsed
 id escape
@@ -3448,6 +3452,7 @@ id graph_wrap
 id group_divider
 id grouping
 id groups
+id headerText
 id header_title
 id hide_ime_id
 id hide_in_inspector_tag
@@ -3609,11 +3614,13 @@ id pressed
 id profDateHeader
 id professorId
 id professorName
+id progressBar
 id progress_circular
 id progress_horizontal
 id radio
 id ratio
 id rectangles
+id recyclerViewCourses
 id report_drawn
 id reverseSawtooth
 id right
@@ -3627,6 +3634,7 @@ id save_non_transition_alpha
 id save_overlay_view
 id sawtooth
 id scale
+id scheduleInfo
 id screen
 id scroll
 id scrollIndicatorDown
@@ -3646,6 +3654,7 @@ id search_voice_btn
 id select_dialog_listview
 id selected
 id selection_type
+id semester
 id sharedValueSet
 id sharedValueUnset
 id shortcut
@@ -3889,6 +3898,7 @@ layout activity_attendance
 layout activity_home
 layout activity_map
 layout activity_professor_home
+layout activity_view_courses
 layout browser_actions_context_menu_page
 layout browser_actions_context_menu_row
 layout custom_dialog
@@ -3912,6 +3922,7 @@ layout dialog_create_event
 layout fragment_campus_map
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
+layout item_course
 layout m3_alert_dialog
 layout m3_alert_dialog_actions
 layout m3_alert_dialog_title
@@ -4551,8 +4562,6 @@ style Base_Widget_MaterialComponents_Snackbar
 style Base_Widget_MaterialComponents_TextInputEditText
 style Base_Widget_MaterialComponents_TextInputLayout
 style Base_Widget_MaterialComponents_TextView
-style CalendarDateTextAppearance
-style CalendarWeekDayTextAppearance
 style CardView
 style CardView_Dark
 style CardView_Light

@@ -3358,6 +3358,8 @@ int id continuousVelocity 0x7f08009c
 int id coordinator 0x7f08009d
 int id cos 0x7f08009e
 int id counterclockwise 0x7f08009f
+int id courseCode 0x7f080252
+int id courseName 0x7f080253
 int id cradle 0x7f0800a0
 int id currentState 0x7f0800a1
 int id custom 0x7f0800a2
@@ -3405,8 +3407,10 @@ int id edit_query 0x7f0800cb
 int id edit_text_id 0x7f0800cc
 int id elastic 0x7f0800cd
 int id embed 0x7f0800ce
+int id emptyText 0x7f080245
 int id end 0x7f0800cf
 int id endToStart 0x7f0800d0
+int id enrollmentInfo 0x7f080254
 int id enterAlways 0x7f0800d1
 int id enterAlwaysCollapsed 0x7f0800d2
 int id escape 0x7f0800d3
@@ -3447,6 +3451,7 @@ int id graph_wrap 0x7f0800f5
 int id group_divider 0x7f0800f6
 int id grouping 0x7f0800f7
 int id groups 0x7f0800f8
+int id headerText 0x7f080255
 int id header_title 0x7f0800f9
 int id hide_ime_id 0x7f0800fa
 int id hide_in_inspector_tag 0x7f0800fb
@@ -3608,11 +3613,13 @@ int id pressed 0x7f080196
 int id profDateHeader 0x7f080197
 int id professorId 0x7f080198
 int id professorName 0x7f080199
+int id progressBar 0x7f080249
 int id progress_circular 0x7f08019a
 int id progress_horizontal 0x7f08019b
 int id radio 0x7f08019c
 int id ratio 0x7f08019d
 int id rectangles 0x7f08019e
+int id recyclerViewCourses 0x7f080256
 int id report_drawn 0x7f08019f
 int id reverseSawtooth 0x7f0801a0
 int id right 0x7f0801a1
@@ -3626,6 +3633,7 @@ int id save_non_transition_alpha 0x7f0801a8
 int id save_overlay_view 0x7f0801a9
 int id sawtooth 0x7f0801aa
 int id scale 0x7f0801ab
+int id scheduleInfo 0x7f080257
 int id screen 0x7f0801ac
 int id scroll 0x7f0801ad
 int id scrollIndicatorDown 0x7f0801ae
@@ -3645,6 +3653,7 @@ int id search_voice_btn 0x7f0801bb
 int id select_dialog_listview 0x7f0801bc
 int id selected 0x7f0801bd
 int id selection_type 0x7f0801be
+int id semester 0x7f080258
 int id sharedValueSet 0x7f0801bf
 int id sharedValueUnset 0x7f0801c0
 int id shortcut 0x7f0801c1
@@ -3888,6 +3897,7 @@ int layout activity_attendance 0x7f0b001c
 int layout activity_home 0x7f0b001d
 int layout activity_map 0x7f0b001e
 int layout activity_professor_home 0x7f0b001f
+int layout activity_view_courses 0x7f0b0079
 int layout browser_actions_context_menu_page 0x7f0b0020
 int layout browser_actions_context_menu_row 0x7f0b0021
 int layout custom_dialog 0x7f0b0022
@@ -3911,6 +3921,7 @@ int layout dialog_create_event 0x7f0b0033
 int layout fragment_campus_map 0x7f0b0034
 int layout ime_base_split_test_activity 0x7f0b0035
 int layout ime_secondary_split_test_activity 0x7f0b0036
+int layout item_course 0x7f0b007c
 int layout m3_alert_dialog 0x7f0b0037
 int layout m3_alert_dialog_actions 0x7f0b0038
 int layout m3_alert_dialog_title 0x7f0b0039
@@ -4550,8 +4561,6 @@ int style Base_Widget_MaterialComponents_Snackbar 0x7f11011b
 int style Base_Widget_MaterialComponents_TextInputEditText 0x7f11011c
 int style Base_Widget_MaterialComponents_TextInputLayout 0x7f11011d
 int style Base_Widget_MaterialComponents_TextView 0x7f11011e
-int style CalendarDateTextAppearance 0x7f11046c
-int style CalendarWeekDayTextAppearance 0x7f11046d
 int style CardView 0x7f11011f
 int style CardView_Dark 0x7f110120
 int style CardView_Light 0x7f110121

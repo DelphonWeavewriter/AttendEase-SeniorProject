@@ -52,7 +52,7 @@ class ProfessorHomeActivity : AppCompatActivity() {
         }
 
         btnViewCourses.setOnClickListener {
-            Toast.makeText(this, "View Courses - Coming Soon", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, ViewCoursesActivity::class.java))
         }
 
         btnMySchedule.setOnClickListener {

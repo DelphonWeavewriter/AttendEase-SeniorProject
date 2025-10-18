@@ -34,9 +34,13 @@ id btnSignOut
 id btnSocial
 id btnViewAttendance
 id btnViewCourses
+id courseCode
+id courseName
 id dateHeader
 id editTextEmailAddress
 id editTextPassword
+id emptyText
+id enrollmentInfo
 id etEventDate
 id etEventDescription
 id etEventLocation
@@ -45,6 +49,7 @@ id etEventTime
 id etMessage
 id fabRecenter
 id forgotPassword
+id headerText
 id loginSubtitle
 id map
 id map_container
@@ -52,6 +57,10 @@ id nextClass
 id profDateHeader
 id professorId
 id professorName
+id progressBar
+id recyclerViewCourses
+id scheduleInfo
+id semester
 id signInButton
 id spinnerCourse
 id spinnerEventCourse
@@ -65,9 +74,11 @@ layout activity_attendance
 layout activity_home
 layout activity_map
 layout activity_professor_home
+layout activity_view_courses
 layout dialog_announcement
 layout dialog_create_event
 layout fragment_campus_map
+layout item_course
 layout map_test
 layout signin_layout
 mipmap ic_launcher
@@ -92,8 +103,6 @@ string recenter_map
 string sign_in
 string signing_in
 string welcome_back
-style CalendarDateTextAppearance
-style CalendarWeekDayTextAppearance
 style Theme.AttendEaseCampusCompanion
 xml backup_rules
 xml data_extraction_rules
