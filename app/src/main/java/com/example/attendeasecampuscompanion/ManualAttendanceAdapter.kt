@@ -31,20 +31,25 @@ class ManualAttendanceAdapter(
 
         updateButtonStates(holder, student.status)
 
-        holder.btnPresent.setOnClickListener {
+        holder.btnPresent.setOnClickListener { view ->
+            view.performClick()
             student.status = "PRESENT"
             updateButtonStates(holder, "PRESENT")
         }
 
-        holder.btnLate.setOnClickListener {
+        holder.btnLate.setOnClickListener { view ->
+            view.performClick()
             student.status = "LATE"
             updateButtonStates(holder, "LATE")
         }
 
-        holder.btnAbsent.setOnClickListener {
+        holder.btnAbsent.setOnClickListener { view ->
+            view.performClick()
             student.status = "ABSENT"
             updateButtonStates(holder, "ABSENT")
         }
+
+        holder.itemView.setOnClickListener(null)
     }
 
     private fun updateButtonStates(holder: ViewHolder, status: String) {

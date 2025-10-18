@@ -7,10 +7,10 @@ INJECTED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifes
 	android:name
 		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:23:13-58
 manifest
-ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:2:1-77:12
-INJECTED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:2:1-77:12
-INJECTED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:2:1-77:12
-INJECTED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:2:1-77:12
+ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:2:1-81:12
+INJECTED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:2:1-81:12
+INJECTED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:2:1-81:12
+INJECTED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:2:1-81:12
 MERGED from [androidx.databinding:viewbinding:8.13.0] /Users/steven/.gradle/caches/8.13/transforms/9f9567f922eb796a0cc6ee328c3a4e90/transformed/viewbinding-8.13.0/AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.android.material:material:1.12.0] /Users/steven/.gradle/caches/8.13/transforms/0f4b714816a12d2601ace17179d8b529/transformed/material-1.12.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.2.1] /Users/steven/.gradle/caches/8.13/transforms/74b0b6552af68a8ff2f58407061dedba/transformed/constraintlayout-2.2.1/AndroidManifest.xml:2:1-9:12
@@ -165,8 +165,8 @@ ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.x
 	android:name
 		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:10:19-54
 application
-ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:12:5-75:19
-INJECTED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:12:5-75:19
+ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:12:5-79:19
+INJECTED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:12:5-79:19
 MERGED from [com.google.android.material:material:1.12.0] /Users/steven/.gradle/caches/8.13/transforms/0f4b714816a12d2601ace17179d8b529/transformed/material-1.12.0/AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.12.0] /Users/steven/.gradle/caches/8.13/transforms/0f4b714816a12d2601ace17179d8b529/transformed/material-1.12.0/AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.2.1] /Users/steven/.gradle/caches/8.13/transforms/74b0b6552af68a8ff2f58407061dedba/transformed/constraintlayout-2.2.1/AndroidManifest.xml:7:5-20
@@ -329,6 +329,12 @@ ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.x
 		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:72:13-37
 	android:name
 		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:71:13-44
+activity#com.example.attendeasecampuscompanion.MarkAttendanceActivity
+ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:75:9-77:40
+	android:exported
+		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:77:13-37
+	android:name
+		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:76:13-51
 uses-sdk
 INJECTED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml

@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
+    android:clickable="false"
+    android:focusable="false"
     app:cardCornerRadius="12dp"
     app:cardElevation="4dp">
 
@@ -12,6 +14,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="12dp"
+        android:clickable="false"
+        android:focusable="false"
         android:gravity="center_vertical">
 
         <TextView
@@ -32,6 +36,8 @@
             android:textSize="12sp"
             android:textColor="#FFFFFF"
             android:backgroundTint="#66BB6A"
+            android:clickable="true"
+            android:focusable="true"
             android:layout_marginEnd="4dp" />
 
         <Button
@@ -42,6 +48,8 @@
             android:textSize="12sp"
             android:textColor="#333333"
             android:backgroundTint="#EEEEEE"
+            android:clickable="true"
+            android:focusable="true"
             android:layout_marginEnd="4dp" />
 
         <Button
@@ -51,6 +59,8 @@
             android:text="Absent"
             android:textSize="12sp"
             android:textColor="#333333"
+            android:clickable="true"
+            android:focusable="true"
             android:backgroundTint="#EEEEEE" />
 
     </LinearLayout>
