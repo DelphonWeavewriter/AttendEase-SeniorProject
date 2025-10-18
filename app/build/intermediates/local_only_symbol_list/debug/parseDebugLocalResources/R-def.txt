@@ -1,11 +1,15 @@
 R_DEF: Internal format may change without notice
 local
 color black
+color error_red
+color light_gray
 color purple_200
 color purple_500
 color purple_700
+color success_green
 color teal_200
 color teal_700
+color warning_yellow
 color white
 drawable app_logo
 drawable background_gradient
@@ -20,16 +24,21 @@ drawable input_field_background
 drawable login_background
 drawable signin_button_background
 id appLogo
+id btnAbsent
 id btnBack
 id btnCampusMap
 id btnCheckIn
 id btnCreateEvent
 id btnFinalsSchedule
+id btnLate
 id btnManualAttendance
 id btnMySchedule
+id btnPresent
 id btnProfCampusMap
 id btnProfSignOut
+id btnSaveAttendance
 id btnSchedule
+id btnSelectDate
 id btnSendAnnouncement
 id btnSignOut
 id btnSocial
@@ -51,8 +60,10 @@ id etEventLocation
 id etEventName
 id etEventTime
 id etMessage
+id fabBack
 id fabRecenter
 id forgotPassword
+id headerLayout
 id headerSection
 id location
 id loginSubtitle
@@ -65,6 +76,8 @@ id professorName
 id progressBar
 id recyclerViewCourses
 id recyclerViewSchedule
+id rvCourses
+id rvStudents
 id scheduleInfo
 id semester
 id signInButton
@@ -76,10 +89,15 @@ id textView
 id timeRange
 id tvCoursesList
 id tvNoCourses
+id tvSelectedCourse
+id tvSelectedDate
+id tvStudentName
+id tvTitle
 id welcomeTitle
 layout activity_attendance
 layout activity_home
 layout activity_map
+layout activity_mark_attendance
 layout activity_my_schedule
 layout activity_professor_home
 layout activity_view_courses
@@ -87,6 +105,7 @@ layout dialog_announcement
 layout dialog_create_event
 layout fragment_campus_map
 layout item_course
+layout item_manual_attendance
 layout item_schedule
 layout map_test
 layout signin_layout

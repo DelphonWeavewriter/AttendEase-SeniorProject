@@ -44,7 +44,7 @@ class ProfessorHomeActivity : AppCompatActivity() {
         loadUserData()
 
         btnManualAttendance.setOnClickListener {
-            Toast.makeText(this, "Mark Attendance - Coming Soon", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, MarkAttendanceActivity::class.java))
         }
 
         btnViewAttendance.setOnClickListener {

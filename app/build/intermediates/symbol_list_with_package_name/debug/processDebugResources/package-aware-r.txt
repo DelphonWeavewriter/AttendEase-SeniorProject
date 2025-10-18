@@ -1480,10 +1480,12 @@ color dim_foreground_material_dark
 color dim_foreground_material_light
 color error_color_material_dark
 color error_color_material_light
+color error_red
 color foreground_material_dark
 color foreground_material_light
 color highlighted_text_material_dark
 color highlighted_text_material_light
+color light_gray
 color m3_appbar_overlay_color
 color m3_assist_chip_icon_tint_color
 color m3_assist_chip_stroke_color
@@ -2157,6 +2159,7 @@ color secondary_text_default_material_dark
 color secondary_text_default_material_light
 color secondary_text_disabled_material_dark
 color secondary_text_disabled_material_light
+color success_green
 color switch_thumb_disabled_material_dark
 color switch_thumb_disabled_material_light
 color switch_thumb_material_dark
@@ -2169,6 +2172,7 @@ color tooltip_background_dark
 color tooltip_background_light
 color vector_tint_color
 color vector_tint_theme_color
+color warning_yellow
 color white
 dimen abc_action_bar_content_inset_material
 dimen abc_action_bar_content_inset_with_nav
@@ -3309,16 +3313,21 @@ id browser_actions_menu_item_icon
 id browser_actions_menu_item_text
 id browser_actions_menu_items
 id browser_actions_menu_view
+id btnAbsent
 id btnBack
 id btnCampusMap
 id btnCheckIn
 id btnCreateEvent
 id btnFinalsSchedule
+id btnLate
 id btnManualAttendance
 id btnMySchedule
+id btnPresent
 id btnProfCampusMap
 id btnProfSignOut
+id btnSaveAttendance
 id btnSchedule
+id btnSelectDate
 id btnSendAnnouncement
 id btnSignOut
 id btnSocial
@@ -3428,6 +3437,7 @@ id etMessage
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
+id fabBack
 id fabRecenter
 id fade
 id fill
@@ -3456,6 +3466,7 @@ id graph_wrap
 id group_divider
 id grouping
 id groups
+id headerLayout
 id headerSection
 id header_title
 id hide_ime_id
@@ -3635,6 +3646,8 @@ id right_icon
 id right_side
 id rounded
 id row_index_key
+id rvCourses
+id rvStudents
 id satellite
 id save_non_transition_alpha
 id save_overlay_view
@@ -3758,6 +3771,10 @@ id transition_transform
 id triangle
 id tvCoursesList
 id tvNoCourses
+id tvSelectedCourse
+id tvSelectedDate
+id tvStudentName
+id tvTitle
 id unchecked
 id uniform
 id unlabeled
@@ -3904,6 +3921,7 @@ layout abc_tooltip
 layout activity_attendance
 layout activity_home
 layout activity_map
+layout activity_mark_attendance
 layout activity_my_schedule
 layout activity_professor_home
 layout activity_view_courses
@@ -3931,6 +3949,7 @@ layout fragment_campus_map
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
 layout item_course
+layout item_manual_attendance
 layout item_schedule
 layout m3_alert_dialog
 layout m3_alert_dialog_actions

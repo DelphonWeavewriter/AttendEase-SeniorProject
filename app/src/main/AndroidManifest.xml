@@ -72,6 +72,10 @@
             android:exported="false"
             android:label="Campus Map" />
 
+        <activity
+            android:name=".MarkAttendanceActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>
