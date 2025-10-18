@@ -101,12 +101,12 @@
                 android:gravity="center">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnSchedule"
+                    android:id="@+id/btnFinalsSchedule"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
                     android:layout_margin="8dp"
-                    android:text="View My\nSchedule"
+                    android:text="My Finals\nSchedule"
                     android:textSize="16sp"
                     app:cornerRadius="32dp"
                     app:elevation="2dp"
@@ -150,12 +150,12 @@
                     android:gravity="center"/>
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnFinalsSchedule"
+                    android:id="@+id/btnSchedule"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
                     android:layout_margin="8dp"
-                    android:text="My Finals\nSchedule"
+                    android:text="View My\nSchedule"
                     android:textSize="16sp"
                     app:cornerRadius="32dp"
                     app:elevation="2dp"
