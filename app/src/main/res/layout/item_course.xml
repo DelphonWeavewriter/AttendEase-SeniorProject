@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="4dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="2dp"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground">
@@ -14,13 +14,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="20dp"
+        android:background="#FFFFFF">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:paddingBottom="8dp">
 
             <TextView
                 android:id="@+id/courseCode"
@@ -28,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="CSCI 145"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="#42A5F5" />
 
@@ -36,9 +38,13 @@
                 android:id="@+id/enrollmentInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="25/32 students"
+                android:text="25/32"
                 android:textSize="14sp"
-                android:textColor="#666666" />
+                android:textStyle="bold"
+                android:textColor="#66BB6A"
+                android:background="@drawable/card_background"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="4dp" />
 
         </LinearLayout>
 
@@ -49,25 +55,63 @@
             android:text="Computer Programming"
             android:textSize="16sp"
             android:textColor="#333333"
-            android:paddingTop="4dp" />
+            android:textStyle="bold"
+            android:paddingBottom="12dp" />
 
-        <TextView
-            android:id="@+id/semester"
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E0E0E0"
+            android:layout_marginBottom="12dp" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Spring 2025"
-            android:textSize="14sp"
-            android:textColor="#666666"
-            android:paddingTop="4dp" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/scheduleInfo"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📅"
+                android:textSize="16sp"
+                android:paddingEnd="8dp" />
+
+            <TextView
+                android:id="@+id/semester"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Spring 2025"
+                android:textSize="14sp"
+                android:textColor="#666666" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Monday 11:15 AM - 12:30 PM"
-            android:textSize="14sp"
-            android:textColor="#666666"
-            android:paddingTop="4dp" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingTop="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🕐"
+                android:textSize="16sp"
+                android:paddingEnd="8dp" />
+
+            <TextView
+                android:id="@+id/scheduleInfo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Monday 11:15 AM - 12:30 PM"
+                android:textSize="14sp"
+                android:textColor="#666666" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -20,6 +20,7 @@ drawable input_field_background
 drawable login_background
 drawable signin_button_background
 id appLogo
+id btnBack
 id btnCampusMap
 id btnCheckIn
 id btnCreateEvent
@@ -39,6 +40,7 @@ id courseName
 id dateHeader
 id editTextEmailAddress
 id editTextPassword
+id emptyState
 id emptyText
 id enrollmentInfo
 id etEventDate
@@ -49,7 +51,7 @@ id etEventTime
 id etMessage
 id fabRecenter
 id forgotPassword
-id headerText
+id headerSection
 id loginSubtitle
 id map
 id map_container

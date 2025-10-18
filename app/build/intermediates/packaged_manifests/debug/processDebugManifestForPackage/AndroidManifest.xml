@@ -88,8 +88,7 @@
             android:exported="false" />
         <activity
             android:name="com.example.attendeasecampuscompanion.ViewCoursesActivity"
-            android:exported="false"
-            android:label="View Courses" />
+            android:exported="false" />
         <activity
             android:name="com.example.attendeasecampuscompanion.AttendanceActivity"
             android:exported="false"

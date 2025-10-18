@@ -3309,6 +3309,7 @@ id browser_actions_menu_item_icon
 id browser_actions_menu_item_text
 id browser_actions_menu_items
 id browser_actions_menu_view
+id btnBack
 id btnCampusMap
 id btnCheckIn
 id btnCreateEvent
@@ -3408,6 +3409,7 @@ id edit_query
 id edit_text_id
 id elastic
 id embed
+id emptyState
 id emptyText
 id end
 id endToStart
@@ -3452,7 +3454,7 @@ id graph_wrap
 id group_divider
 id grouping
 id groups
-id headerText
+id headerSection
 id header_title
 id hide_ime_id
 id hide_in_inspector_tag

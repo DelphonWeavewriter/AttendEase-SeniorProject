@@ -3308,6 +3308,7 @@ int id browser_actions_menu_item_icon 0x7f08006a
 int id browser_actions_menu_item_text 0x7f08006b
 int id browser_actions_menu_items 0x7f08006c
 int id browser_actions_menu_view 0x7f08006d
+int id btnBack 0x7f080259
 int id btnCampusMap 0x7f08006e
 int id btnCheckIn 0x7f08006f
 int id btnCreateEvent 0x7f080070
@@ -3407,6 +3408,7 @@ int id edit_query 0x7f0800cb
 int id edit_text_id 0x7f0800cc
 int id elastic 0x7f0800cd
 int id embed 0x7f0800ce
+int id emptyState 0x7f08025a
 int id emptyText 0x7f080245
 int id end 0x7f0800cf
 int id endToStart 0x7f0800d0
@@ -3451,7 +3453,7 @@ int id graph_wrap 0x7f0800f5
 int id group_divider 0x7f0800f6
 int id grouping 0x7f0800f7
 int id groups 0x7f0800f8
-int id headerText 0x7f080255
+int id headerSection 0x7f08025b
 int id header_title 0x7f0800f9
 int id hide_ime_id 0x7f0800fa
 int id hide_in_inspector_tag 0x7f0800fb

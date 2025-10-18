@@ -16,7 +16,7 @@ class ViewCoursesActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var progressBar: ProgressBar
-    private lateinit var emptyText: TextView
+    private lateinit var emptyState: View
     private lateinit var courseAdapter: CourseAdapter
 
     private val db = FirebaseFirestore.getInstance()
@@ -29,7 +29,11 @@ class ViewCoursesActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.recyclerViewCourses)
         progressBar = findViewById(R.id.progressBar)
-        emptyText = findViewById(R.id.emptyText)
+        emptyState = findViewById(R.id.emptyState)
+
+        findViewById<View>(R.id.btnBack).setOnClickListener {
+            finish()
+        }
 
         setupRecyclerView()
         loadCourses()
@@ -47,7 +51,7 @@ class ViewCoursesActivity : AppCompatActivity() {
         val professorId = auth.currentUser?.uid ?: return
 
         progressBar.visibility = View.VISIBLE
-        emptyText.visibility = View.GONE
+        emptyState.visibility = View.GONE
 
         db.collection("Courses")
             .whereEqualTo("professorId", professorId)
@@ -62,14 +66,14 @@ class ViewCoursesActivity : AppCompatActivity() {
                 }
 
                 if (coursesList.isEmpty()) {
-                    emptyText.visibility = View.VISIBLE
+                    emptyState.visibility = View.VISIBLE
                 } else {
                     courseAdapter.notifyDataSetChanged()
                 }
             }
             .addOnFailureListener { exception ->
                 progressBar.visibility = View.GONE
-                emptyText.visibility = View.VISIBLE
+                emptyState.visibility = View.VISIBLE
                 Toast.makeText(this, "Error loading courses: ${exception.message}", Toast.LENGTH_SHORT).show()
             }
     }

@@ -4,12 +4,12 @@
         "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-72:/drawable/signin_button_background.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-70:/mipmap-hdpi_ic_launcher_round.webp.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-72:/mipmap-hdpi/ic_launcher_round.webp"
-    },
-    {
         "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-70:/layout_activity_view_attendance.xml.flat",
         "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-72:/layout/activity_view_attendance.xml"
+    },
+    {
+        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-70:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-72:/mipmap-hdpi/ic_launcher_round.webp"
     },
     {
         "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-70:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
