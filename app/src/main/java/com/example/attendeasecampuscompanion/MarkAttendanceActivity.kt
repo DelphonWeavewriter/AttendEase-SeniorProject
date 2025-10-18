@@ -32,8 +32,8 @@ class MarkAttendanceActivity : AppCompatActivity() {
     private lateinit var fabBack: FloatingActionButton
 
     private val courses = mutableListOf<Course>()
+    private val courseDocIds = mutableListOf<String>()
     private val students = mutableListOf<StudentAttendanceItem>()
-    private lateinit var courseAdapter: CourseAdapter
     private lateinit var attendanceAdapter: ManualAttendanceAdapter
 
     private var selectedCourse: Course? = null
@@ -87,9 +87,11 @@ class MarkAttendanceActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener { documents ->
                 courses.clear()
+                courseDocIds.clear()
                 for (document in documents) {
                     val course = document.toObject(Course::class.java)
                     courses.add(course)
+                    courseDocIds.add(document.id)
                 }
                 setupCourseAdapter()
                 progressBar.visibility = View.GONE
@@ -101,10 +103,12 @@ class MarkAttendanceActivity : AppCompatActivity() {
     }
 
     private fun setupCourseAdapter() {
-        courseAdapter = CourseAdapter(courses) { course, docId ->
+        val adapter = CourseAdapter(courses) { course ->
+            val index = courses.indexOf(course)
+            val docId = courseDocIds[index]
             onCourseSelected(course, docId)
         }
-        rvCourses.adapter = courseAdapter
+        rvCourses.adapter = adapter
     }
 
     private fun onCourseSelected(course: Course, docId: String) {
