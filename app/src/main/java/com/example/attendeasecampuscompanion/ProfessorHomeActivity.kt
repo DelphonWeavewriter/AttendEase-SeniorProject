@@ -16,6 +16,9 @@ import java.util.*
 class ProfessorHomeActivity : AppCompatActivity() {
 
     private lateinit var professorNameText: TextView
+    private lateinit var professorIdText: TextView
+    private lateinit var profDateHeader: TextView
+    private lateinit var tvCoursesList: TextView
     private lateinit var btnManualAttendance: Button
     private lateinit var btnViewAttendance: Button
     private lateinit var btnViewCourses: Button
@@ -33,6 +36,9 @@ class ProfessorHomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_professor_home)
 
         professorNameText = findViewById(R.id.professorName)
+        professorIdText = findViewById(R.id.professorId)
+        profDateHeader = findViewById(R.id.profDateHeader)
+        tvCoursesList = findViewById(R.id.tvCoursesList)
         btnManualAttendance = findViewById(R.id.btnManualAttendance)
         btnViewAttendance = findViewById(R.id.btnViewAttendance)
         btnViewCourses = findViewById(R.id.btnViewCourses)
@@ -41,7 +47,9 @@ class ProfessorHomeActivity : AppCompatActivity() {
         btnCreateEvent = findViewById(R.id.btnCreateEvent)
         btnProfSignOut = findViewById(R.id.btnProfSignOut)
 
+        setCurrentDate()
         loadUserData()
+        loadCourseCount()
 
         btnManualAttendance.setOnClickListener {
             startActivity(Intent(this, MarkAttendanceActivity::class.java))
@@ -74,16 +82,42 @@ class ProfessorHomeActivity : AppCompatActivity() {
         }
     }
 
+    private fun setCurrentDate() {
+        val calendar = Calendar.getInstance()
+        val dateFormat = SimpleDateFormat("EEEE, MMMM d", Locale.US)
+        profDateHeader.text = dateFormat.format(calendar.time)
+    }
+
     private fun loadUserData() {
         val userId = auth.currentUser?.uid ?: return
 
         db.collection("Users").document(userId).get()
             .addOnSuccessListener { document ->
                 currentUser = document.toObject(User::class.java)
-                professorNameText.text = "${currentUser?.firstName} ${currentUser?.lastName}"
+                val fullName = "${currentUser?.firstName} ${currentUser?.lastName}"
+                professorNameText.text = fullName
+
+                val displayId = currentUser?.userId ?: userId.substring(0, 8)
+                professorIdText.text = "ID: $displayId"
             }
             .addOnFailureListener {
                 professorNameText.text = "Professor Name"
+                professorIdText.text = "ID: N/A"
+            }
+    }
+
+    private fun loadCourseCount() {
+        val userId = auth.currentUser?.uid ?: return
+
+        db.collection("Courses")
+            .whereEqualTo("professorId", userId)
+            .get()
+            .addOnSuccessListener { documents ->
+                val courseCount = documents.size()
+                tvCoursesList.text = "Teaching $courseCount course(s)"
+            }
+            .addOnFailureListener {
+                tvCoursesList.text = "Teaching 0 course(s)"
             }
     }
 
