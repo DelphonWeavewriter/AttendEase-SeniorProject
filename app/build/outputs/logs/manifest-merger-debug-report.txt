@@ -7,10 +7,10 @@ INJECTED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifes
 	android:name
 		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:23:13-58
 manifest
-ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:2:1-81:12
-INJECTED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:2:1-81:12
-INJECTED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:2:1-81:12
-INJECTED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:2:1-81:12
+ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:2:1-85:12
+INJECTED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:2:1-85:12
+INJECTED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:2:1-85:12
+INJECTED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:2:1-85:12
 MERGED from [androidx.databinding:viewbinding:8.13.0] /Users/steven/.gradle/caches/8.13/transforms/9f9567f922eb796a0cc6ee328c3a4e90/transformed/viewbinding-8.13.0/AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.android.material:material:1.12.0] /Users/steven/.gradle/caches/8.13/transforms/0f4b714816a12d2601ace17179d8b529/transformed/material-1.12.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.2.1] /Users/steven/.gradle/caches/8.13/transforms/74b0b6552af68a8ff2f58407061dedba/transformed/constraintlayout-2.2.1/AndroidManifest.xml:2:1-9:12
@@ -55,6 +55,8 @@ MERGED from [com.google.android.gms:play-services-fido:20.1.0] /Users/steven/.gr
 MERGED from [com.google.firebase:firebase-database-collection:18.0.1] /Users/steven/.gradle/caches/8.13/transforms/2be336e8d66a64029e616552bb89a55a/transformed/firebase-database-collection-18.0.1/AndroidManifest.xml:2:1-9:12
 MERGED from [com.google.android.gms:play-services-auth-base:18.0.4] /Users/steven/.gradle/caches/8.13/transforms/34eae40af74731f1e34ca703816620e8/transformed/play-services-auth-base-18.0.4/AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.android.gms:play-services-base:18.5.0] /Users/steven/.gradle/caches/8.13/transforms/40a3c139eb67cfa08b208d727e492b51/transformed/play-services-base-18.5.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.viewpager2:viewpager2:1.1.0-beta02] /Users/steven/.gradle/caches/8.13/transforms/c4ddf655a941365b69373f835fc98f66/transformed/viewpager2-1.1.0-beta02/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.recyclerview:recyclerview:1.3.2] /Users/steven/.gradle/caches/8.13/transforms/831df813c5d290ee5f2ed490eb6fc4fb/transformed/recyclerview-1.3.2/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.browser:browser:1.4.0] /Users/steven/.gradle/caches/8.13/transforms/47c8e1f42b78453c54e50f9aaabefa19/transformed/browser-1.4.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] /Users/steven/.gradle/caches/8.13/transforms/081a8c7c6e0a690996091bd9fb315cb1/transformed/drawerlayout-1.1.1/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /Users/steven/.gradle/caches/8.13/transforms/31e2ba39c83fbbc15f8e4263e8fd4dab/transformed/coordinatorlayout-1.1.0/AndroidManifest.xml:17:1-24:12
@@ -62,11 +64,9 @@ MERGED from [androidx.transition:transition:1.5.0] /Users/steven/.gradle/caches/
 MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] /Users/steven/.gradle/caches/8.13/transforms/c4eee41e2488bbdfd57a716170b6b70f/transformed/dynamicanimation-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /Users/steven/.gradle/caches/8.13/transforms/5c957f4c67273f22372748db60fbf2c4/transformed/vectordrawable-animated-1.1.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /Users/steven/.gradle/caches/8.13/transforms/b058ccd826bc852fbd6e7918a0abcc33/transformed/vectordrawable-1.1.0/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.viewpager2:viewpager2:1.0.0] /Users/steven/.gradle/caches/8.13/transforms/4658539789c500c2bf15579b957c5e7e/transformed/viewpager2-1.0.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/steven/.gradle/caches/8.13/transforms/ed53db52483be2b29255e4c8c0cc50fc/transformed/viewpager-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/steven/.gradle/caches/8.13/transforms/ece7a23d95fd3bdb513dbfc54e0eaa31/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.loader:loader:1.0.0] /Users/steven/.gradle/caches/8.13/transforms/c3821511f727078fb245517f40f77d7b/transformed/loader-1.0.0/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.recyclerview:recyclerview:1.1.0] /Users/steven/.gradle/caches/8.13/transforms/d96136173c0caeea7f1769b6545c6395/transformed/recyclerview-1.1.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.customview:customview:1.1.0] /Users/steven/.gradle/caches/8.13/transforms/572a89c7610dd32a101a67d2e5d698cb/transformed/customview-1.1.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.autofill:autofill:1.0.0] /Users/steven/.gradle/caches/8.13/transforms/23c015d9408cd2b74caa732980725089/transformed/autofill-1.0.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.emoji2:emoji2-views-helper:1.3.0] /Users/steven/.gradle/caches/8.13/transforms/155b113b2ebfddc0d19e85764b621aa8/transformed/emoji2-views-helper-1.3.0/AndroidManifest.xml:2:1-7:12
@@ -93,6 +93,7 @@ MERGED from [androidx.activity:activity:1.11.0] /Users/steven/.gradle/caches/8.1
 MERGED from [androidx.customview:customview-poolingcontainer:1.0.0] /Users/steven/.gradle/caches/8.13/transforms/78ae8e8a0bc4a2bea793a194a599563c/transformed/customview-poolingcontainer-1.0.0/AndroidManifest.xml:17:1-23:12
 MERGED from [androidx.core:core-ktx:1.15.0] /Users/steven/.gradle/caches/8.13/transforms/fa76dbd68ce25fb41adb2d0aa7d46e3b/transformed/core-ktx-1.15.0/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.core:core-viewtree:1.0.0] /Users/steven/.gradle/caches/8.13/transforms/029abab7a3d06f3f069ce0ce47effabc/transformed/core-viewtree-1.0.0/AndroidManifest.xml:2:1-7:12
+MERGED from [com.github.PhilJay:MPAndroidChart:v3.1.0] /Users/steven/.gradle/caches/8.13/transforms/7f0265b1b3ad0c1b11a45f11c0aa0e69/transformed/MPAndroidChart-v3.1.0/AndroidManifest.xml:2:1-20:12
 MERGED from [androidx.profileinstaller:profileinstaller:1.4.0] /Users/steven/.gradle/caches/8.13/transforms/2effd72c61a23246c71ef2843f2e09d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:17:1-55:12
 MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/steven/.gradle/caches/8.13/transforms/9e74041439ee86e9a903b416685e0fd2/transformed/localbroadcastmanager-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [com.google.firebase:firebase-components:18.0.0] /Users/steven/.gradle/caches/8.13/transforms/b63926bb9017c87f2285288c1c1b818f/transformed/firebase-components-18.0.0/AndroidManifest.xml:15:1-20:12
@@ -165,8 +166,8 @@ ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.x
 	android:name
 		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:10:19-54
 application
-ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:12:5-79:19
-INJECTED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:12:5-79:19
+ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:12:5-83:19
+INJECTED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:12:5-83:19
 MERGED from [com.google.android.material:material:1.12.0] /Users/steven/.gradle/caches/8.13/transforms/0f4b714816a12d2601ace17179d8b529/transformed/material-1.12.0/AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.12.0] /Users/steven/.gradle/caches/8.13/transforms/0f4b714816a12d2601ace17179d8b529/transformed/material-1.12.0/AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.2.1] /Users/steven/.gradle/caches/8.13/transforms/74b0b6552af68a8ff2f58407061dedba/transformed/constraintlayout-2.2.1/AndroidManifest.xml:7:5-20
@@ -335,6 +336,12 @@ ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.x
 		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:77:13-37
 	android:name
 		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:76:13-51
+activity#com.example.attendeasecampuscompanion.ViewAttendanceActivity
+ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:79:9-81:40
+	android:exported
+		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:81:13-37
+	android:name
+		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:80:13-51
 uses-sdk
 INJECTED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml
@@ -427,6 +434,10 @@ MERGED from [com.google.android.gms:play-services-auth-base:18.0.4] /Users/steve
 MERGED from [com.google.android.gms:play-services-auth-base:18.0.4] /Users/steven/.gradle/caches/8.13/transforms/34eae40af74731f1e34ca703816620e8/transformed/play-services-auth-base-18.0.4/AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-base:18.5.0] /Users/steven/.gradle/caches/8.13/transforms/40a3c139eb67cfa08b208d727e492b51/transformed/play-services-base-18.5.0/AndroidManifest.xml:3:5-44
 MERGED from [com.google.android.gms:play-services-base:18.5.0] /Users/steven/.gradle/caches/8.13/transforms/40a3c139eb67cfa08b208d727e492b51/transformed/play-services-base-18.5.0/AndroidManifest.xml:3:5-44
+MERGED from [androidx.viewpager2:viewpager2:1.1.0-beta02] /Users/steven/.gradle/caches/8.13/transforms/c4ddf655a941365b69373f835fc98f66/transformed/viewpager2-1.1.0-beta02/AndroidManifest.xml:5:5-44
+MERGED from [androidx.viewpager2:viewpager2:1.1.0-beta02] /Users/steven/.gradle/caches/8.13/transforms/c4ddf655a941365b69373f835fc98f66/transformed/viewpager2-1.1.0-beta02/AndroidManifest.xml:5:5-44
+MERGED from [androidx.recyclerview:recyclerview:1.3.2] /Users/steven/.gradle/caches/8.13/transforms/831df813c5d290ee5f2ed490eb6fc4fb/transformed/recyclerview-1.3.2/AndroidManifest.xml:20:5-44
+MERGED from [androidx.recyclerview:recyclerview:1.3.2] /Users/steven/.gradle/caches/8.13/transforms/831df813c5d290ee5f2ed490eb6fc4fb/transformed/recyclerview-1.3.2/AndroidManifest.xml:20:5-44
 MERGED from [androidx.browser:browser:1.4.0] /Users/steven/.gradle/caches/8.13/transforms/47c8e1f42b78453c54e50f9aaabefa19/transformed/browser-1.4.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.browser:browser:1.4.0] /Users/steven/.gradle/caches/8.13/transforms/47c8e1f42b78453c54e50f9aaabefa19/transformed/browser-1.4.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] /Users/steven/.gradle/caches/8.13/transforms/081a8c7c6e0a690996091bd9fb315cb1/transformed/drawerlayout-1.1.1/AndroidManifest.xml:20:5-22:41
@@ -441,16 +452,12 @@ MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /Users/steve
 MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /Users/steven/.gradle/caches/8.13/transforms/5c957f4c67273f22372748db60fbf2c4/transformed/vectordrawable-animated-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /Users/steven/.gradle/caches/8.13/transforms/b058ccd826bc852fbd6e7918a0abcc33/transformed/vectordrawable-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /Users/steven/.gradle/caches/8.13/transforms/b058ccd826bc852fbd6e7918a0abcc33/transformed/vectordrawable-1.1.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.viewpager2:viewpager2:1.0.0] /Users/steven/.gradle/caches/8.13/transforms/4658539789c500c2bf15579b957c5e7e/transformed/viewpager2-1.0.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.viewpager2:viewpager2:1.0.0] /Users/steven/.gradle/caches/8.13/transforms/4658539789c500c2bf15579b957c5e7e/transformed/viewpager2-1.0.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/steven/.gradle/caches/8.13/transforms/ed53db52483be2b29255e4c8c0cc50fc/transformed/viewpager-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/steven/.gradle/caches/8.13/transforms/ed53db52483be2b29255e4c8c0cc50fc/transformed/viewpager-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/steven/.gradle/caches/8.13/transforms/ece7a23d95fd3bdb513dbfc54e0eaa31/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/steven/.gradle/caches/8.13/transforms/ece7a23d95fd3bdb513dbfc54e0eaa31/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.loader:loader:1.0.0] /Users/steven/.gradle/caches/8.13/transforms/c3821511f727078fb245517f40f77d7b/transformed/loader-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.loader:loader:1.0.0] /Users/steven/.gradle/caches/8.13/transforms/c3821511f727078fb245517f40f77d7b/transformed/loader-1.0.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.recyclerview:recyclerview:1.1.0] /Users/steven/.gradle/caches/8.13/transforms/d96136173c0caeea7f1769b6545c6395/transformed/recyclerview-1.1.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.recyclerview:recyclerview:1.1.0] /Users/steven/.gradle/caches/8.13/transforms/d96136173c0caeea7f1769b6545c6395/transformed/recyclerview-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.customview:customview:1.1.0] /Users/steven/.gradle/caches/8.13/transforms/572a89c7610dd32a101a67d2e5d698cb/transformed/customview-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.customview:customview:1.1.0] /Users/steven/.gradle/caches/8.13/transforms/572a89c7610dd32a101a67d2e5d698cb/transformed/customview-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.autofill:autofill:1.0.0] /Users/steven/.gradle/caches/8.13/transforms/23c015d9408cd2b74caa732980725089/transformed/autofill-1.0.0/AndroidManifest.xml:20:5-22:41
@@ -503,6 +510,8 @@ MERGED from [androidx.core:core-ktx:1.15.0] /Users/steven/.gradle/caches/8.13/tr
 MERGED from [androidx.core:core-ktx:1.15.0] /Users/steven/.gradle/caches/8.13/transforms/fa76dbd68ce25fb41adb2d0aa7d46e3b/transformed/core-ktx-1.15.0/AndroidManifest.xml:5:5-44
 MERGED from [androidx.core:core-viewtree:1.0.0] /Users/steven/.gradle/caches/8.13/transforms/029abab7a3d06f3f069ce0ce47effabc/transformed/core-viewtree-1.0.0/AndroidManifest.xml:5:5-44
 MERGED from [androidx.core:core-viewtree:1.0.0] /Users/steven/.gradle/caches/8.13/transforms/029abab7a3d06f3f069ce0ce47effabc/transformed/core-viewtree-1.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.github.PhilJay:MPAndroidChart:v3.1.0] /Users/steven/.gradle/caches/8.13/transforms/7f0265b1b3ad0c1b11a45f11c0aa0e69/transformed/MPAndroidChart-v3.1.0/AndroidManifest.xml:16:5-18:41
+MERGED from [com.github.PhilJay:MPAndroidChart:v3.1.0] /Users/steven/.gradle/caches/8.13/transforms/7f0265b1b3ad0c1b11a45f11c0aa0e69/transformed/MPAndroidChart-v3.1.0/AndroidManifest.xml:16:5-18:41
 MERGED from [androidx.profileinstaller:profileinstaller:1.4.0] /Users/steven/.gradle/caches/8.13/transforms/2effd72c61a23246c71ef2843f2e09d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:21:5-44
 MERGED from [androidx.profileinstaller:profileinstaller:1.4.0] /Users/steven/.gradle/caches/8.13/transforms/2effd72c61a23246c71ef2843f2e09d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:21:5-44
 MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/steven/.gradle/caches/8.13/transforms/9e74041439ee86e9a903b416685e0fd2/transformed/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44

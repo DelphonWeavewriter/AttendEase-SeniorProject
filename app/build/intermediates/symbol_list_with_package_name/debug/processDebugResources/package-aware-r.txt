@@ -3296,6 +3296,7 @@ id autoComplete
 id autoCompleteToEnd
 id autoCompleteToStart
 id axisRelative
+id barChart
 id barrier
 id baseline
 id beginOnFirstDraw
@@ -3499,6 +3500,9 @@ id jumpToEnd
 id jumpToStart
 id labeled
 id layout
+id layoutCharts
+id layoutDetailContent
+id layoutStats
 id left
 id leftToRight
 id legacy
@@ -3622,6 +3626,7 @@ id path
 id pathRelative
 id peekHeight
 id percent
+id pieChart
 id pin
 id pooling_container_listener_holder_tag
 id position
@@ -3631,6 +3636,7 @@ id profDateHeader
 id professorId
 id professorName
 id progressBar
+id progressBarDetail
 id progress_circular
 id progress_horizontal
 id radio
@@ -3638,6 +3644,7 @@ id ratio
 id rectangles
 id recyclerViewCourses
 id recyclerViewSchedule
+id recyclerViewStudents
 id report_drawn
 id reverseSawtooth
 id right
@@ -3693,6 +3700,7 @@ id south
 id spacer
 id special_effects_controller_view_tag
 id spinnerCourse
+id spinnerCourses
 id spinnerEventCourse
 id spline
 id split_action_bar
@@ -3769,12 +3777,25 @@ id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
 id triangle
+id tvAbsentCount
+id tvAttendanceRate
+id tvCounts
 id tvCoursesList
+id tvDetailAbsentCount
+id tvDetailLateCount
+id tvDetailPresentCount
+id tvEmptyState
+id tvLateCount
 id tvNoCourses
+id tvPresentCount
 id tvSelectedCourse
 id tvSelectedDate
+id tvStatus
+id tvStatusEmoji
 id tvStudentName
 id tvTitle
+id tvTotalClasses
+id tvTotalStudents
 id unchecked
 id uniform
 id unlabeled
@@ -3924,6 +3945,7 @@ layout activity_map
 layout activity_mark_attendance
 layout activity_my_schedule
 layout activity_professor_home
+layout activity_view_attendance
 layout activity_view_courses
 layout browser_actions_context_menu_page
 layout browser_actions_context_menu_row
@@ -3945,9 +3967,11 @@ layout design_text_input_end_icon
 layout design_text_input_start_icon
 layout dialog_announcement
 layout dialog_create_event
+layout dialog_student_detail
 layout fragment_campus_map
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
+layout item_attendance_report
 layout item_course
 layout item_manual_attendance
 layout item_schedule

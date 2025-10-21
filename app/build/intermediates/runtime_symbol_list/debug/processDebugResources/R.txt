@@ -3295,6 +3295,7 @@ int id autoComplete 0x7f080059
 int id autoCompleteToEnd 0x7f08005a
 int id autoCompleteToStart 0x7f08005b
 int id axisRelative 0x7f08005c
+int id barChart 0x7f080258
 int id barrier 0x7f08005d
 int id baseline 0x7f08005e
 int id beginOnFirstDraw 0x7f08005f
@@ -3498,6 +3499,9 @@ int id jumpToEnd 0x7f080124
 int id jumpToStart 0x7f080125
 int id labeled 0x7f080126
 int id layout 0x7f080127
+int id layoutCharts 0x7f080259
+int id layoutDetailContent 0x7f08025a
+int id layoutStats 0x7f08025b
 int id left 0x7f080128
 int id leftToRight 0x7f080129
 int id legacy 0x7f08012a
@@ -3621,6 +3625,7 @@ int id path 0x7f08019f
 int id pathRelative 0x7f0801a0
 int id peekHeight 0x7f0801a1
 int id percent 0x7f0801a2
+int id pieChart 0x7f08025c
 int id pin 0x7f0801a3
 int id pooling_container_listener_holder_tag 0x7f0801a4
 int id position 0x7f0801a5
@@ -3630,6 +3635,7 @@ int id profDateHeader 0x7f0801a8
 int id professorId 0x7f0801a9
 int id professorName 0x7f0801aa
 int id progressBar 0x7f0801ab
+int id progressBarDetail 0x7f08025d
 int id progress_circular 0x7f0801ac
 int id progress_horizontal 0x7f0801ad
 int id radio 0x7f0801ae
@@ -3637,6 +3643,7 @@ int id ratio 0x7f0801af
 int id rectangles 0x7f0801b0
 int id recyclerViewCourses 0x7f0801b1
 int id recyclerViewSchedule 0x7f0801b2
+int id recyclerViewStudents 0x7f08025e
 int id report_drawn 0x7f0801b3
 int id reverseSawtooth 0x7f0801b4
 int id right 0x7f0801b5
@@ -3692,6 +3699,7 @@ int id south 0x7f0801e6
 int id spacer 0x7f0801e7
 int id special_effects_controller_view_tag 0x7f0801e8
 int id spinnerCourse 0x7f0801e9
+int id spinnerCourses 0x7f08025f
 int id spinnerEventCourse 0x7f0801ea
 int id spline 0x7f0801eb
 int id split_action_bar 0x7f0801ec
@@ -3768,12 +3776,25 @@ int id transition_position 0x7f080232
 int id transition_scene_layoutid_cache 0x7f080233
 int id transition_transform 0x7f080234
 int id triangle 0x7f080235
+int id tvAbsentCount 0x7f080260
+int id tvAttendanceRate 0x7f080261
+int id tvCounts 0x7f080262
 int id tvCoursesList 0x7f080236
+int id tvDetailAbsentCount 0x7f080263
+int id tvDetailLateCount 0x7f080264
+int id tvDetailPresentCount 0x7f080265
+int id tvEmptyState 0x7f080266
+int id tvLateCount 0x7f080267
 int id tvNoCourses 0x7f080237
+int id tvPresentCount 0x7f080268
 int id tvSelectedCourse 0x7f080238
 int id tvSelectedDate 0x7f080239
+int id tvStatus 0x7f080269
+int id tvStatusEmoji 0x7f08026a
 int id tvStudentName 0x7f08023a
 int id tvTitle 0x7f08023b
+int id tvTotalClasses 0x7f08026b
+int id tvTotalStudents 0x7f08026c
 int id unchecked 0x7f08023c
 int id uniform 0x7f08023d
 int id unlabeled 0x7f08023e
@@ -3923,6 +3944,7 @@ int layout activity_map 0x7f0b001e
 int layout activity_mark_attendance 0x7f0b001f
 int layout activity_my_schedule 0x7f0b0020
 int layout activity_professor_home 0x7f0b0021
+int layout activity_view_attendance 0x7f0b007c
 int layout activity_view_courses 0x7f0b0022
 int layout browser_actions_context_menu_page 0x7f0b0023
 int layout browser_actions_context_menu_row 0x7f0b0024
@@ -3944,9 +3966,11 @@ int layout design_text_input_end_icon 0x7f0b0033
 int layout design_text_input_start_icon 0x7f0b0034
 int layout dialog_announcement 0x7f0b0035
 int layout dialog_create_event 0x7f0b0036
+int layout dialog_student_detail 0x7f0b007d
 int layout fragment_campus_map 0x7f0b0037
 int layout ime_base_split_test_activity 0x7f0b0038
 int layout ime_secondary_split_test_activity 0x7f0b0039
+int layout item_attendance_report 0x7f0b007e
 int layout item_course 0x7f0b003a
 int layout item_manual_attendance 0x7f0b003b
 int layout item_schedule 0x7f0b003c

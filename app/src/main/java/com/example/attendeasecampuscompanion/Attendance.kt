@@ -55,3 +55,53 @@ data class StudentAttendanceItem(
     val studentName: String = "",
     var status: String = "PRESENT"
 )
+
+data class StudentAttendanceSummary(
+    val studentId: String,
+    val studentName: String,
+    val totalClasses: Int,
+    val presentCount: Int,
+    val lateCount: Int,
+    val absentCount: Int,
+    val attendanceRate: Float,
+    val records: List<AttendanceRecord> = emptyList()
+) {
+    fun getStatusColor(): Int {
+        return when {
+            attendanceRate >= 90f -> android.graphics.Color.parseColor("#66BB6A")
+            attendanceRate >= 75f -> android.graphics.Color.parseColor("#FFA726")
+            else -> android.graphics.Color.parseColor("#EF5350")
+        }
+    }
+
+    fun getStatusEmoji(): String {
+        return when {
+            attendanceRate >= 90f -> "🟢"
+            attendanceRate >= 75f -> "🟡"
+            else -> "🔴"
+        }
+    }
+}
+
+data class CourseAttendanceSummary(
+    val courseId: String,
+    val courseName: String,
+    val totalStudents: Int,
+    val presentCount: Int,
+    val lateCount: Int,
+    val absentCount: Int,
+    val attendanceDate: String,
+    val studentSummaries: List<StudentAttendanceSummary> = emptyList()
+) {
+    val overallAttendanceRate: Float
+        get() = if (totalStudents > 0) (presentCount.toFloat() / totalStudents * 100) else 0f
+
+    val presentPercentage: Float
+        get() = if (totalStudents > 0) (presentCount.toFloat() / totalStudents * 100) else 0f
+
+    val latePercentage: Float
+        get() = if (totalStudents > 0) (lateCount.toFloat() / totalStudents * 100) else 0f
+
+    val absentPercentage: Float
+        get() = if (totalStudents > 0) (absentCount.toFloat() / totalStudents * 100) else 0f
+}
