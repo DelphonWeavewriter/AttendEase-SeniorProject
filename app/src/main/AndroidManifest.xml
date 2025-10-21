@@ -76,6 +76,10 @@
             android:name=".MarkAttendanceActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".ViewAttendanceActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>
