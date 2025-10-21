@@ -153,7 +153,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0a603850-d4e0-44f1-9561-6473d066f17a" name="Changes" comment="What the hell happened to the code">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/attendeasecampuscompanion/ProfessorHomeActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/attendeasecampuscompanion/ProfessorHomeActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -430,12 +430,6 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="AppleRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" IS_LOCATION_SIMULATION_SUPPORTED="false" IS_LOCATION_SIMULATION_ALLOWED="true" APPLICATION_LANGUAGE="IDELaunchSchemeLanguageUseSystemLanguage" APPLICATION_REGION="" DEVELOPMENT_TEAM="${TEAM_ID}" MAKE_ACTIVE="TRUE" SHOULD_DEBUG_EXTENSIONS="false">
-      <embedded_app_extension_list />
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="AttendEaseCampusMap [signingReport]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -638,12 +632,12 @@
       <map>
         <entry key="com.example.attendeasecampuscompanion">
           <value>
-            <CheckInfo lastCheckTimestamp="1760744703490" />
+            <CheckInfo lastCheckTimestamp="1761008319692" />
           </value>
         </entry>
         <entry key="com.example.attendeasecampuscompanion.test">
           <value>
-            <CheckInfo lastCheckTimestamp="1760744703490" />
+            <CheckInfo lastCheckTimestamp="1761008319692" />
           </value>
         </entry>
         <entry key="edu.nyitLI.attendease">
