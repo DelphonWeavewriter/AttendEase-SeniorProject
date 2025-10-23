@@ -42,12 +42,13 @@ class HomeActivity : ComponentActivity() {
         }
 
         findViewById<Button>(R.id.btnCampusMap).setOnClickListener {
-            Toast.makeText(this, "Opening your campus map...", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Opening Your Campus Map...", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, com.example.attendeasecampuscompanion.map.MapActivity::class.java))
         }
 
         findViewById<Button>(R.id.btnFinalsSchedule).setOnClickListener {
-            Toast.makeText(this, "Opening your courses...", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Opening Your Schedule...", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, ViewCoursesActivity::class.java))
         }
 
         findViewById<Button>(R.id.btnSignOut).setOnClickListener {
