@@ -3091,6 +3091,7 @@ drawable design_ic_visibility
 drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
+drawable final_exam_border
 drawable googleg_disabled_color_18
 drawable googleg_standard_color_18
 drawable gradient_header
@@ -3931,6 +3932,7 @@ layout fragment_campus_map
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
 layout item_course
+layout item_final_exam
 layout item_schedule
 layout m3_alert_dialog
 layout m3_alert_dialog_actions

@@ -3090,6 +3090,7 @@ int drawable design_ic_visibility 0x7f070099
 int drawable design_ic_visibility_off 0x7f07009a
 int drawable design_password_eye 0x7f07009b
 int drawable design_snackbar_background 0x7f07009c
+int drawable final_exam_border 0x7f070109
 int drawable googleg_disabled_color_18 0x7f07009d
 int drawable googleg_standard_color_18 0x7f07009e
 int drawable gradient_header 0x7f07009f
@@ -3930,6 +3931,7 @@ int layout fragment_campus_map 0x7f0b0036
 int layout ime_base_split_test_activity 0x7f0b0037
 int layout ime_secondary_split_test_activity 0x7f0b0038
 int layout item_course 0x7f0b0039
+int layout item_final_exam 0x7f0b007a
 int layout item_schedule 0x7f0b003a
 int layout m3_alert_dialog 0x7f0b003b
 int layout m3_alert_dialog_actions 0x7f0b003c

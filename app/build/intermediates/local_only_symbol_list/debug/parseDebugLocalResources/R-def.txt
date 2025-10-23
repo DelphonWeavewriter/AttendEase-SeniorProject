@@ -10,6 +10,7 @@ color white
 drawable app_logo
 drawable background_gradient
 drawable card_background
+drawable final_exam_border
 drawable gradient_header
 drawable ic_email
 drawable ic_launcher_background
@@ -87,6 +88,7 @@ layout dialog_announcement
 layout dialog_create_event
 layout fragment_campus_map
 layout item_course
+layout item_final_exam
 layout item_schedule
 layout map_test
 layout signin_layout
