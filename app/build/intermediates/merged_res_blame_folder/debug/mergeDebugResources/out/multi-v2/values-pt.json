@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.attendeasecampuscompanion.app-mergeDebugResources-68:/values-pt/values-pt.xml",
+            "outputFile": "com.example.attendeasecampuscompanion.app-mergeDebugResources-69:/values-pt/values-pt.xml",
             "map": [
                 {
                     "source": "C:\\Users\\User\\.gradle\\caches\\8.13\\transforms\\62d59997aa06825bf3d9e95400f78e74\\transformed\\core-1.15.0\\res\\values-pt\\values-pt.xml",

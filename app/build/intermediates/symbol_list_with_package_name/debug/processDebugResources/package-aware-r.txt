@@ -3058,6 +3058,8 @@ drawable abc_textfield_search_activated_mtrl_alpha
 drawable abc_textfield_search_default_mtrl_alpha
 drawable abc_textfield_search_material
 drawable abc_vector_test
+drawable amu_bubble_mask
+drawable amu_bubble_shadow
 drawable app_logo
 drawable avd_hide_password
 drawable avd_show_password
@@ -3282,6 +3284,7 @@ id aligned
 id all
 id allStates
 id always
+id amu_text
 id androidx_compose_ui_view_composition_context
 id animateToEnd
 id animateToStart
@@ -3812,9 +3815,11 @@ id view_tree_saved_state_registry_owner
 id view_tree_view_model_store_owner
 id visible
 id visible_removing_fragment_view_tag
+id webview
 id welcomeTitle
 id west
 id wide
+id window
 id withText
 id with_icon
 id withinBounds
@@ -3947,6 +3952,9 @@ layout activity_my_schedule
 layout activity_professor_home
 layout activity_view_attendance
 layout activity_view_courses
+layout amu_info_window
+layout amu_text_bubble
+layout amu_webview
 layout browser_actions_context_menu_page
 layout browser_actions_context_menu_row
 layout custom_dialog
@@ -5459,6 +5467,9 @@ style Widget_MaterialComponents_Toolbar_PrimarySurface
 style Widget_MaterialComponents_Toolbar_Surface
 style Widget_MaterialComponents_Tooltip
 style Widget_Support_CoordinatorLayout
+style amu_Bubble_TextAppearance_Dark
+style amu_Bubble_TextAppearance_Light
+style amu_ClusterIcon_TextAppearance
 styleable ActionBar background backgroundSplit backgroundStacked contentInsetEnd contentInsetEndWithActions contentInsetLeft contentInsetRight contentInsetStart contentInsetStartWithNavigation customNavigationLayout displayOptions divider elevation height hideOnContentScroll homeAsUpIndicator homeLayout icon indeterminateProgressStyle itemPadding logo navigationMode popupTheme progressBarPadding progressBarStyle subtitle subtitleTextStyle title titleTextStyle
 styleable ActionBarLayout android_layout_gravity
 styleable ActionMenuItemView android_minWidth
