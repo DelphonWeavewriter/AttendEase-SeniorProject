@@ -51,6 +51,10 @@
             android:exported="false"/>
 
         <activity
+            android:name=".StudentCourseDetailActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".ProfessorHomeActivity"
             android:exported="false"/>
 
