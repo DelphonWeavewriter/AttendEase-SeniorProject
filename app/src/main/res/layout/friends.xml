@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/title"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:addStatesFromChildren="false"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:scrollbarSize="4dp">
+
+    <EditText
+        android:id="@+id/tbox1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:inputType="text"
+        android:text="Friends"
+        android:textSize="48sp" />
+
+    <ListView
+        android:id="@+id/friendsList"
+        android:layout_width="495dp"
+        android:layout_height="397dp" />
+
+    <EditText
+        android:id="@+id/editTextText2"
+        android:layout_width="wrap_content"
+        android:layout_height="75dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Friend ID" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Friend" />
+
+</LinearLayout>
