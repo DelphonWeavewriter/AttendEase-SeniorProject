@@ -104,12 +104,25 @@ class StudentCourseDetailActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {
-                    val course = document.toObject(Course::class.java)
-                    course?.let {
-                        displayCourseDetails(it)
-                        loadProfessorEmail(it.professorId)
-                        loadStudentAttendance(courseDocId)
-                    }
+                    val courseId = document.getString("courseId") ?: ""
+                    val courseName = document.getString("courseName") ?: ""
+                    val professorId = document.getString("professorId") ?: ""
+                    val professorName = document.getString("professorName") ?: ""
+                    val department = document.getString("department") ?: ""
+                    val semester = document.getString("semester") ?: ""
+                    val credits = document.getLong("credits")?.toInt() ?: 0
+                    val maxCapacity = document.getLong("maxCapacity")?.toInt() ?: 0
+                    val roomID = document.getString("roomID") ?: ""
+                    val enrolledStudents = document.get("enrolledStudents") as? List<String> ?: emptyList()
+                    val schedule = document.get("schedule") as? List<Map<String, Any>> ?: emptyList()
+
+                    displayCourseDetails(
+                        courseId, courseName, professorName, department,
+                        semester, credits, maxCapacity, roomID,
+                        enrolledStudents, schedule
+                    )
+                    loadProfessorEmail(professorId)
+                    loadStudentAttendance(courseDocId)
                 } else {
                     Toast.makeText(this, "Course not found", Toast.LENGTH_SHORT).show()
                     finish()
@@ -121,37 +134,54 @@ class StudentCourseDetailActivity : AppCompatActivity() {
             }
     }
 
-    private fun displayCourseDetails(course: Course) {
-        courseCodeText.text = course.courseId
-        courseNameText.text = course.courseName
-        professorNameText.text = "👨‍🏫 Professor: ${course.professorName}"
+    private fun displayCourseDetails(
+        courseId: String,
+        courseName: String,
+        professorName: String,
+        department: String,
+        semester: String,
+        credits: Int,
+        maxCapacity: Int,
+        roomID: String,
+        enrolledStudents: List<String>,
+        schedule: List<Map<String, Any>>
+    ) {
+        courseCodeText.text = courseId
+        courseNameText.text = courseName
+        professorNameText.text = "👨‍🏫 Professor: $professorName"
 
-        val scheduleString = buildScheduleString(course.schedule)
+        val scheduleString = buildScheduleString(schedule)
         scheduleText.text = scheduleString
 
-        val building = course.schedule.firstOrNull()?.building ?: "N/A"
-        val room = course.schedule.firstOrNull()?.room ?: "N/A"
+        val building = (schedule.firstOrNull()?.get("building") as? String) ?: "N/A"
+        val room = (schedule.firstOrNull()?.get("room") as? String) ?: "N/A"
         locationText.text = "📍 $building Room $room"
 
-        roomId = course.roomID
+        this.roomId = roomID
 
-        semesterText.text = "📅 ${course.semester}"
-        creditsText.text = "📚 ${course.credits} Credits"
-        departmentText.text = "🏫 ${course.department}"
+        semesterText.text = "📅 $semester"
+        creditsText.text = "📚 $credits Credits"
+        departmentText.text = "🏫 $department"
 
-        val enrolled = course.enrolledStudents.size
-        val capacity = course.maxCapacity
-        enrollmentText.text = "👥 $enrolled / $capacity students"
+        val enrolled = enrolledStudents.size
+        enrollmentText.text = "👥 $enrolled / $maxCapacity students"
     }
 
-    private fun buildScheduleString(schedule: List<Course.ClassSchedule>): String {
+    private fun buildScheduleString(schedule: List<Map<String, Any>>): String {
         if (schedule.isEmpty()) return "🕐 Schedule not available"
 
-        val scheduleItems = schedule.map { classSchedule ->
-            "${classSchedule.dayOfWeek} ${classSchedule.startTime} - ${classSchedule.endTime}"
+        val scheduleItems = schedule.mapNotNull { scheduleMap ->
+            val dayOfWeek = scheduleMap["dayOfWeek"] as? String ?: return@mapNotNull null
+            val startTime = scheduleMap["startTime"] as? String ?: return@mapNotNull null
+            val endTime = scheduleMap["endTime"] as? String ?: return@mapNotNull null
+            "$dayOfWeek $startTime - $endTime"
         }
 
-        return "🕐 " + scheduleItems.joinToString("\n     ")
+        return if (scheduleItems.isEmpty()) {
+            "🕐 Schedule not available"
+        } else {
+            "🕐 " + scheduleItems.joinToString("\n     ")
+        }
     }
 
     private fun loadProfessorEmail(professorId: String) {

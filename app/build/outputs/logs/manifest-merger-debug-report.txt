@@ -7,10 +7,10 @@ INJECTED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifes
 	android:name
 		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:23:13-58
 manifest
-ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:2:1-85:12
-INJECTED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:2:1-85:12
-INJECTED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:2:1-85:12
-INJECTED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:2:1-85:12
+ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:2:1-89:12
+INJECTED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:2:1-89:12
+INJECTED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:2:1-89:12
+INJECTED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:2:1-89:12
 MERGED from [androidx.databinding:viewbinding:8.13.0] /Users/steven/.gradle/caches/8.13/transforms/9f9567f922eb796a0cc6ee328c3a4e90/transformed/viewbinding-8.13.0/AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.android.material:material:1.12.0] /Users/steven/.gradle/caches/8.13/transforms/0f4b714816a12d2601ace17179d8b529/transformed/material-1.12.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.2.1] /Users/steven/.gradle/caches/8.13/transforms/74b0b6552af68a8ff2f58407061dedba/transformed/constraintlayout-2.2.1/AndroidManifest.xml:2:1-9:12
@@ -167,8 +167,8 @@ ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.x
 	android:name
 		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:10:19-54
 application
-ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:12:5-83:19
-INJECTED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:12:5-83:19
+ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:12:5-87:19
+INJECTED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:12:5-87:19
 MERGED from [com.google.android.material:material:1.12.0] /Users/steven/.gradle/caches/8.13/transforms/0f4b714816a12d2601ace17179d8b529/transformed/material-1.12.0/AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.12.0] /Users/steven/.gradle/caches/8.13/transforms/0f4b714816a12d2601ace17179d8b529/transformed/material-1.12.0/AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.2.1] /Users/steven/.gradle/caches/8.13/transforms/74b0b6552af68a8ff2f58407061dedba/transformed/constraintlayout-2.2.1/AndroidManifest.xml:7:5-20
@@ -299,52 +299,58 @@ ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.x
 		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:51:13-37
 	android:name
 		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:50:13-41
-activity#com.example.attendeasecampuscompanion.ProfessorHomeActivity
-ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:53:9-55:39
+activity#com.example.attendeasecampuscompanion.StudentCourseDetailActivity
+ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:53:9-55:40
 	android:exported
 		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:55:13-37
 	android:name
-		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:54:13-50
-activity#com.example.attendeasecampuscompanion.ViewCoursesActivity
-ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:57:9-59:40
+		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:54:13-56
+activity#com.example.attendeasecampuscompanion.ProfessorHomeActivity
+ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:57:9-59:39
 	android:exported
 		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:59:13-37
 	android:name
-		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:58:13-48
-activity#com.example.attendeasecampuscompanion.MyScheduleActivity
+		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:58:13-50
+activity#com.example.attendeasecampuscompanion.ViewCoursesActivity
 ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:61:9-63:40
 	android:exported
 		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:63:13-37
 	android:name
-		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:62:13-47
-activity#com.example.attendeasecampuscompanion.AttendanceActivity
-ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:65:9-68:42
-	android:label
-		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:68:13-39
+		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:62:13-48
+activity#com.example.attendeasecampuscompanion.MyScheduleActivity
+ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:65:9-67:40
 	android:exported
 		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:67:13-37
 	android:name
 		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:66:13-47
-activity#com.example.attendeasecampuscompanion.map.MapActivity
-ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:70:9-73:42
+activity#com.example.attendeasecampuscompanion.AttendanceActivity
+ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:69:9-72:42
 	android:label
-		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:73:13-39
+		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:72:13-39
 	android:exported
-		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:72:13-37
+		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:71:13-37
 	android:name
-		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:71:13-44
+		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:70:13-47
+activity#com.example.attendeasecampuscompanion.map.MapActivity
+ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:74:9-77:42
+	android:label
+		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:77:13-39
+	android:exported
+		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:76:13-37
+	android:name
+		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:75:13-44
 activity#com.example.attendeasecampuscompanion.MarkAttendanceActivity
-ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:75:9-77:40
-	android:exported
-		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:77:13-37
-	android:name
-		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:76:13-51
-activity#com.example.attendeasecampuscompanion.ViewAttendanceActivity
 ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:79:9-81:40
 	android:exported
 		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:81:13-37
 	android:name
 		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:80:13-51
+activity#com.example.attendeasecampuscompanion.ViewAttendanceActivity
+ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:83:9-85:40
+	android:exported
+		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:85:13-37
+	android:name
+		ADDED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml:84:13-51
 uses-sdk
 INJECTED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/steven/AttendEase-SeniorProject/app/src/main/AndroidManifest.xml

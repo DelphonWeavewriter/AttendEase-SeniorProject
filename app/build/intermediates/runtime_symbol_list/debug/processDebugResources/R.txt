@@ -3293,6 +3293,7 @@ int id appLogo 0x7f080055
 int id arc 0x7f080056
 int id asConfigured 0x7f080057
 int id async 0x7f080058
+int id attendanceRate 0x7f080270
 int id auto 0x7f080059
 int id autoComplete 0x7f08005a
 int id autoCompleteToEnd 0x7f08005b
@@ -3321,10 +3322,12 @@ int id btnBack 0x7f080071
 int id btnCampusMap 0x7f080072
 int id btnCheckIn 0x7f080073
 int id btnCreateEvent 0x7f080074
+int id btnEmailProfessor 0x7f080271
 int id btnFinalsSchedule 0x7f080075
 int id btnLate 0x7f080076
 int id btnManualAttendance 0x7f080077
 int id btnMySchedule 0x7f080078
+int id btnNavigate 0x7f080272
 int id btnPresent 0x7f080079
 int id btnProfCampusMap 0x7f08007a
 int id btnProfSignOut 0x7f08007b
@@ -3376,6 +3379,7 @@ int id counterclockwise 0x7f0800a8
 int id courseCode 0x7f0800a9
 int id courseName 0x7f0800aa
 int id cradle 0x7f0800ab
+int id creditsDetails 0x7f080273
 int id currentState 0x7f0800ac
 int id custom 0x7f0800ad
 int id customPanel 0x7f0800ae
@@ -3389,6 +3393,7 @@ int id decelerateAndComplete 0x7f0800b5
 int id decor_content_parent 0x7f0800b6
 int id default_activity_button 0x7f0800b7
 int id deltaRelative 0x7f0800b8
+int id departmentDetails 0x7f080274
 int id dependency_ordering 0x7f0800b9
 int id design_bottom_sheet 0x7f0800ba
 int id design_menu_item_action_area 0x7f0800bb
@@ -3427,6 +3432,7 @@ int id emptyState 0x7f0800db
 int id emptyText 0x7f0800dc
 int id end 0x7f0800dd
 int id endToStart 0x7f0800de
+int id enrollmentDetails 0x7f080275
 int id enrollmentInfo 0x7f0800df
 int id enterAlways 0x7f0800e0
 int id enterAlwaysCollapsed 0x7f0800e1
@@ -3515,6 +3521,7 @@ int id linear 0x7f080133
 int id listMode 0x7f080134
 int id list_item 0x7f080135
 int id location 0x7f080136
+int id locationDetails 0x7f080276
 int id loginSubtitle 0x7f080137
 int id m3_side_sheet 0x7f080138
 int id map 0x7f080139
@@ -3662,6 +3669,7 @@ int id save_non_transition_alpha 0x7f0801c6
 int id save_overlay_view 0x7f0801c7
 int id sawtooth 0x7f0801c8
 int id scale 0x7f0801c9
+int id scheduleDetails 0x7f080277
 int id scheduleInfo 0x7f0801ca
 int id screen 0x7f0801cb
 int id scroll 0x7f0801cc
@@ -3683,6 +3691,7 @@ int id select_dialog_listview 0x7f0801db
 int id selected 0x7f0801dc
 int id selection_type 0x7f0801dd
 int id semester 0x7f0801de
+int id semesterDetails 0x7f080278
 int id sharedValueSet 0x7f0801df
 int id sharedValueUnset 0x7f0801e0
 int id shortcut 0x7f0801e1
@@ -3949,6 +3958,7 @@ int layout activity_map 0x7f0b001e
 int layout activity_mark_attendance 0x7f0b001f
 int layout activity_my_schedule 0x7f0b0020
 int layout activity_professor_home 0x7f0b0021
+int layout activity_student_course_detail 0x7f0b0082
 int layout activity_view_attendance 0x7f0b0022
 int layout activity_view_courses 0x7f0b0023
 int layout amu_info_window 0x7f0b0024

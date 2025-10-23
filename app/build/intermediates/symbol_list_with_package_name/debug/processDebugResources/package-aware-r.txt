@@ -3294,6 +3294,7 @@ id appLogo
 id arc
 id asConfigured
 id async
+id attendanceRate
 id auto
 id autoComplete
 id autoCompleteToEnd
@@ -3322,10 +3323,12 @@ id btnBack
 id btnCampusMap
 id btnCheckIn
 id btnCreateEvent
+id btnEmailProfessor
 id btnFinalsSchedule
 id btnLate
 id btnManualAttendance
 id btnMySchedule
+id btnNavigate
 id btnPresent
 id btnProfCampusMap
 id btnProfSignOut
@@ -3377,6 +3380,7 @@ id counterclockwise
 id courseCode
 id courseName
 id cradle
+id creditsDetails
 id currentState
 id custom
 id customPanel
@@ -3390,6 +3394,7 @@ id decelerateAndComplete
 id decor_content_parent
 id default_activity_button
 id deltaRelative
+id departmentDetails
 id dependency_ordering
 id design_bottom_sheet
 id design_menu_item_action_area
@@ -3428,6 +3433,7 @@ id emptyState
 id emptyText
 id end
 id endToStart
+id enrollmentDetails
 id enrollmentInfo
 id enterAlways
 id enterAlwaysCollapsed
@@ -3516,6 +3522,7 @@ id linear
 id listMode
 id list_item
 id location
+id locationDetails
 id loginSubtitle
 id m3_side_sheet
 id map
@@ -3663,6 +3670,7 @@ id save_non_transition_alpha
 id save_overlay_view
 id sawtooth
 id scale
+id scheduleDetails
 id scheduleInfo
 id screen
 id scroll
@@ -3684,6 +3692,7 @@ id select_dialog_listview
 id selected
 id selection_type
 id semester
+id semesterDetails
 id sharedValueSet
 id sharedValueUnset
 id shortcut
@@ -3950,6 +3959,7 @@ layout activity_map
 layout activity_mark_attendance
 layout activity_my_schedule
 layout activity_professor_home
+layout activity_student_course_detail
 layout activity_view_attendance
 layout activity_view_courses
 layout amu_info_window
