@@ -3,6 +3,7 @@ package com.example.attendeasecampuscompanion
 import android.app.PendingIntent
 import android.content.Intent
 import android.content.IntentFilter
+import android.nfc.NdefMessage
 import android.nfc.NfcAdapter
 import android.nfc.Tag
 import android.nfc.tech.Ndef
@@ -11,8 +12,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-
 import android.widget.TextView
+import java.nio.charset.StandardCharsets
 
 class AttendanceActivity : AppCompatActivity() {
 
@@ -57,6 +58,8 @@ class AttendanceActivity : AppCompatActivity() {
         }
 
         intentFiltersArray = arrayOf(ndefDetected)
+
+        handleNfcIntent(intent)
     }
 
     override fun onResume() {
@@ -79,17 +82,88 @@ class AttendanceActivity : AppCompatActivity() {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
 
+        handleNfcIntent(intent)
+
         // Check if the intent contains NFC tag data
+//        if (NfcAdapter.ACTION_NDEF_DISCOVERED == intent.action ||
+//            NfcAdapter.ACTION_TAG_DISCOVERED == intent.action ||
+//            NfcAdapter.ACTION_TECH_DISCOVERED == intent.action) {
+//
+//            val tag: Tag? = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG)
+//            tag?.let {
+//                readNfcTag(it)
+//            }
+//        }
+    }
+
+    private fun handleNfcIntent(intent: Intent) {
+        if (intent == null) return
+
         if (NfcAdapter.ACTION_NDEF_DISCOVERED == intent.action ||
             NfcAdapter.ACTION_TAG_DISCOVERED == intent.action ||
             NfcAdapter.ACTION_TECH_DISCOVERED == intent.action) {
+
+            val rawMessages = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)
+            if (rawMessages != null && rawMessages.isNotEmpty()) {
+                val ndefMessage = rawMessages[0] as NdefMessage
+                val text = parseNdefMessage(ndefMessage)
+                if (text.isNotEmpty()) {
+                    nfcTagData = text
+                    textView.text = "NFC Tag Read:\n$nfcTagData"
+                    Toast.makeText(this, "NFC data saved to variable", Toast.LENGTH_SHORT).show()
+                    sendToFirebase(nfcTagData)
+                    return
+                }
+            }
 
             val tag: Tag? = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG)
             tag?.let {
                 readNfcTag(it)
             }
+
         }
+
     }
+
+    private fun parseNdefMessage(message: NdefMessage): String {
+        val sb = StringBuilder()
+
+        for (record in message.records) {
+            if (record.tnf == android.nfc.NdefRecord.TNF_WELL_KNOWN &&
+                        record.type.contentEquals(android.nfc.NdefRecord.RTD_TEXT)) {
+
+                val payload = record.payload
+
+                val languageCodeLength = payload[0].toInt() and 0x3F
+
+                val text = String(
+                    payload,
+                    languageCodeLength + 1,
+                    payload.size - languageCodeLength - 1,
+                    charset("UTF-8")
+                )
+
+                sb.append(text).append("\n")
+            }
+            else if (record.tnf == android.nfc.NdefRecord.TNF_MIME_MEDIA) {
+                try {
+                    val text = String(record.payload, StandardCharsets.UTF_8)
+                    sb.append(text).append("\n")
+                } catch (e: Exception) {
+                    val payload = String(record.payload, charset("UTF-8"))
+                    sb.append(payload).append("\n")
+                }
+
+            }
+            else {
+                val payload = String(record.payload, charset("UTF-8"))
+                sb.append(payload).append("\n")
+            }
+        }
+
+        return sb.toString().trim()
+    }
+
 
     private fun readNfcTag(tag: Tag) {
         val ndef = Ndef.get(tag)
@@ -110,43 +184,53 @@ class AttendanceActivity : AppCompatActivity() {
             ndef.connect()
             val ndefMessage = ndef.ndefMessage
 
+//            if (ndefMessage != null) {
+//                val records = ndefMessage.records
+//                val sb = StringBuilder()
+//
+//                for (record in records) {
+//                    // Check if this is a text record
+//                    if (record.tnf == android.nfc.NdefRecord.TNF_WELL_KNOWN &&
+//                        record.type.contentEquals(android.nfc.NdefRecord.RTD_TEXT)) {
+//
+//                        val payload = record.payload
+//
+//                        // First byte contains the language code length
+//                        val languageCodeLength = payload[0].toInt() and 0x3F
+//
+//                        val text = String(
+//                            payload,
+//                            languageCodeLength + 1,
+//                            payload.size - languageCodeLength - 1,
+//                            charset("UTF-8")
+//                        )
+//
+//                        sb.append(text).append("\n")
+//                    } else {
+//                        // If for some reason the NFC data is not text, convert as plain string
+//                        val payload = String(record.payload, charset("UTF-8"))
+//                        sb.append(payload).append("\n")
+//                    }
+//                }
+//
+//                // Save data to variable
+//                nfcTagData = sb.toString().trim()
+//
+//                // Display the data
+//                textView.text = "NFC Tag Read:\n$nfcTagData"
+//                Toast.makeText(this, "NFC data saved to variable", Toast.LENGTH_SHORT).show()
+//
+//                // Send Attendance Record to Firebase
+//                sendToFirebase(nfcTagData)
+//            } else {
+//                nfcTagData = "Empty tag"
+//                textView.text = nfcTagData
+//            }
+
             if (ndefMessage != null) {
-                val records = ndefMessage.records
-                val sb = StringBuilder()
-
-                for (record in records) {
-                    // Check if this is a text record
-                    if (record.tnf == android.nfc.NdefRecord.TNF_WELL_KNOWN &&
-                        record.type.contentEquals(android.nfc.NdefRecord.RTD_TEXT)) {
-
-                        val payload = record.payload
-
-                        // First byte contains the language code length
-                        val languageCodeLength = payload[0].toInt() and 0x3F
-
-                        val text = String(
-                            payload,
-                            languageCodeLength + 1,
-                            payload.size - languageCodeLength - 1,
-                            charset("UTF-8")
-                        )
-
-                        sb.append(text).append("\n")
-                    } else {
-                        // If for some reason the NFC data is not text, convert as plain string
-                        val payload = String(record.payload, charset("UTF-8"))
-                        sb.append(payload).append("\n")
-                    }
-                }
-
-                // Save data to variable
-                nfcTagData = sb.toString().trim()
-
-                // Display the data
+                nfcTagData = parseNdefMessage(ndefMessage)
                 textView.text = "NFC Tag Read:\n$nfcTagData"
-                Toast.makeText(this, "NFC data saved to variable", Toast.LENGTH_SHORT).show()
-
-                // Send Attendance Record to Firebase
+                Toast.makeText(this,"NFC data saved to variable", Toast.LENGTH_SHORT).show()
                 sendToFirebase(nfcTagData)
             } else {
                 nfcTagData = "Empty tag"

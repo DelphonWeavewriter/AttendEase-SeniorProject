@@ -27,6 +27,7 @@ id btnSchedule
 id btnSignOut
 id btnSocial
 id dateHeader
+id editText
 id editTextEmailAddress
 id editTextPassword
 id fabRecenter
@@ -35,12 +36,15 @@ id loginSubtitle
 id map
 id map_container
 id nextClass
+id sendButton
 id signInButton
+id statusText
 id studentId
 id studentName
 id textView
 id welcomeTitle
 layout activity_attendance
+layout activity_attendance_sender
 layout activity_home
 layout activity_map
 layout fragment_campus_map

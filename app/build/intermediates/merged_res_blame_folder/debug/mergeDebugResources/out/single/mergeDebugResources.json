@@ -28,6 +28,10 @@
         "source": "com.example.attendeasecampuscompanion.app-main-72:/xml/backup_rules.xml"
     },
     {
+        "merged": "com.example.attendeasecampuscompanion.app-debug-70:/layout_activity_attendance_sender.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-72:/layout/activity_attendance_sender.xml"
+    },
+    {
         "merged": "com.example.attendeasecampuscompanion.app-debug-70:/mipmap-hdpi_ic_launcher.webp.flat",
         "source": "com.example.attendeasecampuscompanion.app-main-72:/mipmap-hdpi/ic_launcher.webp"
     },

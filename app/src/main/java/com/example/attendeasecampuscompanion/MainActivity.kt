@@ -46,7 +46,9 @@ class MainActivity : ComponentActivity() {
         }
 
         if (email.contains("admin") && password.contains("admin")) {
-
+            Toast.makeText(this, "Admin login successful", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, AttendanceSenderActivity::class.java))
+            finish()
         }
         else {
             auth.signInWithEmailAndPassword(email, password)

@@ -7,10 +7,10 @@ INJECTED from C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app
 	android:name
 		ADDED from C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:23:13-58
 manifest
-ADDED from C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:2:1-65:12
-INJECTED from C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:2:1-65:12
-INJECTED from C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:2:1-65:12
-INJECTED from C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:2:1-65:12
+ADDED from C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:2:1-70:12
+INJECTED from C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:2:1-70:12
+INJECTED from C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:2:1-70:12
+INJECTED from C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:2:1-70:12
 MERGED from [androidx.databinding:viewbinding:8.13.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9f9567f922eb796a0cc6ee328c3a4e90\transformed\viewbinding-8.13.0\AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.android.material:material:1.12.0] C:\Users\fenna\.gradle\caches\8.13\transforms\0f4b714816a12d2601ace17179d8b529\transformed\material-1.12.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.2.1] C:\Users\fenna\.gradle\caches\8.13\transforms\74b0b6552af68a8ff2f58407061dedba\transformed\constraintlayout-2.2.1\AndroidManifest.xml:2:1-9:12
@@ -165,8 +165,8 @@ ADDED from C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\sr
 	android:name
 		ADDED from C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:10:22-56
 application
-ADDED from C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:12:5-63:19
-INJECTED from C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:12:5-63:19
+ADDED from C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:12:5-68:19
+INJECTED from C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:12:5-68:19
 MERGED from [com.google.android.material:material:1.12.0] C:\Users\fenna\.gradle\caches\8.13\transforms\0f4b714816a12d2601ace17179d8b529\transformed\material-1.12.0\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.12.0] C:\Users\fenna\.gradle\caches\8.13\transforms\0f4b714816a12d2601ace17179d8b529\transformed\material-1.12.0\AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.2.1] C:\Users\fenna\.gradle\caches\8.13\transforms\74b0b6552af68a8ff2f58407061dedba\transformed\constraintlayout-2.2.1\AndroidManifest.xml:7:5-20
@@ -311,6 +311,14 @@ ADDED from C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\sr
 		ADDED from C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:60:13-37
 	android:name
 		ADDED from C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:59:13-44
+activity#com.example.attendeasecampuscompanion.AttendanceSenderActivity
+ADDED from C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:63:9-66:49
+	android:label
+		ADDED from C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:66:13-46
+	android:exported
+		ADDED from C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:65:13-37
+	android:name
+		ADDED from C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:64:13-53
 uses-sdk
 INJECTED from C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml

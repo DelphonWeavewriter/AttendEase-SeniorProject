@@ -92,6 +92,10 @@
             android:exported="false"
             android:label="Campus Map" />
         <activity
+            android:name="com.example.attendeasecampuscompanion.AttendanceSenderActivity"
+            android:exported="false"
+            android:label="Attendance Sender" />
+        <activity
             android:name="androidx.compose.ui.tooling.PreviewActivity"
             android:exported="true" />
         <activity

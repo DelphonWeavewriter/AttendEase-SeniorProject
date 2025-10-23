@@ -3392,6 +3392,7 @@ id easeInOut
 id easeOut
 id east
 id edge
+id editText
 id editTextEmailAddress
 id editTextPassword
 id edit_query
@@ -3629,6 +3630,7 @@ id search_voice_btn
 id select_dialog_listview
 id selected
 id selection_type
+id sendButton
 id sharedValueSet
 id sharedValueUnset
 id shortcut
@@ -3663,6 +3665,7 @@ id startToEnd
 id startVertical
 id staticLayout
 id staticPostLayout
+id statusText
 id stop
 id stretch
 id studentId
@@ -3865,6 +3868,7 @@ layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_attendance
+layout activity_attendance_sender
 layout activity_home
 layout activity_map
 layout browser_actions_context_menu_page

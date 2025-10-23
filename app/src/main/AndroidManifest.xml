@@ -60,6 +60,11 @@
             android:exported="false"
             android:label="Campus Map" />
 
+        <activity
+            android:name=".AttendanceSenderActivity"
+            android:exported="false"
+            android:label="Attendance Sender" />
+
     </application>
 
 </manifest>
