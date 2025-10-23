@@ -61,11 +61,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0a603850-d4e0-44f1-9561-6473d066f17a" name="Changes" comment="What the hell happened to the code">
-      <change beforePath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_attendance.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_attendance.xml" afterDir="false" />
-    </list>
+    <list default="true" id="0a603850-d4e0-44f1-9561-6473d066f17a" name="Changes" comment="Friends Base UI" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -476,7 +472,23 @@
       <option name="project" value="LOCAL" />
       <updated>1760069296746</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Merging master into friends">
+      <option name="closed" value="true" />
+      <created>1761257196055</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1761257196055</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Friends Base UI">
+      <option name="closed" value="true" />
+      <created>1761257224004</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1761257224004</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -512,7 +524,9 @@
     <MESSAGE value="AttendEase" />
     <MESSAGE value="Implemented the Campus Map into the homepage" />
     <MESSAGE value="What the hell happened to the code" />
-    <option name="LAST_COMMIT_MESSAGE" value="What the hell happened to the code" />
+    <MESSAGE value="Merging master into friends" />
+    <MESSAGE value="Friends Base UI" />
+    <option name="LAST_COMMIT_MESSAGE" value="Friends Base UI" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
