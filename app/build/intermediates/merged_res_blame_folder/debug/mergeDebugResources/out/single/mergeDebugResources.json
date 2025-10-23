@@ -64,6 +64,10 @@
         "source": "com.example.attendeasecampuscompanion.app-main-72:/mipmap-anydpi-v26/ic_launcher_round.xml"
     },
     {
+        "merged": "com.example.attendeasecampuscompanion.app-debug-70:/layout_activity_mark_attendance.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-72:/layout/activity_mark_attendance.xml"
+    },
+    {
         "merged": "com.example.attendeasecampuscompanion.app-debug-70:/layout_activity_my_schedule.xml.flat",
         "source": "com.example.attendeasecampuscompanion.app-main-72:/layout/activity_my_schedule.xml"
     },
@@ -86,6 +90,18 @@
     {
         "merged": "com.example.attendeasecampuscompanion.app-debug-70:/drawable_background_gradient.xml.flat",
         "source": "com.example.attendeasecampuscompanion.app-main-72:/drawable/background_gradient.xml"
+    },
+    {
+        "merged": "com.example.attendeasecampuscompanion.app-debug-70:/layout_item_manual_attendance.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-72:/layout/item_manual_attendance.xml"
+    },
+    {
+        "merged": "com.example.attendeasecampuscompanion.app-debug-70:/layout_item_attendance_report.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-72:/layout/item_attendance_report.xml"
+    },
+    {
+        "merged": "com.example.attendeasecampuscompanion.app-debug-70:/layout_dialog_student_detail.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-72:/layout/dialog_student_detail.xml"
     },
     {
         "merged": "com.example.attendeasecampuscompanion.app-debug-70:/drawable_signin_button_background.xml.flat",
@@ -142,6 +158,10 @@
     {
         "merged": "com.example.attendeasecampuscompanion.app-debug-70:/drawable_ic_launcher_foreground.xml.flat",
         "source": "com.example.attendeasecampuscompanion.app-main-72:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.example.attendeasecampuscompanion.app-debug-70:/layout_activity_view_attendance.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-72:/layout/activity_view_attendance.xml"
     },
     {
         "merged": "com.example.attendeasecampuscompanion.app-debug-70:/mipmap-xxxhdpi_ic_launcher.webp.flat",
