@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hold an NFC tag near your device"
-        android:textSize="18sp"
-        android:textAlignment="center"/>
+        android:textAlignment="center"
+        android:textSize="18sp" />
 
 </LinearLayout>

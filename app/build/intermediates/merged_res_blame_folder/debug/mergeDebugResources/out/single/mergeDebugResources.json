@@ -92,6 +92,10 @@
         "source": "com.example.attendeasecampuscompanion.app-main-72:/drawable/ic_my_location.xml"
     },
     {
+        "merged": "com.example.attendeasecampuscompanion.app-debug-70:/layout_friends.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-72:/layout/friends.xml"
+    },
+    {
         "merged": "com.example.attendeasecampuscompanion.app-debug-70:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
         "source": "com.example.attendeasecampuscompanion.app-main-72:/mipmap-xxhdpi/ic_launcher_round.webp"
     },

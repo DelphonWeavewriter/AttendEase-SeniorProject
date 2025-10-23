@@ -5,6 +5,21 @@
       <config />
     </shared>
     <layouts>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/background_gradient.xml">
+        <config>
+          <theme>@style/Theme.AttendEaseCampusCompanion</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/gradient_header.xml">
+        <config>
+          <theme>@style/Theme.AttendEaseCampusCompanion</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_background.xml">
+        <config>
+          <theme>@style/Theme.AttendEaseCampusCompanion</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_my_location.xml">
         <config>
           <theme>@style/Theme.AttendEaseCampusCompanion</theme>
@@ -30,6 +45,11 @@
           <theme>@style/Theme.AttendEaseCampusCompanion</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/friends.xml">
+        <config>
+          <theme>@style/Theme.AttendEaseCampusCompanion</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/signin_layout.xml">
         <config>
           <theme>@style/Theme.AttendEaseCampusCompanion</theme>
@@ -42,11 +62,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0a603850-d4e0-44f1-9561-6473d066f17a" name="Changes" comment="What the hell happened to the code">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/FriendsListImplementation.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_attendance.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_attendance.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,7 +142,6 @@
       <list>
         <option value="layoutResourceFile" />
         <option value="resourceFile" />
-        <option value="Class" />
         <option value="Kotlin Class" />
       </list>
     </option>
@@ -232,7 +249,7 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.17",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "AndroidSdkUpdater"
+    "settings.editor.selected.configurable": "experimental"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -497,17 +514,31 @@
     <MESSAGE value="What the hell happened to the code" />
     <option name="LAST_COMMIT_MESSAGE" value="What the hell happened to the code" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="kotlin-function">
+          <url>file://$PROJECT_DIR$/app/src/main/java/FriendsListImplementation.kt</url>
+          <line>18</line>
+          <properties class="com.example.attendeasecampuscompanion.FriendsListImplementation" method="&lt;init&gt;">
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="play_dynamic_filters_status">
     <option name="appIdToCheckInfo">
       <map>
         <entry key="com.example.attendeasecampuscompanion">
           <value>
-            <CheckInfo lastCheckTimestamp="1760212352024" />
+            <CheckInfo lastCheckTimestamp="1761171008551" />
           </value>
         </entry>
         <entry key="com.example.attendeasecampuscompanion.test">
           <value>
-            <CheckInfo lastCheckTimestamp="1760212352043" />
+            <CheckInfo lastCheckTimestamp="1761171008554" />
           </value>
         </entry>
         <entry key="edu.nyitLI.attendease">

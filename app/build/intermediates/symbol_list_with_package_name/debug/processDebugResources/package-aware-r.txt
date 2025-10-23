@@ -3315,6 +3315,7 @@ id btnFinalsSchedule
 id btnSchedule
 id btnSignOut
 id btnSocial
+id button
 id buttonPanel
 id cache_measures
 id callMeasure
@@ -3394,6 +3395,7 @@ id east
 id edge
 id editTextEmailAddress
 id editTextPassword
+id editTextText2
 id edit_query
 id edit_text_id
 id elastic
@@ -3424,6 +3426,7 @@ id follow_system
 id forever
 id forgotPassword
 id fragment_container_view_tag
+id friendsList
 id frost
 id fullscreen_header
 id ghost_view
@@ -3684,6 +3687,7 @@ id tag_transition_group
 id tag_unhandled_key_event_manager
 id tag_unhandled_key_listeners
 id tag_window_insets_animation_callback
+id tbox1
 id terrain
 id text
 id text2
@@ -3886,6 +3890,7 @@ layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
 layout fragment_campus_map
+layout friends
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
 layout m3_alert_dialog
