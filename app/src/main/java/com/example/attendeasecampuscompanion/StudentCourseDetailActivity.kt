@@ -116,6 +116,10 @@ class StudentCourseDetailActivity : AppCompatActivity() {
                     val enrolledStudents = document.get("enrolledStudents") as? List<String> ?: emptyList()
                     val schedule = document.get("schedule") as? List<Map<String, Any>> ?: emptyList()
 
+                    android.util.Log.d("StudentCourseDetail", "Loaded course: $courseId")
+                    android.util.Log.d("StudentCourseDetail", "Professor ID: '$professorId'")
+                    android.util.Log.d("StudentCourseDetail", "Professor Name: $professorName")
+
                     displayCourseDetails(
                         courseId, courseName, professorName, department,
                         semester, credits, maxCapacity, roomID,
@@ -185,6 +189,11 @@ class StudentCourseDetailActivity : AppCompatActivity() {
     }
 
     private fun loadProfessorEmail(professorId: String) {
+        if (professorId.isEmpty()) {
+            android.util.Log.w("StudentCourseDetail", "Professor ID is empty!")
+            return
+        }
+
         db.collection("Users").document(professorId)
             .get()
             .addOnSuccessListener { document ->
@@ -192,10 +201,18 @@ class StudentCourseDetailActivity : AppCompatActivity() {
                     professorEmail = document.getString("email")
                 }
             }
+            .addOnFailureListener { e ->
+                android.util.Log.e("StudentCourseDetail", "Error loading professor email: ${e.message}")
+            }
     }
 
     private fun loadStudentAttendance(courseDocId: String) {
-        val currentUserId = auth.currentUser?.uid ?: return
+        val currentUserId = auth.currentUser?.uid
+
+        if (currentUserId == null) {
+            android.util.Log.w("StudentCourseDetail", "No user logged in for attendance")
+            return
+        }
 
         db.collection("Courses").document(courseDocId)
             .collection("AttendanceRecords")
@@ -217,7 +234,13 @@ class StudentCourseDetailActivity : AppCompatActivity() {
                             else -> getColor(R.color.error_red)
                         }
                     )
+                } else {
+                    val attendanceText = findViewById<TextView>(R.id.attendanceRate)
+                    attendanceText.text = "No attendance records yet"
                 }
+            }
+            .addOnFailureListener { e ->
+                android.util.Log.e("StudentCourseDetail", "Error loading attendance: ${e.message}")
             }
     }
 }
