@@ -176,7 +176,7 @@ class MyScheduleActivity : AppCompatActivity() {
                     endTime = finalExam.endTime,
                     building = finalExam.buildingId,
                     room = finalExam.roomId,
-                    roomID = "", // Not available for finals in the provided data structure
+                    roomID = "", //RoomID handled above, seems redundant but ill leave it for now
                     isFinalExam = true
                 )
                 scheduleItems.add(item)
@@ -187,7 +187,7 @@ class MyScheduleActivity : AppCompatActivity() {
 
         if (scheduleItems.isEmpty()) {
             emptyText.visibility = View.VISIBLE
-            emptyText.text = "No classes or exams scheduled for this day"
+            emptyText.text = "No classes, exams, or events scheduled for this day"
             recyclerView.visibility = View.GONE
         } else {
             emptyText.visibility = View.GONE
