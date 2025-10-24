@@ -176,7 +176,7 @@ class MyScheduleActivity : AppCompatActivity() {
                     endTime = finalExam.endTime,
                     building = finalExam.buildingId,
                     room = finalExam.roomId,
-                    roomID = "", // Not available for finals in the provided data structure
+                    roomID = "", //RoomID handled above
                     isFinalExam = true
                 )
                 scheduleItems.add(item)
