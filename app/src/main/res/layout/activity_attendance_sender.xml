@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="NFC SENDER"
+        android:text="NEARBY SHARE SENDER"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -16,7 +16,7 @@
         android:id="@+id/editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter text to send"
+        android:hint="Enter text to share"
         android:lines="4"
         android:layout_marginTop="16dp" />
 
@@ -24,13 +24,20 @@
         android:id="@+id/sendButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Begin Sending Attendance"
+        android:text="Set Attendance ID"
         android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/shareButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Share via Nearby Share"
+        android:layout_marginTop="8dp" />
 
     <TextView
         android:id="@+id/statusText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Status: Idle" />
+        android:text="Status: Ready" />
 </LinearLayout>

@@ -80,6 +80,7 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation("com.google.android.gms:play-services-maps:19.2.0") //Google Maps
     implementation("com.google.android.gms:play-services-location:21.3.0")    // blue dot/geolocation:
+    implementation("com.google.android.gms:play-services-nearby:18.0.0") // Nearby Share
     implementation("com.google.android.material:material:1.12.0")
     implementation("com.google.firebase:firebase-auth:22.3.0")
     testImplementation(libs.junit)
