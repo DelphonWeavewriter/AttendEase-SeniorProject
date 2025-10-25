@@ -44,7 +44,7 @@ class AttendanceSenderActivity : AppCompatActivity(){
 
         cardEmulation = CardEmulation.getInstance(nfcAdapter)
 
-        if (!packageManager.hasSystemFeature("anddroid.harware.nfc.hce")) {
+        if (!packageManager.hasSystemFeature("android.hardware.nfc.hce")) {
             statusText.text = "HCE not supported on this device"
             setButton.isEnabled = false
             return

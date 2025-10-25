@@ -10,6 +10,8 @@ class HCEService : HostApduService() {
     companion object {
         private const val TAG = "HCEService"
 
+        private const val AID = "F0010203040506"
+
         private val SELECT_APDU = byteArrayOf(
             0x00.toByte(), 0xA4.toByte(), 0x04.toByte(), 0x00.toByte(),
         )

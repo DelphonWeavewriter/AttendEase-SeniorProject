@@ -24,9 +24,20 @@ class AttendanceActivity : AppCompatActivity() {
 //
 //    private var nfcTagData: String = ""
 
-    private var recievedData: String = ""
+    private var receivedData: String = ""
     private lateinit var textView: TextView
     private lateinit var db: FirebaseFirestore
+
+    companion object {
+        private const val AID = "F0010203040506"
+
+        private val SELECT_APDU_HEADER = byteArrayOf(
+            0x00.toByte(),
+            0xA4.toByte(),
+            0x04.toByte(),
+            0x00.toByte()
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,13 +48,21 @@ class AttendanceActivity : AppCompatActivity() {
         // Firestore Initialized
         db = FirebaseFirestore.getInstance()
 
-//        nfcAdapter = NfcAdapter.getDefaultAdapter(this)
-//
-//        if (nfcAdapter == null) {
-//            Toast.makeText(this, "This device is not NFC-capable", Toast.LENGTH_LONG).show()
-//            finish()
-//            return
-//        }
+        nfcAdapter = NfcAdapter.getDefaultAdapter(this)
+
+        if (nfcAdapter == null) {
+            Toast.makeText(this, "This device is not NFC-capable", Toast.LENGTH_LONG).show()
+            textView.text = "NFC is not available on this device"
+            finish()
+            return
+        }
+
+        if (!nfcAdapter!!.isEnabled) {
+            textView.text = "NFC is disabled. Please enable it in the settings."
+            Toast.makeText(this, "Please enable NFC", Toast.LENGTH_SHORT).show()
+        } else {
+            textView.text = "NFC is enabled, ready to scan"
+        }
 //
 //        pendingIntent = PendingIntent.getActivity(
 //            this, 0,
@@ -61,47 +80,104 @@ class AttendanceActivity : AppCompatActivity() {
 //
 //        intentFiltersArray = arrayOf(ndefDetected)
 
-        handleIncomingShare(intent)
     }
 
-    private fun handleIncomingShare(intent: Intent) {
-        if (intent == null) return
 
-        when (intent.action) {
-            Intent.ACTION_SEND -> {
-                if (intent.type == "text/plain") {
-                    val sharedText = intent.getStringExtra(Intent.EXTRA_TEXT)
-                    if (sharedText != null) {
-                        recievedData = sharedText
-                        textView.text = "Shared Text: $recievedData"
-                        Toast.makeText(this, "Data recieved via Nearby Share", Toast.LENGTH_SHORT).show()
+    override fun onResume() {
+        super.onResume()
+
+        val callback = NfcAdapter.ReaderCallback { tag ->
+            onTagDiscovered(tag)
+        }
+
+        // Enable foreground dispatch to intercept NFC intents
+        nfcAdapter?.enableReaderMode(
+            this,
+            callback,
+            NfcAdapter.FLAG_READER_NFC_A or
+            NfcAdapter.FLAG_READER_NFC_B or
+            NfcAdapter.FLAG_READER_SKIP_NDEF_CHECK,
+            null
+        )
+
+        runOnUiThread { textView.text = "Scanning for HCE device..." }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // Disable NFC detection when app is paused
+        nfcAdapter?.disableReaderMode(this)
+    }
+
+    fun onTagDiscovered(tag: Tag?) {
+        if (tag == null) return
+
+        val isoDep = IsoDep.get(tag)
+        if (isoDep == null) {
+            runOnUiThread {
+                Toast.makeText(this, "Not an ISO-DEP tag", Toast.LENGTH_SHORT).show()
+            }
+            return
+        }
+
+        try {
+            isoDep.connect()
+            isoDep.timeout = 5000
+
+            // Convert AID from hex string to byte array
+            val aidBytes = hexStringToByteArray(AID)
+
+            // Build SELECT APDU command
+            val selectApdu = SELECT_APDU_HEADER + byteArrayOf(aidBytes.size.toByte()) + aidBytes + byteArrayOf(0x00.toByte())
+
+            // Send SELECT command
+            val response = isoDep.transceive(selectApdu)
+
+            if (response != null && response.size >= 2) {
+                // Check status code (last 2 bytes should be 90 00 for success)
+                val statusCode = response.sliceArray(response.size - 2 until response.size)
+
+                if (statusCode[0] == 0x90.toByte() && statusCode[1] == 0x00.toByte()) {
+                    // Extract data (everything except last 2 status bytes)
+                    val dataBytes = response.sliceArray(0 until response.size - 2)
+                    receivedData = String(dataBytes, StandardCharsets.UTF_8)
+
+                    runOnUiThread {
+                        textView.text = "Received Data:\n$receivedData"
+                        Toast.makeText(this, "Data received successfully!", Toast.LENGTH_SHORT).show()
                     }
 
-                    // Send Attendance Record to Firebase
-                    sendToFirebase(recievedData)
-
+                    sendToFirebase(receivedData)
+                } else {
+                    runOnUiThread {
+                        textView.text = "Failed to read data (status code error)"
+                        Toast.makeText(this, "Communication error", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
 
+            isoDep.close()
+
+        } catch (e: Exception) {
+            runOnUiThread {
+                textView.text = "Error: ${e.message}"
+                Toast.makeText(this, "Error reading HCE: ${e.message}", Toast.LENGTH_LONG).show()
+            }
+            e.printStackTrace()
         }
     }
 
-//    override fun onResume() {
-//        super.onResume()
-//        // Enable foreground dispatch to intercept NFC intents
-//        nfcAdapter?.enableForegroundDispatch(
-//            this,
-//            pendingIntent,
-//            intentFiltersArray,
-//            null
-//        )
-//    }
-//
-//    override fun onPause() {
-//        super.onPause()
-//        // Disable NFC detection when app is paused
-//        nfcAdapter?.disableForegroundDispatch(this)
-//    }
+    private fun hexStringToByteArray(hexString: String): ByteArray {
+        val len = hexString.length
+        val data = ByteArray(len / 2)
+        var i = 0
+        while (i < len) {
+            data[i / 2] = ((Character.digit(hexString[i], 16) shl 4) + Character.digit(hexString[i + 1], 16)).toByte()
+            i += 2
+        }
+        return data
+    }
+
 //
 //    override fun onNewIntent(intent: Intent) {
 //        super.onNewIntent(intent)
@@ -280,7 +356,11 @@ class AttendanceActivity : AppCompatActivity() {
         }
 
         val nfcData = hashMapOf(
-            "nfcString" to data
+            "nfcString" to data,
+            "timestamp" to System.currentTimeMillis(),
+            "userId" to currentUser.uid,
+            "userName" to currentUser.displayName,
+            "userEmail" to currentUser.email,
         )
 
         db.collection("Test")

@@ -3631,6 +3631,7 @@ id select_dialog_listview
 id selected
 id selection_type
 id sendButton
+id shareButton
 id sharedValueSet
 id sharedValueUnset
 id shortcut
@@ -4048,6 +4049,8 @@ string google_api_key
 string google_app_id
 string google_crash_reporting_api_key
 string google_storage_bucket
+string hce_attendance_description
+string hce_service_description
 string hide_bottom_view_on_scroll_behavior
 string icon_content_description
 string in_progress
@@ -5533,6 +5536,7 @@ styleable ViewPager2 android_orientation
 styleable ViewStubCompat android_id android_layout android_inflatedId
 styleable ViewTransition android_id SharedValue SharedValueId clearsTag duration ifTagNotSet ifTagSet motionInterpolator motionTarget onStateTransition pathMotionArc setsTag transitionDisable upDuration viewTransitionMode
 styleable include constraintSet
+xml apduservice
 xml backup_rules
 xml data_extraction_rules
 xml image_share_filepaths

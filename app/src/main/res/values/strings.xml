@@ -25,5 +25,7 @@
 
     <!-- Map Strings -->
     <string name="recenter_map">Recenter map</string>
+    <string name="hce_service_description">AttendEase HCE Service</string>
+    <string name="hce_attendance_description">AttendEase Attendance</string>
 
 </resources>
