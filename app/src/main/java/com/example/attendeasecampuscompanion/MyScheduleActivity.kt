@@ -72,14 +72,26 @@ class MyScheduleActivity : AppCompatActivity() {
     }
 
     private fun loadCoursesAndFinals() {
-        val currentUserId = auth.currentUser?.uid ?: return
+        val currentUserId = auth.currentUser?.uid ?: run {
+
+            android.util.Log.e("MySchedule", "No user logged in!")
+
+            return
+
+        }
+
+
+
+        android.util.Log.d("MySchedule", "Starting loadCourses for UID: $currentUserId")
 
         progressBar.visibility = View.VISIBLE
         emptyText.visibility = View.GONE
 
         db.collection("Users").document(currentUserId).get()
             .addOnSuccessListener { userDoc ->
+                android.util.Log.d("MySchedule", "User document loaded successfully")
                 if (!userDoc.exists()) {
+                    android.util.Log.e("MySchedule", "User document does not exist!")
                     progressBar.visibility = View.GONE
                     emptyText.visibility = View.VISIBLE
                     emptyText.text = "User not found"
@@ -89,30 +101,42 @@ class MyScheduleActivity : AppCompatActivity() {
                 val user = userDoc.toObject(User::class.java)
                 val userRole = user?.role ?: "Student"
 
+                android.util.Log.d("MySchedule", "User role: $userRole")
+                android.util.Log.d("MySchedule", "User name: ${user?.firstName} ${user?.lastName}")
+
                 val query = if (userRole == "Professor") {
+                    android.util.Log.d("MySchedule", "Querying as Professor")
                     db.collection("Courses").whereEqualTo("professorId", currentUserId)
                 } else {
+                    android.util.Log.d("MySchedule", "Querying as Student with enrolledStudents")
                     db.collection("Courses").whereArrayContains("enrolledStudents", currentUserId)
                 }
 
                 query.get()
                     .addOnSuccessListener { documents ->
+                        android.util.Log.d("MySchedule", "Query successful! Found ${documents.size()} courses")
+                        progressBar.visibility = View.GONE
                         allCourses.clear()
                         val courseIds = mutableListOf<String>()
                         for (document in documents) {
                             val course = document.toObject(Course::class.java)
+                            android.util.Log.d("MySchedule", "Course found: ${course.courseId} - ${course.courseName}")
                             allCourses.add(course)
                             course.courseId?.let { courseIds.add(it) }
                         }
                         loadFinals(courseIds)
+                        android.util.Log.d("MySchedule", "Filtering schedule by date...")
+                        filterScheduleByDate()
                     }
                     .addOnFailureListener { e ->
+                        android.util.Log.e("MySchedule", "Query failed: ${e.message}", e)
                         progressBar.visibility = View.GONE
                         emptyText.visibility = View.VISIBLE
                         emptyText.text = "Error loading schedule: ${e.message}"
                     }
             }
             .addOnFailureListener { e ->
+                android.util.Log.e("MySchedule", "Failed to load user: ${e.message}", e)
                 progressBar.visibility = View.GONE
                 emptyText.visibility = View.VISIBLE
                 emptyText.text = "Error loading user data: ${e.message}"
