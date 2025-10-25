@@ -8,6 +8,9 @@ import android.nfc.NdefRecord
 import android.nfc.NfcAdapter
 import android.nfc.NfcEvent
 import android.os.Build
+import android.nfc.cardemulation.CardEmulation
+import android.content.ComponentName
+import android.nfc.tech.NfcA
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -19,6 +22,8 @@ import java.nio.charset.StandardCharsets
 class AttendanceSenderActivity : AppCompatActivity(){
     private lateinit var editText: EditText
     private lateinit var statusText: TextView
+    private var nfcAdapter: NfcAdapter? = null
+    private var cardEmulation: CardEmulation? = null
     private var attendanceID  = "CSCI456|Test"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +33,25 @@ class AttendanceSenderActivity : AppCompatActivity(){
         editText = findViewById(R.id.editText)
         statusText = findViewById(R.id.statusText)
         val setButton: Button = findViewById(R.id.sendButton)
-        val shareButton: Button = findViewById(R.id.sendButton)
+
+        nfcAdapter = NfcAdapter.getDefaultAdapter(this)
+
+        if (nfcAdapter == null) {
+            Toast.makeText(this, "NFC is not available on this device", Toast.LENGTH_SHORT).show()
+            setButton.isEnabled = false
+            return
+        }
+
+        cardEmulation = CardEmulation.getInstance(nfcAdapter)
+
+        if (!packageManager.hasSystemFeature("anddroid.harware.nfc.hce")) {
+            statusText.text = "HCE not supported on this device"
+            setButton.isEnabled = false
+            return
+        }
+
+        editText.setText(HCEService.dataToSend)
+        statusText.text = "Ready to be scanned..."
 
 
         setButton.setOnClickListener {
@@ -36,38 +59,15 @@ class AttendanceSenderActivity : AppCompatActivity(){
             if (newText.isEmpty()) {
                 Toast.makeText(this, "Enter attendance ID", Toast.LENGTH_SHORT).show()
             } else {
-                attendanceID = newText
-                statusText.text = "Preset Updated!\n\"$attendanceID\"\n\nReady to be scanned..."
-                Toast.makeText(this, "Preset string updated", Toast.LENGTH_SHORT).show()
+                HCEService.dataToSend = newText
+                statusText.text = "Preset Updated!\n\"$newText\"\n\nReady to be scanned..."
+                Toast.makeText(this, "Data updated, ready to be scanned", Toast.LENGTH_SHORT).show()
             }
         }
 
-        shareButton.setOnClickListener {
-            if (attendanceID.isEmpty()) {
-                Toast.makeText(this, "No string set", Toast.LENGTH_SHORT).show()
-            } else {
-                shareViaNearbySend(attendanceID)
-            }
-        }
-
-        statusText.text = "Current attendance ID: "+attendanceID
-    }
-
-    private fun shareViaNearbySend(text: String) {
-        val sendIntent = Intent().apply {
-            action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, text)
-            type = "text/plain"
-        }
-
-        // Create chooser to show Nearby Share option
-        val shareIntent = Intent.createChooser(sendIntent, "Share via Nearby Share")
-
-        try {
-            startActivity(shareIntent)
-            statusText.text = "Sharing: \"$text\""
-        } catch (e: Exception) {
-            Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_LONG).show()
+        val component = ComponentName(this, HCEService::class.java)
+        if (!cardEmulation!!.isDefaultServiceForCategory(component, CardEmulation.CATEGORY_OTHER)) {
+            Toast.makeText(this, "Please set this app as default for NFC payments in settings", Toast.LENGTH_LONG).show()
         }
     }
 

@@ -6,6 +6,7 @@ import android.content.IntentFilter
 import android.nfc.NdefMessage
 import android.nfc.NfcAdapter
 import android.nfc.Tag
+import android.nfc.tech.IsoDep
 import android.nfc.tech.Ndef
 import android.os.Bundle
 import android.widget.Toast
@@ -17,7 +18,7 @@ import java.nio.charset.StandardCharsets
 
 class AttendanceActivity : AppCompatActivity() {
 
-//    private var nfcAdapter: NfcAdapter? = null
+    private var nfcAdapter: NfcAdapter? = null
 //    private var pendingIntent: PendingIntent? = null
 //    private var intentFiltersArray: Array<IntentFilter>? = null
 //
