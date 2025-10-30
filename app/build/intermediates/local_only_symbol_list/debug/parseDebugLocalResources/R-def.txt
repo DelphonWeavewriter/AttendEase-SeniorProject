@@ -94,6 +94,8 @@ id rvCourses
 id rvStudents
 id scheduleDetails
 id scheduleInfo
+id searchInput
+id searchLayout
 id semester
 id semesterDetails
 id signInButton
@@ -102,6 +104,7 @@ id spinnerCourses
 id spinnerEventCourse
 id studentId
 id studentName
+id suggestionsList
 id textView
 id timeRange
 id tvAbsentCount
@@ -139,6 +142,7 @@ layout dialog_student_detail
 layout fragment_campus_map
 layout item_attendance_report
 layout item_course
+layout item_final_exam
 layout item_manual_attendance
 layout item_schedule
 layout map_test

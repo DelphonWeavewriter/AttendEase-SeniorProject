@@ -34,6 +34,17 @@ import com.google.android.gms.location.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.json.JSONObject
 import org.json.JSONArray
+import com.google.android.material.textfield.TextInputEditText
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import android.text.Editable
+import android.text.TextWatcher
+import android.os.Handler
+import com.google.android.gms.maps.model.BitmapDescriptor
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+
+
+
 
 
 // --- NYIT (Old Westbury) key building coordinates ---
@@ -56,6 +67,11 @@ private val LATLNG_ROOM_ANNARUBIN_306 = com.google.android.gms.maps.model.LatLng
 private val LATLNG_ROOM_ANNARUBIN_303 = com.google.android.gms.maps.model.LatLng(40.81321380974355, -73.60541569087574)
 private val LATLNG_ROOM_SCHURE_227     =  com.google.android.gms.maps.model.LatLng(40.813808602201426, -73.60447959964215)
 
+// add near: private var firstFix = false, etc.
+private lateinit var originalBounds: LatLngBounds
+private var mapTopPaddingPx: Int = 0
+
+
 class CampusMapFragment : Fragment(), OnMapReadyCallback {
     companion object {
         private const val RENDER_MARGIN_METERS = 150.0        // you can tune to 200 if needed
@@ -70,6 +86,59 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
     private var requestingUpdates = false
     private var firstFix = false
     private var initialFramingDone = false
+
+    private lateinit var buildingIcon: BitmapDescriptor
+    private lateinit var classroomIcon: BitmapDescriptor
+
+
+    // --- Search UI ---
+    private var searchInput: TextInputEditText? = null
+    private var suggestionsList: RecyclerView? = null
+    private lateinit var suggestionsAdapter: SuggestionsAdapter
+
+    // --- Registry / markers ---
+    private data class Place(val title: String, val snippet: String?, val latLng: LatLng)
+    private val buildingPlaces = mutableListOf<Place>()
+    private val buildingMarkers = mutableMapOf<String, com.google.android.gms.maps.model.Marker>()
+
+    // visible selection
+    private var currentVisibleMarkerTitle: String? = null
+
+    // debounce for search
+    private val searchHandler = Handler(Looper.getMainLooper())
+    private var pendingSearch: Runnable? = null
+
+    private inner class SuggestionsAdapter(
+        private val onClick: (Place) -> Unit
+    ) : RecyclerView.Adapter<SuggestionsAdapter.VH>() {
+
+        private val items = mutableListOf<Place>()
+
+        inner class VH(val view: android.widget.TextView) : RecyclerView.ViewHolder(view) {
+            fun bind(p: Place) {
+                view.text = p.title
+                view.setOnClickListener { onClick(p) }
+            }
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
+            val tv = android.widget.TextView(parent.context).apply {
+                setPadding(24, 24, 24, 24)
+                textSize = 16f
+            }
+            return VH(tv)
+        }
+
+        override fun onBindViewHolder(holder: VH, position: Int) = holder.bind(items[position])
+        override fun getItemCount(): Int = items.size
+
+        fun submit(list: List<Place>) {
+            items.clear()
+            items.addAll(list)
+            notifyDataSetChanged()
+        }
+    }
+
 
     private fun addStyledMarker(title: String, pos: LatLng, snippet: String?) {
         map?.addMarker(
@@ -97,6 +166,7 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         "Recreation Hall" to "Activities/Recreation",
         "Balding House" to "Activities/Recreation",
         "Green Lodge" to "Activities/Recreation",
+        "Whitney Lane House" to "Campus building",
 
 
 
@@ -208,12 +278,14 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         map?.addPolygon(opts)
 
         if (addMarker) {
-            map?.addMarker(
+            addBuildingMarkerKeepRef(
                 com.google.android.gms.maps.model.MarkerOptions()
                     .position(polygonCentroid(points))
                     .title(name)
+                    .icon(buildingIcon)
             )
         }
+
     }
 
     // Convert Overpass element.geometry[] to LatLng ring(s)
@@ -438,12 +510,14 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
                         if (match != null) {
                             if (t.isField) {
                                 val center = polygonCentroid(match.rings[0])
-                                map?.addMarker(
+                                addBuildingMarkerKeepRef(
                                     com.google.android.gms.maps.model.MarkerOptions()
                                         .position(center)
                                         .title(t.displayName)
-                                        .snippet(markerSnippets[t.displayName]) // your style
+                                        .snippet(markerSnippets[t.displayName])
+                                        .icon(buildingIcon)
                                 )
+
                             } else {
                                 val ring = match.rings[0]
                                 val first = ring.first(); val last = ring.last()
@@ -456,12 +530,14 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
                                 map?.addPolygon(poly)
 
                                 if (!t.suppressMarker) {
-                                    map?.addMarker(
+                                    addBuildingMarkerKeepRef(
                                         com.google.android.gms.maps.model.MarkerOptions()
                                             .position(polygonCentroid(ring))
                                             .title(t.displayName)
-                                            .snippet(markerSnippets[t.displayName]) // your style
+                                            .snippet(markerSnippets[t.displayName])
+                                            .icon(buildingIcon)
                                     )
+
                                 }
                             }
                             found += t.displayName
@@ -499,12 +575,14 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
 
         if (addMarker) {
             val center = polygonCentroid(points)
-            map?.addMarker(
+            addBuildingMarkerKeepRef(
                 com.google.android.gms.maps.model.MarkerOptions()
                     .position(center)
                     .title(name)
+                    .icon(buildingIcon)
             )
         }
+
     }
 
     // --- Geo helpers (replace SphericalUtil) ---
@@ -527,6 +605,110 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         return LatLng(Math.toDegrees(lat2), Math.toDegrees(lon2))
     }
 
+    // We’ll call this instead of map?.addMarker directly for BUILDING markers.
+// It records the exact Marker and hides it at startup.
+    private fun addBuildingMarkerKeepRef(options: MarkerOptions): com.google.android.gms.maps.model.Marker? {
+        val m = map?.addMarker(options) ?: return null
+        val title = options.title ?: return m
+        // keep reference + hide by default
+        buildingMarkers[title] = m
+        m.isVisible = false
+        // register for search (only once)
+        if (buildingPlaces.none { it.title == title }) {
+            buildingPlaces += Place(title = title, snippet = m.snippet, latLng = m.position)
+        }
+        return m
+    }
+
+    // Classrooms or non-building markers can still use map?.addMarker directly.
+// For search selection:
+    private fun selectPlace(place: Place) {
+        // Hide previous
+        currentVisibleMarkerTitle?.let { prev ->
+            buildingMarkers[prev]?.isVisible = false
+        }
+
+        val marker = buildingMarkers[place.title] ?: return
+        marker.isVisible = true
+        marker.showInfoWindow()
+        currentVisibleMarkerTitle = place.title
+
+        val gmap = map ?: return
+
+        // --- Compute a layout-aware pixel offset (fraction of the map view size) ---
+        // We'll push the camera right/down so NW-edge markers are comfortably in-frame.
+        val rootView = view ?: return
+        val mapWidth = rootView.width.coerceAtLeast(1)
+        val mapHeight = rootView.height.coerceAtLeast(1)
+
+        // Default gentle nudge
+        var fracX = 0f   // 0 so normal selections are centered
+        var fracY = 0f   // ^
+
+        // Stronger nudge for Simonson (hard NW corner), moderate for DPC
+        when (place.title) {
+            "Simonson House" -> { fracX = 0.30f; fracY = 0.20f }   // tuneable
+            "Digital Print Center" -> { fracX = 0.22f; fracY = 0.24f }
+        }
+
+        val pxX = (mapWidth * fracX).toInt()
+        val pxY = (mapHeight * fracY).toInt()
+
+        val proj = gmap.projection
+        val screenPt = proj.toScreenLocation(marker.position)
+        val shiftedPt = android.graphics.Point(screenPt.x + pxX, screenPt.y + pxY)
+        val adjustedLatLng = proj.fromScreenLocation(shiftedPt)
+
+        // --- Temporarily relax bounds a hair more for the animation, then restore ---
+        // (A bit wider west/north helps the NW corner most.)
+        val expanded = LatLngBounds(
+            LatLng(originalBounds.southwest.latitude - 0.0004, originalBounds.southwest.longitude - 0.0020),
+            LatLng(originalBounds.northeast.latitude + 0.0005, originalBounds.northeast.longitude + 0.0003)
+        )
+
+        // Also temporarily reduce top padding so it doesn't crowd the top edge
+        val prevTopPad = mapTopPaddingPx
+        val tempTopPad = (prevTopPad * 0.4f).toInt()  // e.g., 500 → 200 during the move
+
+        gmap.setLatLngBoundsForCameraTarget(expanded)
+        gmap.setPadding(0, tempTopPad, 0, 0)
+
+        gmap.animateCamera(CameraUpdateFactory.newLatLngZoom(adjustedLatLng, 18f))
+
+        gmap.setOnCameraIdleListener {
+            // Restore your original clamp + padding after the animation settles
+            map?.setLatLngBoundsForCameraTarget(originalBounds)
+            map?.setPadding(0, prevTopPad, 0, 0)
+            map?.setOnCameraIdleListener(null)
+        }
+
+        // Hide suggestions
+        suggestionsList?.visibility = View.GONE
+    }
+
+
+
+
+
+    // Filter suggestions by prefix of the title (case-insensitive)
+    private fun filterSuggestions(query: String) {
+        val q = query.trim().lowercase()
+        if (q.isEmpty()) {
+            suggestionsAdapter.submit(emptyList())
+            suggestionsList?.visibility = View.GONE
+            // Also hide any visible marker when clearing search
+            currentVisibleMarkerTitle?.let { buildingMarkers[it]?.isVisible = false }
+            currentVisibleMarkerTitle = null
+            return
+        }
+        // prefix first
+        val results = buildingPlaces
+            .filter { it.title.lowercase().startsWith(q) }
+            .take(10)
+
+        suggestionsAdapter.submit(results)
+        suggestionsList?.visibility = if (results.isEmpty()) View.GONE else View.VISIBLE
+    }
 
 
     // TEAM: Runtime permission launcher for precise/approximate location
@@ -560,13 +742,50 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         // TEAM: Init fused location here; safe because we have a context now
         fused = LocationServices.getFusedLocationProviderClient(requireContext())
 
+        // Hook up search views
+        searchInput = root.findViewById(R.id.searchInput)
+        suggestionsList = root.findViewById<RecyclerView>(R.id.suggestionsList).apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            suggestionsAdapter = SuggestionsAdapter { place ->
+                // on suggestion click
+                selectPlace(place)
+            }
+            adapter = suggestionsAdapter
+        }
+        searchInput?.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // debounce
+                pendingSearch?.let { searchHandler.removeCallbacks(it) }
+                pendingSearch = Runnable { filterSuggestions(s?.toString().orEmpty()) }
+                searchHandler.postDelayed(pendingSearch!!, 200)
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
         // Recenter FAB
         root.findViewById<FloatingActionButton>(R.id.fabRecenter)?.setOnClickListener {
             recenterToLastKnownLocation()
+            suggestionsList?.visibility = View.GONE
         }
 
         return root
     }
+    private fun withTempBounds(
+        tempBounds: LatLngBounds,
+        action: () -> Unit,
+        restoreBounds: LatLngBounds
+    ) {
+        val gmap = map ?: return
+        gmap.setLatLngBoundsForCameraTarget(tempBounds)
+        action()
+        // restore after the camera settles
+        gmap.setOnCameraIdleListener {
+            map?.setLatLngBoundsForCameraTarget(restoreBounds)
+            map?.setOnCameraIdleListener(null)
+        }
+    }
+
 
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -582,6 +801,10 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
             setMinZoomPreference(15f)  // street / campus
             setMaxZoomPreference(19.0f)  // building level
         }
+
+        // 🔹 Initialize global icons here
+        buildingIcon  = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)
+        classroomIcon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)
 
         // CampusMapFragment.kt (inside onMapReady)
         val ai = requireContext().packageManager.getApplicationInfo(
@@ -604,7 +827,7 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         val campusCore = boundsBuilder.build()
 
 // 1) Your existing hard user box (unchanged numbers)
-        val originalBounds = LatLngBounds(
+           originalBounds = LatLngBounds(
             LatLng(campusCore.southwest.latitude + 0.0012, campusCore.southwest.longitude - 0.0018),
             LatLng(campusCore.northeast.latitude + 0.0003, campusCore.northeast.longitude + 0.0001)
         )
@@ -614,8 +837,9 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         googleMap.isBuildingsEnabled = true
 
 // 4) Top padding (shifts viewport down a bit so south edge is more visible)
-        val topPaddingPx = 500
-        map?.setPadding(0, topPaddingPx, 0, 0)
+        mapTopPaddingPx = 500
+        map?.setPadding(0, mapTopPaddingPx, 0, 0)
+
 
 // 5) Target bounds (choose ONE):
 // A) Keep users strictly inside originalBounds (hard clamp, no snap-back):
@@ -632,6 +856,10 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
             // Fit to your original hard box (respects the top padding you set above)
             map?.moveCamera(CameraUpdateFactory.newLatLngBounds(originalBounds, 0))
 
+            suggestionsList?.visibility = View.GONE
+            searchInput?.setText("")
+
+
             // Tiny nudge SOUTH so southern tiles are inside the frustum
             map?.cameraPosition?.target?.let { cur ->
                 val shifted = offsetMeters(cur, 90.0, 180.0) // 90 m south; tweak 60–120
@@ -640,6 +868,10 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
 
             // If you added the initialFramingDone flag earlier, set it here:
             initialFramingDone = true
+
+
+
+
         }
         val fetchBounds = expandBoundsMeters(originalBounds, north = 80.0, south = 220.0, east = 80.0, west = 80.0)
         fetchAndRenderCampusFootprints(fetchBounds)
@@ -647,50 +879,51 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
 
         // ===================== MARKERS  =====================
         // --- Manual fallbacks (only if you still don't see the markers) ---
-        addStyledMarker(
-            title = "Simonson House",
-            pos = LatLng(   40.814759114770865  ,   -73.60981569632176  ),
-            snippet = markerSnippets["SECURITY/FACILITIES"]
-        )
-
-        addStyledMarker(
-            title = "Digital Print Center",
-            pos = LatLng(   40.81443837813061, -73.60894129780674 ),
-            snippet = markerSnippets["SECURITY/FACILITIES"]
+        addBuildingMarkerKeepRef(
+            com.google.android.gms.maps.model.MarkerOptions()
+                .position(LatLng(40.814759114770865, -73.60981569632176))
+                .title("Simonson House")
+                .snippet(markerSnippets["SECURITY/FACILITIES"])
+                .icon(buildingIcon)
         )
 
 
-        val buildingIcon = com.google.android.gms.maps.model.BitmapDescriptorFactory.defaultMarker(
-            com.google.android.gms.maps.model.BitmapDescriptorFactory.HUE_RED
+        addBuildingMarkerKeepRef(
+            com.google.android.gms.maps.model.MarkerOptions()
+                .position(LatLng(40.81443837813061, -73.60894129780674))
+                .title("Digital Print Center")
+                .snippet(markerSnippets["SECURITY/FACILITIES"])
+                .icon(buildingIcon)
         )
-        val classroomIcon = com.google.android.gms.maps.model.BitmapDescriptorFactory.defaultMarker(
-            com.google.android.gms.maps.model.BitmapDescriptorFactory.HUE_AZURE
-        )
+
+
+
+
 
 
         // Buildings
-        map?.addMarker(
+        addBuildingMarkerKeepRef(
             com.google.android.gms.maps.model.MarkerOptions()
                 .position(LATLNG_ANNA_RUBIN)
                 .icon(buildingIcon)
                 .title("Anna Rubin Hall")
                 .snippet("Academic building")
         )
-        map?.addMarker(
+        addBuildingMarkerKeepRef(
             com.google.android.gms.maps.model.MarkerOptions()
                 .position(LATLNG_SCHURE)
                 .icon(buildingIcon)
                 .title("Harry J. Schure Hall")
                 .snippet("Academic & student services")
         )
-        map?.addMarker(
+        addBuildingMarkerKeepRef(
             com.google.android.gms.maps.model.MarkerOptions()
                 .position(LATLNG_THEOBALD)
                 .icon(buildingIcon)
                 .title("Theobald Science Center")
                 .snippet("Science & labs")
         )
-        map?.addMarker(
+        addBuildingMarkerKeepRef(
             com.google.android.gms.maps.model.MarkerOptions()
                 .position(LATLNG_SALTEN)
                 .icon(buildingIcon)
@@ -721,28 +954,28 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
                 .snippet("Classroom")
         )
 
-        map?.addMarker(
+        addBuildingMarkerKeepRef(
             com.google.android.gms.maps.model.MarkerOptions()
                 .position(LATLNG_RILAND)
                 .icon(buildingIcon)
                 .title("Riland Academic Center")
                 .snippet("Academic Health Care Center")
         )
-        map?.addMarker(
+        addBuildingMarkerKeepRef(
             com.google.android.gms.maps.model.MarkerOptions()
                 .position(LATLNG_SEROTA)
                 .icon(buildingIcon)
                 .title("Serota Academic Center ")
                 .snippet("Medicine & Health Sciences")
         )
-        map?.addMarker(
+        addBuildingMarkerKeepRef(
             com.google.android.gms.maps.model.MarkerOptions()
                 .position(LATLNG_MIDGEC)
                 .icon(buildingIcon)
                 .title("Midge Karr Art & Design Center")
                 .snippet("School of Architecture & Design")
         )
-        map?.addMarker(
+        addBuildingMarkerKeepRef(
             com.google.android.gms.maps.model.MarkerOptions()
                 .position(LATLNG_EDHALL)
                 .icon(buildingIcon)
@@ -770,24 +1003,42 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         addBuildingPolygon(
             name = "Serota Academic Center",
             points = SEROTA_POLY,
-            addMarker = false // you already add a Serota marker above
+            addMarker = false
         )
 
         addBuildingPolygon(
             name = "Wisser Memorial Library",
             points = WISSER_POLY,
-            addMarker = true  // new marker
+            addMarker = false
         )
 
-// TODO: Add more buildings below, following the same pattern:
-// 1) Open MapCarta page for the building
-// 2) Click “View on OpenStreetMap”
-// 3) On the OSM 'Way' page, click each 'Node' and copy its lat/lon in order
-// 4) Paste as a list<LatLng> and call addBuildingPolygon(name, list, addMarker=true/false)
+        // Add the building marker via keeper (so it's hidden until search)
+        addBuildingMarkerKeepRef(
+            com.google.android.gms.maps.model.MarkerOptions()
+                .position(polygonCentroid(WISSER_POLY))
+                .title("Wisser Memorial Library")
+                .snippet("Library") // keep/adjust to match what you want shown; do not change coords
+                .icon(buildingIcon)
+        )
+
+        // Whitney Lane House — marker only (no polygon)
+// Replace the coordinates with the exact lat/lng for Whitney Lane House.
+        addBuildingMarkerKeepRef(
+            com.google.android.gms.maps.model.MarkerOptions()
+                .position(com.google.android.gms.maps.model.LatLng(
+                    /* lat = */ 40.811638499483706,   /* TODO: put exact latitude */
+                    /* lng = */ -73.60052834471715 /* TODO: put exact longitude */
+                ))
+                .title("Whitney Lane House")
+                .snippet(markerSnippets["Whitney Lane House"]) // or a hardcoded string if you prefer
+                .icon(buildingIcon)
+        )
 
         // TEAM: Kick off permission check → enable blue dot & start updates when granted
 
         ensureLocationPermission()
+
+
 
 
     }
