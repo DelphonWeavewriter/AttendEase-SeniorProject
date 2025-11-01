@@ -45,6 +45,8 @@ class HomeActivity : ComponentActivity() {
 
         findViewById<Button>(R.id.btnSocial).setOnClickListener {
             Toast.makeText(this, "Sam", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, FriendsListImplementation::class.java))
+            finish()
             // TODO: Implement social media for campuslife
         }
 

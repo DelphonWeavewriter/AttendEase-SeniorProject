@@ -19,6 +19,8 @@ drawable ic_my_location
 drawable input_field_background
 drawable login_background
 drawable signin_button_background
+id addFriendButton
+id addFriendTextField
 id appLogo
 id btnCampusMap
 id btnCheckIn
@@ -26,11 +28,9 @@ id btnFinalsSchedule
 id btnSchedule
 id btnSignOut
 id btnSocial
-id button
 id dateHeader
 id editTextEmailAddress
 id editTextPassword
-id editTextText2
 id fabRecenter
 id forgotPassword
 id friendsList

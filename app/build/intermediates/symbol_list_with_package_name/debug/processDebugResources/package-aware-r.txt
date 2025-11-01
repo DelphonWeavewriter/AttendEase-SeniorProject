@@ -3271,6 +3271,8 @@ id action_text
 id actions
 id activity_chooser_view_content
 id add
+id addFriendButton
+id addFriendTextField
 id adjust_height
 id adjust_width
 id alertTitle
@@ -3315,7 +3317,6 @@ id btnFinalsSchedule
 id btnSchedule
 id btnSignOut
 id btnSocial
-id button
 id buttonPanel
 id cache_measures
 id callMeasure
@@ -3395,7 +3396,6 @@ id east
 id edge
 id editTextEmailAddress
 id editTextPassword
-id editTextText2
 id edit_query
 id edit_text_id
 id elastic

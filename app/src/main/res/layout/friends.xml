@@ -25,7 +25,7 @@
         android:layout_height="397dp" />
 
     <EditText
-        android:id="@+id/editTextText2"
+        android:id="@+id/addFriendTextField"
         android:layout_width="wrap_content"
         android:layout_height="75dp"
         android:ems="10"
@@ -33,7 +33,7 @@
         android:text="Friend ID" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/addFriendButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add Friend" />
