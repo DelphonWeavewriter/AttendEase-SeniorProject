@@ -355,6 +355,8 @@ class AttendanceActivity : AppCompatActivity() {
             return
         }
 
+
+
         val nfcData = hashMapOf(
             "nfcString" to data,
             "timestamp" to System.currentTimeMillis(),
@@ -391,6 +393,7 @@ class AttendanceActivity : AppCompatActivity() {
         }
         return String(hexChars)
     }
+
 
 //    // Function to access the saved NFC data from anywhere in your app
 //    fun getSavedNfcData(): String {
