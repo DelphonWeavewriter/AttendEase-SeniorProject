@@ -8,13 +8,16 @@ import android.nfc.NfcAdapter
 import android.nfc.Tag
 import android.nfc.tech.IsoDep
 import android.nfc.tech.Ndef
+import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import java.nio.charset.StandardCharsets
+import java.time.LocalTime
 
 class AttendanceActivity : AppCompatActivity() {
 
@@ -27,6 +30,9 @@ class AttendanceActivity : AppCompatActivity() {
     private var receivedData: String = ""
     private lateinit var textView: TextView
     private lateinit var db: FirebaseFirestore
+    private var currentRoom: String = "235"
+    private var time: String = "11:45:00 AM"
+
 
     companion object {
         private const val AID = "F0010203040506"
@@ -83,6 +89,7 @@ class AttendanceActivity : AppCompatActivity() {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onResume() {
         super.onResume()
 
@@ -109,6 +116,7 @@ class AttendanceActivity : AppCompatActivity() {
         nfcAdapter?.disableReaderMode(this)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun onTagDiscovered(tag: Tag?) {
         if (tag == null) return
 
@@ -347,6 +355,7 @@ class AttendanceActivity : AppCompatActivity() {
 //    }
 
     // Function to send NFC data to the database
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun sendToFirebase(data: String) {
         val currentUser = FirebaseAuth.getInstance().currentUser
 
@@ -354,7 +363,6 @@ class AttendanceActivity : AppCompatActivity() {
             Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()
             return
         }
-
 
 
         val nfcData = hashMapOf(
@@ -365,22 +373,26 @@ class AttendanceActivity : AppCompatActivity() {
             "userEmail" to currentUser.email,
         )
 
-        db.collection("Test")
-            .add(nfcData)
-            .addOnSuccessListener { documentReference ->
-                Toast.makeText(
-                    this,
-                    "Data saved to Firebase: ${documentReference.id}",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-            .addOnFailureListener { e ->
-                Toast.makeText(
-                    this,
-                    "Error saving to Firebase: ${e.message}",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
+        if (isAttendee(currentUser.uid)) {
+            db.collection("Test")
+                .add(nfcData)
+                .addOnSuccessListener { documentReference ->
+                    Toast.makeText(
+                        this,
+                        "Data saved to Firebase: ${documentReference.id}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(
+                        this,
+                        "Error saving to Firebase: ${e.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+        }
+
+
     }
 
     // Helper function to convert byte array to hex string
@@ -394,6 +406,87 @@ class AttendanceActivity : AppCompatActivity() {
         return String(hexChars)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getCurrentEvent(time: String): String {
+        val roomRef = db.collection("Courses")
+        var courseId = ""
+        roomRef.whereEqualTo("room", currentRoom)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+
+
+
+                    val startTime = document.getString("startTime")
+                    val endTime = document.getString("endTime")
+                    if (isCurrentTimeBetween(timeToLocalTime(time), timeToLocalTime(startTime.toString()), timeToLocalTime(endTime.toString()))) {
+                        courseId = document.getString("courseId").toString()
+                    }
+                }
+            }
+            .addOnFailureListener { exception ->
+                println("Error getting documents: $exception")
+            }
+
+        return courseId
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun timeToLocalTime(time: String): LocalTime {
+        val timeParts = time.split(":")
+        val hour = timeParts[0].toInt()
+        val minute = timeParts[1].toInt()
+        val secondTemp = timeParts[2]
+        val secondAndMeridiemParts = secondTemp.split(" ")
+        secondAndMeridiemParts[0].toInt()
+        val meridiem = secondAndMeridiemParts[1]
+
+        if (meridiem == "PM") {
+            if (hour != 12) {
+                return LocalTime.of(hour + 12, minute)
+            }
+        }
+
+        return LocalTime.of(hour, minute)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun isCurrentTimeBetween(currentTime: LocalTime, startTime: LocalTime, endTime: LocalTime): Boolean {
+        return if (startTime.isBefore(endTime)) {
+            currentTime.isAfter(startTime) && currentTime.isBefore(endTime)
+        } else { // startTime is after endTime, meaning the range crosses midnight
+            currentTime.isAfter(startTime) || currentTime.isBefore(endTime)
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun isAttendee(currentUserId: String): Boolean {
+        val currentEvent = getCurrentEvent(time)
+        var currentStudent = ""
+        db.collection("Courses").whereEqualTo("courseId", currentEvent)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    val attendee = document.get("enrolledStudents")
+                    for (student in attendee as List<*>) {
+                        if (student == currentUserId) {
+                            currentStudent = student.toString()
+                            println("Current Student: $currentStudent")
+                        }
+                    }
+                }
+            }
+            .addOnFailureListener { exception ->
+                println("Error getting documents: $exception")
+            }
+
+        return currentUserId == currentStudent
+    }
+
+}
+
+
+
 
 //    // Function to access the saved NFC data from anywhere in your app
 //    fun getSavedNfcData(): String {
@@ -402,4 +495,3 @@ class AttendanceActivity : AppCompatActivity() {
 
 
 
-}
