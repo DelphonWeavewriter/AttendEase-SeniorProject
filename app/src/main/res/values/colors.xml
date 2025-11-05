@@ -11,4 +11,5 @@
     <color name="warning_yellow">#FFA726</color>
     <color name="error_red">#EF5350</color>
     <color name="light_gray">#EEEEEE</color>
+    <color name="primary_blue">#42A5F5</color>
 </resources>

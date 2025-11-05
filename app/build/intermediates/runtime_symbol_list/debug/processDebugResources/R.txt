@@ -3337,6 +3337,7 @@ int id btnSelectDate 0x7f08007e
 int id btnSendAnnouncement 0x7f08007f
 int id btnSignOut 0x7f080080
 int id btnSocial 0x7f080081
+int id btnViewAnnouncements 0x7f080279
 int id btnViewAttendance 0x7f080082
 int id btnViewCourses 0x7f080083
 int id buttonPanel 0x7f080084
@@ -3344,6 +3345,7 @@ int id cache_measures 0x7f080085
 int id calendarView 0x7f080086
 int id callMeasure 0x7f080087
 int id cancel_button 0x7f080088
+int id cardAnnouncement 0x7f08027a
 int id carryVelocity 0x7f080089
 int id center 0x7f08008a
 int id centerCrop 0x7f08008b
@@ -3662,6 +3664,7 @@ int id right_icon 0x7f0801bf
 int id right_side 0x7f0801c0
 int id rounded 0x7f0801c1
 int id row_index_key 0x7f0801c2
+int id rvAnnouncements 0x7f08027b
 int id rvCourses 0x7f0801c3
 int id rvStudents 0x7f0801c4
 int id satellite 0x7f0801c5
@@ -3789,8 +3792,10 @@ int id transition_scene_layoutid_cache 0x7f08023c
 int id transition_transform 0x7f08023d
 int id triangle 0x7f08023e
 int id tvAbsentCount 0x7f08023f
+int id tvAnnouncementMessage 0x7f08027c
 int id tvAttendanceRate 0x7f080240
 int id tvCounts 0x7f080241
+int id tvCourseName 0x7f08027d
 int id tvCoursesList 0x7f080242
 int id tvDetailAbsentCount 0x7f080243
 int id tvDetailLateCount 0x7f080244
@@ -3799,11 +3804,13 @@ int id tvEmptyState 0x7f080246
 int id tvLateCount 0x7f080247
 int id tvNoCourses 0x7f080248
 int id tvPresentCount 0x7f080249
+int id tvProfessor 0x7f08027e
 int id tvSelectedCourse 0x7f08024a
 int id tvSelectedDate 0x7f08024b
 int id tvStatus 0x7f08024c
 int id tvStatusEmoji 0x7f08024d
 int id tvStudentName 0x7f08024e
+int id tvTimestamp 0x7f08027f
 int id tvTitle 0x7f08024f
 int id tvTotalClasses 0x7f080250
 int id tvTotalStudents 0x7f080251
@@ -3814,6 +3821,7 @@ int id up 0x7f080255
 int id useLogo 0x7f080256
 int id vertical 0x7f080257
 int id vertical_only 0x7f080258
+int id viewPriorityIndicator 0x7f080280
 int id view_offset_helper 0x7f080259
 int id view_transition 0x7f08025a
 int id view_tree_disjoint_parent 0x7f08025b
@@ -3959,6 +3967,7 @@ int layout activity_mark_attendance 0x7f0b001f
 int layout activity_my_schedule 0x7f0b0020
 int layout activity_professor_home 0x7f0b0021
 int layout activity_student_course_detail 0x7f0b0082
+int layout activity_view_announcements 0x7f0b0083
 int layout activity_view_attendance 0x7f0b0022
 int layout activity_view_courses 0x7f0b0023
 int layout amu_info_window 0x7f0b0024
@@ -3988,6 +3997,7 @@ int layout dialog_student_detail 0x7f0b003b
 int layout fragment_campus_map 0x7f0b003c
 int layout ime_base_split_test_activity 0x7f0b003d
 int layout ime_secondary_split_test_activity 0x7f0b003e
+int layout item_announcement 0x7f0b0084
 int layout item_attendance_report 0x7f0b003f
 int layout item_course 0x7f0b0040
 int layout item_manual_attendance 0x7f0b0041
