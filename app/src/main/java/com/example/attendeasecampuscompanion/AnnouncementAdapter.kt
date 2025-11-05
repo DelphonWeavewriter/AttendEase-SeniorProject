@@ -30,7 +30,6 @@ class AnnouncementAdapter : RecyclerView.Adapter<AnnouncementAdapter.Announcemen
     override fun getItemCount() = announcements.size
 
     class AnnouncementViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val card: CardView = itemView.findViewById(R.id.cardAnnouncement)
         private val message: TextView = itemView.findViewById(R.id.tvAnnouncementMessage)
         private val timestamp: TextView = itemView.findViewById(R.id.tvTimestamp)
         private val professor: TextView = itemView.findViewById(R.id.tvProfessor)
@@ -42,21 +41,10 @@ class AnnouncementAdapter : RecyclerView.Adapter<AnnouncementAdapter.Announcemen
             professor.text = "Posted by ${announcement.createdByName}"
 
             val color = when (announcement.priority) {
-                "URGENT" -> {
-                    ContextCompat.getColor(itemView.context, R.color.error_red)
-                }
-                else -> {
-                    ContextCompat.getColor(itemView.context, R.color.primary_blue)
-                }
+                "URGENT" -> ContextCompat.getColor(itemView.context, R.color.error_red)
+                else -> ContextCompat.getColor(itemView.context, R.color.primary_blue)
             }
             priorityIndicator.setBackgroundColor(color)
-
-            if (announcement.priority == "URGENT") {
-                card.strokeWidth = 4
-                card.strokeColor = ContextCompat.getColor(itemView.context, R.color.error_red)
-            } else {
-                card.strokeWidth = 0
-            }
         }
     }
 }

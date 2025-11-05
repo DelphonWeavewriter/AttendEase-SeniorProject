@@ -3,6 +3,7 @@ local
 color black
 color error_red
 color light_gray
+color primary_blue
 color purple_200
 color purple_500
 color purple_700
