@@ -28,10 +28,12 @@ class StudentCourseDetailActivity : AppCompatActivity() {
 
     private lateinit var btnNavigate: MaterialButton
     private lateinit var btnEmailProfessor: MaterialButton
+    private lateinit var btnViewAnnouncements: MaterialButton
     private lateinit var btnBack: ImageButton
 
     private var professorEmail: String? = null
     private var roomId: String? = null
+    private var courseDocId: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +45,7 @@ class StudentCourseDetailActivity : AppCompatActivity() {
         initializeViews()
 
         val courseId = intent.getStringExtra("courseId") ?: ""
-        val courseDocId = intent.getStringExtra("courseDocId") ?: ""
+        courseDocId = intent.getStringExtra("courseDocId") ?: ""
 
         if (courseDocId.isNotEmpty()) {
             loadCourseDetails(courseDocId)
@@ -81,6 +83,13 @@ class StudentCourseDetailActivity : AppCompatActivity() {
                 Toast.makeText(this, "Professor email not available", Toast.LENGTH_SHORT).show()
             }
         }
+
+        btnViewAnnouncements.setOnClickListener {
+            val intent = Intent(this, ViewAnnouncementsActivity::class.java)
+            intent.putExtra("courseDocId", courseDocId)
+            intent.putExtra("courseName", courseCodeText.text.toString())
+            startActivity(intent)
+        }
     }
 
     private fun initializeViews() {
@@ -96,6 +105,7 @@ class StudentCourseDetailActivity : AppCompatActivity() {
 
         btnNavigate = findViewById(R.id.btnNavigate)
         btnEmailProfessor = findViewById(R.id.btnEmailProfessor)
+        btnViewAnnouncements = findViewById(R.id.btnViewAnnouncements)
         btnBack = findViewById(R.id.btnBack)
     }
 
@@ -235,7 +245,7 @@ class StudentCourseDetailActivity : AppCompatActivity() {
                         }
                     )
                 } else {
-                    val attendanceText = findViewById<TextView>(R.id.attendanceRate)
+                    val attendanceText = findViewById(R.id.attendanceRate)
                     attendanceText.text = "No attendance records yet"
                 }
             }
