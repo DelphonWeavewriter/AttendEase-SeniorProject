@@ -245,8 +245,7 @@ class StudentCourseDetailActivity : AppCompatActivity() {
                         }
                     )
                 } else {
-                    val attendanceText = findViewById(R.id.attendanceRate)
-                    attendanceText.text = "No attendance records yet"
+                    val attendanceText = findViewById<TextView>(R.id.attendanceRate)
                 }
             }
             .addOnFailureListener { e ->

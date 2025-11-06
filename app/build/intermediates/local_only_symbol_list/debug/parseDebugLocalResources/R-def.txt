@@ -15,6 +15,7 @@ color white
 drawable app_logo
 drawable background_gradient
 drawable card_background
+drawable final_exam_border
 drawable gradient_header
 drawable ic_email
 drawable ic_launcher_background
