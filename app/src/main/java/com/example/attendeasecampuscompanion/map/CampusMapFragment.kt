@@ -810,8 +810,7 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         val ai = requireContext().packageManager.getApplicationInfo(
             requireContext().packageName, android.content.pm.PackageManager.GET_META_DATA
         )
-        val keyPrefix = ai.metaData.getString("com.google.android.geo.API_KEY")?.take(8)
-        android.util.Log.d("MapsKeyCheck", "API key prefix: $keyPrefix")
+
 
         Log.d("CampusMap", "Map is ready")
 
