@@ -1,5 +1,8 @@
 package com.example.attendeasecampuscompanion
 
+import java.text.SimpleDateFormat
+import java.util.*
+
 data class Announcement(
     val announcementId: String = "",
     val title: String = "",
@@ -9,11 +12,11 @@ data class Announcement(
     val createdBy: String = "",
     val createdByName: String = "",
     val timestamp: Long = 0L,
-    val priority: AnnouncementPriority = AnnouncementPriority.NORMAL
+    val priority: String = "NORMAL"
 ) {
     fun getFormattedDate(): String {
-        val sdf = java.text.SimpleDateFormat("MMM dd, yyyy 'at' hh:mm a", java.util.Locale.getDefault())
-        return sdf.format(java.util.Date(timestamp))
+        val sdf = SimpleDateFormat("MMM dd, yyyy 'at' hh:mm a", Locale.getDefault())
+        return sdf.format(Date(timestamp))
     }
 
     fun getTimeAgo(): String {
@@ -32,9 +35,4 @@ data class Announcement(
             else -> "Just now"
         }
     }
-}
-
-enum class AnnouncementPriority {
-    NORMAL,
-    URGENT
 }
