@@ -50,7 +50,7 @@
         android:theme="@style/Theme.AttendEaseCampusCompanion" >
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDuchn0as2HJyDlqdYGqTcmPDM__0in5x0" />
+            android:value="REPLACE_ME" />
 
         <activity
             android:name="com.example.attendeasecampuscompanion.MainActivity"

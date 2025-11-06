@@ -4006,6 +4006,7 @@ layout ime_secondary_split_test_activity
 layout item_announcement
 layout item_attendance_report
 layout item_course
+layout item_event
 layout item_final_exam
 layout item_manual_attendance
 layout item_schedule

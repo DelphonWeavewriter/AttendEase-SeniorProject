@@ -1,12 +1,12 @@
-#Thu Nov 06 14:01:23 EST 2025
-base.0=C\:\\Users\\User\\AndroidStudioProjects\\AttendEaseCampusMap\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
-base.1=C\:\\Users\\User\\AndroidStudioProjects\\AttendEaseCampusMap\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
-base.2=C\:\\Users\\User\\AndroidStudioProjects\\AttendEaseCampusMap\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\12\\classes.dex
-base.3=C\:\\Users\\User\\AndroidStudioProjects\\AttendEaseCampusMap\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\3\\classes.dex
-base.4=C\:\\Users\\User\\AndroidStudioProjects\\AttendEaseCampusMap\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\5\\classes.dex
-base.5=C\:\\Users\\User\\AndroidStudioProjects\\AttendEaseCampusMap\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes2.dex
-base.6=C\:\\Users\\User\\AndroidStudioProjects\\AttendEaseCampusMap\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes3.dex
-base.7=C\:\\Users\\User\\AndroidStudioProjects\\AttendEaseCampusMap\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes4.dex
+#Thu Nov 06 15:51:39 EST 2025
+base.0=D\:\\Programming Projects\\AttendEase-SeniorProject\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
+base.1=D\:\\Programming Projects\\AttendEase-SeniorProject\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
+base.2=D\:\\Programming Projects\\AttendEase-SeniorProject\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\12\\classes.dex
+base.3=D\:\\Programming Projects\\AttendEase-SeniorProject\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\3\\classes.dex
+base.4=D\:\\Programming Projects\\AttendEase-SeniorProject\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\5\\classes.dex
+base.5=D\:\\Programming Projects\\AttendEase-SeniorProject\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes2.dex
+base.6=D\:\\Programming Projects\\AttendEase-SeniorProject\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes3.dex
+base.7=D\:\\Programming Projects\\AttendEase-SeniorProject\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes4.dex
 path.0=classes.dex
 path.1=0/classes.dex
 path.2=12/classes.dex
