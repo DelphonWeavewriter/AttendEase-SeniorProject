@@ -2142,6 +2142,7 @@ color mtrl_textinput_focused_box_stroke_color
 color mtrl_textinput_hovered_box_stroke_color
 color notification_action_color_filter
 color notification_icon_bg_color
+color primary_blue
 color primary_dark_material_dark
 color primary_dark_material_light
 color primary_material_dark
@@ -3097,6 +3098,7 @@ drawable design_ic_visibility
 drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
+drawable final_exam_border
 drawable googleg_disabled_color_18
 drawable googleg_standard_color_18
 drawable gradient_header
@@ -3338,6 +3340,7 @@ id btnSelectDate
 id btnSendAnnouncement
 id btnSignOut
 id btnSocial
+id btnViewAnnouncements
 id btnViewAttendance
 id btnViewCourses
 id buttonPanel
@@ -3345,6 +3348,7 @@ id cache_measures
 id calendarView
 id callMeasure
 id cancel_button
+id cardAnnouncement
 id carryVelocity
 id center
 id centerCrop
@@ -3663,6 +3667,7 @@ id right_icon
 id right_side
 id rounded
 id row_index_key
+id rvAnnouncements
 id rvCourses
 id rvStudents
 id satellite
@@ -3793,8 +3798,10 @@ id transition_scene_layoutid_cache
 id transition_transform
 id triangle
 id tvAbsentCount
+id tvAnnouncementMessage
 id tvAttendanceRate
 id tvCounts
+id tvCourseName
 id tvCoursesList
 id tvDetailAbsentCount
 id tvDetailLateCount
@@ -3803,11 +3810,13 @@ id tvEmptyState
 id tvLateCount
 id tvNoCourses
 id tvPresentCount
+id tvProfessor
 id tvSelectedCourse
 id tvSelectedDate
 id tvStatus
 id tvStatusEmoji
 id tvStudentName
+id tvTimestamp
 id tvTitle
 id tvTotalClasses
 id tvTotalStudents
@@ -3818,6 +3827,7 @@ id up
 id useLogo
 id vertical
 id vertical_only
+id viewPriorityIndicator
 id view_offset_helper
 id view_transition
 id view_tree_disjoint_parent
@@ -3963,6 +3973,7 @@ layout activity_mark_attendance
 layout activity_my_schedule
 layout activity_professor_home
 layout activity_student_course_detail
+layout activity_view_announcements
 layout activity_view_attendance
 layout activity_view_courses
 layout amu_info_window
@@ -3992,6 +4003,7 @@ layout dialog_student_detail
 layout fragment_campus_map
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
+layout item_announcement
 layout item_attendance_report
 layout item_course
 layout item_final_exam

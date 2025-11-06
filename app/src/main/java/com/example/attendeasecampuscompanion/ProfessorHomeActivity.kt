@@ -30,6 +30,7 @@ class ProfessorHomeActivity : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
     private var currentUser: User? = null
+    private var coursesMap: Map<String, String> = emptyMap()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +50,7 @@ class ProfessorHomeActivity : AppCompatActivity() {
 
         setCurrentDate()
         loadUserData()
-        loadCourseCount()
+        loadCourses()
 
         btnManualAttendance.setOnClickListener {
             startActivity(Intent(this, MarkAttendanceActivity::class.java))
@@ -106,14 +107,22 @@ class ProfessorHomeActivity : AppCompatActivity() {
             }
     }
 
-    private fun loadCourseCount() {
+    private fun loadCourses() {
         val userId = auth.currentUser?.uid ?: return
 
         db.collection("Courses")
             .whereEqualTo("professorId", userId)
             .get()
             .addOnSuccessListener { documents ->
-                val courseCount = documents.size()
+                val tempMap = mutableMapOf<String, String>()
+                for (doc in documents) {
+                    val courseId = doc.getString("courseId") ?: continue
+                    val courseName = doc.getString("courseName") ?: continue
+                    tempMap[doc.id] = "$courseId - $courseName"
+                }
+                coursesMap = tempMap
+
+                val courseCount = coursesMap.size
                 tvCoursesList.text = "Teaching $courseCount course(s)"
             }
             .addOnFailureListener {
@@ -122,12 +131,19 @@ class ProfessorHomeActivity : AppCompatActivity() {
     }
 
     private fun showAnnouncementDialog() {
+        if (coursesMap.isEmpty()) {
+            Toast.makeText(this, "Loading courses...", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_announcement, null)
         val courseSpinner = dialogView.findViewById<Spinner>(R.id.spinnerCourse)
         val messageInput = dialogView.findViewById<EditText>(R.id.etMessage)
 
-        val courses = listOf("CSCI 145", "CSCI 426", "CSCI 436")
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, courses)
+        val courseList = coursesMap.values.toList()
+        val courseDocIds = coursesMap.keys.toList()
+
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, courseList)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         courseSpinner.adapter = adapter
 
@@ -136,16 +152,57 @@ class ProfessorHomeActivity : AppCompatActivity() {
             .setView(dialogView)
             .setPositiveButton("Post") { _, _ ->
                 val message = messageInput.text.toString()
-                val selectedCourse = courseSpinner.selectedItem?.toString() ?: ""
+                val selectedPosition = courseSpinner.selectedItemPosition
 
-                if (message.isNotBlank() && selectedCourse.isNotBlank()) {
-                    Toast.makeText(this, "Announcement posted for $selectedCourse", Toast.LENGTH_SHORT).show()
+                if (message.isNotBlank() && selectedPosition >= 0) {
+                    val courseDocId = courseDocIds[selectedPosition]
+                    saveAnnouncement(courseDocId, message)
                 } else {
                     Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
                 }
             }
             .setNegativeButton("Cancel", null)
             .show()
+    }
+
+    private fun saveAnnouncement(courseDocId: String, message: String) {
+        val userId = auth.currentUser?.uid ?: return
+        val professorName = "${currentUser?.firstName} ${currentUser?.lastName}"
+
+        db.collection("Courses").document(courseDocId).get()
+            .addOnSuccessListener { doc ->
+                val courseId = doc.getString("courseId") ?: ""
+                val courseName = doc.getString("courseName") ?: ""
+
+                val announcement = hashMapOf(
+                    "message" to message,
+                    "courseId" to courseId,
+                    "courseName" to courseName,
+                    "createdBy" to userId,
+                    "createdByName" to professorName,
+                    "timestamp" to System.currentTimeMillis(),
+                    "priority" to "NORMAL"
+                )
+
+                db.collection("Courses")
+                    .document(courseDocId)
+                    .collection("Announcements")
+                    .add(announcement)
+                    .addOnSuccessListener {
+                        Toast.makeText(
+                            this,
+                            "Announcement posted to $courseId",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    .addOnFailureListener { e ->
+                        Toast.makeText(
+                            this,
+                            "Failed to post announcement: ${e.message}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+            }
     }
 
     private fun showEventDialog() {
