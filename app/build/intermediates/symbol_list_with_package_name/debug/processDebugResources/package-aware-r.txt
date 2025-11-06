@@ -3682,6 +3682,8 @@ id scrollIndicatorDown
 id scrollIndicatorUp
 id scrollView
 id scrollable
+id searchInput
+id searchLayout
 id search_badge
 id search_bar
 id search_button
@@ -3740,6 +3742,7 @@ id studentId
 id studentName
 id submenuarrow
 id submit_area
+id suggestionsList
 id supportScrollUp
 id tabMode
 id tag_accessibility_actions
@@ -4002,6 +4005,7 @@ layout ime_secondary_split_test_activity
 layout item_announcement
 layout item_attendance_report
 layout item_course
+layout item_final_exam
 layout item_manual_attendance
 layout item_schedule
 layout m3_alert_dialog
