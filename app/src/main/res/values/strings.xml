@@ -25,5 +25,8 @@
 
     <!-- Map Strings -->
     <string name="recenter_map">Recenter map</string>
+    <string name="add_friend">Add Friend</string>
+    <string name="friend_id">Friend ID</string>
+    <string name="friends">Friends</string>
 
 </resources>

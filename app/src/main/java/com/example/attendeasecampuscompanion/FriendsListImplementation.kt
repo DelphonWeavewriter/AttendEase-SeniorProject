@@ -16,17 +16,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 class FriendsListImplementation : ComponentActivity() {
 
 
-        companion object {
-        private const val TAG = "FriendsList"
-        private const val USERS = "Users"
-        private const val FRIENDS_FIELD = "friends"
-        private const val STUDENT_ID_FIELD = "userID"
-        private const val FIRST_NAME_FIELD = "firstName"
-        private const val LAST_NAME_FIELD = "lastName"
-    }
 
     private lateinit var auth: FirebaseAuth
-    //private lateinit var db: FirebaseFirestore
+
     private var currentUser: FirebaseUser? = null
     private lateinit var friendsListView: ListView
     private val db = FirebaseFirestore.getInstance()

@@ -1,4 +1,4 @@
-#Sat Nov 01 15:17:07 EDT 2025
+#Thu Nov 06 18:18:48 EST 2025
 base.0=/Users/samuelrashad/AndroidStudioProjects/AttendEase-SeniorProject/app/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex
 base.1=/Users/samuelrashad/AndroidStudioProjects/AttendEase-SeniorProject/app/build/intermediates/dex/debug/mergeProjectDexDebug/0/classes.dex
 base.2=/Users/samuelrashad/AndroidStudioProjects/AttendEase-SeniorProject/app/build/intermediates/dex/debug/mergeProjectDexDebug/12/classes.dex

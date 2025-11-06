@@ -7,10 +7,13 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="white">#FFFFFFFF</color>
+    <string name="add_friend">Add Friend</string>
     <string name="app_name">AttendEase Campus Companion</string>
     <string name="email_hint">Email Address</string>
     <string name="email_required">Email is required</string>
     <string name="forgot_password">Forgot Password?</string>
+    <string name="friend_id">Friend ID</string>
+    <string name="friends">Friends</string>
     <string name="gcm_defaultSenderId" translatable="false">831725238352</string>
     <string name="google_api_key" translatable="false">AIzaSyBXX1ldftBG69tY3BsXeZxnlq56sChq87M</string>
     <string name="google_app_id" translatable="false">1:831725238352:android:2c62f6221a6cfc376eb955</string>

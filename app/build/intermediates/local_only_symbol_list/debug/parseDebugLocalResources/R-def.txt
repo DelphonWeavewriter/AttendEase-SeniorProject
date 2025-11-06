@@ -34,6 +34,7 @@ id editTextPassword
 id fabRecenter
 id forgotPassword
 id friendsList
+id headerTitle
 id loginSubtitle
 id map
 id map_container
@@ -41,9 +42,7 @@ id nextClass
 id signInButton
 id studentId
 id studentName
-id tbox1
 id textView
-id title
 id welcomeTitle
 layout activity_attendance
 layout activity_home
@@ -54,10 +53,13 @@ layout map_tesy
 layout signin_layout
 mipmap ic_launcher
 mipmap ic_launcher_round
+string add_friend
 string app_name
 string email_hint
 string email_required
 string forgot_password
+string friend_id
+string friends
 string gcm_defaultSenderId
 string google_api_key
 string google_app_id

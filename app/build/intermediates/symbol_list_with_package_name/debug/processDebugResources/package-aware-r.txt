@@ -3437,6 +3437,7 @@ id graph_wrap
 id group_divider
 id grouping
 id groups
+id headerTitle
 id header_title
 id hide_ime_id
 id hide_in_inspector_tag
@@ -3687,7 +3688,6 @@ id tag_transition_group
 id tag_unhandled_key_event_manager
 id tag_unhandled_key_listeners
 id tag_window_insets_animation_callback
-id tbox1
 id terrain
 id text
 id text2
@@ -3987,6 +3987,7 @@ string abc_searchview_description_voice
 string abc_shareactionprovider_share_with
 string abc_shareactionprovider_share_with_application
 string abc_toolbar_collapse_description
+string add_friend
 string android_credentials_TYPE_PASSWORD_CREDENTIAL
 string androidx_credentials_TYPE_PUBLIC_KEY_CREDENTIAL
 string androidx_startup
@@ -4044,6 +4045,8 @@ string fallback_menu_item_copy_link
 string fallback_menu_item_open_in_browser
 string fallback_menu_item_share_link
 string forgot_password
+string friend_id
+string friends
 string gcm_defaultSenderId
 string google_api_key
 string google_app_id
