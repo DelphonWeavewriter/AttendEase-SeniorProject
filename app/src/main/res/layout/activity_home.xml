@@ -84,7 +84,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
-                android:text="Check In to Class"
+                android:text="Start Class"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:cornerRadius="40dp"

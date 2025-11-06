@@ -14,7 +14,9 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
-        android:background="@drawable/final_exam_border">
+
+
+        >
 
         <TextView
             android:id="@+id/courseCode"

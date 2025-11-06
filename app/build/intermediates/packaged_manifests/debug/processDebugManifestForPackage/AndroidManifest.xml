@@ -50,7 +50,7 @@
         android:theme="@style/Theme.AttendEaseCampusCompanion" >
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="REPLACE_ME" />
+            android:value="AIzaSyDuchn0as2HJyDlqdYGqTcmPDM__0in5x0" />
 
         <activity
             android:name="com.example.attendeasecampuscompanion.MainActivity"
@@ -84,6 +84,9 @@
             android:name="com.example.attendeasecampuscompanion.HomeActivity"
             android:exported="false" />
         <activity
+            android:name="com.example.attendeasecampuscompanion.StudentCourseDetailActivity"
+            android:exported="false" />
+        <activity
             android:name="com.example.attendeasecampuscompanion.ProfessorHomeActivity"
             android:exported="false" />
         <activity
@@ -100,6 +103,15 @@
             android:name="com.example.attendeasecampuscompanion.map.MapActivity"
             android:exported="false"
             android:label="Campus Map" />
+        <activity
+            android:name="com.example.attendeasecampuscompanion.MarkAttendanceActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.attendeasecampuscompanion.ViewAttendanceActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.attendeasecampuscompanion.ViewAnnouncementsActivity"
+            android:exported="false" />
         <activity
             android:name="androidx.compose.ui.tooling.PreviewActivity"
             android:exported="true" />
@@ -165,7 +177,11 @@
             <meta-data
                 android:name="com.google.firebase.components:com.google.firebase.FirebaseCommonKtxRegistrar"
                 android:value="com.google.firebase.components.ComponentRegistrar" />
-        </service> <!-- Needs to be explicitly declared on P+ -->
+        </service>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" /> <!-- Needs to be explicitly declared on P+ -->
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
@@ -228,10 +244,6 @@
                 android:name="androidx.profileinstaller.ProfileInstallerInitializer"
                 android:value="androidx.startup" />
         </provider>
-
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
 
         <receiver
             android:name="androidx.profileinstaller.ProfileInstallReceiver"
