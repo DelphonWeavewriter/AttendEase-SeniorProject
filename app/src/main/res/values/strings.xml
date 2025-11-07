@@ -26,4 +26,9 @@
     <!-- Map Strings -->
     <string name="recenter_map">Recenter map</string>
 
+    <!-- Attendance Strings -->
+    <string name="nfc_tag_read">NFC Tag Read:</string>
+    <string name="hce_service_description">AttendEase HCE Service</string>
+    <string name="hce_attendance_description">AttendEase HCE Attendance</string>
+
 </resources>

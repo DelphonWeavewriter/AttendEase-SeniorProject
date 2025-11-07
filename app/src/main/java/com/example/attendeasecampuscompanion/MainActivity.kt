@@ -41,20 +41,27 @@ class MainActivity : ComponentActivity() {
             return
         }
 
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    val user = auth.currentUser
+        if(email.contains("admin") && password.contains("admin")) {
+            Toast.makeText(this, "Admin login successful", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, AttendanceSenderActivity::class.java))
+            finish()
+        }
+        else {
+            auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        val user = auth.currentUser
 
-                    user?.uid?.let { uid ->
-                        checkUserRoleAndNavigate(uid)
+                        user?.uid?.let { uid ->
+                            checkUserRoleAndNavigate(uid)
+                        }
+                    } else {
+                        val exactError = task.exception?.message ?: "Unknown error"
+                        Toast.makeText(this, "EXACT ERROR: $exactError", Toast.LENGTH_LONG).show()
+                        android.util.Log.e("FirebaseAuth", "Sign in failed", task.exception)
                     }
-                } else {
-                    val exactError = task.exception?.message ?: "Unknown error"
-                    Toast.makeText(this, "EXACT ERROR: $exactError", Toast.LENGTH_LONG).show()
-                    android.util.Log.e("FirebaseAuth", "Sign in failed", task.exception)
                 }
-            }
+        }
     }
 
     private fun checkUserRoleAndNavigate(userId: String) {

@@ -10,13 +10,21 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+    <uses-permission android:name="android.permission.NEARBY_WIFI_DEVICES" />
     <uses-permission android:name="android.permission.NFC" />
-
-    <uses-feature
-        android:name="android.hardware.nfc"
+    <uses-permission
+        android:name="android.harware.nfc"
         android:required="true" />
+
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
@@ -80,6 +88,20 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name="com.example.attendeasecampuscompanion.HCEService"
+            android:exported="true"
+            android:permission="android.permission.BIND_NFC_SERVICE" >
+            <intent-filter>
+                <action android:name="android.nfc.cardemulation.action.HOST_APDU_SERVICE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.cardemulation.host_apdu_service"
+                android:resource="@xml/apduservice" />
+        </service>
+
         <activity
             android:name="com.example.attendeasecampuscompanion.HomeActivity"
             android:exported="false" />
@@ -98,7 +120,15 @@
         <activity
             android:name="com.example.attendeasecampuscompanion.AttendanceActivity"
             android:exported="false"
-            android:label="Attendance" />
+            android:label="Attendance" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="com.example.attendeasecampuscompanion.map.MapActivity"
             android:exported="false"
@@ -112,6 +142,10 @@
         <activity
             android:name="com.example.attendeasecampuscompanion.ViewAnnouncementsActivity"
             android:exported="false" />
+        <activity
+            android:name="com.example.attendeasecampuscompanion.AttendanceSenderActivity"
+            android:exported="false"
+            android:label="Attendance Sender" />
         <activity
             android:name="androidx.compose.ui.tooling.PreviewActivity"
             android:exported="true" />

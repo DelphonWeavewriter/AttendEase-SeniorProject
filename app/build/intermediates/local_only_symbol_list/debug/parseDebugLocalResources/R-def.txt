@@ -59,6 +59,7 @@ id creditsDetails
 id dateHeader
 id dateText
 id departmentDetails
+id editText
 id editTextEmailAddress
 id editTextPassword
 id emptyState
@@ -103,10 +104,13 @@ id searchInput
 id searchLayout
 id semester
 id semesterDetails
+id sendButton
+id shareButton
 id signInButton
 id spinnerCourse
 id spinnerCourses
 id spinnerEventCourse
+id statusText
 id studentId
 id studentName
 id suggestionsList
@@ -138,6 +142,7 @@ id tvTotalStudents
 id viewPriorityIndicator
 id welcomeTitle
 layout activity_attendance
+layout activity_attendance_sender
 layout activity_home
 layout activity_map
 layout activity_mark_attendance
@@ -170,9 +175,12 @@ string google_api_key
 string google_app_id
 string google_crash_reporting_api_key
 string google_storage_bucket
+string hce_attendance_description
+string hce_service_description
 string invalid_credentials
 string login_failed
 string login_subtitle
+string nfc_tag_read
 string password_hint
 string password_required
 string please_wait
@@ -182,5 +190,6 @@ string sign_in
 string signing_in
 string welcome_back
 style Theme.AttendEaseCampusCompanion
+xml apduservice
 xml backup_rules
 xml data_extraction_rules

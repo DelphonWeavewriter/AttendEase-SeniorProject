@@ -4,10 +4,18 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN"/>
+    <uses-permission android:name="android.permission.NEARBY_WIFI_DEVICES"/>
     <uses-permission android:name="android.permission.NFC"/>
-    <uses-feature android:name="android.hardware.nfc" android:required="true" />
+    <uses-permission android:name="android.harware.nfc" android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -46,6 +54,18 @@
             </intent-filter>
         </activity>
 
+        <service
+            android:name=".HCEService"
+            android:exported="true"
+            android:permission="android.permission.BIND_NFC_SERVICE">
+            <intent-filter>
+                <action android:name="android.nfc.cardemulation.action.HOST_APDU_SERVICE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.nfc.cardemulation.host_apdu_service"
+                android:resource="@xml/apduservice" />
+        </service>
+
         <activity
             android:name=".HomeActivity"
             android:exported="false"/>
@@ -69,7 +89,13 @@
         <activity
             android:name=".AttendanceActivity"
             android:exported="false"
-            android:label="Attendance" />
+            android:label="Attendance" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEND"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="text/plain"/>
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".map.MapActivity"
@@ -87,6 +113,11 @@
         <activity
             android:name=".ViewAnnouncementsActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".AttendanceSenderActivity"
+            android:exported="false"
+            android:label="Attendance Sender" />
 
     </application>
 

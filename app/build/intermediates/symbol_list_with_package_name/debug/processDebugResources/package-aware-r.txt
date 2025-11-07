@@ -3427,6 +3427,7 @@ id easeInOut
 id easeOut
 id east
 id edge
+id editText
 id editTextEmailAddress
 id editTextPassword
 id edit_query
@@ -3700,6 +3701,8 @@ id selected
 id selection_type
 id semester
 id semesterDetails
+id sendButton
+id shareButton
 id sharedValueSet
 id sharedValueUnset
 id shortcut
@@ -3737,6 +3740,7 @@ id startToEnd
 id startVertical
 id staticLayout
 id staticPostLayout
+id statusText
 id stop
 id stretch
 id studentId
@@ -3967,6 +3971,7 @@ layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_attendance
+layout activity_attendance_sender
 layout activity_home
 layout activity_map
 layout activity_mark_attendance
@@ -4165,6 +4170,8 @@ string google_api_key
 string google_app_id
 string google_crash_reporting_api_key
 string google_storage_bucket
+string hce_attendance_description
+string hce_service_description
 string hide_bottom_view_on_scroll_behavior
 string icon_content_description
 string in_progress
@@ -4330,6 +4337,7 @@ string mtrl_switch_track_path
 string mtrl_timepicker_cancel
 string mtrl_timepicker_confirm
 string navigation_menu
+string nfc_tag_read
 string not_selected
 string off
 string on
@@ -5653,6 +5661,7 @@ styleable ViewPager2 android_orientation
 styleable ViewStubCompat android_id android_layout android_inflatedId
 styleable ViewTransition android_id SharedValue SharedValueId clearsTag duration ifTagNotSet ifTagSet motionInterpolator motionTarget onStateTransition pathMotionArc setsTag transitionDisable upDuration viewTransitionMode
 styleable include constraintSet
+xml apduservice
 xml backup_rules
 xml data_extraction_rules
 xml image_share_filepaths
