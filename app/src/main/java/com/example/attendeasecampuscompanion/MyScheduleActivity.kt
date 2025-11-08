@@ -26,6 +26,7 @@ class MyScheduleActivity : AppCompatActivity() {
 
     private val allCourses = mutableListOf<Course>()
     private val allFinalExams = mutableListOf<FinalExam>()
+    private val allEvents = mutableListOf<Event>()
     private lateinit var scheduleAdapter: ScheduleAdapter
     private var selectedDate: Calendar = Calendar.getInstance()
 
@@ -47,7 +48,7 @@ class MyScheduleActivity : AppCompatActivity() {
 
         setupRecyclerView()
         setupCalendar()
-        loadCoursesAndFinals()
+        loadScheduleData()
     }
 
     private fun setupRecyclerView() {
@@ -71,144 +72,155 @@ class MyScheduleActivity : AppCompatActivity() {
         dateText.text = dateFormat.format(selectedDate.time)
     }
 
-    private fun loadCoursesAndFinals() {
+    private fun loadScheduleData() {
         val currentUserId = auth.currentUser?.uid ?: run {
-
-            android.util.Log.e("MySchedule", "No user logged in!")
-
+            handleFailure("No user logged in!")
             return
-
         }
-
-
-
-        android.util.Log.d("MySchedule", "Starting loadCourses for UID: $currentUserId")
-
         progressBar.visibility = View.VISIBLE
         emptyText.visibility = View.GONE
+        // Start the chain of loading
+        loadCourses(currentUserId)
+    }
 
-        db.collection("Users").document(currentUserId).get()
+    private fun loadCourses(userId: String) {
+        db.collection("Users").document(userId).get()
             .addOnSuccessListener { userDoc ->
-                android.util.Log.d("MySchedule", "User document loaded successfully")
                 if (!userDoc.exists()) {
-                    android.util.Log.e("MySchedule", "User document does not exist!")
-                    progressBar.visibility = View.GONE
-                    emptyText.visibility = View.VISIBLE
-                    emptyText.text = "User not found"
+                    handleFailure("User document does not exist!")
                     return@addOnSuccessListener
                 }
 
                 val user = userDoc.toObject(User::class.java)
                 val userRole = user?.role ?: "Student"
 
-                android.util.Log.d("MySchedule", "User role: $userRole")
-                android.util.Log.d("MySchedule", "User name: ${user?.firstName} ${user?.lastName}")
-
                 val query = if (userRole == "Professor") {
-                    android.util.Log.d("MySchedule", "Querying as Professor")
-                    db.collection("Courses").whereEqualTo("professorId", currentUserId)
+                    db.collection("Courses").whereEqualTo("professorId", userId)
                 } else {
-                    android.util.Log.d("MySchedule", "Querying as Student with enrolledStudents")
-                    db.collection("Courses").whereArrayContains("enrolledStudents", currentUserId)
+                    db.collection("Courses").whereArrayContains("enrolledStudents", userId)
                 }
 
                 query.get()
                     .addOnSuccessListener { documents ->
-                        android.util.Log.d("MySchedule", "Query successful! Found ${documents.size()} courses")
-                        progressBar.visibility = View.GONE
                         allCourses.clear()
                         val courseIds = mutableListOf<String>()
                         for (document in documents) {
                             val course = document.toObject(Course::class.java)
-                            android.util.Log.d("MySchedule", "Course found: ${course.courseId} - ${course.courseName}")
                             allCourses.add(course)
                             course.courseId?.let { courseIds.add(it) }
                         }
-                        loadFinals(courseIds)
-                        android.util.Log.d("MySchedule", "Filtering schedule by date...")
-                        filterScheduleByDate()
+                        // Continue the chain: load finals
+                        loadFinals(userId, courseIds)
                     }
-                    .addOnFailureListener { e ->
-                        android.util.Log.e("MySchedule", "Query failed: ${e.message}", e)
-                        progressBar.visibility = View.GONE
-                        emptyText.visibility = View.VISIBLE
-                        emptyText.text = "Error loading schedule: ${e.message}"
-                    }
+                    .addOnFailureListener { e -> handleFailure("Query failed: ${e.message}", e) }
             }
-            .addOnFailureListener { e ->
-                android.util.Log.e("MySchedule", "Failed to load user: ${e.message}", e)
-                progressBar.visibility = View.GONE
-                emptyText.visibility = View.VISIBLE
-                emptyText.text = "Error loading user data: ${e.message}"
-            }
+            .addOnFailureListener { e -> handleFailure("Failed to load user: ${e.message}", e) }
     }
 
-    private fun loadFinals(courseIds: List<String>) {
+    private fun loadFinals(userId: String, courseIds: List<String>) {
         if (courseIds.isEmpty()) {
-            progressBar.visibility = View.GONE
-            filterScheduleByDate()
+            // No courses, so no finals to load. Skip to events.
+            loadEvents(userId)
             return
         }
 
         db.collection("Finals").whereIn("courseId", courseIds).get()
             .addOnSuccessListener { documents ->
-                progressBar.visibility = View.GONE
                 allFinalExams.clear()
                 for (document in documents) {
                     val finalExam = document.toObject(FinalExam::class.java)
                     allFinalExams.add(finalExam)
                 }
+                // Continue the chain: load events
+                loadEvents(userId)
+            }
+            .addOnFailureListener { e -> handleFailure("Error loading finals: ${e.message}", e) }
+    }
+
+    private fun loadEvents(userId: String) {
+        db.collection("Events").whereArrayContains("participants", userId).get()
+            .addOnSuccessListener { documents ->
+                allEvents.clear()
+                for (document in documents) {
+                    val event = document.toObject(Event::class.java)
+                    allEvents.add(event)
+                }
+                // This is the final step, now update the UI
                 filterScheduleByDate()
             }
-            .addOnFailureListener { e ->
-                progressBar.visibility = View.GONE
-                emptyText.visibility = View.VISIBLE
-                emptyText.text = "Error loading finals: ${e.message}"
-            }
+            .addOnFailureListener { e -> handleFailure("Error loading events: ${e.message}", e) }
+    }
+
+    private fun handleFailure(message: String, e: Exception? = null) {
+        android.util.Log.e("MySchedule", message, e)
+        progressBar.visibility = View.GONE
+        emptyText.visibility = View.VISIBLE
+        emptyText.text = message
     }
 
     private fun filterScheduleByDate() {
         val dayOfWeek = SimpleDateFormat("EEEE", Locale.US).format(selectedDate.time)
-        val selectedDateStr = SimpleDateFormat("MM/dd/yyyy", Locale.US).format(selectedDate.time)
+        val selectedDateStr = SimpleDateFormat("M/d/yyyy", Locale.US).format(selectedDate.time)
 
         val scheduleItems = mutableListOf<ScheduleItem>()
 
+        // Courses
         for (course in allCourses) {
             for (scheduleMap in course.schedule) {
-                val scheduleDayOfWeek = scheduleMap["dayOfWeek"] ?: continue
-                if (scheduleDayOfWeek.equals(dayOfWeek, ignoreCase = true)) {
-                    val item = ScheduleItem(
-                        courseName = course.courseName,
-                        courseCode = course.courseId,
+                if (scheduleMap["dayOfWeek"]?.equals(dayOfWeek, ignoreCase = true) == true) {
+                    scheduleItems.add(ScheduleItem(
+                        title = course.courseName,
+                        subtitle = course.courseId,
                         startTime = scheduleMap["startTime"] ?: "",
                         endTime = scheduleMap["endTime"] ?: "",
                         building = scheduleMap["building"] ?: "",
-                        room = scheduleMap["room"] ?: "",
-                        roomID = course.roomID
-                    )
-                    scheduleItems.add(item)
+                        room = scheduleMap["room"] ?: ""
+                    ))
                 }
             }
         }
 
+        // Finals
         for (finalExam in allFinalExams) {
             if (finalExam.date == selectedDateStr) {
-                val item = ScheduleItem(
-                    courseName = finalExam.courseName,
-                    courseCode = finalExam.courseId,
+                scheduleItems.add(ScheduleItem(
+                    title = "Final Exam: ${finalExam.courseName}",
+                    subtitle = finalExam.courseId,
                     startTime = finalExam.startTime,
                     endTime = finalExam.endTime,
                     building = finalExam.buildingId,
                     room = finalExam.roomId,
-                    roomID = "", //RoomID handled above, seems redundant but ill leave it for now
                     isFinalExam = true
-                )
-                scheduleItems.add(item)
+                ))
+            }
+        }
+
+        // Events
+        for (event in allEvents) {
+            for (scheduleItem in event.schedule) {
+                val isOneTimeEvent = !scheduleItem.recurring && scheduleItem.date.isNotEmpty() && scheduleItem.date == selectedDateStr
+                val isRecurringEvent = scheduleItem.recurring && scheduleItem.dayOfWeek.equals(dayOfWeek, ignoreCase = true)
+
+                if (isOneTimeEvent || isRecurringEvent) {
+                    val buildingDisplay = if (scheduleItem.building.isNotEmpty()) scheduleItem.building else if (scheduleItem.coordinates.isNotEmpty()) "Custom Location" else ""
+                    val roomDisplay = if (scheduleItem.building.isNotEmpty()) scheduleItem.room else ""
+
+                    scheduleItems.add(ScheduleItem(
+                        title = event.description,
+                        subtitle = "Event by ${event.creator}",
+                        startTime = scheduleItem.startTime,
+                        endTime = scheduleItem.endTime,
+                        building = buildingDisplay,
+                        room = roomDisplay,
+                        isEvent = true
+                    ))
+                }
             }
         }
 
         scheduleItems.sortBy { it.startTime }
 
+        progressBar.visibility = View.GONE
         if (scheduleItems.isEmpty()) {
             emptyText.visibility = View.VISIBLE
             emptyText.text = "No classes, exams, or events scheduled for this day"
@@ -221,6 +233,25 @@ class MyScheduleActivity : AppCompatActivity() {
     }
 }
 
+data class Event(
+    val creator: String = "",
+    val description: String = "",
+    val participants: List<String> = listOf(),
+    val private: Boolean = false,
+    val schedule: List<EventSchedule> = listOf()
+)
+
+data class EventSchedule(
+    val building: String = "",
+    val coordinates: String = "",
+    val date: String = "",
+    val dayOfWeek: String = "",
+    val endTime: String = "",
+    val recurring: Boolean = false,
+    val room: String = "",
+    val startTime: String = ""
+)
+
 data class FinalExam(
     val buildingId: String = "",
     val roomId: String = "",
@@ -232,12 +263,12 @@ data class FinalExam(
 )
 
 data class ScheduleItem(
-    val courseName: String,
-    val courseCode: String,
+    val title: String,
+    val subtitle: String,
     val startTime: String,
     val endTime: String,
     val building: String,
     val room: String,
-    val roomID: String,
-    val isFinalExam: Boolean = false
+    val isFinalExam: Boolean = false,
+    val isEvent: Boolean = false
 )
