@@ -18,6 +18,7 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import java.nio.charset.StandardCharsets
 import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 class AttendanceActivity : AppCompatActivity() {
 
@@ -375,34 +376,113 @@ class AttendanceActivity : AppCompatActivity() {
             return
         }
 
+        val currentTime = LocalTime.now().format(DateTimeFormatter.ofPattern("hh:mm:ss a"))
 
-        val nfcData = hashMapOf(
-            "nfcString" to data,
-            "timestamp" to System.currentTimeMillis(),
-            "userId" to currentUser.uid,
-            "userName" to currentUser.displayName,
-            "userEmail" to currentUser.email,
-        )
 
-        //if (isAttendee(currentUser.uid)) {
-            db.collection("Test")
-                .add(nfcData)
-                .addOnSuccessListener { documentReference ->
+//        val nfcData = hashMapOf(
+//            "nfcString" to data,
+//            "timestamp" to System.currentTimeMillis(),
+//            "userId" to currentUser.uid,
+//            "userName" to currentUser.displayName,
+//            "userEmail" to currentUser.email,
+//        )
+
+//        isAttendee(currentUser.uid, time) { isEnrolled ->
+//            if (isEnrolled) {
+//
+//
+//                db.collection("Courses").whereEqualTo("courseId", currentEvent)
+//                    .collection("AttendanceRecords")
+//                    .add(nfcData)
+//                    .addOnSuccessListener { documentReference ->
+//                        Toast.makeText(
+//                            this, "Data saved to Firebase: ${documentReference.id}",
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//                    }
+//                    .addOnFailureListener { e ->
+//                        Toast.makeText(
+//                            this,
+//                            "Error saving to Firebase: ${e.message}",
+//                            Toast.LENGTH_LONG
+//                        ).show()
+//                    }
+//            } else {
+//                Toast.makeText(
+//                    this,
+//                    "You are not enrolled in this course",
+//                    Toast.LENGTH_LONG
+//                ).show()
+//            }
+//        }
+
+        getCurrentEvent(time) { courseId ->
+            if (courseId.isEmpty()) {
+                Toast.makeText(this, "No active class in this room", Toast.LENGTH_SHORT).show()
+                return@getCurrentEvent
+            }
+
+            val nfcData = hashMapOf(
+                "nfcString" to data,
+                "timestamp" to System.currentTimeMillis(),
+                "userId" to currentUser.uid,
+                "userName" to currentUser.displayName,
+                "userEmail" to currentUser.email,
+            )
+
+            // Then check if user is enrolled
+            db.collection("Courses")
+                .whereEqualTo("courseId", courseId)
+                .get()
+                .addOnSuccessListener { documents ->
+                    var isEnrolled = false
+                    var courseDocId = ""
+
+                    for (document in documents) {
+                        val enrolledStudents = document.get("enrolledStudents") as? List<*>
+                        if (enrolledStudents?.contains(currentUser.uid) == true) {
+                            isEnrolled = true
+                            courseDocId = document.id  // Get the actual document ID
+                            break
+                        }
+                    }
+
+                    if (isEnrolled) {
+                        // Save attendance record
+                        db.collection("Courses")
+                            .document(courseDocId)
+                            .collection("AttendanceRecords")
+                            .add(nfcData)
+                            .addOnSuccessListener { documentReference ->
+                                Toast.makeText(
+                                    this,
+                                    "Attendance recorded successfully",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                            .addOnFailureListener { e ->
+                                Toast.makeText(
+                                    this,
+                                    "Error saving attendance: ${e.message}",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                    } else {
+                        Toast.makeText(
+                            this,
+                            "You are not enrolled in this course",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
+                .addOnFailureListener { exception ->
                     Toast.makeText(
                         this,
-                        "Data saved to Firebase: ${documentReference.id}",
+                        "Error checking enrollment: ${exception.message}",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-                .addOnFailureListener { e ->
-                    Toast.makeText(
-                        this,
-                        "Error saving to Firebase: ${e.message}",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-        //}
-
+        }
 
     }
 
@@ -418,20 +498,24 @@ class AttendanceActivity : AppCompatActivity() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun getCurrentEvent(time: String): String {
+    fun getCurrentEventOld(time: String): String {
         val roomRef = db.collection("Courses")
         var courseId = ""
-        roomRef.whereEqualTo("room", currentRoom)
-            .get()
+        roomRef.get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
+                    val arrayField = document.get("schedule") as? List<*>
 
-
-
-                    val startTime = document.getString("startTime")
-                    val endTime = document.getString("endTime")
-                    if (isCurrentTimeBetween(timeToLocalTime(time), timeToLocalTime(startTime.toString()), timeToLocalTime(endTime.toString()))) {
-                        courseId = document.getString("courseId").toString()
+                    val scheduleMap = arrayField?.get(0) as? Map<*, *>
+                    val room = scheduleMap?.get("room")
+                    if (room == currentRoom) {
+                        val startTime = scheduleMap["startTime"]
+                        val endTime = scheduleMap["endTime"]
+                        //Toast.makeText(this, "startTime: $startTime endTime: $endTime", Toast.LENGTH_SHORT).show()
+                        if (isCurrentTimeBetween(timeToLocalTime(time), timeToLocalTime(startTime.toString()), timeToLocalTime(endTime.toString()))) {
+                            courseId = document.get("courseId").toString()
+                            //Toast.makeText(this, "Current Event: $courseId", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             }
@@ -439,7 +523,47 @@ class AttendanceActivity : AppCompatActivity() {
                 println("Error getting documents: $exception")
             }
 
+
         return courseId
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getCurrentEvent(time: String, onResult: (String) -> Unit) {
+        val roomRef = db.collection("Courses")
+
+        roomRef.get()
+            .addOnSuccessListener { documents ->
+                var courseId = ""
+
+                for (document in documents) {
+                    val arrayField = document.get("schedule") as? List<*>
+
+                    arrayField?.forEach { scheduleItem ->
+                        val scheduleMap = scheduleItem as? Map<*, *>
+                        val room = scheduleMap?.get("room")
+
+                        if (room == currentRoom) {
+                            val startTime = scheduleMap["startTime"]
+                            val endTime = scheduleMap["endTime"]
+
+                            if (isCurrentTimeBetween(
+                                    timeToLocalTime(time),
+                                    timeToLocalTime(startTime.toString()),
+                                    timeToLocalTime(endTime.toString())
+                                )) {
+                                courseId = document.get("courseId").toString()
+                                return@forEach // Exit loop when found
+                            }
+                        }
+                    }
+                }
+
+                onResult(courseId)
+            }
+            .addOnFailureListener { exception ->
+                println("Error getting documents: $exception")
+                onResult("") // Return empty string on error
+            }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -470,28 +594,65 @@ class AttendanceActivity : AppCompatActivity() {
         }
     }
 
+//    @RequiresApi(Build.VERSION_CODES.O)
+//    fun isAttendee(currentUserId: String): Boolean {
+//        val currentEvent = getCurrentEvent(time)
+//        var currentStudent = FirebaseAuth.getInstance().currentUser.toString()
+//        db.collection("Courses").whereEqualTo(getCurrentEvent(time), currentEvent)
+//            .get()
+//            .addOnSuccessListener { documents ->
+//                Toast.makeText(this, "Current Event: $currentEvent", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this, "Current User: $currentUserId", Toast.LENGTH_SHORT).show()
+//                for (document in documents) {
+//                    val attendee = document.get("enrolledStudents")
+//                    for (student in attendee as List<*>) {
+//                        if (student == currentUserId) {
+//                            currentStudent = student.toString()
+//                            Toast.makeText(this, "Current Student: $currentStudent", Toast.LENGTH_SHORT).show()
+//                        }
+//                    }
+//                }
+//            }
+//            .addOnFailureListener { exception ->
+//                println("Error getting documents: $exception")
+//            }
+//
+//        return currentUserId == currentStudent
+//    }
+
     @RequiresApi(Build.VERSION_CODES.O)
-    fun isAttendee(currentUserId: String): Boolean {
-        val currentEvent = getCurrentEvent(time)
-        var currentStudent = ""
-        db.collection("Courses").whereEqualTo("courseId", currentEvent)
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    val attendee = document.get("enrolledStudents")
-                    for (student in attendee as List<*>) {
-                        if (student == currentUserId) {
-                            currentStudent = student.toString()
-                            println("Current Student: $currentStudent")
-                        }
-                    }
-                }
-            }
-            .addOnFailureListener { exception ->
-                println("Error getting documents: $exception")
+    fun isAttendee(currentUserId: String, time: String, onResult: (Boolean) -> Unit) {
+        // First, get the current event
+        getCurrentEvent(time) { currentEvent ->
+            if (currentEvent.isEmpty()) {
+                onResult(false)
+                return@getCurrentEvent
             }
 
-        return currentUserId == currentStudent
+            // Then check if user is enrolled in that course
+            db.collection("Courses")
+                .whereEqualTo("courseId", currentEvent)
+                .get()
+                .addOnSuccessListener { documents ->
+                    var isEnrolled = false
+
+                    for (document in documents) {
+                        val enrolledStudents = document.get("enrolledStudents") as? List<*>
+
+                        if (enrolledStudents?.contains(currentUserId) == true) {
+                            isEnrolled = true
+                            Toast.makeText(this, "You are enrolled in: $currentEvent", Toast.LENGTH_SHORT).show()
+                            break
+                        }
+                    }
+
+                    onResult(isEnrolled)
+                }
+                .addOnFailureListener { exception ->
+                    println("Error checking enrollment: $exception")
+                    onResult(false)
+                }
+        }
     }
 
 }

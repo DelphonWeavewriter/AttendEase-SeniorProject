@@ -3665,6 +3665,7 @@ int id right 0x7f0801c7
 int id rightToLeft 0x7f0801c8
 int id right_icon 0x7f0801c9
 int id right_side 0x7f0801ca
+int id roomSpinner 0x7f080288
 int id rounded 0x7f0801cb
 int id row_index_key 0x7f0801cc
 int id rvAnnouncements 0x7f0801cd
@@ -4010,6 +4011,7 @@ int layout ime_secondary_split_test_activity 0x7f0b0041
 int layout item_announcement 0x7f0b0042
 int layout item_attendance_report 0x7f0b0043
 int layout item_course 0x7f0b0044
+int layout item_event 0x7f0b0087
 int layout item_final_exam 0x7f0b0045
 int layout item_manual_attendance 0x7f0b0046
 int layout item_schedule 0x7f0b0047

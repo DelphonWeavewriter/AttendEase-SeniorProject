@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="NEARBY SHARE SENDER"
+        android:text="ATTENDANCE SCANNER"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -31,7 +31,7 @@
         android:id="@+id/shareButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Share via Nearby Share"
+        android:text="Share via HCE"
         android:layout_marginTop="8dp" />
 
     <TextView
@@ -40,4 +40,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Status: Ready" />
+
+    <Spinner
+        android:id="@+id/roomSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"/>
 </LinearLayout>

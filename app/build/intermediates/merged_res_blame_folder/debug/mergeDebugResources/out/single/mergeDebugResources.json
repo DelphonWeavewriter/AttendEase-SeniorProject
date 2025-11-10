@@ -64,10 +64,6 @@
         "source": "C:\\Users\\fenna\\.gradle\\daemon\\8.13\\com.example.attendeasecampuscompanion.app-main-73:\\layout\\item_manual_attendance.xml"
     },
     {
-        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/xml_apduservice.xml.flat",
-        "source": "com.example.attendeasecampuscompanion.app-main-73:/xml/apduservice.xml"
-    },
-    {
         "merged": "C:\\Users\\fenna\\.gradle\\daemon\\8.13\\com.example.attendeasecampuscompanion.app-debug-71:\\drawable_signin_button_background.xml.flat",
         "source": "C:\\Users\\fenna\\.gradle\\daemon\\8.13\\com.example.attendeasecampuscompanion.app-main-73:\\drawable\\signin_button_background.xml"
     },
@@ -140,6 +136,10 @@
         "source": "C:\\Users\\fenna\\.gradle\\daemon\\8.13\\com.example.attendeasecampuscompanion.app-main-73:\\drawable\\ic_lock.xml"
     },
     {
+        "merged": "C:\\Users\\fenna\\.gradle\\daemon\\8.13\\com.example.attendeasecampuscompanion.app-debug-71:\\layout_item_event.xml.flat",
+        "source": "C:\\Users\\fenna\\.gradle\\daemon\\8.13\\com.example.attendeasecampuscompanion.app-main-73:\\layout\\item_event.xml"
+    },
+    {
         "merged": "C:\\Users\\fenna\\.gradle\\daemon\\8.13\\com.example.attendeasecampuscompanion.app-debug-71:\\mipmap-xxhdpi_ic_launcher.webp.flat",
         "source": "C:\\Users\\fenna\\.gradle\\daemon\\8.13\\com.example.attendeasecampuscompanion.app-main-73:\\mipmap-xxhdpi\\ic_launcher.webp"
     },
@@ -166,6 +166,10 @@
     {
         "merged": "C:\\Users\\fenna\\.gradle\\daemon\\8.13\\com.example.attendeasecampuscompanion.app-debug-71:\\layout_map_test.xml.flat",
         "source": "C:\\Users\\fenna\\.gradle\\daemon\\8.13\\com.example.attendeasecampuscompanion.app-main-73:\\layout\\map_test.xml"
+    },
+    {
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/layout_activity_attendance_sender.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/layout/activity_attendance_sender.xml"
     },
     {
         "merged": "C:\\Users\\fenna\\.gradle\\daemon\\8.13\\com.example.attendeasecampuscompanion.app-debug-71:\\layout_activity_home.xml.flat",

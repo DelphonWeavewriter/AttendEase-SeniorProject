@@ -95,6 +95,7 @@ id progressBarDetail
 id recyclerViewCourses
 id recyclerViewSchedule
 id recyclerViewStudents
+id roomSpinner
 id rvAnnouncements
 id rvCourses
 id rvStudents
@@ -159,6 +160,7 @@ layout fragment_campus_map
 layout item_announcement
 layout item_attendance_report
 layout item_course
+layout item_event
 layout item_final_exam
 layout item_manual_attendance
 layout item_schedule
