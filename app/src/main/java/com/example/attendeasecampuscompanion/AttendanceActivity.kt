@@ -18,7 +18,10 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import java.nio.charset.StandardCharsets
 import java.time.LocalTime
+import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+
+
 
 class AttendanceActivity : AppCompatActivity() {
 
@@ -34,6 +37,12 @@ class AttendanceActivity : AppCompatActivity() {
     private var currentRoom: String = "235"
     private var time: String = "11:45:00 AM"
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    val currentDate: LocalDate = LocalDate.now()
+    @RequiresApi(Build.VERSION_CODES.O)
+    val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+    @RequiresApi(Build.VERSION_CODES.O)
+    val formattedDate: String = currentDate.format(formatter)
 
     companion object {
         private const val AID = "F0010203040506"
@@ -422,12 +431,24 @@ class AttendanceActivity : AppCompatActivity() {
                 return@getCurrentEvent
             }
 
+
+            db.collection("Users").document(currentUser.uid).get()
+                .addOnSuccessListener { document ->
+                    val firstName = document.getString("firstName") ?: ""
+                    val lastName = document.getString("lastName") ?: ""
+                }
+
             val nfcData = hashMapOf(
-                "nfcString" to data,
-                "timestamp" to System.currentTimeMillis(),
-                "userId" to currentUser.uid,
-                "userName" to currentUser.displayName,
-                "userEmail" to currentUser.email,
+                "courseId" to courseId,
+                "date" to formattedDate,
+                "lastModified" to System.currentTimeMillis(),
+                "method" to "SCAN",
+                "notes" to "",
+                "recordId" to "${formattedDate}_${currentUser.uid}",
+                "status" to "PRESENT",
+                "studentId" to currentUser.uid,
+                "studentName" to currentUser.displayName, //TODO add proper first and last name here (currently null)
+                "timestamp" to System.currentTimeMillis()
             )
 
             // Then check if user is enrolled
@@ -452,7 +473,8 @@ class AttendanceActivity : AppCompatActivity() {
                         db.collection("Courses")
                             .document(courseDocId)
                             .collection("AttendanceRecords")
-                            .add(nfcData)
+                            .document("${formattedDate}_${currentUser.uid}")
+                            .set(nfcData)
                             .addOnSuccessListener { documentReference ->
                                 Toast.makeText(
                                     this,
@@ -654,5 +676,7 @@ class AttendanceActivity : AppCompatActivity() {
                 }
         }
     }
+
+
 
 }
