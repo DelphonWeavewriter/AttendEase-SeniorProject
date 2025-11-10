@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -79,7 +80,6 @@ class MyScheduleActivity : AppCompatActivity() {
         }
         progressBar.visibility = View.VISIBLE
         emptyText.visibility = View.GONE
-        // Start the chain of loading
         loadCourses(currentUserId)
     }
 
@@ -109,7 +109,6 @@ class MyScheduleActivity : AppCompatActivity() {
                             allCourses.add(course)
                             course.courseId?.let { courseIds.add(it) }
                         }
-                        // Continue the chain: load finals
                         loadFinals(userId, courseIds)
                     }
                     .addOnFailureListener { e -> handleFailure("Query failed: ${e.message}", e) }
@@ -119,7 +118,6 @@ class MyScheduleActivity : AppCompatActivity() {
 
     private fun loadFinals(userId: String, courseIds: List<String>) {
         if (courseIds.isEmpty()) {
-            // No courses, so no finals to load. Skip to events.
             loadEvents(userId)
             return
         }
@@ -131,7 +129,6 @@ class MyScheduleActivity : AppCompatActivity() {
                     val finalExam = document.toObject(FinalExam::class.java)
                     allFinalExams.add(finalExam)
                 }
-                // Continue the chain: load events
                 loadEvents(userId)
             }
             .addOnFailureListener { e -> handleFailure("Error loading finals: ${e.message}", e) }
@@ -145,7 +142,6 @@ class MyScheduleActivity : AppCompatActivity() {
                     val event = document.toObject(Event::class.java)
                     allEvents.add(event)
                 }
-                // This is the final step, now update the UI
                 filterScheduleByDate()
             }
             .addOnFailureListener { e -> handleFailure("Error loading events: ${e.message}", e) }
@@ -161,21 +157,45 @@ class MyScheduleActivity : AppCompatActivity() {
     private fun filterScheduleByDate() {
         val dayOfWeek = SimpleDateFormat("EEEE", Locale.US).format(selectedDate.time)
         val selectedDateStr = SimpleDateFormat("M/d/yyyy", Locale.US).format(selectedDate.time)
+        val dateFormat = SimpleDateFormat("M/d/yyyy", Locale.US)
 
         val scheduleItems = mutableListOf<ScheduleItem>()
 
+        fun isDateInRange(startDateStr: String, endDateStr: String, selectedDateStr: String): Boolean {
+            if (startDateStr.isEmpty() || endDateStr.isEmpty()) return true
+            return try {
+                val startCal = Calendar.getInstance().apply { time = dateFormat.parse(startDateStr)!! }
+                val endCal = Calendar.getInstance().apply { time = dateFormat.parse(endDateStr)!! }
+                val selectedCal = Calendar.getInstance().apply { time = dateFormat.parse(selectedDateStr)!! }
+
+                fun Calendar.clearTime() = apply {
+                    set(Calendar.HOUR_OF_DAY, 0)
+                    set(Calendar.MINUTE, 0)
+                    set(Calendar.SECOND, 0)
+                    set(Calendar.MILLISECOND, 0)
+                }
+
+                !selectedCal.clearTime().before(startCal.clearTime()) && !selectedCal.clearTime().after(endCal.clearTime())
+            } catch (e: ParseException) {
+                android.util.Log.e("MySchedule", "Date parsing failed", e)
+                false
+            }
+        }
+
         // Courses
         for (course in allCourses) {
-            for (scheduleMap in course.schedule) {
-                if (scheduleMap["dayOfWeek"]?.equals(dayOfWeek, ignoreCase = true) == true) {
-                    scheduleItems.add(ScheduleItem(
-                        title = course.courseName,
-                        subtitle = course.courseId,
-                        startTime = scheduleMap["startTime"] ?: "",
-                        endTime = scheduleMap["endTime"] ?: "",
-                        building = scheduleMap["building"] ?: "",
-                        room = scheduleMap["room"] ?: ""
-                    ))
+            if (isDateInRange(course.semesterStart, course.semesterEnd, selectedDateStr)) {
+                for (scheduleMap in course.schedule) {
+                    if (scheduleMap["dayOfWeek"]?.equals(dayOfWeek, ignoreCase = true) == true) {
+                        scheduleItems.add(ScheduleItem(
+                            title = course.courseName,
+                            subtitle = course.courseId,
+                            startTime = scheduleMap["startTime"] ?: "",
+                            endTime = scheduleMap["endTime"] ?: "",
+                            building = scheduleMap["building"] ?: "",
+                            room = scheduleMap["room"] ?: ""
+                        ))
+                    }
                 }
             }
         }
@@ -201,7 +221,15 @@ class MyScheduleActivity : AppCompatActivity() {
                 val isOneTimeEvent = !scheduleItem.recurring && scheduleItem.date.isNotEmpty() && scheduleItem.date == selectedDateStr
                 val isRecurringEvent = scheduleItem.recurring && scheduleItem.dayOfWeek.equals(dayOfWeek, ignoreCase = true)
 
-                if (isOneTimeEvent || isRecurringEvent) {
+                var inRange = true
+                if (isRecurringEvent && event.courseId.isNotEmpty()) {
+                    val linkedCourse = allCourses.find { it.courseId == event.courseId }
+                    if (linkedCourse != null) {
+                        inRange = isDateInRange(linkedCourse.semesterStart, linkedCourse.semesterEnd, selectedDateStr)
+                    }
+                }
+
+                if (inRange && (isOneTimeEvent || isRecurringEvent)) {
                     val buildingDisplay = if (scheduleItem.building.isNotEmpty()) scheduleItem.building else if (scheduleItem.coordinates.isNotEmpty()) "Custom Location" else ""
                     val roomDisplay = if (scheduleItem.building.isNotEmpty()) scheduleItem.room else ""
 
@@ -238,7 +266,8 @@ data class Event(
     val description: String = "",
     val participants: List<String> = listOf(),
     val private: Boolean = false,
-    val schedule: List<EventSchedule> = listOf()
+    val schedule: List<EventSchedule> = listOf(),
+    val courseId: String = ""
 )
 
 data class EventSchedule(

@@ -7,6 +7,8 @@ data class Course(
     val professorName: String = "",
     val department: String = "",
     val semester: String = "",
+    val semesterStart: String = "",
+    val semesterEnd: String = "",
     val campus: String = "",
     val credits: Int = 0,
     val maxCapacity: Int = 0,
