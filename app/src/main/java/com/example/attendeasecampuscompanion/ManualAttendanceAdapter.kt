@@ -3,19 +3,19 @@ package com.example.attendeasecampuscompanion
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.button.MaterialButton
 
 class ManualAttendanceAdapter(
     private val students: MutableList<StudentAttendanceItem>
 ) : RecyclerView.Adapter<ManualAttendanceAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val tvStudentName: TextView = view.findViewById(R.id.tvStudentName)
-        val btnPresent: Button = view.findViewById(R.id.btnPresent)
-        val btnLate: Button = view.findViewById(R.id.btnLate)
-        val btnAbsent: Button = view.findViewById(R.id.btnAbsent)
+        val txtStudentName: TextView = view.findViewById(R.id.txtStudentName)
+        val btnPresent: MaterialButton = view.findViewById(R.id.btnPresent)
+        val btnLate: MaterialButton = view.findViewById(R.id.btnLate)
+        val btnAbsent: MaterialButton = view.findViewById(R.id.btnAbsent)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,7 +26,7 @@ class ManualAttendanceAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val student = students[position]
-        holder.tvStudentName.text = student.studentName
+        holder.txtStudentName.text = student.studentName
 
         updateButtonStates(holder, student.status)
 

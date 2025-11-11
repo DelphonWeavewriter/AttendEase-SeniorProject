@@ -3457,7 +3457,6 @@ int id etMessage 0x7f0800ef
 int id exitUntilCollapsed 0x7f0800f0
 int id expand_activities_button 0x7f0800f1
 int id expanded_menu 0x7f0800f2
-int id fabBack 0x7f0800f3
 int id fabCreateEvent 0x7f0800f4
 int id fabRecenter 0x7f0800f5
 int id fade 0x7f0800f6
@@ -3487,7 +3486,6 @@ int id graph_wrap 0x7f08010d
 int id group_divider 0x7f08010e
 int id grouping 0x7f08010f
 int id groups 0x7f080110
-int id headerLayout 0x7f080111
 int id headerSection 0x7f080112
 int id header_title 0x7f080113
 int id hide_ime_id 0x7f080114
@@ -3674,11 +3672,10 @@ int id rightToLeft 0x7f0801c7
 int id right_icon 0x7f0801c8
 int id right_side 0x7f0801c9
 int id roomSpinner 0x7f0801ca
+int id rosterSection 0x7f080298
 int id rounded 0x7f0801cb
 int id row_index_key 0x7f0801cc
 int id rvAnnouncements 0x7f0801cd
-int id rvCourses 0x7f0801ce
-int id rvStudents 0x7f0801cf
 int id satellite 0x7f0801d0
 int id save_non_transition_alpha 0x7f0801d1
 int id save_overlay_view 0x7f0801d2
@@ -3823,13 +3820,11 @@ int id tvLateCount 0x7f08025c
 int id tvNoCourses 0x7f080289
 int id tvPresentCount 0x7f08025d
 int id tvProfessor 0x7f08025e
-int id tvSelectedCourse 0x7f08025f
 int id tvSelectedDate 0x7f080260
 int id tvStatus 0x7f080261
 int id tvStatusEmoji 0x7f080262
 int id tvStudentName 0x7f080263
 int id tvTimestamp 0x7f080264
-int id tvTitle 0x7f080265
 int id tvTotalClasses 0x7f080266
 int id tvTotalStudents 0x7f080267
 int id txtCourseCount 0x7f080291
@@ -3837,8 +3832,11 @@ int id txtCourseId 0x7f080292
 int id txtCourseName 0x7f080293
 int id txtEnrollment 0x7f080294
 int id txtLocation 0x7f080295
+int id txtSelectedDate 0x7f080299
 int id txtSemester 0x7f080296
 int id txtStudentCount 0x7f080297
+int id txtStudentName 0x7f08029a
+int id txtSubtitle 0x7f08029b
 int id unchecked 0x7f080268
 int id uniform 0x7f080269
 int id unlabeled 0x7f08026a

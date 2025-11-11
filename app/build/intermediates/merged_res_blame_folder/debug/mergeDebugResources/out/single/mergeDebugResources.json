@@ -1,230 +1,226 @@
 [
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/layout_dialog_student_detail.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/layout/dialog_student_detail.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/mipmap-mdpi/ic_launcher.webp"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/drawable_app_logo.png.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/drawable/app_logo.png"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/drawable_signin_button_background.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/drawable/signin_button_background.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/mipmap-xxhdpi/ic_launcher_round.webp"
-    },
-    {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/drawable_gradient_header.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/drawable/gradient_header.xml"
-    },
-    {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/mipmap-xhdpi_ic_launcher_round.webp.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/mipmap-xhdpi/ic_launcher_round.webp"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/mipmap-xxhdpi/ic_launcher.webp"
     },
     {
         "merged": "com.example.attendeasecampuscompanion.app-debug-71:/layout_item_course.xml.flat",
         "source": "com.example.attendeasecampuscompanion.app-main-73:/layout/item_course.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/mipmap-xhdpi_ic_launcher.webp.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/mipmap-xhdpi/ic_launcher.webp"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/drawable_app_logo.png.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/drawable/app_logo.png"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/layout_item_manual_attendance.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/layout/item_manual_attendance.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/drawable_ic_email.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/drawable/ic_email.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/mipmap-xxxhdpi/ic_launcher_round.webp"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/drawable_ic_my_location.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/drawable/ic_my_location.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/layout_activity_view_courses.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/layout/activity_view_courses.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/mipmap-xxhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/drawable_button_primary.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/drawable/button_primary.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/mipmap-hdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/mipmap-hdpi_ic_launcher.webp.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/mipmap-hdpi/ic_launcher.webp"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/drawable_ic_back.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/drawable/ic_back.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/layout_activity_student_course_detail.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/layout/activity_student_course_detail.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/xml_data_extraction_rules.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/xml/data_extraction_rules.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/layout_activity_mark_attendance.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/layout/activity_mark_attendance.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/layout_item_attendance_report.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/layout/item_attendance_report.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/mipmap-anydpi-v26/ic_launcher.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/layout_signin_layout.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/layout/signin_layout.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/xml_data_extraction_rules.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/xml/data_extraction_rules.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/drawable/ic_launcher_foreground.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/xml_apduservice.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/xml/apduservice.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/mipmap-anydpi-v26/ic_launcher.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/layout_item_announcement.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/layout/item_announcement.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/layout_activity_view_announcements.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/layout/activity_view_announcements.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/drawable_signin_button_background.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/drawable/signin_button_background.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/mipmap-xxxhdpi/ic_launcher.webp"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/drawable_final_exam_border.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/drawable/final_exam_border.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/layout_map_test.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/layout/map_test.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/mipmap-xxxhdpi_ic_launcher.webp.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/mipmap-xxxhdpi/ic_launcher.webp"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/xml_apduservice.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/xml/apduservice.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/layout_activity_my_schedule.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/layout/activity_my_schedule.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/xml_backup_rules.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/xml/backup_rules.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/layout_activity_home.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/layout/activity_home.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/drawable_button_primary.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/drawable/button_primary.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/mipmap-mdpi_ic_launcher_round.webp.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/mipmap-mdpi/ic_launcher_round.webp"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/drawable_button_green.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/drawable/button_green.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/drawable_ic_email.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/drawable/ic_email.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/layout_item_schedule.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/layout/item_schedule.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/drawable_input_field_background.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/drawable/input_field_background.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/layout_dialog_announcement.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/layout/dialog_announcement.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/drawable_ic_back.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/drawable/ic_back.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/layout_fragment_campus_map.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/layout/fragment_campus_map.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/layout_activity_attendance.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/layout/activity_attendance.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/drawable_card_background.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/drawable/card_background.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/layout_activity_attendance_sender.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/layout/activity_attendance_sender.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/mipmap-mdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/mipmap-anydpi-v26/ic_launcher_round.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/layout_activity_mark_attendance.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/layout/activity_mark_attendance.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/layout_dialog_create_event.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/layout/dialog_create_event.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/mipmap-xhdpi/ic_launcher.webp"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/layout_item_final_exam.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/layout/item_final_exam.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/drawable_login_background.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/drawable/login_background.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/layout_item_course.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/layout/item_course.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/layout_item_event.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/layout/item_event.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/layout_activity_view_attendance.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/layout/activity_view_attendance.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/layout_dialog_student_detail.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/layout/dialog_student_detail.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/drawable_button_green.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/drawable/button_green.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/drawable_background_gradient.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/drawable/background_gradient.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/layout_activity_view_announcements.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/layout/activity_view_announcements.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/layout_activity_home.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/layout/activity_home.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/mipmap-xxhdpi_ic_launcher.webp.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/mipmap-xxhdpi/ic_launcher.webp"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/drawable_gradient_header.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/drawable/gradient_header.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/mipmap-mdpi_ic_launcher.webp.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/mipmap-mdpi/ic_launcher.webp"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/drawable_button_red.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/drawable/button_red.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/layout_activity_professor_home.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/layout/activity_professor_home.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/mipmap-xxxhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/drawable_ic_lock.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/drawable/ic_lock.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/layout_item_manual_attendance.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/layout/item_manual_attendance.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/drawable_ic_launcher_background.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/drawable/ic_launcher_background.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/mipmap-hdpi/ic_launcher.webp"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/mipmap-hdpi_ic_launcher_round.webp.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/mipmap-hdpi/ic_launcher_round.webp"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/layout_activity_my_schedule.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/layout/activity_my_schedule.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/layout_activity_map.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/layout/activity_map.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/layout_activity_view_courses.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/layout/activity_view_courses.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/layout_item_event.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/layout/item_event.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/layout_activity_attendance_sender.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/layout/activity_attendance_sender.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/drawable_button_red.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/drawable/button_red.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/layout_dialog_create_event.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/layout/dialog_create_event.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/layout_item_attendance_report.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/layout/item_attendance_report.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/layout_activity_professor_home.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/layout/activity_professor_home.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/layout_signin_layout.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/layout/signin_layout.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/layout_item_announcement.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/layout/item_announcement.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/xml_backup_rules.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/xml/backup_rules.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/layout_activity_student_course_detail.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/layout/activity_student_course_detail.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/drawable_ic_launcher_foreground.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/drawable/ic_launcher_foreground.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/layout_item_final_exam.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/layout/item_final_exam.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/drawable_ic_my_location.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/drawable/ic_my_location.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/drawable_input_field_background.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/drawable/input_field_background.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/layout_item_schedule.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/layout/item_schedule.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/layout_activity_view_attendance.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/layout/activity_view_attendance.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/layout_fragment_campus_map.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/layout/fragment_campus_map.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/layout_activity_map.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/layout/activity_map.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/drawable_background_gradient.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/drawable/background_gradient.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/mipmap-anydpi-v26/ic_launcher_round.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/layout_dialog_announcement.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/layout/dialog_announcement.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/drawable_final_exam_border.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/drawable/final_exam_border.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/drawable_login_background.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/drawable/login_background.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/layout_activity_attendance.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/layout/activity_attendance.xml"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/layout_map_test.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/layout/map_test.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/mipmap-xhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/drawable_card_background.xml.flat",
-        "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/drawable/card_background.xml"
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/drawable_ic_lock.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/drawable/ic_lock.xml"
+    },
+    {
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/drawable/ic_launcher_background.xml"
     }
 ]

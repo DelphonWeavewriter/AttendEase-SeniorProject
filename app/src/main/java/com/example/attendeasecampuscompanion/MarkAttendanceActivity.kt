@@ -3,14 +3,14 @@ package com.example.attendeasecampuscompanion
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
@@ -21,15 +21,16 @@ class MarkAttendanceActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
 
-    private lateinit var tvTitle: TextView
-    private lateinit var tvSelectedCourse: TextView
-    private lateinit var tvSelectedDate: TextView
-    private lateinit var rvCourses: RecyclerView
-    private lateinit var rvStudents: RecyclerView
+    private lateinit var btnBack: TextView
+    private lateinit var txtSubtitle: TextView
+    private lateinit var txtSelectedDate: TextView
+    private lateinit var recyclerViewCourses: RecyclerView
+    private lateinit var recyclerViewStudents: RecyclerView
+    private lateinit var rosterSection: LinearLayout
+    private lateinit var emptyState: LinearLayout
     private lateinit var progressBar: ProgressBar
-    private lateinit var btnSelectDate: Button
-    private lateinit var btnSaveAttendance: Button
-    private lateinit var fabBack: FloatingActionButton
+    private lateinit var btnSelectDate: MaterialButton
+    private lateinit var btnSaveAttendance: MaterialButton
 
     private val courses = mutableListOf<Course>()
     private val courseDocIds = mutableListOf<String>()
@@ -53,34 +54,35 @@ class MarkAttendanceActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        tvTitle = findViewById(R.id.tvTitle)
-        tvSelectedCourse = findViewById(R.id.tvSelectedCourse)
-        tvSelectedDate = findViewById(R.id.tvSelectedDate)
-        rvCourses = findViewById(R.id.rvCourses)
-        rvStudents = findViewById(R.id.rvStudents)
+        btnBack = findViewById(R.id.btnBack)
+        txtSubtitle = findViewById(R.id.txtSubtitle)
+        txtSelectedDate = findViewById(R.id.txtSelectedDate)
+        recyclerViewCourses = findViewById(R.id.recyclerViewCourses)
+        recyclerViewStudents = findViewById(R.id.recyclerViewStudents)
+        rosterSection = findViewById(R.id.rosterSection)
+        emptyState = findViewById(R.id.emptyState)
         progressBar = findViewById(R.id.progressBar)
         btnSelectDate = findViewById(R.id.btnSelectDate)
         btnSaveAttendance = findViewById(R.id.btnSaveAttendance)
-        fabBack = findViewById(R.id.fabBack)
 
-        fabBack.setOnClickListener { finish() }
-
+        btnBack.setOnClickListener { finish() }
         btnSelectDate.setOnClickListener { showDatePicker() }
         btnSelectDate.isEnabled = false
-
         btnSaveAttendance.setOnClickListener { saveAttendance() }
-        btnSaveAttendance.visibility = View.GONE
+
+        rosterSection.visibility = View.GONE
+        emptyState.visibility = View.GONE
     }
 
     private fun setupRecyclerViews() {
-        rvCourses.layoutManager = LinearLayoutManager(this)
-        rvStudents.layoutManager = LinearLayoutManager(this)
-        rvStudents.visibility = View.GONE
+        recyclerViewCourses.layoutManager = LinearLayoutManager(this)
+        recyclerViewStudents.layoutManager = LinearLayoutManager(this)
     }
 
     private fun loadProfessorCourses() {
         val currentUser = auth.currentUser ?: return
         progressBar.visibility = View.VISIBLE
+        recyclerViewCourses.visibility = View.GONE
 
         db.collection("Courses")
             .whereEqualTo("professorId", currentUser.uid)
@@ -88,6 +90,13 @@ class MarkAttendanceActivity : AppCompatActivity() {
             .addOnSuccessListener { documents ->
                 courses.clear()
                 courseDocIds.clear()
+
+                if (documents.isEmpty) {
+                    progressBar.visibility = View.GONE
+                    emptyState.visibility = View.VISIBLE
+                    return@addOnSuccessListener
+                }
+
                 for (document in documents) {
                     val course = document.toObject(Course::class.java)
                     courses.add(course)
@@ -95,6 +104,7 @@ class MarkAttendanceActivity : AppCompatActivity() {
                 }
                 setupCourseAdapter()
                 progressBar.visibility = View.GONE
+                recyclerViewCourses.visibility = View.VISIBLE
             }
             .addOnFailureListener { e ->
                 progressBar.visibility = View.GONE
@@ -108,18 +118,17 @@ class MarkAttendanceActivity : AppCompatActivity() {
             val docId = courseDocIds[index]
             onCourseSelected(course, docId)
         }
-        rvCourses.adapter = adapter
+        recyclerViewCourses.adapter = adapter
     }
 
     private fun onCourseSelected(course: Course, docId: String) {
         selectedCourse = course
         selectedCourseDocId = docId
 
-        tvSelectedCourse.text = "Selected: ${course.courseId} - ${course.courseName}"
-        tvSelectedCourse.visibility = View.VISIBLE
+        txtSubtitle.text = "Selected: ${course.courseId} - ${course.courseName}"
 
         btnSelectDate.isEnabled = true
-        rvCourses.visibility = View.GONE
+        recyclerViewCourses.visibility = View.GONE
 
         Toast.makeText(this, "Now select a date", Toast.LENGTH_SHORT).show()
     }
@@ -135,8 +144,9 @@ class MarkAttendanceActivity : AppCompatActivity() {
             val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
             selectedDate = dateFormat.format(calendar.time)
 
-            tvSelectedDate.text = "Date: $selectedDate"
-            tvSelectedDate.visibility = View.VISIBLE
+            val displayFormat = SimpleDateFormat("MMM dd, yyyy", Locale.US)
+            val displayDate = displayFormat.format(calendar.time)
+            txtSelectedDate.text = displayDate
 
             loadEnrolledStudents()
         }, year, month, day).show()
@@ -196,10 +206,9 @@ class MarkAttendanceActivity : AppCompatActivity() {
 
     private fun setupAttendanceAdapter() {
         attendanceAdapter = ManualAttendanceAdapter(students)
-        rvStudents.adapter = attendanceAdapter
-        rvStudents.visibility = View.VISIBLE
-        btnSaveAttendance.visibility = View.VISIBLE
-        btnSelectDate.visibility = View.GONE
+        recyclerViewStudents.adapter = attendanceAdapter
+        rosterSection.visibility = View.VISIBLE
+        btnSelectDate.visibility = View.INVISIBLE
     }
 
     private fun saveAttendance() {
@@ -242,7 +251,7 @@ class MarkAttendanceActivity : AppCompatActivity() {
         batch.commit()
             .addOnSuccessListener {
                 progressBar.visibility = View.GONE
-                Toast.makeText(this, "Attendance saved successfully!", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Attendance saved successfully! 🎉", Toast.LENGTH_LONG).show()
                 finish()
             }
             .addOnFailureListener { e ->
