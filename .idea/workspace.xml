@@ -15,6 +15,11 @@
           <theme>@style/Theme.AttendEaseCampusCompanion</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/button_red.xml">
+        <config>
+          <theme>@style/Theme.AttendEaseCampusCompanion</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/gradient_header.xml">
         <config>
           <theme>@style/Theme.AttendEaseCampusCompanion</theme>
