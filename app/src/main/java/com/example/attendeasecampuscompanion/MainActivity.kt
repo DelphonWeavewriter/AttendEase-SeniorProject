@@ -3,9 +3,10 @@ package com.example.attendeasecampuscompanion
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.activity.ComponentActivity
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -62,6 +63,43 @@ class MainActivity : ComponentActivity() {
                     }
                 }
         }
+    }
+
+    fun forgotPassword(view: View) {
+        val emailInput = EditText(this)
+        emailInput.hint = "Enter your email"
+        emailInput.setPadding(50, 20, 50, 20)
+
+        AlertDialog.Builder(this)
+            .setTitle("Reset Password")
+            .setMessage("Enter your email address to receive a password reset link")
+            .setView(emailInput)
+            .setPositiveButton("Send") { _, _ ->
+                val email = emailInput.text.toString().trim()
+
+                if (email.isEmpty()) {
+                    Toast.makeText(this, "Please enter your email", Toast.LENGTH_SHORT).show()
+                    return@setPositiveButton
+                }
+
+                auth.sendPasswordResetEmail(email)
+                    .addOnSuccessListener {
+                        Toast.makeText(
+                            this,
+                            "Password reset email sent to $email",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                    .addOnFailureListener { e ->
+                        Toast.makeText(
+                            this,
+                            "Failed to send reset email: ${e.message}",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
     }
 
     private fun checkUserRoleAndNavigate(userId: String) {
