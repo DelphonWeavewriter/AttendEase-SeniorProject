@@ -1,12 +1,12 @@
 package com.example.attendeasecampuscompanion
 
-import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -54,7 +54,7 @@ class MyScheduleActivity : AppCompatActivity() {
         }
 
         fabCreateEvent.setOnClickListener {
-            showCreateEventDialog()
+            showEventDialog()
         }
 
         setupRecyclerView()
@@ -269,309 +269,66 @@ class MyScheduleActivity : AppCompatActivity() {
         }
     }
 
-    private fun showCreateEventDialog() {
+    private fun showEventDialog() {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_create_event, null)
-        val builder = AlertDialog.Builder(this)
-        builder.setView(dialogView)
+        val eventNameInput = dialogView.findViewById<EditText>(R.id.etEventName)
+        val eventLocationInput = dialogView.findViewById<EditText>(R.id.etEventLocation)
+        val eventDateInput = dialogView.findViewById<EditText>(R.id.etEventDate)
+        val eventTimeInput = dialogView.findViewById<EditText>(R.id.etEventTime)
+        val courseSpinner = dialogView.findViewById<Spinner>(R.id.spinnerEventCourse)
 
-        val dialog = builder.create()
+        val courses = listOf("CSCI 145", "CSCI 426", "CSCI 436")
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, courses)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        courseSpinner.adapter = adapter
 
-        val spinnerCourse = dialogView.findViewById<Spinner>(R.id.spinnerEventCourse)
-        val etEventTitle = dialogView.findViewById<EditText>(R.id.etEventTitle)
-        val etEventDescription = dialogView.findViewById<EditText>(R.id.etEventDescription)
-        val etEventDate = dialogView.findViewById<EditText>(R.id.etEventDate)
-        val etEventStartTime = dialogView.findViewById<EditText>(R.id.etEventStartTime)
-        val etEventEndTime = dialogView.findViewById<EditText>(R.id.etEventEndTime)
-        val etEventLocation = dialogView.findViewById<EditText>(R.id.etEventLocation)
-        val cbRecurring = dialogView.findViewById<CheckBox>(R.id.cbRecurring)
-        val cbPrivate = dialogView.findViewById<CheckBox>(R.id.cbPrivate)
-        val btnCreateEvent = dialogView.findViewById<Button>(R.id.btnCreateEvent)
-        val btnCancelEvent = dialogView.findViewById<Button>(R.id.btnCancelEvent)
+        val calendar = Calendar.getInstance()
 
-        loadCoursesForSpinner(spinnerCourse)
-
-        var selectedDate = ""
-        var selectedStartTime = ""
-        var selectedEndTime = ""
-
-        etEventDate.setOnClickListener {
-            val calendar = Calendar.getInstance()
-            val datePicker = DatePickerDialog(
+        eventDateInput.setOnClickListener {
+            DatePickerDialog(
                 this,
                 { _, year, month, day ->
-                    selectedDate = String.format("%d/%d/%d", month + 1, day, year)
-                    etEventDate.setText(selectedDate)
+                    eventDateInput.setText("${month + 1}/$day/$year")
                 },
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH)
-            )
-            datePicker.show()
+            ).show()
         }
 
-        etEventStartTime.setOnClickListener {
-            val calendar = Calendar.getInstance()
-            val timePicker = TimePickerDialog(
+        eventTimeInput.setOnClickListener {
+            TimePickerDialog(
                 this,
                 { _, hour, minute ->
-                    val amPm = if (hour < 12) "AM" else "PM"
-                    val displayHour = if (hour == 0) 12 else if (hour > 12) hour - 12 else hour
-                    selectedStartTime = String.format("%d:%02d %s", displayHour, minute, amPm)
-                    etEventStartTime.setText(selectedStartTime)
+                    val amPm = if (hour >= 12) "PM" else "AM"
+                    val displayHour = if (hour > 12) hour - 12 else if (hour == 0) 12 else hour
+                    eventTimeInput.setText(String.format("%02d:%02d %s", displayHour, minute, amPm))
                 },
                 calendar.get(Calendar.HOUR_OF_DAY),
                 calendar.get(Calendar.MINUTE),
                 false
-            )
-            timePicker.show()
+            ).show()
         }
 
-        etEventEndTime.setOnClickListener {
-            val calendar = Calendar.getInstance()
-            val timePicker = TimePickerDialog(
-                this,
-                { _, hour, minute ->
-                    val amPm = if (hour < 12) "AM" else "PM"
-                    val displayHour = if (hour == 0) 12 else if (hour > 12) hour - 12 else hour
-                    selectedEndTime = String.format("%d:%02d %s", displayHour, minute, amPm)
-                    etEventEndTime.setText(selectedEndTime)
-                },
-                calendar.get(Calendar.HOUR_OF_DAY),
-                calendar.get(Calendar.MINUTE),
-                false
-            )
-            timePicker.show()
-        }
+        AlertDialog.Builder(this)
+            .setTitle("Create Event")
+            .setView(dialogView)
+            .setPositiveButton("Create") { _, _ ->
+                val name = eventNameInput.text.toString()
+                val location = eventLocationInput.text.toString()
+                val date = eventDateInput.text.toString()
+                val time = eventTimeInput.text.toString()
+                val course = courseSpinner.selectedItem?.toString() ?: ""
 
-        btnCreateEvent.setOnClickListener {
-            val title = etEventTitle.text.toString().trim()
-            val description = etEventDescription.text.toString().trim()
-            val location = etEventLocation.text.toString().trim()
-            val isRecurring = cbRecurring.isChecked
-            val isPrivate = cbPrivate.isChecked
-
-            if (title.isEmpty() || description.isEmpty() || selectedDate.isEmpty() ||
-                selectedStartTime.isEmpty() || selectedEndTime.isEmpty()) {
-                Toast.makeText(this, "Please fill in all required fields", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            val selectedCourseItem = spinnerCourse.selectedItem as? CourseSpinnerItem
-            val courseId = selectedCourseItem?.courseId ?: ""
-
-            createEvent(
-                title,
-                description,
-                selectedDate,
-                selectedStartTime,
-                selectedEndTime,
-                location,
-                courseId,
-                isRecurring,
-                isPrivate
-            )
-
-            dialog.dismiss()
-        }
-
-        btnCancelEvent.setOnClickListener {
-            dialog.dismiss()
-        }
-
-        dialog.show()
-    }
-
-    private fun loadCoursesForSpinner(spinner: Spinner) {
-        val userId = auth.currentUser?.uid ?: return
-
-        db.collection("Courses")
-            .whereEqualTo("professorId", userId)
-            .get()
-            .addOnSuccessListener { documents ->
-                val courseItems = mutableListOf<CourseSpinnerItem>()
-                courseItems.add(CourseSpinnerItem("", "No Course (General Event)"))
-
-                for (document in documents) {
-                    val courseId = document.getString("courseId") ?: ""
-                    val courseName = document.getString("courseName") ?: ""
-                    courseItems.add(CourseSpinnerItem(courseId, "$courseId - $courseName"))
-                }
-
-                val adapter = ArrayAdapter(
-                    this,
-                    android.R.layout.simple_spinner_item,
-                    courseItems
-                )
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                spinner.adapter = adapter
-            }
-            .addOnFailureListener {
-                Toast.makeText(this, "Failed to load courses", Toast.LENGTH_SHORT).show()
-            }
-    }
-
-    private fun createEvent(
-        title: String,
-        description: String,
-        date: String,
-        startTime: String,
-        endTime: String,
-        location: String,
-        courseId: String,
-        isRecurring: Boolean,
-        isPrivate: Boolean
-    ) {
-        val userId = auth.currentUser?.uid ?: return
-
-        progressBar.visibility = View.VISIBLE
-
-        db.collection("Users").document(userId).get()
-            .addOnSuccessListener { userDoc ->
-                val user = userDoc.toObject(User::class.java)
-                val creatorName = "${user?.firstName ?: ""} ${user?.lastName ?: ""}".trim()
-
-                val participants = mutableListOf(userId)
-
-                if (courseId.isNotEmpty()) {
-                    db.collection("Courses")
-                        .whereEqualTo("courseId", courseId)
-                        .get()
-                        .addOnSuccessListener { documents ->
-                            if (!documents.isEmpty) {
-                                val course = documents.documents[0].toObject(Course::class.java)
-                                course?.enrolledStudents?.let { participants.addAll(it) }
-                            }
-                            saveEventToFirebase(
-                                creatorName,
-                                description,
-                                participants,
-                                isPrivate,
-                                courseId,
-                                date,
-                                startTime,
-                                endTime,
-                                location,
-                                isRecurring
-                            )
-                        }
-                        .addOnFailureListener {
-                            saveEventToFirebase(
-                                creatorName,
-                                description,
-                                participants,
-                                isPrivate,
-                                courseId,
-                                date,
-                                startTime,
-                                endTime,
-                                location,
-                                isRecurring
-                            )
-                        }
+                if (name.isNotBlank() && date.isNotBlank() && time.isNotBlank()) {
+                    Toast.makeText(this, "Event '$name' created for $course on $date at $time", Toast.LENGTH_LONG).show()
                 } else {
-                    saveEventToFirebase(
-                        creatorName,
-                        description,
-                        participants,
-                        isPrivate,
-                        "",
-                        date,
-                        startTime,
-                        endTime,
-                        location,
-                        isRecurring
-                    )
+                    Toast.makeText(this, "Please fill required fields", Toast.LENGTH_SHORT).show()
                 }
             }
-            .addOnFailureListener {
-                progressBar.visibility = View.GONE
-                Toast.makeText(this, "Failed to create event", Toast.LENGTH_SHORT).show()
-            }
+            .setNegativeButton("Cancel", null)
+            .show()
     }
-
-    private fun saveEventToFirebase(
-        creatorName: String,
-        description: String,
-        participants: List<String>,
-        isPrivate: Boolean,
-        courseId: String,
-        date: String,
-        startTime: String,
-        endTime: String,
-        location: String,
-        isRecurring: Boolean
-    ) {
-        val userId = auth.currentUser?.uid ?: return
-
-        db.collection("Users").document(userId).get()
-            .addOnSuccessListener { userDoc ->
-                val user = userDoc.toObject(User::class.java)
-                val campus = user?.campus ?: ""
-
-                val calendar = Calendar.getInstance()
-                val dateFormat = SimpleDateFormat("M/d/yyyy", Locale.US)
-                val eventDate = dateFormat.parse(date)
-                if (eventDate != null) {
-                    calendar.time = eventDate
-                }
-                val dayOfWeek = SimpleDateFormat("EEEE", Locale.US).format(calendar.time)
-
-                val eventSchedule = EventSchedule(
-                    building = location,
-                    coordinates = "",
-                    date = if (!isRecurring) date else "",
-                    dayOfWeek = if (isRecurring) dayOfWeek else "",
-                    endTime = endTime,
-                    recurring = isRecurring,
-                    room = "",
-                    startTime = startTime
-                )
-
-                val event = hashMapOf(
-                    "campus" to campus,
-                    "creator" to creatorName,
-                    "description" to description,
-                    "participants" to participants,
-                    "private" to isPrivate,
-                    "schedule" to listOf(
-                        hashMapOf(
-                            "building" to eventSchedule.building,
-                            "coordinates" to eventSchedule.coordinates,
-                            "date" to eventSchedule.date,
-                            "dayOfWeek" to eventSchedule.dayOfWeek,
-                            "endTime" to eventSchedule.endTime,
-                            "recurring" to eventSchedule.recurring,
-                            "room" to eventSchedule.room,
-                            "startTime" to eventSchedule.startTime
-                        )
-                    ),
-                    "courseId" to courseId
-                )
-
-                db.collection("Events")
-                    .add(event)
-                    .addOnSuccessListener {
-                        progressBar.visibility = View.GONE
-                        Toast.makeText(this, "Event created successfully!", Toast.LENGTH_SHORT).show()
-                        loadScheduleData()
-                    }
-                    .addOnFailureListener {
-                        progressBar.visibility = View.GONE
-                        Toast.makeText(this, "Failed to save event", Toast.LENGTH_SHORT).show()
-                    }
-            }
-            .addOnFailureListener {
-                progressBar.visibility = View.GONE
-                Toast.makeText(this, "Failed to load user data", Toast.LENGTH_SHORT).show()
-            }
-    }
-}
-
-data class CourseSpinnerItem(
-    val courseId: String,
-    val displayName: String
-) {
-    override fun toString(): String = displayName
 }
 
 data class Event(
