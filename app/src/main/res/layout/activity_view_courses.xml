@@ -30,7 +30,7 @@
                 android:layout_gravity="start"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@android:drawable/ic_menu_revert"
-                android:tint="#FFFFFF"
+                app:tint="#FFFFFF"
                 android:rotation="180"
                 android:contentDescription="Back"
                 android:layout_marginBottom="16dp" />
