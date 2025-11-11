@@ -3347,6 +3347,7 @@ int id btnViewAttendance 0x7f080084
 int id btnViewCourses 0x7f080085
 int id buttonPanel 0x7f080086
 int id cache_measures 0x7f080087
+int id calendarCard 0x7f08029d
 int id calendarView 0x7f080088
 int id callMeasure 0x7f080089
 int id cancel_button 0x7f08008a

@@ -54,6 +54,7 @@ id btnSocial
 id btnViewAnnouncements
 id btnViewAttendance
 id btnViewCourses
+id calendarCard
 id calendarView
 id cardAnnouncement
 id cardCheckIn

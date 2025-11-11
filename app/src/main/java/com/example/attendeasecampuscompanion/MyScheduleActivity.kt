@@ -23,7 +23,7 @@ class MyScheduleActivity : AppCompatActivity() {
     private lateinit var dateText: TextView
     private lateinit var recyclerView: RecyclerView
     private lateinit var progressBar: ProgressBar
-    private lateinit var emptyText: TextView
+    private lateinit var emptyState: LinearLayout
     private lateinit var fabCreateEvent: FloatingActionButton
 
     private val db = FirebaseFirestore.getInstance()
@@ -47,7 +47,7 @@ class MyScheduleActivity : AppCompatActivity() {
         dateText = findViewById(R.id.dateText)
         recyclerView = findViewById(R.id.recyclerViewSchedule)
         progressBar = findViewById(R.id.progressBar)
-        emptyText = findViewById(R.id.emptyText)
+        emptyState = findViewById(R.id.emptyState)
         fabCreateEvent = findViewById(R.id.fabCreateEvent)
 
         findViewById<View>(R.id.btnBack).setOnClickListener {
@@ -90,7 +90,7 @@ class MyScheduleActivity : AppCompatActivity() {
             return
         }
         progressBar.visibility = View.VISIBLE
-        emptyText.visibility = View.GONE
+        emptyState.visibility = View.GONE
         loadCourses(currentUserId)
     }
 
@@ -164,8 +164,7 @@ class MyScheduleActivity : AppCompatActivity() {
     private fun handleFailure(message: String, e: Exception? = null) {
         android.util.Log.e("MySchedule", message, e)
         progressBar.visibility = View.GONE
-        emptyText.visibility = View.VISIBLE
-        emptyText.text = message
+        emptyState.visibility = View.VISIBLE
     }
 
     private fun filterScheduleByDate() {
@@ -261,11 +260,10 @@ class MyScheduleActivity : AppCompatActivity() {
 
         progressBar.visibility = View.GONE
         if (scheduleItems.isEmpty()) {
-            emptyText.visibility = View.VISIBLE
-            emptyText.text = "No classes, exams, or events scheduled for this day"
+            emptyState.visibility = View.VISIBLE
             recyclerView.visibility = View.GONE
         } else {
-            emptyText.visibility = View.GONE
+            emptyState.visibility = View.GONE
             recyclerView.visibility = View.VISIBLE
             scheduleAdapter.updateSchedule(scheduleItems)
         }

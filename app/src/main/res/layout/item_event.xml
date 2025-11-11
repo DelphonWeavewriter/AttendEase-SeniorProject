@@ -1,69 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="2dp">
+    android:layout_marginBottom="12dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="3dp"
+    android:backgroundTint="#FFFFFF"
+    app:strokeWidth="0dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp"
-        android:background="#FFFFFF">
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="4dp"
+        <View
+            android:layout_width="6dp"
             android:layout_height="match_parent"
-            android:background="#42A5F5"
-            android:layout_marginEnd="16dp" />
+            android:background="#66BB6A" />
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="#E8F5E9">
 
-            <TextView
-                android:id="@+id/courseCode"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="CSCI 145"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="#42A5F5" />
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    android:id="@+id/courseCode"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Event"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="#66BB6A" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🎉"
+                    android:textSize="24sp" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/courseName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Computer Programming"
+                android:text="Team Meeting"
                 android:textSize="16sp"
+                android:textStyle="bold"
                 android:textColor="#333333"
-                android:paddingTop="4dp" />
+                android:layout_marginBottom="12dp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingTop="12dp">
+                android:gravity="center_vertical"
+                android:layout_marginBottom="6dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="🕐"
-                    android:textSize="14sp"
-                    android:paddingEnd="6dp" />
+                    android:textSize="16sp"
+                    android:layout_marginEnd="8dp" />
 
                 <TextView
                     android:id="@+id/timeRange"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="11:15 AM - 12:30 PM"
-                    android:textSize="14sp"
-                    android:textColor="#666666" />
+                    android:text="2:00 PM - 3:00 PM"
+                    android:textSize="15sp"
+                    android:textColor="#666666"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -71,21 +90,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingTop="4dp">
+                android:gravity="center_vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="📍"
-                    android:textSize="14sp"
-                    android:paddingEnd="6dp" />
+                    android:textSize="16sp"
+                    android:layout_marginEnd="8dp" />
 
                 <TextView
                     android:id="@+id/location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="HJSH 235"
-                    android:textSize="14sp"
+                    android:textSize="15sp"
                     android:textColor="#666666" />
 
             </LinearLayout>
@@ -94,4 +113,4 @@
 
     </LinearLayout>
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>
