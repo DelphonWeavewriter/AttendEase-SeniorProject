@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/background_gradient">
+    android:background="#F5F5F5">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -61,114 +61,349 @@
 
     </LinearLayout>
 
-    <androidx.cardview.widget.CardView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="16dp"
-        app:cardCornerRadius="24dp"
-        app:cardElevation="8dp"
-        android:backgroundTint="#FFFFFF">
+        android:fillViewport="true"
+        android:clipToPadding="false">
 
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:clipToPadding="false">
 
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardManualAttendance"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:gravity="center">
+                android:layout_height="120dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="6dp"
+                android:backgroundTint="#42A5F5"
+                app:strokeWidth="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="20dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="✓"
+                        android:textSize="32sp"
+                        android:textColor="#FFFFFF"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="4dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mark Attendance"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="#FFFFFF"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Record student attendance"
+                        android:textSize="13sp"
+                        android:textColor="#E3F2FD"
+                        android:layout_marginTop="2dp"/>
+
+                </LinearLayout>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnManualAttendance"
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:layout_margin="8dp"
-                    android:text="Mark Attendance"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:cornerRadius="32dp"
-                    app:elevation="2dp"
-                    android:backgroundTint="#66BB6A"
-                    android:gravity="center"/>
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackground"
+                    app:backgroundTint="@android:color/transparent"
+                    android:textColor="@android:color/transparent"/>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnViewAttendance"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:layout_margin="8dp"
-                    android:text="Attendance Records"
-                    android:textSize="16sp"
-                    app:cornerRadius="32dp"
-                    app:elevation="2dp"
-                    android:backgroundTint="#42A5F5"
-                    android:gravity="center"/>
+            </com.google.android.material.card.MaterialCardView>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnViewCourses"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:layout_margin="8dp"
-                    android:text="My Courses"
-                    android:textSize="16sp"
-                    app:cornerRadius="32dp"
-                    app:elevation="2dp"
-                    android:backgroundTint="#42A5F5"
-                    android:gravity="center"/>
+            <LinearLayout
+                android:layout_width="386dp"
+                android:layout_height="163dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnMySchedule"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:layout_margin="8dp"
-                    android:text="My Schedule"
-                    android:textSize="16sp"
-                    app:cornerRadius="32dp"
-                    app:elevation="2dp"
-                    android:backgroundTint="#42A5F5"
-                    android:gravity="center"/>
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#FFFFFF"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="4dp"
+                    app:strokeColor="#E0E0E0"
+                    app:strokeWidth="1dp">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnSendAnnouncement"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:layout_margin="8dp"
-                    android:text="Send Announcement"
-                    android:textSize="16sp"
-                    app:cornerRadius="32dp"
-                    app:elevation="2dp"
-                    android:backgroundTint="#42A5F5"
-                    android:gravity="center"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:text="📚"
+                            android:textSize="36sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="My Courses"
+                            android:textColor="#333333"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:gravity="center"
+                            android:text="View & manage"
+                            android:textColor="#666666"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnViewCourses"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="?attr/selectableItemBackground"
+                        android:textColor="@android:color/transparent"
+                        app:backgroundTint="@android:color/transparent" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#FFFFFF"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="4dp"
+                    app:strokeColor="#E0E0E0"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:text="📅"
+                            android:textSize="36sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="My Schedule"
+                            android:textColor="#333333"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:gravity="center"
+                            android:text="Calendar view"
+                            android:textColor="#666666"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnMySchedule"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="?attr/selectableItemBackground"
+                        android:textColor="@android:color/transparent"
+                        app:backgroundTint="@android:color/transparent" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="4dp"
+                    android:backgroundTint="#FFFFFF"
+                    app:strokeColor="#E0E0E0"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="📊"
+                            android:textSize="36sp"
+                            android:layout_marginBottom="8dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Attendance Records"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="#333333"
+                            android:gravity="center"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Reports & analytics"
+                            android:textSize="12sp"
+                            android:textColor="#666666"
+                            android:gravity="center"
+                            android:layout_marginTop="4dp"/>
+
+                    </LinearLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnViewAttendance"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="?attr/selectableItemBackground"
+                        app:backgroundTint="@android:color/transparent"
+                        android:textColor="@android:color/transparent"/>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="4dp"
+                    android:backgroundTint="#FFFFFF"
+                    app:strokeColor="#E0E0E0"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="📢"
+                            android:textSize="36sp"
+                            android:layout_marginBottom="8dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Announcements"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="#333333"
+                            android:gravity="center"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Send to students"
+                            android:textSize="12sp"
+                            android:textColor="#666666"
+                            android:gravity="center"
+                            android:layout_marginTop="4dp"/>
+
+                    </LinearLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnSendAnnouncement"
+                        android:layout_width="match_parent"
+                        android:layout_height="155dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:textColor="@android:color/transparent"
+                        app:backgroundTint="@android:color/transparent" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnProfCampusMap"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:layout_margin="8dp"
-                    android:text="Campus Map"
-                    android:textSize="16sp"
-                    app:cornerRadius="32dp"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:text="🗺️ Campus Map"
+                    android:textSize="14sp"
+                    app:cornerRadius="16dp"
                     app:elevation="2dp"
-                    android:backgroundTint="#42A5F5"
-                    android:gravity="center"/>
+                    android:backgroundTint="#1976D2"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnProfSignOut"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
                     android:text="Sign Out"
-                    app:cornerRadius="24dp"
+                    android:textSize="14sp"
+                    app:cornerRadius="16dp"
                     app:elevation="2dp"
                     android:backgroundTint="#EF5350"/>
 
             </LinearLayout>
 
-        </ScrollView>
+        </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+    </ScrollView>
 
 </LinearLayout>
