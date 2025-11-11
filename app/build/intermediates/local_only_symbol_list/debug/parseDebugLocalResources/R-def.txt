@@ -17,6 +17,7 @@ drawable background_gradient
 drawable card_background
 drawable final_exam_border
 drawable gradient_header
+drawable ic_back
 drawable ic_email
 drawable ic_launcher_background
 drawable ic_launcher_foreground
@@ -32,7 +33,6 @@ id btnAbsent
 id btnBack
 id btnCampusMap
 id btnCheckIn
-id btnCreateEvent
 id btnEmailProfessor
 id btnFinalsSchedule
 id btnLate
@@ -40,7 +40,6 @@ id btnManualAttendance
 id btnMySchedule
 id btnNavigate
 id btnPresent
-id btnProfCampusMap
 id btnProfSignOut
 id btnSaveAttendance
 id btnSchedule
@@ -73,6 +72,7 @@ id etEventName
 id etEventTime
 id etMessage
 id fabBack
+id fabCreateEvent
 id fabRecenter
 id forgotPassword
 id headerLayout
@@ -128,7 +128,6 @@ id tvDetailLateCount
 id tvDetailPresentCount
 id tvEmptyState
 id tvLateCount
-id tvNoCourses
 id tvPresentCount
 id tvProfessor
 id tvSelectedCourse

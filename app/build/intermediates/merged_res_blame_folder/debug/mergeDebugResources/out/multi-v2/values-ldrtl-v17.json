@@ -4,7 +4,7 @@
             "outputFile": "com.example.attendeasecampuscompanion.app-mergeDebugResources-69:/values-ldrtl-v17/values-ldrtl-v17.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\fenna\\.gradle\\caches\\8.13\\transforms\\0f4b714816a12d2601ace17179d8b529\\transformed\\material-1.12.0\\res\\values-ldrtl-v17\\values-ldrtl-v17.xml",
+                    "source": "/Users/steven/.gradle/caches/8.13/transforms/0f4b714816a12d2601ace17179d8b529/transformed/material-1.12.0/res/values-ldrtl-v17/values-ldrtl-v17.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",
