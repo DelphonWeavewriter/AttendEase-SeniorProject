@@ -6,60 +6,73 @@
     android:orientation="vertical"
     android:background="#F5F5F5">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:padding="24dp"
-        android:background="@drawable/gradient_header">
+        android:layout_height="240dp">
 
-        <TextView
-            android:id="@+id/professorName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Professor Name"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            android:layout_marginBottom="8dp"/>
+        <com.example.attendeasecampuscompanion.AnimatedHeaderView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-        <TextView
-            android:id="@+id/professorId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ID: P123456"
-            android:textSize="18sp"
-            android:textColor="#E3F2FD"
-            android:layout_marginBottom="8dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="24dp">
 
-        <TextView
-            android:id="@+id/profDateHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Monday, September 30"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            android:layout_marginBottom="16dp"/>
+            <TextView
+                android:id="@+id/professorName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Professor Name"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:shadowColor="#1976D2"
+                android:shadowDx="0"
+                android:shadowDy="2"
+                android:shadowRadius="4"
+                android:layout_marginBottom="8dp"/>
 
-        <TextView
-            android:id="@+id/tvCoursesList"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Teaching 0 course(s)"
-            android:textSize="16sp"
-            android:textColor="#B3E5FC"/>
+            <TextView
+                android:id="@+id/professorId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ID: P123456"
+                android:textSize="18sp"
+                android:textColor="#E3F2FD"
+                android:layout_marginBottom="8dp"/>
 
-        <TextView
-            android:id="@+id/tvNoCourses"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="14sp"
-            android:textColor="#B3E5FC"/>
+            <TextView
+                android:id="@+id/profDateHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Monday, September 30"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:layout_marginBottom="16dp"/>
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tvCoursesList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Teaching 0 course(s)"
+                android:textSize="16sp"
+                android:textColor="#B3E5FC"/>
+
+            <TextView
+                android:id="@+id/tvNoCourses"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="14sp"
+                android:textColor="#B3E5FC"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -129,54 +142,54 @@
             </com.google.android.material.card.MaterialCardView>
 
             <LinearLayout
-                android:layout_width="386dp"
-                android:layout_height="163dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:weightSum="2">
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
                     android:layout_height="150dp"
+                    android:layout_weight="1"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="16dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="#FFFFFF"
                     app:cardCornerRadius="20dp"
                     app:cardElevation="4dp"
+                    android:backgroundTint="#FFFFFF"
                     app:strokeColor="#E0E0E0"
                     app:strokeWidth="1dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center"
                         android:orientation="vertical"
-                        android:padding="16dp">
+                        android:padding="16dp"
+                        android:gravity="center">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
                             android:text="📚"
-                            android:textSize="36sp" />
+                            android:textSize="36sp"
+                            android:layout_marginBottom="8dp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
                             android:text="My Courses"
-                            android:textColor="#333333"
                             android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:textColor="#333333"
+                            android:gravity="center"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:gravity="center"
-                            android:text="View & manage"
+                            android:text="View and manage"
+                            android:textSize="12sp"
                             android:textColor="#666666"
-                            android:textSize="12sp" />
+                            android:gravity="center"
+                            android:layout_marginTop="4dp"/>
 
                     </LinearLayout>
 
@@ -185,54 +198,54 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="?attr/selectableItemBackground"
-                        android:textColor="@android:color/transparent"
-                        app:backgroundTint="@android:color/transparent" />
+                        app:backgroundTint="@android:color/transparent"
+                        android:textColor="@android:color/transparent"/>
 
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
                     android:layout_height="150dp"
+                    android:layout_weight="1"
                     android:layout_marginStart="8dp"
                     android:layout_marginBottom="16dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="#FFFFFF"
                     app:cardCornerRadius="20dp"
                     app:cardElevation="4dp"
+                    android:backgroundTint="#FFFFFF"
                     app:strokeColor="#E0E0E0"
                     app:strokeWidth="1dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center"
                         android:orientation="vertical"
-                        android:padding="16dp">
+                        android:padding="16dp"
+                        android:gravity="center">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
                             android:text="📅"
-                            android:textSize="36sp" />
+                            android:textSize="36sp"
+                            android:layout_marginBottom="8dp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
                             android:text="My Schedule"
-                            android:textColor="#333333"
                             android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:textColor="#333333"
+                            android:gravity="center"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:gravity="center"
                             android:text="Calendar view"
+                            android:textSize="12sp"
                             android:textColor="#666666"
-                            android:textSize="12sp" />
+                            android:gravity="center"
+                            android:layout_marginTop="4dp"/>
 
                     </LinearLayout>
 
@@ -241,8 +254,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="?attr/selectableItemBackground"
-                        android:textColor="@android:color/transparent"
-                        app:backgroundTint="@android:color/transparent" />
+                        app:backgroundTint="@android:color/transparent"
+                        android:textColor="@android:color/transparent"/>
 
                 </com.google.android.material.card.MaterialCardView>
 
@@ -292,7 +305,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Reports & analytics"
+                            android:text="Reports and analytics"
                             android:textSize="12sp"
                             android:textColor="#666666"
                             android:gravity="center"
@@ -359,10 +372,10 @@
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnSendAnnouncement"
                         android:layout_width="match_parent"
-                        android:layout_height="155dp"
+                        android:layout_height="match_parent"
                         android:background="?attr/selectableItemBackground"
-                        android:textColor="@android:color/transparent"
-                        app:backgroundTint="@android:color/transparent" />
+                        app:backgroundTint="@android:color/transparent"
+                        android:textColor="@android:color/transparent"/>
 
                 </com.google.android.material.card.MaterialCardView>
 
