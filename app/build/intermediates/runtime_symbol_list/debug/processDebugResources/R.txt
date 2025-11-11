@@ -3351,6 +3351,7 @@ int id calendarView 0x7f080088
 int id callMeasure 0x7f080089
 int id cancel_button 0x7f08008a
 int id cardAnnouncement 0x7f08008b
+int id cardCheckIn 0x7f08028b
 int id cardManualAttendance 0x7f08028a
 int id carryVelocity 0x7f08008c
 int id center 0x7f08008d

@@ -1,118 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="2dp"
-    android:clickable="true"
-    android:focusable="true"
-    android:foreground="?android:attr/selectableItemBackground">
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp"
+    android:backgroundTint="#FFFFFF"
+    app:strokeWidth="0dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp"
-        android:background="#FFFFFF">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:paddingBottom="8dp">
-
-            <TextView
-                android:id="@+id/courseCode"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="CSCI 145"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="#42A5F5" />
-
-            <TextView
-                android:id="@+id/enrollmentInfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="25/32"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:textColor="#66BB6A"
-                android:background="@drawable/card_background"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="4dp" />
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/courseName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Computer Programming"
-            android:textSize="16sp"
-            android:textColor="#333333"
-            android:textStyle="bold"
-            android:paddingBottom="12dp" />
+        android:orientation="horizontal">
 
         <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#E0E0E0"
-            android:layout_marginBottom="12dp" />
+            android:id="@+id/leftStripe"
+            android:layout_width="6dp"
+            android:layout_height="match_parent"
+            android:background="#42A5F5" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    android:id="@+id/txtCourseId"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="CSCI 145"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="#42A5F5" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/card_background"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="6dp">
+
+                    <TextView
+                        android:id="@+id/txtEnrollment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2/32"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="#66BB6A" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" students"
+                        android:textSize="12sp"
+                        android:textColor="#666666"
+                        android:layout_marginStart="2dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/txtCourseName"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="📅"
+                android:text="Computer Programming"
                 android:textSize="16sp"
-                android:paddingEnd="8dp" />
+                android:textStyle="bold"
+                android:textColor="#333333"
+                android:layout_marginBottom="12dp" />
 
-            <TextView
-                android:id="@+id/semester"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Spring 2025"
-                android:textSize="14sp"
-                android:textColor="#666666" />
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="8dp">
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📅"
+                    android:textSize="14sp"
+                    android:layout_marginEnd="6dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:paddingTop="8dp">
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipSemester"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Spring 2025"
+                    android:textSize="12sp"
+                    android:textColor="#1976D2"
+                    app:chipBackgroundColor="#E3F2FD"
+                    app:chipStrokeWidth="0dp"
+                    app:chipMinHeight="28dp"
+                    style="@style/Widget.Material3.Chip.Suggestion" />
 
-            <TextView
-                android:layout_width="wrap_content"
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/scheduleContainer"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="🕐"
-                android:textSize="16sp"
-                android:paddingEnd="8dp" />
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="8dp">
 
-            <TextView
-                android:id="@+id/scheduleInfo"
-                android:layout_width="0dp"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🕐"
+                    android:textSize="14sp"
+                    android:layout_marginEnd="6dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipSchedule"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="MON 11:15 AM"
+                    android:textSize="12sp"
+                    android:textColor="#42A5F5"
+                    app:chipBackgroundColor="#E3F2FD"
+                    app:chipStrokeWidth="0dp"
+                    app:chipMinHeight="28dp"
+                    style="@style/Widget.Material3.Chip.Suggestion" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Monday 11:15 AM - 12:30 PM"
-                android:textSize="14sp"
-                android:textColor="#666666" />
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📍"
+                    android:textSize="14sp"
+                    android:layout_marginEnd="6dp" />
+
+                <TextView
+                    android:id="@+id/txtLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="HJSH 235"
+                    android:textSize="14sp"
+                    android:textColor="#666666" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
     </LinearLayout>
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>
