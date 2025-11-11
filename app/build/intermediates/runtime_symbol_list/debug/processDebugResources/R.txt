@@ -3809,13 +3809,13 @@ int id triangle 0x7f080251
 int id tvAbsentCount 0x7f080252
 int id tvAnnouncementMessage 0x7f080253
 int id tvAttendanceRate 0x7f080254
-int id tvCounts 0x7f080255
 int id tvCourseName 0x7f080256
 int id tvCoursesList 0x7f080257
 int id tvDetailAbsentCount 0x7f080258
 int id tvDetailLateCount 0x7f080259
 int id tvDetailPresentCount 0x7f08025a
 int id tvEmptyState 0x7f08025b
+int id tvInitials 0x7f08029c
 int id tvLateCount 0x7f08025c
 int id tvNoCourses 0x7f080289
 int id tvPresentCount 0x7f08025d

@@ -26,7 +26,7 @@ class ViewAttendanceActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
 
-    private lateinit var btnBack: ImageButton
+    private lateinit var btnBack: TextView
     private lateinit var spinnerCourses: Spinner
     private lateinit var btnSelectDate: Button
     private lateinit var tvSelectedDate: TextView
@@ -40,7 +40,7 @@ class ViewAttendanceActivity : AppCompatActivity() {
     private lateinit var pieChart: PieChart
     private lateinit var barChart: BarChart
     private lateinit var recyclerViewStudents: RecyclerView
-    private lateinit var tvEmptyState: TextView
+    private lateinit var tvEmptyState: LinearLayout
 
     private var selectedCourse: Course? = null
     private var selectedDate: String = ""
@@ -408,6 +408,5 @@ class ViewAttendanceActivity : AppCompatActivity() {
         layoutStats.visibility = View.GONE
         layoutCharts.visibility = View.GONE
         tvEmptyState.visibility = View.VISIBLE
-        tvEmptyState.text = "No attendance records found for selected date.\n\nTry selecting a different date or mark attendance first."
     }
 }

@@ -126,13 +126,13 @@ id timeRange
 id tvAbsentCount
 id tvAnnouncementMessage
 id tvAttendanceRate
-id tvCounts
 id tvCourseName
 id tvCoursesList
 id tvDetailAbsentCount
 id tvDetailLateCount
 id tvDetailPresentCount
 id tvEmptyState
+id tvInitials
 id tvLateCount
 id tvNoCourses
 id tvPresentCount
