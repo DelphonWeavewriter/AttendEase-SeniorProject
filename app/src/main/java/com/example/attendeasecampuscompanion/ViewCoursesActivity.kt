@@ -3,6 +3,7 @@ package com.example.attendeasecampuscompanion
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -90,6 +91,7 @@ class ViewCoursesActivity : AppCompatActivity() {
                             emptyState.visibility = View.VISIBLE
                         } else {
                             courseAdapter.notifyDataSetChanged()
+                            updateStatsBar(coursesList)
                         }
                     }
                     .addOnFailureListener { exception ->
@@ -103,6 +105,26 @@ class ViewCoursesActivity : AppCompatActivity() {
                 emptyState.visibility = View.VISIBLE
                 Toast.makeText(this, "Error loading user: ${exception.message}", Toast.LENGTH_SHORT).show()
             }
+    }
+
+    private fun updateStatsBar(courses: List<Course>) {
+        val statsBar = findViewById<LinearLayout>(R.id.statsBar)
+        val txtCourseCount = findViewById<TextView>(R.id.txtCourseCount)
+        val txtStudentCount = findViewById<TextView>(R.id.txtStudentCount)
+        val txtSemester = findViewById<TextView>(R.id.txtSemester)
+
+        if (courses.isNotEmpty()) {
+            statsBar.visibility = View.VISIBLE
+
+            val totalStudents = courses.sumOf { it.enrolledStudents.size }
+            val semester = courses.firstOrNull()?.semester ?: ""
+
+            txtCourseCount.text = "${courses.size} ${if (courses.size == 1) "course" else "courses"}"
+            txtStudentCount.text = "$totalStudents ${if (totalStudents == 1) "student" else "students"}"
+            txtSemester.text = semester
+        } else {
+            statsBar.visibility = View.GONE
+        }
     }
 
     private fun handleCourseClick(course: Course) {
