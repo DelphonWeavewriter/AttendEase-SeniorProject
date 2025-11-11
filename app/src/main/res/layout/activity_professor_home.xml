@@ -1,186 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/background_gradient">
+    android:background="#FFFFFF">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center"
-        android:padding="24dp"
-        android:background="@drawable/gradient_header">
+        android:padding="16dp">
 
-        <TextView
-            android:id="@+id/professorName"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Professor Name"
-            android:textSize="28sp"
-            android:textStyle="bold"
+            android:background="@drawable/gradient_header"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:layout_marginBottom="24dp">
+
+            <TextView
+                android:id="@+id/professorName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Professor Name"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/professorId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ID: 1234567"
+                android:textColor="#E0E0E0"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp" />
+
+            <TextView
+                android:id="@+id/profDateHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Monday, January 1"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:layout_marginTop="12dp" />
+
+            <TextView
+                android:id="@+id/tvCoursesList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Teaching 0 course(s)"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnManualAttendance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="✓ Mark Attendance"
             android:textColor="#FFFFFF"
-            android:layout_marginBottom="8dp"/>
+            android:background="@drawable/button_green"
+            android:padding="16dp"
+            android:layout_marginBottom="12dp"
+            android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/professorId"
-            android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/btnViewAttendance"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ID: P123456"
-            android:textSize="18sp"
-            android:textColor="#E3F2FD"
-            android:layout_marginBottom="8dp"/>
-
-        <TextView
-            android:id="@+id/profDateHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Monday, September 30"
-            android:textSize="16sp"
-            android:textStyle="bold"
+            android:text="📊 Attendance Records"
             android:textColor="#FFFFFF"
-            android:layout_marginBottom="16dp"/>
+            android:background="@drawable/button_primary"
+            android:padding="16dp"
+            android:layout_marginBottom="12dp"
+            android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/tvCoursesList"
-            android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/btnViewCourses"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Teaching 0 course(s)"
-            android:textSize="16sp"
-            android:textColor="#B3E5FC"/>
+            android:text="📚 View Courses"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_primary"
+            android:padding="16dp"
+            android:layout_marginBottom="12dp"
+            android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/tvNoCourses"
-            android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/btnMySchedule"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="14sp"
-            android:textColor="#B3E5FC"/>
+            android:text="📅 My Schedule"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_primary"
+            android:padding="16dp"
+            android:layout_marginBottom="12dp"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btnSendAnnouncement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="📢 Create Announcement"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_primary"
+            android:padding="16dp"
+            android:layout_marginBottom="12dp"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btnProfSignOut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🚪 Sign Out"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_red"
+            android:padding="16dp"
+            android:textSize="16sp" />
 
     </LinearLayout>
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="16dp"
-        app:cardCornerRadius="24dp"
-        app:cardElevation="8dp"
-        android:backgroundTint="#FFFFFF">
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:gravity="center">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnManualAttendance"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:layout_margin="8dp"
-                    android:text="Mark Attendance"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:cornerRadius="32dp"
-                    app:elevation="2dp"
-                    android:backgroundTint="#66BB6A"
-                    android:gravity="center"/>
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnViewAttendance"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:layout_margin="8dp"
-                    android:text="Attendance Records"
-                    android:textSize="16sp"
-                    app:cornerRadius="32dp"
-                    app:elevation="2dp"
-                    android:backgroundTint="#42A5F5"
-                    android:gravity="center"/>
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnViewCourses"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:layout_margin="8dp"
-                    android:text="My Courses"
-                    android:textSize="16sp"
-                    app:cornerRadius="32dp"
-                    app:elevation="2dp"
-                    android:backgroundTint="#42A5F5"
-                    android:gravity="center"/>
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnMySchedule"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:layout_margin="8dp"
-                    android:text="My Schedule"
-                    android:textSize="16sp"
-                    app:cornerRadius="32dp"
-                    app:elevation="2dp"
-                    android:backgroundTint="#42A5F5"
-                    android:gravity="center"/>
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnCreateEvent"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:layout_margin="8dp"
-                    android:text="Create Event"
-                    android:textSize="16sp"
-                    app:cornerRadius="32dp"
-                    app:elevation="2dp"
-                    android:backgroundTint="#42A5F5"
-                    android:gravity="center"/>
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnSendAnnouncement"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:layout_margin="8dp"
-                    android:text="Send Announcement"
-                    android:textSize="16sp"
-                    app:cornerRadius="32dp"
-                    app:elevation="2dp"
-                    android:backgroundTint="#42A5F5"
-                    android:gravity="center"/>
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnProfCampusMap"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:layout_margin="8dp"
-                    android:text="Campus Map"
-                    android:textSize="16sp"
-                    app:cornerRadius="32dp"
-                    app:elevation="2dp"
-                    android:backgroundTint="#42A5F5"
-                    android:gravity="center"/>
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnProfSignOut"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:text="Sign Out"
-                    app:cornerRadius="24dp"
-                    app:elevation="2dp"
-                    android:backgroundTint="#EF5350"/>
-
-            </LinearLayout>
-
-        </ScrollView>
-
-    </androidx.cardview.widget.CardView>
-
-</LinearLayout>
+</ScrollView>

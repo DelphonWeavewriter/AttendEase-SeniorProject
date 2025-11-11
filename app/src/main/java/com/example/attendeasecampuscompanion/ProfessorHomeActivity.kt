@@ -1,7 +1,5 @@
 package com.example.attendeasecampuscompanion
 
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -24,7 +22,6 @@ class ProfessorHomeActivity : AppCompatActivity() {
     private lateinit var btnViewCourses: Button
     private lateinit var btnMySchedule: Button
     private lateinit var btnSendAnnouncement: Button
-    private lateinit var btnCreateEvent: Button
     private lateinit var btnProfSignOut: Button
 
     private val db = FirebaseFirestore.getInstance()
@@ -45,7 +42,6 @@ class ProfessorHomeActivity : AppCompatActivity() {
         btnViewCourses = findViewById(R.id.btnViewCourses)
         btnMySchedule = findViewById(R.id.btnMySchedule)
         btnSendAnnouncement = findViewById(R.id.btnSendAnnouncement)
-        btnCreateEvent = findViewById(R.id.btnCreateEvent)
         btnProfSignOut = findViewById(R.id.btnProfSignOut)
 
         setCurrentDate()
@@ -70,10 +66,6 @@ class ProfessorHomeActivity : AppCompatActivity() {
 
         btnSendAnnouncement.setOnClickListener {
             showAnnouncementDialog()
-        }
-
-        btnCreateEvent.setOnClickListener {
-            showEventDialog()
         }
 
         btnProfSignOut.setOnClickListener {
@@ -203,66 +195,5 @@ class ProfessorHomeActivity : AppCompatActivity() {
                         ).show()
                     }
             }
-    }
-
-    private fun showEventDialog() {
-        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_create_event, null)
-        val eventNameInput = dialogView.findViewById<EditText>(R.id.etEventName)
-        val eventLocationInput = dialogView.findViewById<EditText>(R.id.etEventLocation)
-        val eventDateInput = dialogView.findViewById<EditText>(R.id.etEventDate)
-        val eventTimeInput = dialogView.findViewById<EditText>(R.id.etEventTime)
-        val courseSpinner = dialogView.findViewById<Spinner>(R.id.spinnerEventCourse)
-
-        val courses = listOf("CSCI 145", "CSCI 426", "CSCI 436")
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, courses)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        courseSpinner.adapter = adapter
-
-        val calendar = Calendar.getInstance()
-
-        eventDateInput.setOnClickListener {
-            DatePickerDialog(
-                this,
-                { _, year, month, day ->
-                    eventDateInput.setText("${month + 1}/$day/$year")
-                },
-                calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH)
-            ).show()
-        }
-
-        eventTimeInput.setOnClickListener {
-            TimePickerDialog(
-                this,
-                { _, hour, minute ->
-                    val amPm = if (hour >= 12) "PM" else "AM"
-                    val displayHour = if (hour > 12) hour - 12 else if (hour == 0) 12 else hour
-                    eventTimeInput.setText(String.format("%02d:%02d %s", displayHour, minute, amPm))
-                },
-                calendar.get(Calendar.HOUR_OF_DAY),
-                calendar.get(Calendar.MINUTE),
-                false
-            ).show()
-        }
-
-        AlertDialog.Builder(this)
-            .setTitle("Create Event")
-            .setView(dialogView)
-            .setPositiveButton("Create") { _, _ ->
-                val name = eventNameInput.text.toString()
-                val location = eventLocationInput.text.toString()
-                val date = eventDateInput.text.toString()
-                val time = eventTimeInput.text.toString()
-                val course = courseSpinner.selectedItem?.toString() ?: ""
-
-                if (name.isNotBlank() && date.isNotBlank() && time.isNotBlank()) {
-                    Toast.makeText(this, "Event '$name' created for $course on $date at $time", Toast.LENGTH_LONG).show()
-                } else {
-                    Toast.makeText(this, "Please fill required fields", Toast.LENGTH_SHORT).show()
-                }
-            }
-            .setNegativeButton("Cancel", null)
-            .show()
     }
 }
