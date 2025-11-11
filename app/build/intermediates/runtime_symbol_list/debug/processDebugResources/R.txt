@@ -3327,7 +3327,6 @@ int id btnAbsent 0x7f080071
 int id btnBack 0x7f080072
 int id btnCampusMap 0x7f080073
 int id btnCheckIn 0x7f080074
-int id btnCreateEvent 0x7f080287
 int id btnEmailProfessor 0x7f080075
 int id btnFinalsSchedule 0x7f080076
 int id btnLate 0x7f080077

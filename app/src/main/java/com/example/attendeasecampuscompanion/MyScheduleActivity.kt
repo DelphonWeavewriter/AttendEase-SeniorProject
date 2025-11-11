@@ -35,6 +35,7 @@ class MyScheduleActivity : AppCompatActivity() {
     private lateinit var scheduleAdapter: ScheduleAdapter
     private var selectedDate: Calendar = Calendar.getInstance()
     private var userRole: String = "Student"
+    private var userCampus: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,6 +104,7 @@ class MyScheduleActivity : AppCompatActivity() {
 
                 val user = userDoc.toObject(User::class.java)
                 userRole = user?.role ?: "Student"
+                userCampus = user?.campus ?: ""
 
                 fabCreateEvent.visibility = if (userRole == "Professor") View.VISIBLE else View.GONE
 
@@ -275,20 +277,21 @@ class MyScheduleActivity : AppCompatActivity() {
         val eventLocationInput = dialogView.findViewById<EditText>(R.id.etEventLocation)
         val eventDateInput = dialogView.findViewById<EditText>(R.id.etEventDate)
         val eventTimeInput = dialogView.findViewById<EditText>(R.id.etEventTime)
+        val eventDescriptionInput = dialogView.findViewById<EditText>(R.id.etEventDescription)
         val courseSpinner = dialogView.findViewById<Spinner>(R.id.spinnerEventCourse)
 
-        val courses = listOf("CSCI 145", "CSCI 426", "CSCI 436")
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, courses)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        courseSpinner.adapter = adapter
+        loadCoursesForSpinner(courseSpinner)
 
         val calendar = Calendar.getInstance()
+        var selectedDateStr = ""
+        var selectedTime = ""
 
         eventDateInput.setOnClickListener {
             DatePickerDialog(
                 this,
                 { _, year, month, day ->
-                    eventDateInput.setText("${month + 1}/$day/$year")
+                    selectedDateStr = "${month + 1}/$day/$year"
+                    eventDateInput.setText(selectedDateStr)
                 },
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
@@ -302,7 +305,8 @@ class MyScheduleActivity : AppCompatActivity() {
                 { _, hour, minute ->
                     val amPm = if (hour >= 12) "PM" else "AM"
                     val displayHour = if (hour > 12) hour - 12 else if (hour == 0) 12 else hour
-                    eventTimeInput.setText(String.format("%02d:%02d %s", displayHour, minute, amPm))
+                    selectedTime = String.format("%d:%02d %s", displayHour, minute, amPm)
+                    eventTimeInput.setText(selectedTime)
                 },
                 calendar.get(Calendar.HOUR_OF_DAY),
                 calendar.get(Calendar.MINUTE),
@@ -316,12 +320,14 @@ class MyScheduleActivity : AppCompatActivity() {
             .setPositiveButton("Create") { _, _ ->
                 val name = eventNameInput.text.toString()
                 val location = eventLocationInput.text.toString()
-                val date = eventDateInput.text.toString()
-                val time = eventTimeInput.text.toString()
-                val course = courseSpinner.selectedItem?.toString() ?: ""
+                val description = eventDescriptionInput.text.toString()
+                val date = selectedDateStr
+                val time = selectedTime
+                val selectedCourseItem = courseSpinner.selectedItem as? CourseSpinnerItem
+                val courseId = selectedCourseItem?.courseId ?: ""
 
                 if (name.isNotBlank() && date.isNotBlank() && time.isNotBlank()) {
-                    Toast.makeText(this, "Event '$name' created for $course on $date at $time", Toast.LENGTH_LONG).show()
+                    saveEventToFirebase(name, description, location, date, time, courseId)
                 } else {
                     Toast.makeText(this, "Please fill required fields", Toast.LENGTH_SHORT).show()
                 }
@@ -329,6 +335,92 @@ class MyScheduleActivity : AppCompatActivity() {
             .setNegativeButton("Cancel", null)
             .show()
     }
+
+    private fun loadCoursesForSpinner(spinner: Spinner) {
+        val courseItems = mutableListOf<CourseSpinnerItem>()
+        courseItems.add(CourseSpinnerItem("", "No Course"))
+
+        for (course in allCourses) {
+            courseItems.add(CourseSpinnerItem(course.courseId ?: "", "${course.courseId} - ${course.courseName}"))
+        }
+
+        val adapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_item,
+            courseItems
+        )
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
+    }
+
+    private fun saveEventToFirebase(
+        name: String,
+        description: String,
+        location: String,
+        date: String,
+        time: String,
+        courseId: String
+    ) {
+        val userId = auth.currentUser?.uid ?: return
+        progressBar.visibility = View.VISIBLE
+
+        db.collection("Users").document(userId).get()
+            .addOnSuccessListener { userDoc ->
+                val user = userDoc.toObject(User::class.java)
+                val creatorName = "${user?.firstName} ${user?.lastName}"
+
+                val participants = mutableListOf(userId)
+
+                if (courseId.isNotEmpty()) {
+                    val linkedCourse = allCourses.find { it.courseId == courseId }
+                    linkedCourse?.enrolledStudents?.let { participants.addAll(it) }
+                }
+
+                val eventData = hashMapOf(
+                    "campus" to userCampus,
+                    "creator" to creatorName,
+                    "description" to if (description.isNotEmpty()) description else name,
+                    "participants" to participants,
+                    "private" to false,
+                    "courseId" to courseId,
+                    "schedule" to listOf(
+                        hashMapOf(
+                            "building" to location,
+                            "coordinates" to "",
+                            "date" to date,
+                            "dayOfWeek" to "",
+                            "endTime" to "",
+                            "recurring" to false,
+                            "room" to "",
+                            "startTime" to time
+                        )
+                    )
+                )
+
+                db.collection("Events")
+                    .add(eventData)
+                    .addOnSuccessListener {
+                        progressBar.visibility = View.GONE
+                        Toast.makeText(this, "Event created successfully!", Toast.LENGTH_SHORT).show()
+                        loadScheduleData()
+                    }
+                    .addOnFailureListener { e ->
+                        progressBar.visibility = View.GONE
+                        Toast.makeText(this, "Failed to create event: ${e.message}", Toast.LENGTH_SHORT).show()
+                    }
+            }
+            .addOnFailureListener { e ->
+                progressBar.visibility = View.GONE
+                Toast.makeText(this, "Failed to load user data: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+}
+
+data class CourseSpinnerItem(
+    val courseId: String,
+    val displayName: String
+) {
+    override fun toString(): String = displayName
 }
 
 data class Event(

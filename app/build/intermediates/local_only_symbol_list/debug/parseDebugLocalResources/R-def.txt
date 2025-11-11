@@ -36,7 +36,6 @@ id btnAbsent
 id btnBack
 id btnCampusMap
 id btnCheckIn
-id btnCreateEvent
 id btnEmailProfessor
 id btnFinalsSchedule
 id btnLate
