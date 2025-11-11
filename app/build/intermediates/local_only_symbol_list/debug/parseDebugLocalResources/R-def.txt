@@ -14,6 +14,9 @@ color warning_yellow
 color white
 drawable app_logo
 drawable background_gradient
+drawable button_green
+drawable button_primary
+drawable button_red
 drawable card_background
 drawable final_exam_border
 drawable gradient_header
@@ -33,6 +36,7 @@ id btnAbsent
 id btnBack
 id btnCampusMap
 id btnCheckIn
+id btnCreateEvent
 id btnEmailProfessor
 id btnFinalsSchedule
 id btnLate
@@ -40,6 +44,7 @@ id btnManualAttendance
 id btnMySchedule
 id btnNavigate
 id btnPresent
+id btnProfCampusMap
 id btnProfSignOut
 id btnSaveAttendance
 id btnSchedule
@@ -128,6 +133,7 @@ id tvDetailLateCount
 id tvDetailPresentCount
 id tvEmptyState
 id tvLateCount
+id tvNoCourses
 id tvPresentCount
 id tvProfessor
 id tvSelectedCourse
