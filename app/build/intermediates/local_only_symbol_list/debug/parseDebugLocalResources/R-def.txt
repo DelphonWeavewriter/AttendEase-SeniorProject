@@ -58,6 +58,8 @@ id calendarView
 id cardAnnouncement
 id cardCheckIn
 id cardManualAttendance
+id chipSchedule
+id chipSemester
 id courseCode
 id courseName
 id creditsDetails
@@ -70,7 +72,6 @@ id editTextPassword
 id emptyState
 id emptyText
 id enrollmentDetails
-id enrollmentInfo
 id etEventDate
 id etEventDescription
 id etEventLocation
@@ -86,6 +87,7 @@ id headerSection
 id layoutCharts
 id layoutDetailContent
 id layoutStats
+id leftStripe
 id location
 id locationDetails
 id loginSubtitle
@@ -105,11 +107,10 @@ id roomSpinner
 id rvAnnouncements
 id rvCourses
 id rvStudents
+id scheduleContainer
 id scheduleDetails
-id scheduleInfo
 id searchInput
 id searchLayout
-id semester
 id semesterDetails
 id sendButton
 id shareButton
@@ -117,6 +118,7 @@ id signInButton
 id spinnerCourse
 id spinnerCourses
 id spinnerEventCourse
+id statsBar
 id statusText
 id studentId
 id studentName
@@ -146,6 +148,13 @@ id tvTimestamp
 id tvTitle
 id tvTotalClasses
 id tvTotalStudents
+id txtCourseCount
+id txtCourseId
+id txtCourseName
+id txtEnrollment
+id txtLocation
+id txtSemester
+id txtStudentCount
 id viewPriorityIndicator
 id welcomeTitle
 layout activity_attendance

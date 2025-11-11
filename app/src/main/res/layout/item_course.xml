@@ -97,17 +97,18 @@
                     android:textSize="14sp"
                     android:layout_marginEnd="6dp" />
 
-                <com.google.android.material.chip.Chip
+                <TextView
                     android:id="@+id/chipSemester"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Spring 2025"
                     android:textSize="12sp"
                     android:textColor="#1976D2"
-                    app:chipBackgroundColor="#E3F2FD"
-                    app:chipStrokeWidth="0dp"
-                    app:chipMinHeight="28dp"
-                    style="@style/Widget.Material3.Chip.Suggestion" />
+                    android:textStyle="bold"
+                    android:background="#E3F2FD"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="6dp"
+                    android:layout_marginEnd="8dp" />
 
             </LinearLayout>
 
@@ -126,17 +127,17 @@
                     android:textSize="14sp"
                     android:layout_marginEnd="6dp" />
 
-                <com.google.android.material.chip.Chip
+                <TextView
                     android:id="@+id/chipSchedule"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="MON 11:15 AM"
                     android:textSize="12sp"
                     android:textColor="#42A5F5"
-                    app:chipBackgroundColor="#E3F2FD"
-                    app:chipStrokeWidth="0dp"
-                    app:chipMinHeight="28dp"
-                    style="@style/Widget.Material3.Chip.Suggestion" />
+                    android:textStyle="bold"
+                    android:background="#E3F2FD"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="6dp" />
 
             </LinearLayout>
 

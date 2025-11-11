@@ -4,26 +4,22 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
-import com.google.android.material.chip.Chip
 
 class CourseAdapter(
     private val courses: List<Course>,
     private val onCourseClick: (Course) -> Unit
 ) : RecyclerView.Adapter<CourseAdapter.CourseViewHolder>() {
 
-    private var lastPosition = -1
-
     class CourseViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val leftStripe: View = view.findViewById(R.id.leftStripe)
         val txtCourseId: TextView = view.findViewById(R.id.txtCourseId)
         val txtCourseName: TextView = view.findViewById(R.id.txtCourseName)
         val txtEnrollment: TextView = view.findViewById(R.id.txtEnrollment)
-        val chipSemester: Chip = view.findViewById(R.id.chipSemester)
-        val chipSchedule: Chip = view.findViewById(R.id.chipSchedule)
+        val chipSemester: TextView = view.findViewById(R.id.chipSemester)
+        val chipSchedule: TextView = view.findViewById(R.id.chipSchedule)
         val txtLocation: TextView = view.findViewById(R.id.txtLocation)
         val cardView: MaterialCardView = view as MaterialCardView
     }
@@ -91,27 +87,7 @@ class CourseAdapter(
         }
 
         holder.cardView.setOnClickListener {
-            it.animate()
-                .scaleX(0.95f)
-                .scaleY(0.95f)
-                .setDuration(100)
-                .withEndAction {
-                    it.animate()
-                        .scaleX(1.0f)
-                        .scaleY(1.0f)
-                        .setDuration(100)
-                        .start()
-                    onCourseClick(course)
-                }
-                .start()
-        }
-
-        if (position > lastPosition) {
-            val animation = AnimationUtils.loadAnimation(holder.itemView.context, android.R.anim.slide_in_left)
-            animation.duration = 300
-            animation.startOffset = (position * 50).toLong()
-            holder.itemView.startAnimation(animation)
-            lastPosition = position
+            onCourseClick(course)
         }
     }
 

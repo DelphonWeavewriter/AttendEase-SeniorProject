@@ -3364,6 +3364,8 @@ int id chain2 0x7f080093
 int id chains 0x7f080094
 int id checkbox 0x7f080095
 int id checked 0x7f080096
+int id chipSchedule 0x7f08028c
+int id chipSemester 0x7f08028d
 int id chronometer 0x7f080097
 int id circle_center 0x7f080098
 int id clear_text 0x7f080099
@@ -3443,7 +3445,6 @@ int id emptyText 0x7f0800e2
 int id end 0x7f0800e3
 int id endToStart 0x7f0800e4
 int id enrollmentDetails 0x7f0800e5
-int id enrollmentInfo 0x7f0800e6
 int id enterAlways 0x7f0800e7
 int id enterAlwaysCollapsed 0x7f0800e8
 int id escape 0x7f0800e9
@@ -3523,6 +3524,7 @@ int id layoutCharts 0x7f080132
 int id layoutDetailContent 0x7f080133
 int id layoutStats 0x7f080134
 int id left 0x7f080135
+int id leftStripe 0x7f08028e
 int id leftToRight 0x7f080136
 int id legacy 0x7f080137
 int id light 0x7f080138
@@ -3682,8 +3684,8 @@ int id save_non_transition_alpha 0x7f0801d1
 int id save_overlay_view 0x7f0801d2
 int id sawtooth 0x7f0801d3
 int id scale 0x7f0801d4
+int id scheduleContainer 0x7f08028f
 int id scheduleDetails 0x7f0801d5
-int id scheduleInfo 0x7f0801d6
 int id screen 0x7f0801d7
 int id scroll 0x7f0801d8
 int id scrollIndicatorDown 0x7f0801d9
@@ -3705,7 +3707,6 @@ int id search_voice_btn 0x7f0801e8
 int id select_dialog_listview 0x7f0801e9
 int id selected 0x7f0801ea
 int id selection_type 0x7f0801eb
-int id semester 0x7f0801ec
 int id semesterDetails 0x7f0801ed
 int id sendButton 0x7f0801ee
 int id shareButton 0x7f0801ef
@@ -3746,6 +3747,7 @@ int id startToEnd 0x7f080211
 int id startVertical 0x7f080212
 int id staticLayout 0x7f080213
 int id staticPostLayout 0x7f080214
+int id statsBar 0x7f080290
 int id statusText 0x7f080215
 int id stop 0x7f080216
 int id stretch 0x7f080217
@@ -3830,6 +3832,13 @@ int id tvTimestamp 0x7f080264
 int id tvTitle 0x7f080265
 int id tvTotalClasses 0x7f080266
 int id tvTotalStudents 0x7f080267
+int id txtCourseCount 0x7f080291
+int id txtCourseId 0x7f080292
+int id txtCourseName 0x7f080293
+int id txtEnrollment 0x7f080294
+int id txtLocation 0x7f080295
+int id txtSemester 0x7f080296
+int id txtStudentCount 0x7f080297
 int id unchecked 0x7f080268
 int id uniform 0x7f080269
 int id unlabeled 0x7f08026a
