@@ -3,56 +3,71 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="#F5F5F5">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@drawable/gradient_header"
-            android:padding="20dp">
+            android:layout_height="200dp">
 
-            <ImageButton
-                android:id="@+id/btnBack"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@android:drawable/ic_menu_close_clear_cancel"
-                app:tint="#FFFFFF"
-                android:contentDescription="Back" />
+            <com.example.attendeasecampuscompanion.AnimatedHeaderView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="20dp">
 
-                <TextView
-                    android:id="@+id/courseCode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="CSCI 145"
-                    android:textColor="#FFFFFF"
-                    android:textSize="32sp"
-                    android:textStyle="bold" />
+                <ImageButton
+                    android:id="@+id/btnBack"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@android:drawable/ic_menu_close_clear_cancel"
+                    app:tint="#FFFFFF"
+                    android:contentDescription="Back"
+                    android:layout_gravity="start" />
 
-                <TextView
-                    android:id="@+id/courseName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Computer Programming"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp"
-                    android:layout_marginTop="4dp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/courseCode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="CSCI 145"
+                        android:textColor="#FFFFFF"
+                        android:textSize="32sp"
+                        android:textStyle="bold"
+                        android:shadowColor="#1976D2"
+                        android:shadowDx="0"
+                        android:shadowDy="2"
+                        android:shadowRadius="4" />
+
+                    <TextView
+                        android:id="@+id/courseName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Computer Programming"
+                        android:textColor="#E3F2FD"
+                        android:textSize="18sp"
+                        android:layout_marginTop="4dp" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-        </RelativeLayout>
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,86 +78,99 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="12dp"
+                app:cardCornerRadius="16dp"
                 app:cardElevation="4dp"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="16dp"
+                app:strokeWidth="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Course Information"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="#333333"
-                        android:layout_marginBottom="16dp" />
+                    <View
+                        android:layout_width="6dp"
+                        android:layout_height="match_parent"
+                        android:background="#42A5F5" />
 
-                    <TextView
-                        android:id="@+id/professorName"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="👨‍🏫 Professor: Name"
-                        android:textSize="16sp"
-                        android:textColor="#666666"
-                        android:layout_marginBottom="8dp" />
+                        android:orientation="vertical"
+                        android:padding="20dp">
 
-                    <TextView
-                        android:id="@+id/scheduleDetails"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="🕐 Schedule"
-                        android:textSize="16sp"
-                        android:textColor="#666666"
-                        android:layout_marginBottom="8dp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Course Information"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="#333333"
+                            android:layout_marginBottom="16dp" />
 
-                    <TextView
-                        android:id="@+id/locationDetails"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="📍 Location"
-                        android:textSize="16sp"
-                        android:textColor="#666666"
-                        android:layout_marginBottom="8dp" />
+                        <TextView
+                            android:id="@+id/professorName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="👨‍🏫 Professor: Name"
+                            android:textSize="16sp"
+                            android:textColor="#666666"
+                            android:layout_marginBottom="8dp" />
 
-                    <TextView
-                        android:id="@+id/semesterDetails"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="📅 Semester"
-                        android:textSize="16sp"
-                        android:textColor="#666666"
-                        android:layout_marginBottom="8dp" />
+                        <TextView
+                            android:id="@+id/scheduleDetails"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="🕐 Schedule"
+                            android:textSize="16sp"
+                            android:textColor="#666666"
+                            android:layout_marginBottom="8dp" />
 
-                    <TextView
-                        android:id="@+id/creditsDetails"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="📚 Credits"
-                        android:textSize="16sp"
-                        android:textColor="#666666"
-                        android:layout_marginBottom="8dp" />
+                        <TextView
+                            android:id="@+id/locationDetails"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="📍 Location"
+                            android:textSize="16sp"
+                            android:textColor="#666666"
+                            android:layout_marginBottom="8dp" />
 
-                    <TextView
-                        android:id="@+id/departmentDetails"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="🏫 Department"
-                        android:textSize="16sp"
-                        android:textColor="#666666"
-                        android:layout_marginBottom="8dp" />
+                        <TextView
+                            android:id="@+id/semesterDetails"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="📅 Semester"
+                            android:textSize="16sp"
+                            android:textColor="#666666"
+                            android:layout_marginBottom="8dp" />
 
-                    <TextView
-                        android:id="@+id/enrollmentDetails"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="👥 Enrollment"
-                        android:textSize="16sp"
-                        android:textColor="#666666" />
+                        <TextView
+                            android:id="@+id/creditsDetails"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="📚 Credits"
+                            android:textSize="16sp"
+                            android:textColor="#666666"
+                            android:layout_marginBottom="8dp" />
+
+                        <TextView
+                            android:id="@+id/departmentDetails"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="🏫 Department"
+                            android:textSize="16sp"
+                            android:textColor="#666666"
+                            android:layout_marginBottom="8dp" />
+
+                        <TextView
+                            android:id="@+id/enrollmentDetails"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="👥 Enrollment"
+                            android:textSize="16sp"
+                            android:textColor="#666666" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -151,33 +179,46 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="12dp"
+                app:cardCornerRadius="16dp"
                 app:cardElevation="4dp"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="16dp"
+                app:strokeWidth="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Your Progress"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="#333333"
-                        android:layout_marginBottom="16dp" />
+                    <View
+                        android:layout_width="6dp"
+                        android:layout_height="match_parent"
+                        android:background="#66BB6A" />
 
-                    <TextView
-                        android:id="@+id/attendanceRate"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="✅ Loading attendance..."
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="#66BB6A" />
+                        android:orientation="vertical"
+                        android:padding="20dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Your Progress"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="#333333"
+                            android:layout_marginBottom="16dp" />
+
+                        <TextView
+                            android:id="@+id/attendanceRate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="✅ Loading attendance..."
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="#66BB6A" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -196,7 +237,7 @@
                 android:id="@+id/btnNavigate"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:text="🗺️  Navigate to Classroom"
+                android:text="🗺️  NAVIGATE TO CLASSROOM"
                 android:textSize="16sp"
                 android:backgroundTint="#42A5F5"
                 app:cornerRadius="12dp"
@@ -206,7 +247,7 @@
                 android:id="@+id/btnEmailProfessor"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:text="✉️  Email Professor"
+                android:text="✉️  EMAIL PROFESSOR"
                 android:textSize="16sp"
                 android:backgroundTint="#42A5F5"
                 app:cornerRadius="12dp"
@@ -216,7 +257,7 @@
                 android:id="@+id/btnViewAnnouncements"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:text="📢  View Announcements"
+                android:text="📢  VIEW ANNOUNCEMENTS"
                 android:textSize="16sp"
                 android:backgroundTint="#FF9800"
                 app:cornerRadius="12dp"
