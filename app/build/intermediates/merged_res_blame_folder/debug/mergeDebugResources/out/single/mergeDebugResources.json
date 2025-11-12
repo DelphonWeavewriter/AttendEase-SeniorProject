@@ -112,6 +112,10 @@
         "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/layout/activity_attendance_sender.xml"
     },
     {
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/layout_dialog_announcement.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/layout/dialog_announcement.xml"
+    },
+    {
         "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
         "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/mipmap-anydpi-v26/ic_launcher_round.xml"
     },
@@ -174,10 +178,6 @@
     {
         "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/drawable_button_red.xml.flat",
         "source": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-73:/drawable/button_red.xml"
-    },
-    {
-        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/layout_activity_my_schedule.xml.flat",
-        "source": "com.example.attendeasecampuscompanion.app-main-73:/layout/activity_my_schedule.xml"
     },
     {
         "merged": "/Users/steven/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-71:/layout_item_attendance_report.xml.flat",

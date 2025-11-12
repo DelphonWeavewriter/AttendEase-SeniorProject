@@ -140,7 +140,6 @@ class ProfessorHomeActivity : AppCompatActivity() {
         courseSpinner.adapter = adapter
 
         AlertDialog.Builder(this)
-            .setTitle("Create Announcement")
             .setView(dialogView)
             .setPositiveButton("Post") { _, _ ->
                 val message = messageInput.text.toString()
