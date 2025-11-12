@@ -163,7 +163,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0a603850-d4e0-44f1-9561-6473d066f17a" name="Changes" comment="Added a SearchBar to the campusmap + accessories">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_student_course_detail.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_student_course_detail.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/attendeasecampuscompanion/AttendanceActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/attendeasecampuscompanion/AttendanceActivity.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,7 +173,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=/Users/steven/.android/avd/Medium_Phone.avd)]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -357,6 +357,12 @@
     </option>
   </component>
   <component name="RunManager" selected="Android App.app">
+    <configuration default="true" type="AppleRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" IS_LOCATION_SIMULATION_SUPPORTED="false" IS_LOCATION_SIMULATION_ALLOWED="true" APPLICATION_LANGUAGE="IDELaunchSchemeLanguageUseSystemLanguage" APPLICATION_REGION="" DEVELOPMENT_TEAM="${TEAM_ID}" MAKE_ACTIVE="TRUE" SHOULD_DEBUG_EXTENSIONS="false">
+      <embedded_app_extension_list />
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
       <module name="AttendEaseCampusCompanion.app" />
       <option name="ANDROID_RUN_CONFIGURATION_SCHEMA_VERSION" value="1" />
@@ -427,12 +433,6 @@
       <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
       <method v="2">
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="AppleRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" IS_LOCATION_SIMULATION_SUPPORTED="false" IS_LOCATION_SIMULATION_ALLOWED="true" APPLICATION_LANGUAGE="IDELaunchSchemeLanguageUseSystemLanguage" APPLICATION_REGION="" DEVELOPMENT_TEAM="${TEAM_ID}" MAKE_ACTIVE="TRUE" SHOULD_DEBUG_EXTENSIONS="false">
-      <embedded_app_extension_list />
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <configuration name="AttendEaseCampusMap [signingReport]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -695,12 +695,12 @@
       <map>
         <entry key="com.example.attendeasecampuscompanion">
           <value>
-            <CheckInfo lastCheckTimestamp="1762878303299" />
+            <CheckInfo lastCheckTimestamp="1762990469999" />
           </value>
         </entry>
         <entry key="com.example.attendeasecampuscompanion.test">
           <value>
-            <CheckInfo lastCheckTimestamp="1762878303299" />
+            <CheckInfo lastCheckTimestamp="1762990469999" />
           </value>
         </entry>
         <entry key="edu.nyitLI.attendease">

@@ -431,81 +431,81 @@ class AttendanceActivity : AppCompatActivity() {
                 return@getCurrentEvent
             }
 
+            getFullName(currentUser.uid) { fullName ->
+                db.collection("Users").document(currentUser.uid).get()
+                    .addOnSuccessListener { document ->
+                        val firstName = document.getString("firstName") ?: ""
+                        val lastName = document.getString("lastName") ?: ""
+                    }
 
-            db.collection("Users").document(currentUser.uid).get()
-                .addOnSuccessListener { document ->
-                    val firstName = document.getString("firstName") ?: ""
-                    val lastName = document.getString("lastName") ?: ""
-                }
+                val nfcData = hashMapOf(
+                    "courseId" to courseId,
+                    "date" to formattedDate,
+                    "lastModified" to System.currentTimeMillis(),
+                    "method" to "SCAN",
+                    "notes" to "",
+                    "recordId" to "${formattedDate}_${currentUser.uid}",
+                    "status" to "PRESENT",
+                    "studentId" to currentUser.uid,
+                    "studentName" to fullName,
+                    "timestamp" to System.currentTimeMillis()
+                )
 
-            val nfcData = hashMapOf(
-                "courseId" to courseId,
-                "date" to formattedDate,
-                "lastModified" to System.currentTimeMillis(),
-                "method" to "SCAN",
-                "notes" to "",
-                "recordId" to "${formattedDate}_${currentUser.uid}",
-                "status" to "PRESENT",
-                "studentId" to currentUser.uid,
-                "studentName" to currentUser.displayName, //TODO add proper first and last name here (currently null)
-                "timestamp" to System.currentTimeMillis()
-            )
+                // Then check if user is enrolled
+                db.collection("Courses")
+                    .whereEqualTo("courseId", courseId)
+                    .get()
+                    .addOnSuccessListener { documents ->
+                        var isEnrolled = false
+                        var courseDocId = ""
 
-            // Then check if user is enrolled
-            db.collection("Courses")
-                .whereEqualTo("courseId", courseId)
-                .get()
-                .addOnSuccessListener { documents ->
-                    var isEnrolled = false
-                    var courseDocId = ""
+                        for (document in documents) {
+                            val enrolledStudents = document.get("enrolledStudents") as? List<*>
+                            if (enrolledStudents?.contains(currentUser.uid) == true) {
+                                isEnrolled = true
+                                courseDocId = document.id  // Get the actual document ID
+                                break
+                            }
+                        }
 
-                    for (document in documents) {
-                        val enrolledStudents = document.get("enrolledStudents") as? List<*>
-                        if (enrolledStudents?.contains(currentUser.uid) == true) {
-                            isEnrolled = true
-                            courseDocId = document.id  // Get the actual document ID
-                            break
+                        if (isEnrolled) {
+                            // Save attendance record
+                            db.collection("Courses")
+                                .document(courseDocId)
+                                .collection("AttendanceRecords")
+                                .document("${formattedDate}_${currentUser.uid}")
+                                .set(nfcData)
+                                .addOnSuccessListener { documentReference ->
+                                    Toast.makeText(
+                                        this,
+                                        "Attendance recorded successfully",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                                .addOnFailureListener { e ->
+                                    Toast.makeText(
+                                        this,
+                                        "Error saving attendance: ${e.message}",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                }
+                        } else {
+                            Toast.makeText(
+                                this,
+                                "You are not enrolled in this course",
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
                     }
-
-                    if (isEnrolled) {
-                        // Save attendance record
-                        db.collection("Courses")
-                            .document(courseDocId)
-                            .collection("AttendanceRecords")
-                            .document("${formattedDate}_${currentUser.uid}")
-                            .set(nfcData)
-                            .addOnSuccessListener { documentReference ->
-                                Toast.makeText(
-                                    this,
-                                    "Attendance recorded successfully",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                            .addOnFailureListener { e ->
-                                Toast.makeText(
-                                    this,
-                                    "Error saving attendance: ${e.message}",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
-                    } else {
+                    .addOnFailureListener { exception ->
                         Toast.makeText(
                             this,
-                            "You are not enrolled in this course",
-                            Toast.LENGTH_LONG
+                            "Error checking enrollment: ${exception.message}",
+                            Toast.LENGTH_SHORT
                         ).show()
                     }
-                }
-                .addOnFailureListener { exception ->
-                    Toast.makeText(
-                        this,
-                        "Error checking enrollment: ${exception.message}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+            }
         }
-
     }
 
     // Helper function to convert byte array to hex string
@@ -675,6 +675,27 @@ class AttendanceActivity : AppCompatActivity() {
                     onResult(false)
                 }
         }
+    }
+
+    fun getFullName(currentUserId: String, onResult: (String) -> Unit) {
+        db.collection("User")
+            .document(currentUserId)
+            .get()
+            .addOnSuccessListener { document ->
+                if(document.exists()) {
+                    val firstName = document.getString("firstName") ?: ""
+                    val lastName = document.getString("lastName") ?: ""
+                    val fullName = "$firstName $lastName"
+                    onResult(fullName)
+                } else {
+                    println("Document does not exist")
+                    onResult("")
+                }
+            }
+            .addOnFailureListener { exception ->
+                println("Error retrieving user name: $exception")
+                onResult("")
+            }
     }
 
 
