@@ -51,10 +51,6 @@
             android:exported="false"/>
 
         <activity
-            android:name=".FriendsListImplementation"
-            android:exported="false"/>
-
-        <activity
             android:name=".AttendanceActivity"
             android:exported="false"
             android:label="Attendance" />

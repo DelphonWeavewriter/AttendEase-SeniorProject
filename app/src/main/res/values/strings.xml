@@ -29,4 +29,9 @@
     <string name="friend_id">Friend ID</string>
     <string name="friends">Friends</string>
 
+    <!-- Attendance Strings -->
+    <string name="nfc_tag_read">NFC Tag Read:</string>
+    <string name="hce_service_description">AttendEase HCE Service</string>
+    <string name="hce_attendance_description">AttendEase HCE Attendance</string>
+
 </resources>
