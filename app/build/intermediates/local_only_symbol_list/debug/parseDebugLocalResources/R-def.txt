@@ -92,6 +92,12 @@ id locationDetails
 id loginSubtitle
 id map
 id map_container
+id navActionButton
+id navArrivalTimeText
+id navDestinationText
+id navDistanceText
+id navEtaText
+id navPanelContainer
 id nextClass
 id pieChart
 id profDateHeader

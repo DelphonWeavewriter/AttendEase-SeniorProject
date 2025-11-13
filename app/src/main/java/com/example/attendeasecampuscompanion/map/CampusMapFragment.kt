@@ -40,10 +40,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.os.Handler
+import android.widget.Button
+import android.widget.TextView
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
-
-
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.Polyline
+import android.location.Location
+import android.widget.Toast
+import com.google.android.gms.maps.model.PolylineOptions
+import java.util.Date
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 
 
@@ -71,6 +79,10 @@ private val LATLNG_ROOM_SCHURE_227     =  com.google.android.gms.maps.model.LatL
 private lateinit var originalBounds: LatLngBounds
 private var mapTopPaddingPx: Int = 0
 
+// Rushil: Slightly larger bounds for "am I close enough to campus to use nav?".
+private lateinit var navBounds: LatLngBounds
+
+
 
 class CampusMapFragment : Fragment(), OnMapReadyCallback {
     companion object {
@@ -89,6 +101,34 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
 
     private lateinit var buildingIcon: BitmapDescriptor
     private lateinit var classroomIcon: BitmapDescriptor
+
+    // TEAM NOTE (Rushil): Simple enum to track what "mode" the map is in for navigation.
+    private enum class NavigationState {
+        Idle,      // No destination selected
+        Preview,   // Marker selected, showing "Navigate" option
+        Active     // Actively navigating with a route drawn
+    }
+
+    // TEAM NOTE (Rushil): Keep reference to the currently selected marker (if any).
+    private var selectedMarker: Marker? = null
+
+    // TEAM NOTE (Rushil): Track the current navigation state.
+    private var navigationState: NavigationState = NavigationState.Idle
+
+    // TEAM NOTE (Rushil): Polyline for the simple straight-line route in Phase 1.
+    private var navigationPolyline: Polyline? = null
+
+    // TEAM NOTE (Rushil): Last known user location (updated from location callbacks).
+    private var lastKnownLocation: Location? = null
+
+
+    // TEAM NOTE (Rushil): References to the nav panel views in the layout.
+    private lateinit var navPanelContainer: View
+    private lateinit var navDestinationText: TextView
+    private lateinit var navDistanceText: TextView
+    private lateinit var navEtaText: TextView
+    private lateinit var navArrivalTimeText: TextView
+    private lateinit var navActionButton: Button
 
 
     // --- Search UI ---
@@ -665,6 +705,14 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
             LatLng(originalBounds.southwest.latitude - 0.0004, originalBounds.southwest.longitude - 0.0020),
             LatLng(originalBounds.northeast.latitude + 0.0005, originalBounds.northeast.longitude + 0.0003)
         )
+        // Rushil: Make a slightly bigger box for nav checks so GPS drift / edges still count as "on campus".
+        navBounds = expandBoundsMeters(
+            originalBounds,
+            north = 300.0,   // tweak these numbers if still too tight/loose
+            south = 150.0,
+            east  = 150.0,
+            west  = 300.0
+        )
 
         // Also temporarily reduce top padding so it doesn't crowd the top edge
         val prevTopPad = mapTopPaddingPx
@@ -724,7 +772,11 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         }
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         super.onCreate(savedInstanceState)
         com.google.android.gms.maps.MapsInitializer.initialize(
             requireContext(),
@@ -769,8 +821,42 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
             suggestionsList?.visibility = View.GONE
         }
 
+        // ================== NAV PANEL WIRED HERE ==================
+
+        // Rushil: Hook up the nav panel views from the XML layout for Phase 1 navigation.
+        navPanelContainer = root.findViewById(R.id.navPanelContainer)
+        navDestinationText = root.findViewById(R.id.navDestinationText)
+        navDistanceText = root.findViewById(R.id.navDistanceText)
+        navEtaText = root.findViewById(R.id.navEtaText)
+        navArrivalTimeText = root.findViewById(R.id.navArrivalTimeText)
+        navActionButton = root.findViewById(R.id.navActionButton)
+
+        // Rushil: Handle clicks on the main "Navigate / Stop" button.
+        navActionButton.setOnClickListener {
+            when (navigationState) {
+                NavigationState.Preview -> {
+                    // Rushil: Marker is selected and I tapped "Navigate" → start basic navigation.
+                    startNavigationFromCurrentLocation()
+                }
+                NavigationState.Active -> {
+                    // Rushil: I'm currently navigating and tapped "Stop" → end navigation.
+                    stopNavigation()
+                }
+                NavigationState.Idle -> {
+                    // Rushil: Shouldn't normally happen because panel is hidden in Idle, but just in case.
+                    Toast.makeText(requireContext(), "Select a destination first.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        // ================== END NAV PANEL SECTION ==================
+
         return root
     }
+
+
+
+
     private fun withTempBounds(
         tempBounds: LatLngBounds,
         action: () -> Unit,
@@ -1032,6 +1118,17 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
                 .snippet(markerSnippets["Whitney Lane House"]) // or a hardcoded string if you prefer
                 .icon(buildingIcon)
         )
+// TEAM NOTE (Rushil): When the user taps any building marker, enter navigation preview mode.
+        googleMap.setOnMarkerClickListener { marker ->
+            // If you have special markers (like "user location" or debug markers) that
+            // should not trigger navigation, you can early-return here based on marker.tag.
+
+            selectedMarker = marker
+            enterNavigationPreview(marker)
+            // Return true to consume the click and prevent default behavior (info window),
+            // or false if you still want the info window to show. I'm using true for now.
+            true
+        }
 
         // TEAM: Kick off permission check → enable blue dot & start updates when granted
 
@@ -1103,9 +1200,31 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
                     CameraUpdateFactory.newLatLngZoom(LatLng(loc.latitude, loc.longitude), 17f)
                 )
             }
-
+            // Rushil: Feed every new GPS fix into my nav logic so distance/ETA update live.
+            onUserLocationUpdated(loc)
         }
     }
+
+
+    // TEAM NOTE (Rushil): Central place to update our nav state whenever the user moves.
+    private fun onUserLocationUpdated(location: Location) {
+        lastKnownLocation = location
+
+        if (navigationState == NavigationState.Active) {
+            // Update the stats (distance, ETA, arrival time) live as user moves.
+            updateNavigationInfo()
+
+            // Optional: keep the camera following the user while navigating.
+            val googleMap = map ?: return
+            val userLatLng = LatLng(location.latitude, location.longitude)
+            googleMap.animateCamera(CameraUpdateFactory.newLatLng(userLatLng))
+        } else if (navigationState == NavigationState.Preview) {
+            // If a marker is selected but navigation hasn't started yet, we can still
+            // show rough distance from the current location.
+            updateNavigationInfo()
+        }
+    }
+
 
     @SuppressLint("MissingPermission")
     private fun startLocationUpdates() {
@@ -1140,6 +1259,167 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
             }
         }
     }
+
+    // TEAM NOTE (Rushil): When a marker is selected, show the nav panel with a "Navigate" option.
+    private fun enterNavigationPreview(marker: Marker) {
+        navigationState = NavigationState.Preview
+
+        // Show destination name in the panel.
+        navDestinationText.text = "Destination: ${marker.title ?: "Selected location"}"
+
+        // Update distance/ETA info based on current location if we have it.
+        updateNavigationInfo()
+
+        // Update button label for this state.
+        navActionButton.text = "Navigate"
+
+        // Make the panel visible.
+        navPanelContainer.visibility = View.VISIBLE
+    }
+
+
+    // TEAM NOTE (Rushil): Phase 1 helper to compute and show distance, ETA, and arrival time.
+    private fun updateNavigationInfo() {
+        val marker = selectedMarker
+        val location = lastKnownLocation
+
+        if (marker == null) {
+            navDistanceText.text = "Distance: —"
+            navEtaText.text = "ETA: —"
+            navArrivalTimeText.text = "Arrival: —"
+            return
+        }
+
+        if (location == null) {
+            // We don't know where the user is yet.
+            navDistanceText.text = "Distance: (waiting for GPS...)"
+            navEtaText.text = "ETA: —"
+            navArrivalTimeText.text = "Arrival: —"
+            return
+        }
+
+        val userLatLng = LatLng(location.latitude, location.longitude)
+        val destLatLng = marker.position
+
+        // Use Android's built-in distance calculation (no extra dependencies).
+        val results = FloatArray(1)
+        Location.distanceBetween(
+            userLatLng.latitude,
+            userLatLng.longitude,
+            destLatLng.latitude,
+            destLatLng.longitude,
+            results
+        )
+        val distanceMeters = results[0].toDouble()
+
+        // TEAM NOTE (Rushil): Assume average walking speed ~1.4 m/s for ETA.
+        val walkingSpeedMetersPerSec = 1.4
+        val etaSeconds = distanceMeters / walkingSpeedMetersPerSec
+        val etaMinutes = (etaSeconds / 60.0)
+
+        // Format distance as meters or km.
+        val distanceText = if (distanceMeters < 1000) {
+            "Distance: ${distanceMeters.toInt()} m"
+        } else {
+            val km = distanceMeters / 1000.0
+            "Distance: %.2f km".format(km)
+        }
+        navDistanceText.text = distanceText
+
+        // Format ETA.
+        val etaText = if (etaMinutes < 1.0) {
+            "ETA: < 1 min"
+        } else {
+            "ETA: ${etaMinutes.toInt()} min"
+        }
+        navEtaText.text = etaText
+
+        // Compute estimated arrival time based on device clock.
+        val etaMillis = (etaSeconds * 1000).toLong()
+        val arrivalTimeMillis = System.currentTimeMillis() + etaMillis
+        val arrivalDate = Date(arrivalTimeMillis)
+        val timeFormat = SimpleDateFormat("h:mm a", Locale.getDefault())
+        navArrivalTimeText.text = "Arrival: ${timeFormat.format(arrivalDate)}"
+    }
+
+
+
+
+    // TEAM NOTE (Rushil): Called when user taps "Navigate" while in preview mode.
+    private fun startNavigationFromCurrentLocation() {
+        val marker = selectedMarker
+        val location = lastKnownLocation
+
+        if (marker == null) {
+            Toast.makeText(requireContext(), "Select a destination first.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (location == null) {
+            Toast.makeText(requireContext(), "Waiting for your current location...", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Rushil: Make sure I actually have a map instance before doing anything.
+        val googleMap = map ?: run {
+            Toast.makeText(requireContext(), "Map is not ready yet.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val userLatLng = LatLng(location.latitude, location.longitude)
+        val destLatLng = marker.position
+
+        // TEAM NOTE (Rushil): Enforce "must be on campus" rule before we start nav.
+        if (::navBounds.isInitialized && !navBounds.contains(userLatLng)) {
+            Toast.makeText(
+                requireContext(),
+                "Navigation is for on/near campus only.",
+                Toast.LENGTH_LONG
+            ).show()
+            return
+        }
+
+
+        // Clear any existing route polyline.
+        navigationPolyline?.remove()
+
+        // TEAM NOTE (Rushil): Phase 1 = simple straight-line route between user and destination.
+        navigationPolyline = googleMap.addPolyline(
+            PolylineOptions()
+                .add(userLatLng, destLatLng)
+                .width(12f)
+            // I am not setting color here so it uses the default; we can customize later.
+        )
+
+        // Move camera to focus roughly between user and destination.
+        val builder = LatLngBounds.builder()
+            .include(userLatLng)
+            .include(destLatLng)
+        val bounds = builder.build()
+        val padding = 150  // TEAM NOTE (Rushil): Padding around the route in pixels.
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding))
+
+        // Update panel state for active navigation.
+        navigationState = NavigationState.Active
+        navActionButton.text = "Stop"
+        updateNavigationInfo() // Recalculate ETA in case anything changed.
+
+        Toast.makeText(requireContext(), "Navigation started (Phase 1: straight line).", Toast.LENGTH_SHORT).show()
+    }
+
+    // TEAM NOTE (Rushil): Stop navigation, remove route, and hide the panel.
+    private fun stopNavigation() {
+        navigationPolyline?.remove()
+        navigationPolyline = null
+
+        navigationState = NavigationState.Idle
+        selectedMarker = null
+
+        navPanelContainer.visibility = View.GONE
+        Toast.makeText(requireContext(), "Navigation stopped.", Toast.LENGTH_SHORT).show()
+    }
+
+
     override fun onResume() {
         super.onResume()
         // TEAM: If permission is already granted, ensure updates resume
