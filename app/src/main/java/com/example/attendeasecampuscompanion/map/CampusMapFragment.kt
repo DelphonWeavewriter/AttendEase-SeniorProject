@@ -102,6 +102,11 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var buildingIcon: BitmapDescriptor
     private lateinit var classroomIcon: BitmapDescriptor
 
+    // Rushil: This will hold my campus path graph once I load it from JSON (Phase 2).
+    private var campusGraph: CampusGraph? = null
+
+
+
     // TEAM NOTE (Rushil): Simple enum to track what "mode" the map is in for navigation.
     private enum class NavigationState {
         Idle,      // No destination selected
@@ -850,9 +855,26 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         }
 
         // ================== END NAV PANEL SECTION ==================
+        // ================== PHASE 2: LOAD CAMPUS GRAPH (IF PRESENT) ==================
+        try {
+            // Rushil: Try to load my campus graph from res/raw/campus_graph.json.
+            // Right now this will use a tiny placeholder; later I'll overwrite the JSON
+            // with the real OSM-based data.
+           campusGraph = CampusGraphLoader.loadFromRawJson(requireContext(), R.raw.campus_graph)
+
+            android.util.Log.d("CampusMap", "Campus graph loaded: " +
+                    "${campusGraph?.nodes?.size ?: 0} nodes, " +
+                    "${campusGraph?.edges?.size ?: 0} edges")
+        } catch (e: Exception) {
+            // Rushil: If the file is missing or JSON is bad, don't crash the app.
+            campusGraph = null
+            android.util.Log.e("CampusMap", "Failed to load campus graph JSON", e)
+        }
+        // ================== END GRAPH LOAD ==================
 
         return root
     }
+
 
 
 
@@ -1404,7 +1426,7 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         navActionButton.text = "Stop"
         updateNavigationInfo() // Recalculate ETA in case anything changed.
 
-        Toast.makeText(requireContext(), "Navigation started (Phase 1: straight line).", Toast.LENGTH_SHORT).show()
+
     }
 
     // TEAM NOTE (Rushil): Stop navigation, remove route, and hide the panel.

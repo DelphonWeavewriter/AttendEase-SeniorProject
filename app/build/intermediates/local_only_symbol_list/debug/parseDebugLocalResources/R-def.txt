@@ -189,6 +189,7 @@ layout map_test
 layout signin_layout
 mipmap ic_launcher
 mipmap ic_launcher_round
+raw campus_graph
 string app_name
 string email_hint
 string email_required
