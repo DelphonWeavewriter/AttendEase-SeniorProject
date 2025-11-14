@@ -3605,6 +3605,7 @@ int id navChangeParkingButton 0x7f08029c
 int id navDestinationText 0x7f080295
 int id navDistanceText 0x7f080296
 int id navEtaText 0x7f080297
+int id navIParkedButton 0x7f08029f
 int id navModeToggleGroup 0x7f08029b
 int id navPanelContainer 0x7f080298
 int id navParkingContainer 0x7f08029d

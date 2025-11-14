@@ -59,6 +59,11 @@ import com.example.attendeasecampuscompanion.map.TravelMode
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.android.material.button.MaterialButton
 import androidx.appcompat.app.AlertDialog
+import android.graphics.Color
+import com.google.android.gms.maps.model.Dot
+import com.google.android.gms.maps.model.Gap
+import com.google.android.gms.maps.model.PatternItem
+
 
 
 
@@ -130,6 +135,9 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var navParkingText: TextView
     private lateinit var navChangeParkingButton: Button
 
+    private lateinit var navIParkedButton: Button
+
+
 
 
     // TEAM (Rushil): separate icon so parking stands out from buildings on the map.
@@ -180,11 +188,12 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
 
 
 
-    // TEAM NOTE (Rushil): Simple enum to track what "mode" the map is in for navigation.
+    // Rushil: Finer-grained nav states so I can separate route preview vs live nav.
     private enum class NavigationState {
-        Idle,      // No destination selected
-        Preview,   // Marker selected, showing "Navigate" option
-        Active     // Actively navigating with a route drawn
+        Idle,           // No destination selected
+        Preview,        // Marker selected, no route yet, button = "Navigate"
+        RoutePreview,   // Route drawn (full path), waiting for user to press "Start"
+        Active          // Live navigation (camera follow, I parked, etc.)
     }
 
     // Rushil: If null, I'll auto-pick the best lot. If non-null,
@@ -218,15 +227,24 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
     // TEAM NOTE (Rushil): Track the current navigation state.
     private var navigationState: NavigationState = NavigationState.Idle
 
-    // TEAM NOTE (Rushil): Polyline for the simple straight-line route in Phase 1.
+    /// Rushil: Main route polyline (car leg in multi-leg, or full route in single-leg).
     private var navigationPolyline: Polyline? = null
+
+    // Rushil: Optional second polyline for the walking leg in a car→parking→walk route.
+    // This lets me style walk differently (e.g., dashed) without breaking the car line.
+    private var navigationPolylineWalk: Polyline? = null
 
     // TEAM NOTE (Rushil): Last known user location (updated from location callbacks).
     private var lastKnownLocation: Location? = null
 
     // Rushil: Store the full polyline of the current route (user → destination).
-// This includes the start point, all graph nodes, and the final destination point.
+    // This includes the start point, all graph nodes, and the final destination point.
     private var currentRoutePoints: List<LatLng> = emptyList()
+
+    // Rushil: If I'm on a car→parking→walk route, keep the full multi-leg
+    // object so the "I parked" button can switch to the walking leg only.
+    private var activeMultiLegRoute: MultiLegRoute? = null
+
 
     // Rushil: Cumulative distances along currentRoutePoints in meters.
 // Example: [0, 10, 25, 40] means:
@@ -973,10 +991,15 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         navArrivalTimeText = root.findViewById(R.id.navArrivalTimeText)
         navActionButton = root.findViewById(R.id.navActionButton)
 
-        // 🅿️ Parking controls
+        //  Parking controls
         navParkingContainer = root.findViewById(R.id.navParkingContainer)
         navParkingText = root.findViewById(R.id.navParkingText)
         navChangeParkingButton = root.findViewById(R.id.navChangeParkingButton)
+        navIParkedButton = root.findViewById(R.id.navIParkedButton)
+
+        // Hide by default; only show in CAR mode with a multi-leg route.
+        navParkingContainer.visibility = View.GONE
+        navIParkedButton.visibility = View.GONE
 
         // Hide by default; only show in CAR mode with a non-parking destination.
         navParkingContainer.visibility = View.GONE
@@ -991,25 +1014,41 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
             // Show a simple chooser dialog of the three parking lots.
             showParkingLotChooser()
         }
+        navIParkedButton.setOnClickListener {
+            handleIParkedTapped()
+        }
+
 
 
         // Rushil: Handle clicks on the main "Navigate / Stop" button.
         navActionButton.setOnClickListener {
             when (navigationState) {
                 NavigationState.Preview -> {
-                    // Rushil: Marker is selected and I tapped "Navigate" → start basic navigation.
-                    startNavigationFromCurrentLocation()
+                    // Rushil: First tap → build full route preview (show the whole line).
+                    buildRoutePreviewFromCurrentLocation()
                 }
+
+                NavigationState.RoutePreview -> {
+                    // Rushil: Second tap → actually start live navigation.
+                    beginLiveNavigationFromPreview()
+                }
+
                 NavigationState.Active -> {
                     // Rushil: I'm currently navigating and tapped "Stop" → end navigation.
                     stopNavigation()
                 }
+
                 NavigationState.Idle -> {
-                    // Rushil: Shouldn't normally happen because panel is hidden in Idle, but just in case.
-                    Toast.makeText(requireContext(), "Select a destination first.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Select a destination first.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
+
+
 
         // Rushil: Hook up the Walk / Drive toggle.
         navModeToggleGroup = root.findViewById(R.id.navModeToggleGroup)
@@ -1028,6 +1067,9 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         // Rushil: Default to WALK mode visually + logically.
         navModeToggleGroup.check(R.id.btnModeWalk)
         setNavMode(NavMode.WALK)
+        // Rushil: Start in Idle with mode toggle enabled.
+        updateNavModeToggleEnabled()
+
 
 
         // Rushil: Watch the nav panel layout so I can learn its height once it's visible.
@@ -1482,6 +1524,15 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
             // or false if you still want the info window to show. I'm using true for now.
             true
         }
+        // Rushil: If I'm just previewing (with or without route), tapping empty map cancels nav.
+        googleMap.setOnMapClickListener {
+            if (navigationState == NavigationState.Preview ||
+                navigationState == NavigationState.RoutePreview
+            ) {
+                cancelNavigationPreview()
+            }
+        }
+
 
 
         // Rushil: If I manually drag/zoom the map while navigating, I don't want the camera
@@ -1580,15 +1631,17 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
             // Rushil: Always update stats while navigating.
             updateNavigationInfo()
 
-            // Rushil: Only auto-move the camera if I'm in "follow" mode.
             if (followUserDuringNav) {
                 val googleMap = map ?: return
                 val userLatLng = LatLng(location.latitude, location.longitude)
                 googleMap.animateCamera(CameraUpdateFactory.newLatLng(userLatLng))
             }
-        } else if (navigationState == NavigationState.Preview) {
+        } else if (navigationState == NavigationState.Preview ||
+            navigationState == NavigationState.RoutePreview) {
+            // Rushil: Even in preview, keep the distance/ETA updated in case I'm moving.
             updateNavigationInfo()
         }
+
     }
 
 
@@ -1645,6 +1698,14 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
 
         // Rushil: Nav panel is now visible, so move the FAB up above it.
         updateFabPositionRelativeToNavPanel()
+
+        // Make sure I parked is **not** visible just for picking a marker.
+        navParkingContainer.visibility = View.GONE
+        navIParkedButton.visibility = View.GONE
+
+
+        // Rushil: Mode can still be changed at this stage.
+        updateNavModeToggleEnabled()
     }
 
 
@@ -1773,7 +1834,7 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
 
     // Rushil: Called when I tap "Navigate" in preview mode.
     // Phase 3: Try to use the campus path graph to route along walkways; if that fails, fall back to straight line.
-    private fun startNavigationFromCurrentLocation() {
+    private fun buildRoutePreviewFromCurrentLocation() {
         val marker = selectedMarker
         val location = lastKnownLocation
 
@@ -1819,6 +1880,8 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
 
         val finalPolylinePoints: List<LatLng>
         var viaParkingLotName: String? = null
+        var multiLegRouteUsed: MultiLegRoute? = null  // Rushil: keep a handle if we used car→parking→walk
+
 
         if (shouldUseMultiLegCar) {
             // Rushil: Try to build a car→parking→walk route.
@@ -1830,12 +1893,15 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
             )
 
             if (multiLeg != null) {
-                finalPolylinePoints = multiLeg.polylinePoints
+                // Rushil: Remember the multi-leg route for drawing + "I parked".
+                multiLegRouteUsed = multiLeg
+                activeMultiLegRoute = multiLeg
 
-                // Remember which lot was actually used, even if it was auto-chosen.
+                finalPolylinePoints = multiLeg.fullRoutePoints
                 selectedParkingLot = multiLeg.parkingLot
                 viaParkingLotName = multiLeg.parkingLot.name
             } else {
+                activeMultiLegRoute = null
                 // fallback walking route...
 
                 // Rushil: If multi-leg fails (no car route to any lot, etc.),
@@ -1927,16 +1993,47 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         // Rushil: Save this route so remaining-distance/ETA uses the actual path.
         setCurrentRoute(finalPolylinePoints)
 
-        // Clear any existing route polyline.
+        // Clear any existing route polylines.
         navigationPolyline?.remove()
+        navigationPolylineWalk?.remove()
+        navigationPolyline = null
+        navigationPolylineWalk = null
 
-        navigationPolyline = googleMap.addPolyline(
-            PolylineOptions()
-                .addAll(finalPolylinePoints)
-                .width(12f)
-        )
+        if (shouldUseMultiLegCar && multiLegRouteUsed != null) {
+            // Rushil: In car mode with a multi-leg route, draw car and walk segments differently.
 
-        // Fit camera around user + destination (route will also be inside).
+            // Car leg: solid blue line.
+            navigationPolyline = googleMap.addPolyline(
+                PolylineOptions()
+                    .addAll(multiLegRouteUsed!!.carLegPoints)
+                    .width(12f)
+                    .color(Color.BLUE)
+            )
+
+            // Walk leg: dashed green line.
+            val dashPattern: List<PatternItem> = listOf(
+                Dot(),
+                Gap(20f)
+            )
+
+            navigationPolylineWalk = googleMap.addPolyline(
+                PolylineOptions()
+                    .addAll(multiLegRouteUsed!!.walkLegPoints)
+                    .width(10f)
+                    .color(Color.MAGENTA)
+                    .pattern(dashPattern)
+            )
+        } else {
+            // Rushil: Single-leg route (walk mode or straight-line fallback).
+            navigationPolyline = googleMap.addPolyline(
+                PolylineOptions()
+                    .addAll(finalPolylinePoints)
+                    .width(12f)
+                    .color(Color.BLUE)
+            )
+        }
+
+        // Fit camera around user + destination (route is inside this box).
         val builder = LatLngBounds.builder()
             .include(userLatLng)
             .include(destLatLng)
@@ -1944,35 +2041,99 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         val padding = 150
         googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding))
 
-        navigationState = NavigationState.Active
-        navActionButton.text = "Stop"
-        updateNavigationInfo()
 
-        followUserDuringNav = true
+        navigationState = NavigationState.RoutePreview
+        navActionButton.text = "Start"
+        followUserDuringNav = false
+        updateNavModeToggleEnabled()
 
-        // 🅿️ Show parking row only when using car multi-leg to a non-parking destination.
-        if (shouldUseMultiLegCar && selectedParkingLot != null) {
+
+
+        // During preview: show which parking lot will be used, but NOT "I parked".
+        if (shouldUseMultiLegCar && selectedParkingLot != null && activeMultiLegRoute != null) {
             navParkingContainer.visibility = View.VISIBLE
             navParkingText.text = "Parking: ${selectedParkingLot?.name}"
+            navIParkedButton.visibility = View.GONE
         } else {
             navParkingContainer.visibility = View.GONE
+            navIParkedButton.visibility = View.GONE
         }
+
+        // Keep distance/ETA updated in the panel.
+        updateNavigationInfo()
 
         if (viaParkingLotName != null) {
             Toast.makeText(
                 requireContext(),
-                "Navigation started: drive to $viaParkingLotName, then walk to ${marker.title}.",
+                "Route ready: drive to $viaParkingLotName, then walk to ${marker.title}. Press Start to begin.",
                 Toast.LENGTH_LONG
             ).show()
         } else {
             Toast.makeText(
                 requireContext(),
-                "Navigation started along campus paths.",
+                "Route ready along campus paths. Press Start to begin navigation.",
                 Toast.LENGTH_SHORT
             ).show()
         }
-
     }
+
+    // Rushil: Once the route is previewed and looks good, this actually starts live nav:
+// camera follow, turn-by-turn, I parked, etc.
+    private fun beginLiveNavigationFromPreview() {
+        val googleMap = map ?: run {
+            Toast.makeText(requireContext(), "Map is not ready yet.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (navigationState != NavigationState.RoutePreview) {
+            Toast.makeText(requireContext(), "Preview a route first.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (currentRoutePoints.isEmpty()) {
+            Toast.makeText(requireContext(), "No route to start. Try navigating again.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Live nav uses the same route we already computed.
+        navigationState = NavigationState.Active
+        navActionButton.text = "Stop"
+        followUserDuringNav = true
+        updateNavModeToggleEnabled()
+
+
+        //  Only now (during Active nav) should the I parked button be available.
+        if (currentNavMode == NavMode.CAR && activeMultiLegRoute != null && selectedParkingLot != null) {
+            navParkingContainer.visibility = View.VISIBLE
+            navParkingText.text = "Parking: ${selectedParkingLot?.name}"
+            navIParkedButton.visibility = View.VISIBLE
+        } else {
+            navParkingContainer.visibility = View.GONE
+            navIParkedButton.visibility = View.GONE
+        }
+
+        // Optional: snap camera to user location at a good nav zoom the moment we start.
+        lastKnownLocation?.let { loc ->
+            val userLatLng = LatLng(loc.latitude, loc.longitude)
+            val camPos = com.google.android.gms.maps.model.CameraPosition.Builder()
+                .target(userLatLng)
+                .zoom(18f)
+                .tilt(45f)                // tweak tilt as you like
+                .bearing(loc.bearing)     // or 0f if bearing is noisy
+                .build()
+            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(camPos))
+        }
+
+        // Refresh distance/ETA in case user has already moved since preview.
+        updateNavigationInfo()
+
+        Toast.makeText(
+            requireContext(),
+            "Navigation started.",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
 
 
 
@@ -1992,13 +2153,19 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         val routePoints = listOf(userLatLng, destLatLng)
         setCurrentRoute(routePoints)
 
+        // Rushil: Clear any existing route polylines from a previous nav session.
         navigationPolyline?.remove()
+        navigationPolylineWalk?.remove()
+        navigationPolyline = null
+        navigationPolylineWalk = null
 
         navigationPolyline = googleMap.addPolyline(
             PolylineOptions()
                 .addAll(routePoints)
                 .width(12f)
+                .color(Color.BLUE) // TEAM: straight-line fallback uses same style as car
         )
+
 
         val builder = LatLngBounds.builder()
             .include(userLatLng)
@@ -2020,6 +2187,8 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
     private fun stopNavigation() {
         navigationPolyline?.remove()
         navigationPolyline = null
+        navigationPolylineWalk?.remove()
+        navigationPolylineWalk = null
 
         // Rushil: Clear the current route so distance/ETA fall back to default when not navigating.
         currentRoutePoints = emptyList()
@@ -2028,12 +2197,16 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         navigationState = NavigationState.Idle
         selectedMarker = null
         selectedParkingLot = null   // Rushil: next nav can auto-pick again
+        activeMultiLegRoute = null
+        updateNavModeToggleEnabled()
+
 
         // Rushil: Stop following user when navigation ends.
         followUserDuringNav = false
 
         navPanelContainer.visibility = View.GONE
         navParkingContainer.visibility = View.GONE
+        navIParkedButton.visibility = View.GONE
         // Rushil: Nav panel is hidden again, so put the FAB back to its normal bottom margin.
         updateFabPositionRelativeToNavPanel()
 
@@ -2185,10 +2358,13 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
     }
 
     // Rushil: Result of a car→parking→walk multi-leg route.
-// polylinePoints = full route from user → parking → destination along the graph.
-// parkingLot = which lot this route uses.
+    // fullRoutePoints = entire path (user -> parking -> destination), used for ETA/remaining distance.
+    // carLegPoints    = only the car portion, so I can style it differently.
+    // walkLegPoints   = only the walking portion, so I can style it differently.
     private data class MultiLegRoute(
-        val polylinePoints: List<LatLng>,
+        val fullRoutePoints: List<LatLng>,
+        val carLegPoints: List<LatLng>,
+        val walkLegPoints: List<LatLng>,
         val parkingLot: ParkingLot
     )
 
@@ -2277,39 +2453,61 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         // Rushil: Choose the lot with the smallest combined (car + walk) distance.
         val best = candidates.minByOrNull { it.totalDistanceMeters }!!
 
-        // Build full polyline: userLatLng -> car leg nodes -> walk leg nodes -> destLatLng.
-        val points = mutableListOf<LatLng>()
+        // Build separate polyline segments for car and walk legs.
 
-        // Start exactly at the user's location.
-        points.add(userLatLng)
-
-        // Append car leg nodes along the graph.
+        // Car leg: from the user's current location along the car path nodes to the parking lot.
+        val carPoints = mutableListOf<LatLng>()
+        carPoints.add(userLatLng)
         for (nodeId in best.carPathNodeIds) {
             val node = nodeIndex[nodeId] ?: continue
-            points.add(LatLng(node.lat, node.lng))
+            carPoints.add(LatLng(node.lat, node.lng))
         }
 
-        // Append walk leg nodes, skipping the first if it's the same as the last car node.
-        if (best.walkPathNodeIds.isNotEmpty()) {
-            val carLast = best.carPathNodeIds.lastOrNull()
-            val walkIds = best.walkPathNodeIds
+        // Walk leg: from the parking lot toward the destination along the walk path nodes.
+        val walkPoints = mutableListOf<LatLng>()
 
-            val startIndex = if (carLast != null && walkIds.first() == carLast) 1 else 0
+        // Start at the last car point (which should be near the parking node) to keep the line continuous.
+        val lastCarPoint = carPoints.lastOrNull()
+        if (lastCarPoint != null) {
+            walkPoints.add(lastCarPoint)
+        }
 
-            for (i in startIndex until walkIds.size) {
-                val node = nodeIndex[walkIds[i]] ?: continue
-                points.add(LatLng(node.lat, node.lng))
-            }
+        for (nodeId in best.walkPathNodeIds) {
+            val node = nodeIndex[nodeId] ?: continue
+            walkPoints.add(LatLng(node.lat, node.lng))
         }
 
         // End exactly at the destination marker.
-        points.add(destLatLng)
+        walkPoints.add(destLatLng)
+
+        // Full route = car leg + walk leg, but skip duplicate join point if it happens.
+        val fullRoutePoints = mutableListOf<LatLng>()
+        fullRoutePoints.addAll(carPoints)
+
+        if (walkPoints.isNotEmpty()) {
+            val firstWalk = walkPoints.first()
+            val lastCar = carPoints.lastOrNull()
+            val startIndex = if (lastCar != null &&
+                lastCar.latitude == firstWalk.latitude &&
+                lastCar.longitude == firstWalk.longitude
+            ) {
+                1 // skip the duplicate point
+            } else {
+                0
+            }
+            for (i in startIndex until walkPoints.size) {
+                fullRoutePoints.add(walkPoints[i])
+            }
+        }
 
         return MultiLegRoute(
-            polylinePoints = points,
+            fullRoutePoints = fullRoutePoints,
+            carLegPoints = carPoints,
+            walkLegPoints = walkPoints,
             parkingLot = best.parkingLot
         )
     }
+
 
     // Rushil: Let the user manually choose which parking lot to use for car navigation.
 // When they pick one, I recalc the multi-leg route from their current location.
@@ -2326,14 +2524,132 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
                 selectedParkingLot = chosen
                 navParkingText.text = "Parking: ${chosen.name}"
 
-                // If navigation is active, immediately recompute the route from current position.
-                if (navigationState == NavigationState.Active) {
-                    // This will re-use selectedParkingLot when building the route.
-                    startNavigationFromCurrentLocation()
+                when (navigationState) {
+                    // Rushil: If I'm still in route PREVIEW (Start button showing),
+                    // just rebuild the preview route with the new lot.
+                    NavigationState.RoutePreview -> {
+                        buildRoutePreviewFromCurrentLocation()
+                    }
+
+                    // Rushil: If I'm already actively navigating, rebuild and go
+                    // straight back into live navigation.
+                    NavigationState.Active -> {
+                        startNavigationFromCurrentLocation()
+                    }
+
+                    else -> {
+                        // Idle / Preview: nothing to do yet (no route computed).
+                    }
                 }
             }
             .setNegativeButton("Cancel", null)
             .show()
+    }
+
+
+    // Rushil: User tapped "I parked". Drop the car leg and continue as a pure walking route.
+    private fun handleIParkedTapped() {
+        if (navigationState != NavigationState.Active) {
+            Toast.makeText(requireContext(), "Start navigation first.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val route = activeMultiLegRoute
+        if (route == null) {
+            Toast.makeText(requireContext(), "You're not on a car + walk route.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val googleMap = map ?: return
+
+        // 1) Switch nav mode to WALK (and sync the toggle UI).
+        navModeToggleGroup.check(R.id.btnModeWalk)
+        setNavMode(NavMode.WALK)
+
+        // 2) Use only the walking leg for distance / ETA.
+        setCurrentRoute(route.walkLegPoints)
+
+        // 3) Remove car polyline; keep / redraw the walking leg.
+        navigationPolyline?.remove()
+        navigationPolyline = null
+
+        if (navigationPolylineWalk == null) {
+            // If for some reason the walk polyline wasn't drawn yet, draw it now.
+            val dashPattern = listOf(Dot(), Gap(20f))
+            navigationPolylineWalk = googleMap.addPolyline(
+                PolylineOptions()
+                    .addAll(route.walkLegPoints)
+                    .width(10f)
+                    .color(Color.parseColor("#9C27B0")) // same purple you chose
+                    .pattern(dashPattern)
+            )
+        }
+
+        // 4) Refit camera around the walking leg so the user sees the walk segment.
+        val builder = LatLngBounds.builder()
+        route.walkLegPoints.forEach { builder.include(it) }
+        val walkBounds = builder.build()
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(walkBounds, 150))
+
+        // 5) Update UI text and hide "I parked" (no double-tapping).
+        navParkingText.text = "Walking from ${route.parkingLot.name}"
+        navIParkedButton.visibility = View.GONE
+
+        Toast.makeText(
+            requireContext(),
+            "Switched to walking from ${route.parkingLot.name}.",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    // Rushil: Cancel the current destination/route preview without starting live nav.
+    private fun cancelNavigationPreview() {
+        // Remove any preview route.
+        navigationPolyline?.remove()
+        navigationPolyline = null
+        navigationPolylineWalk?.remove()
+        navigationPolylineWalk = null
+
+        // Clear route info so ETA falls back to default.
+        currentRoutePoints = emptyList()
+        currentRouteCumulativeMeters = emptyList()
+
+        // Keep the marker visible (like Google Maps) but hide the panel + parking row.
+        navigationState = NavigationState.Idle
+        activeMultiLegRoute = null
+        selectedParkingLot = null
+        updateNavModeToggleEnabled()
+
+
+        navPanelContainer.visibility = View.GONE
+        navParkingContainer.visibility = View.GONE
+        navIParkedButton.visibility = View.GONE
+        updateFabPositionRelativeToNavPanel()
+    }
+
+    // Rushil: Internal helper so existing code (like parking lot change while Active)
+    // can rebuild the route and jump straight into Active nav.
+    private fun startNavigationFromCurrentLocation() {
+        buildRoutePreviewFromCurrentLocation()
+        beginLiveNavigationFromPreview()
+    }
+
+
+    // Rushil: Only allow changing Walk/Drive mode before I've committed to a route.
+// That means:
+//
+//   Idle           → no destination yet, toggle enabled.
+//   Preview        → marker selected, "Navigate" showing, toggle enabled.
+//   RoutePreview   → route drawn, "Start" showing, toggle DISABLED.
+//   Active         → live nav, "Stop" showing, toggle DISABLED.
+//
+    private fun updateNavModeToggleEnabled() {
+        val enabled = navigationState == NavigationState.Idle ||
+                navigationState == NavigationState.Preview
+
+        if (::navModeToggleGroup.isInitialized) {
+            navModeToggleGroup.isEnabled = enabled
+        }
     }
 
 

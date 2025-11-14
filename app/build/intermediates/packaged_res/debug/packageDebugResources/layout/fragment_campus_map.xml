@@ -131,11 +131,19 @@
                 android:textSize="14sp" />
 
             <Button
+                android:id="@+id/navIParkedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="I parked"
+                android:layout_marginEnd="8dp" />
+
+            <Button
                 android:id="@+id/navChangeParkingButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Change" />
         </LinearLayout>
+
 
 
         <com.google.android.material.button.MaterialButtonToggleGroup
