@@ -872,14 +872,25 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
             currentVisibleMarkerTitle = null
             return
         }
-        // prefix first
-        val results = buildingPlaces
-            .filter { it.title.lowercase().startsWith(q) }
-            .take(10)
+
+        // First try prefix matches
+        val prefixMatches = buildingPlaces.filter {
+            it.title.lowercase().startsWith(q)
+        }
+
+        // If no prefix matches, fall back to "contains" matches
+        val results = if (prefixMatches.isNotEmpty()) {
+            prefixMatches
+        } else {
+            buildingPlaces.filter {
+                it.title.lowercase().contains(q)
+            }
+        }.take(10)
 
         suggestionsAdapter.submit(results)
         suggestionsList?.visibility = if (results.isEmpty()) View.GONE else View.VISIBLE
     }
+
 
 
     // TEAM: Runtime permission launcher for precise/approximate location
@@ -1288,6 +1299,127 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
                 .title("Education Hall")
                 .snippet("Architecture & Design")
         )
+
+
+        // ===== Manual fallback markers for locations that may be missing from OSM =====
+        // Rushil: These make sure these places ALWAYS show up in the search list,
+        // even if the Overpass → polygon logic fails to find them. They are hidden
+        // by default and only appear when selected from the search bar.
+
+        // --- Other campus buildings ---
+
+        addBuildingMarkerKeepRef(
+            MarkerOptions()
+                .position(LatLng(40.80803, -73.60538)) // Sculpture Barn (Mapcarta)
+                .title("Sculpture Barn")
+                .snippet("Campus building")
+                .icon(buildingIcon)
+        )
+
+        // NOTE: This is a placeholder near the core campus.
+        // Rushil: Once you have exact coords, just update this LatLng.
+        addBuildingMarkerKeepRef(
+            MarkerOptions()
+                .position(LatLng(40.814377152585266, -73.60602636790536))
+                .title("North House")
+                .snippet("Campus building")
+                .icon(buildingIcon)
+        )
+
+        // 500 Building / BRIIC is just south/east of Rockefeller on campus.
+        // These coords are approximate; tweak visually if needed.
+        addBuildingMarkerKeepRef(
+            MarkerOptions()
+                .position(LatLng(40.809816765998825, -73.60658995687632))
+                .title("Biomedical Research, Innovation, and Imaging Center (500 Building)")
+                .snippet("Medicine & Health Sciences")
+                .icon(buildingIcon)
+        )
+
+        // Maintenance Barn (service area near Rec / fields)
+        addBuildingMarkerKeepRef(
+            MarkerOptions()
+                .position(LatLng(40.81202917589616, -73.60131250814656)) // Mapcarta
+                .title("Maintenance Barn")
+                .snippet("Activities/Recreation")
+                .icon(buildingIcon)
+        )
+
+        addBuildingMarkerKeepRef(
+            MarkerOptions()
+                .position(LatLng(40.811290439189634, -73.60097759637884)) // Recreation Hall (Mapcarta)
+                .title("Recreation Hall")
+                .snippet("Activities/Recreation")
+                .icon(buildingIcon)
+        )
+
+        addBuildingMarkerKeepRef(
+            MarkerOptions()
+                .position(LatLng(40.81143537638618, -73.60074694677432)) // Food Service (Mapcarta)
+                .title("Food Service")
+                .snippet("Activities/Recreation")
+                .icon(buildingIcon)
+        )
+
+        addBuildingMarkerKeepRef(
+            MarkerOptions()
+                .position(LatLng(40.81026120867593, -73.5996916509864)) // Green Lodge (Mapcarta)
+                .title("Green Lodge")
+                .snippet("Activities/Recreation")
+                .icon(buildingIcon)
+        )
+
+        // Balding House appears in the same cluster as Green Lodge / Food Service.
+        // This is an approximate on-campus position for now.
+        addBuildingMarkerKeepRef(
+            MarkerOptions()
+                .position(LatLng(40.810381799280634, -73.59892266623883)) // TODO: refine for Balding House
+                .title("Balding House")
+                .snippet("Activities/Recreation")
+                .icon(buildingIcon)
+        )
+
+        // Gerry House & Tower House sit in the Rockefeller / Riland / Tower cluster.
+        // I’m centering them near Rockefeller and offsetting a bit so they’re distinct.
+        addBuildingMarkerKeepRef(
+            MarkerOptions()
+                .position(LatLng(40.81255110688574, -73.60746904536539)) // TODO: refine for Gerry House
+                .title("Gerry House")
+                .snippet("Campus building")
+                .icon(buildingIcon)
+        )
+
+        // Mapcarta says Tower House is ~360 ft northwest of Rockefeller Hall.
+        // This LatLng approximates that offset on campus.
+        addBuildingMarkerKeepRef(
+            MarkerOptions()
+                .position(LatLng(40.81100, -73.60713)) // approx.  Tower House; tweak if needed
+                .title("Tower House")
+                .snippet("Campus building")
+                .icon(buildingIcon)
+        )
+
+        // --- Athletics: fields / diamonds ---
+
+        addBuildingMarkerKeepRef(
+            MarkerOptions()
+                .position(LatLng(40.80942090457003, -73.60188929736317)) // Angelo Lorenzo Memorial Baseball Field (Mapcarta)
+                .title("Angelo Lorenzo Memorial Baseball Field")
+                .snippet("Athletics")
+                .icon(buildingIcon)
+        )
+
+        addBuildingMarkerKeepRef(
+            MarkerOptions()
+                .position(LatLng(40.80838, -73.60264)) // NYIT Softball Complex (Mapcarta)
+                .title("NYIT Softball Complex")
+                .snippet("Athletics")
+                .icon(buildingIcon)
+        )
+
+
+
+
 // Serota Academic Center  (OSM way 595698561)
         val SEROTA_POLY = listOf(
             LatLng(40.8103513, -73.6058427), // node 5676910493
