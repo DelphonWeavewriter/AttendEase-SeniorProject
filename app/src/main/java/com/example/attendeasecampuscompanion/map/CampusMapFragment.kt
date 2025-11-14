@@ -63,6 +63,10 @@ import android.graphics.Color
 import com.google.android.gms.maps.model.Dot
 import com.google.android.gms.maps.model.Gap
 import com.google.android.gms.maps.model.PatternItem
+import com.google.android.gms.maps.model.CameraPosition
+import android.widget.ImageView
+
+
 
 
 
@@ -139,7 +143,6 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
 
 
 
-
     // TEAM (Rushil): separate icon so parking stands out from buildings on the map.
     private var parkingIcon: BitmapDescriptor? = null
 
@@ -204,9 +207,31 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
     // ~1.4 m/s ≈ 5 km/h (normal walking pace).
     private val walkingSpeedMetersPerSec = 1.4
 
+    // Rushil: Off-route rerouting thresholds.
+    // If I'm more than ~25m off the route, I'll trigger a recalculation.
+    private val REROUTE_DISTANCE_THRESHOLD_METERS = 25.0
+
+    // Rushil: Don't spam reroutes; enforce a minimum gap between recalculations.
+    private val REROUTE_MIN_TIME_BETWEEN_MS = 10_000L  // 10 seconds
+
+    private var lastRerouteTimeMillis: Long = 0L
+
+
     // Rushil: Campus-safe driving speed. You can tweak between 4–8 m/s depending
     // on how optimistic you want ETAs to be. 5 m/s ≈ 18 km/h (~11 mph).
     private val drivingSpeedMetersPerSec = 5.0
+
+    // Rushil: Camera presets for navigation.
+    private val NAV_ZOOM_WALK = 18f
+    private val NAV_ZOOM_CAR  = 17f
+    private val NAV_TILT_DEGREES = 45f
+
+    // Rushil: Don't rotate camera if we're basically standing still.
+    private val MIN_SPEED_FOR_HEADING_MPS = 0.5f  // ~1.1 mph
+
+    // Rushil: Remember last used nav bearing so we don't snap back to 0 when GPS has no heading.
+    private var lastNavCameraBearing: Float = 0f
+
 
 
     // Rushil: Overall navigation mode for ETA/speeds and route decisions.
@@ -270,6 +295,12 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var navEtaText: TextView
     private lateinit var navArrivalTimeText: TextView
     private lateinit var navActionButton: Button
+
+    // Rushil: Top banner for the next turn (replaces search bar during live nav).
+    private lateinit var navNextTurnContainer: View
+    private lateinit var navNextTurnIcon: android.widget.ImageView
+    private lateinit var navNextTurnText: TextView
+
 
 
     // --- Search UI ---
@@ -786,6 +817,147 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         return LatLng(Math.toDegrees(lat2), Math.toDegrees(lon2))
     }
 
+
+    // Rushil: Bearing between two LatLng points in degrees (0..360).
+    private fun bearingBetween(a: LatLng, b: LatLng): Float {
+        val lat1 = Math.toRadians(a.latitude)
+        val lon1 = Math.toRadians(a.longitude)
+        val lat2 = Math.toRadians(b.latitude)
+        val lon2 = Math.toRadians(b.longitude)
+
+        val dLon = lon2 - lon1
+        val y = Math.sin(dLon) * Math.cos(lat2)
+        val x = Math.cos(lat1) * Math.sin(lat2) -
+                Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon)
+
+        var brng = Math.toDegrees(Math.atan2(y, x)).toFloat()
+        if (brng < 0f) brng += 360f
+        return brng
+    }
+
+    // Rushil: Smallest absolute difference between two bearings (0..180).
+    private fun smallestAngleDiff(a: Float, b: Float): Float {
+        var diff = Math.abs(a - b) % 360f
+        if (diff > 180f) diff = 360f - diff
+        return diff
+    }
+
+    // Rushil: Short distance formatter (e.g. "200 ft" or "0.2 mi").
+    private fun formatDistanceShort(meters: Double): String {
+        val miles = meters * 0.000621371
+        return if (miles < 0.1) {
+            val feet = meters * 3.28084
+            "${feet.toInt()} ft"
+        } else {
+            "%.1f mi".format(miles)
+        }
+    }
+    // Rushil: Update the "Next: ..." line based on current location and route geometry.
+    private fun updateNextTurnInstruction(userLatLng: LatLng) {
+        if (!::navNextTurnText.isInitialized || !::navNextTurnIcon.isInitialized) return
+
+        if (currentRoutePoints.size < 3 ||
+            currentRouteCumulativeMeters.size != currentRoutePoints.size) {
+            navNextTurnText.text = "Next: —"
+            navNextTurnIcon.setImageResource(R.drawable.ic_continue_straight)
+            return
+        }
+
+        val results = FloatArray(1)
+
+        // 1) Find nearest route vertex to user.
+        var bestIndex = 0
+        var bestDistToVertex = Double.MAX_VALUE
+        for (i in currentRoutePoints.indices) {
+            val pt = currentRoutePoints[i]
+            Location.distanceBetween(
+                userLatLng.latitude, userLatLng.longitude,
+                pt.latitude, pt.longitude,
+                results
+            )
+            val d = results[0].toDouble()
+            if (d < bestDistToVertex) {
+                bestDistToVertex = d
+                bestIndex = i
+            }
+        }
+
+        // 2) Look ahead for the first "real" turn (bearing change past threshold).
+        val TURN_ANGLE_DEG = 35f
+
+        var turnIndex = -1
+        val startI = maxOf(bestIndex, 1)  // need i-1, i, i+1
+
+        for (i in startI until currentRoutePoints.size - 1) {
+            val prev = currentRoutePoints[i - 1]
+            val cur  = currentRoutePoints[i]
+            val next = currentRoutePoints[i + 1]
+
+            val bIn  = bearingBetween(prev, cur)
+            val bOut = bearingBetween(cur, next)
+            val diff = smallestAngleDiff(bIn, bOut)
+
+            if (diff >= TURN_ANGLE_DEG) {
+                turnIndex = i
+                break
+            }
+        }
+
+        if (turnIndex == -1) {
+            // No more big turns ahead; just continue to destination.
+            navNextTurnText.text = "Next: Continue straight to destination"
+            return
+        }
+
+        // 3) Distance from user to that turn along the route.
+        // Distance user → nearest vertex:
+        Location.distanceBetween(
+            userLatLng.latitude, userLatLng.longitude,
+            currentRoutePoints[bestIndex].latitude, currentRoutePoints[bestIndex].longitude,
+            results
+        )
+        val distUserToBest = results[0].toDouble()
+
+        val remainingAlongRoute =
+            currentRouteCumulativeMeters[turnIndex] - currentRouteCumulativeMeters[bestIndex]
+
+        val distToTurn = distUserToBest + remainingAlongRoute
+
+        // 4) Decide left/right vs bear left/right.
+        val prev = currentRoutePoints[turnIndex - 1]
+        val cur  = currentRoutePoints[turnIndex]
+        val next = currentRoutePoints[turnIndex + 1]
+
+        val bIn  = bearingBetween(prev, cur)
+        val bOut = bearingBetween(cur, next)
+
+        // Signed diff in -180..+180 (positive = right turn).
+        val rawDiff = (((bOut - bIn) + 540f) % 360f) - 180f
+        val absDiff = kotlin.math.abs(rawDiff)
+
+        val dirWord = when {
+            absDiff < 35f -> "continue straight"
+            rawDiff > 0   -> if (absDiff > 100f) "turn right" else "bear right"
+            else          -> if (absDiff > 100f) "turn left"  else "bear left"
+        }
+
+        val distText = formatDistanceShort(distToTurn)
+
+        // Choose an icon based on the type of turn.
+        val iconRes = when {
+            dirWord.startsWith("turn left")      -> R.drawable.ic_turn_left
+            dirWord.startsWith("turn right")     -> R.drawable.ic_turn_right
+            dirWord.startsWith("bear left")      -> R.drawable.ic_bear_left
+            dirWord.startsWith("bear right")     -> R.drawable.ic_bear_right
+            else                                 -> R.drawable.ic_continue_straight
+        }
+
+        navNextTurnIcon.setImageResource(iconRes)
+        navNextTurnText.text = "Next: $dirWord in $distText"
+
+    }
+
+
     // We’ll call this instead of map?.addMarker directly for BUILDING markers.
 // It records the exact Marker and hides it at startup.
     private fun addBuildingMarkerKeepRef(options: MarkerOptions): com.google.android.gms.maps.model.Marker? {
@@ -956,6 +1128,16 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
             }
             adapter = suggestionsAdapter
         }
+        // Rushil: Top next-turn banner (used only during live navigation).
+        navNextTurnContainer = root.findViewById(R.id.navNextTurnContainer)
+        navNextTurnIcon = root.findViewById(R.id.navNextTurnIcon)
+        navNextTurnText = root.findViewById(R.id.navNextTurnText)
+        navNextTurnContainer.visibility = View.GONE
+
+
+        navNextTurnText = root.findViewById(R.id.navNextTurnText)
+        navNextTurnContainer.visibility = View.GONE
+
         searchInput?.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -990,6 +1172,8 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         navEtaText = root.findViewById(R.id.navEtaText)
         navArrivalTimeText = root.findViewById(R.id.navArrivalTimeText)
         navActionButton = root.findViewById(R.id.navActionButton)
+
+
 
         //  Parking controls
         navParkingContainer = root.findViewById(R.id.navParkingContainer)
@@ -1098,6 +1282,7 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
             android.util.Log.e("CampusMap", "Failed to load campus graph JSON", e)
         }
         // ================== END GRAPH LOAD ==================
+        setSearchUiVisible(true)
 
         return root
     }
@@ -1631,18 +1816,50 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
             // Rushil: Always update stats while navigating.
             updateNavigationInfo()
 
+            // Rushil: Only auto-move the camera if I'm in "follow" mode.
             if (followUserDuringNav) {
-                val googleMap = map ?: return
-                val userLatLng = LatLng(location.latitude, location.longitude)
-                googleMap.animateCamera(CameraUpdateFactory.newLatLng(userLatLng))
+                updateNavCamera(location)
             }
         } else if (navigationState == NavigationState.Preview ||
             navigationState == NavigationState.RoutePreview) {
-            // Rushil: Even in preview, keep the distance/ETA updated in case I'm moving.
+            // Rushil: In preview screens, keep ETA updated but don't force camera follow.
             updateNavigationInfo()
         }
-
     }
+
+
+    // Rushil: Update the camera during live navigation so it follows the user
+    // with a reasonable zoom, tilt, and bearing.
+    private fun updateNavCamera(location: Location) {
+        val googleMap = map ?: return
+
+        val userLatLng = LatLng(location.latitude, location.longitude)
+
+        // Pick zoom based on current nav mode.
+        val zoom = when (currentNavMode) {
+            NavMode.WALK -> NAV_ZOOM_WALK
+            NavMode.CAR  -> NAV_ZOOM_CAR
+        }
+
+        // Decide what bearing to use:
+        // - If we have a meaningful speed and bearing from GPS, use that.
+        // - Otherwise, keep the last bearing so the map doesn't snap around.
+        val bearing: Float = if (location.speed >= MIN_SPEED_FOR_HEADING_MPS && location.hasBearing()) {
+            location.bearing.also { lastNavCameraBearing = it }
+        } else {
+            lastNavCameraBearing
+        }
+
+        val camPos = com.google.android.gms.maps.model.CameraPosition.Builder()
+            .target(userLatLng)
+            .zoom(zoom)
+            .tilt(NAV_TILT_DEGREES)
+            .bearing(bearing)
+            .build()
+
+        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(camPos))
+    }
+
 
 
 
@@ -1674,8 +1891,22 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
             return
         }
         fused.lastLocation.addOnSuccessListener { loc ->
-            loc?.let {
-                map?.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(it.latitude, it.longitude), 17f))
+            loc?.let { location ->
+                lastKnownLocation = location
+
+                if (navigationState == NavigationState.Active) {
+                    // Rushil: In live nav, recenter should jump back into nav POV and re-enable follow.
+                    followUserDuringNav = true
+                    updateNavCamera(location)
+                } else {
+                    // Rushil: Outside of Active nav, use a simple center + zoom.
+                    map?.animateCamera(
+                        CameraUpdateFactory.newLatLngZoom(
+                            LatLng(location.latitude, location.longitude),
+                            17f
+                        )
+                    )
+                }
             }
         }
     }
@@ -1725,9 +1956,6 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
 
         val location = lastKnownLocation
         if (location == null) {
-            // Rushil: We don't know where the user is yet. If we have a route, we could
-            // show the total route distance, but for now I'll keep this simple and wait
-            // for a GPS fix.
             navDistanceText.text = "Distance: (waiting for GPS...)"
             navEtaText.text = "ETA: —"
             navArrivalTimeText.text = "Arrival: —"
@@ -1740,11 +1968,8 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         val distanceMeters: Double
 
         if (currentRoutePoints.size >= 2 && currentRouteCumulativeMeters.size == currentRoutePoints.size) {
-            // Rushil: We have a route and precomputed distances. Compute remaining distance.
-
             val results = FloatArray(1)
 
-            // 1) Find the nearest route vertex to the user's current location.
             var bestIndex = 0
             var bestDistToVertex = Double.MAX_VALUE
 
@@ -1764,15 +1989,9 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
                 }
             }
 
-            // 2) Remaining distance from that vertex to the end of the route.
             val remainingFromVertex = currentRouteTotalMeters - currentRouteCumulativeMeters[bestIndex]
-
-            // 3) Approximate total remaining distance as:
-            //    distance from user → nearest vertex + remaining along route.
             distanceMeters = bestDistToVertex + remainingFromVertex
         } else {
-            // Rushil: No route info (probably just in preview or nav hasn't started yet).
-            // Fall back to straight-line distance between user and destination.
             val results = FloatArray(1)
             Location.distanceBetween(
                 userLatLng.latitude,
@@ -1784,9 +2003,6 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
             distanceMeters = results[0].toDouble()
         }
 
-        // Rushil: Choose speed based on current navigation mode.
-        // For now, both WALK and CAR follow the same route geometry, but CAR uses
-        // a faster speed so ETAs feel like driving instead of walking.
         val speedMetersPerSec = when (currentNavMode) {
             NavMode.WALK -> walkingSpeedMetersPerSec
             NavMode.CAR  -> drivingSpeedMetersPerSec
@@ -1795,24 +2011,15 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         val etaSeconds = distanceMeters / speedMetersPerSec
         val etaMinutes = (etaSeconds / 60.0)
 
-
-        // Rushil: Convert meters → miles for display only.
-        // 1 meter = 0.000621371 miles, 1 meter = 3.28084 feet.
         val miles = distanceMeters * 0.000621371
-
         val distanceText = if (miles < 0.1) {
-            // If less than ~0.1 miles, show in feet (feels more natural up close)
             val feet = distanceMeters * 3.28084
             "Distance: ${feet.toInt()} ft"
         } else {
-            // Otherwise display miles with 2 decimals
             "Distance: %.2f mi".format(miles)
         }
-
         navDistanceText.text = distanceText
 
-
-        // Format ETA.
         val etaText = if (etaMinutes < 1.0) {
             "ETA: < 1 min"
         } else {
@@ -1820,13 +2027,25 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         }
         navEtaText.text = etaText
 
-        // Compute estimated arrival time based on device clock.
         val etaMillis = (etaSeconds * 1000).toLong()
         val arrivalTimeMillis = System.currentTimeMillis() + etaMillis
         val arrivalDate = Date(arrivalTimeMillis)
         val timeFormat = SimpleDateFormat("h:mm a", Locale.getDefault())
         navArrivalTimeText.text = "Arrival: ${timeFormat.format(arrivalDate)}"
+
+
+        if (navigationState == NavigationState.Active && currentRoutePoints.size >= 2) {
+            updateNextTurnInstruction(userLatLng)
+        } else {
+            if (::navNextTurnText.isInitialized) {
+                navNextTurnText.text = "Next: —"
+                if (::navNextTurnIcon.isInitialized) {
+                    navNextTurnIcon.setImageResource(R.drawable.ic_continue_straight)
+                }
+            }
+        }
     }
+
 
 
 
@@ -2100,6 +2319,10 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         navActionButton.text = "Stop"
         followUserDuringNav = true
         updateNavModeToggleEnabled()
+        // Rushil: Live nav → hide search, show next-turn line.
+        setSearchUiVisible(false)
+        navNextTurnContainer.visibility = View.VISIBLE
+
 
 
         //  Only now (during Active nav) should the I parked button be available.
@@ -2112,16 +2335,9 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
             navIParkedButton.visibility = View.GONE
         }
 
-        // Optional: snap camera to user location at a good nav zoom the moment we start.
+        // Rushil: When I press Start, immediately snap into nav camera POV if I have a location.
         lastKnownLocation?.let { loc ->
-            val userLatLng = LatLng(loc.latitude, loc.longitude)
-            val camPos = com.google.android.gms.maps.model.CameraPosition.Builder()
-                .target(userLatLng)
-                .zoom(18f)
-                .tilt(45f)                // tweak tilt as you like
-                .bearing(loc.bearing)     // or 0f if bearing is noisy
-                .build()
-            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(camPos))
+            updateNavCamera(loc)
         }
 
         // Refresh distance/ETA in case user has already moved since preview.
@@ -2211,6 +2427,10 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         updateFabPositionRelativeToNavPanel()
 
         Toast.makeText(requireContext(), "Navigation stopped.", Toast.LENGTH_SHORT).show()
+        // Rushil: Leaving nav → show search again, hide next-turn.
+        setSearchUiVisible(true)
+        navNextTurnContainer.visibility = View.GONE
+
     }
 
     // Rushil: Given a LatLng on the map, find the closest graph node by straight-line distance.
@@ -2278,6 +2498,8 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
             currentRouteCumulativeMeters = emptyList()
             return
         }
+
+
 
         currentRoutePoints = points
 
@@ -2625,6 +2847,9 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         navParkingContainer.visibility = View.GONE
         navIParkedButton.visibility = View.GONE
         updateFabPositionRelativeToNavPanel()
+        setSearchUiVisible(true)
+        navNextTurnContainer.visibility = View.GONE
+
     }
 
     // Rushil: Internal helper so existing code (like parking lot change while Active)
@@ -2643,13 +2868,43 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
 //   RoutePreview   → route drawn, "Start" showing, toggle DISABLED.
 //   Active         → live nav, "Stop" showing, toggle DISABLED.
 //
+// Rushil: Only allow changing Walk/Drive mode before I've committed to a route.
+// Also keep the toggle's visual state in sync with the actual currentNavMode.
     private fun updateNavModeToggleEnabled() {
         val enabled = navigationState == NavigationState.Idle ||
                 navigationState == NavigationState.Preview
 
-        if (::navModeToggleGroup.isInitialized) {
-            navModeToggleGroup.isEnabled = enabled
+        if (!::navModeToggleGroup.isInitialized) return
+
+        // Enable / disable the group.
+        navModeToggleGroup.isEnabled = enabled
+
+        if (enabled) {
+            // Rushil: When the toggle becomes enabled again (Idle/Preview),
+            // make sure the highlighted button matches my currentNavMode.
+            val targetId = when (currentNavMode) {
+                NavMode.WALK -> R.id.btnModeWalk
+                NavMode.CAR  -> R.id.btnModeCar
+            }
+
+            if (navModeToggleGroup.checkedButtonId != targetId) {
+                navModeToggleGroup.check(targetId)
+            }
         }
+    }
+
+    // Rushil: Helper to show/hide the search UI as a block.
+    private fun setSearchUiVisible(visible: Boolean) {
+        val v = if (visible) View.VISIBLE else View.GONE
+
+        // Hide/show the text field itself.
+        searchInput?.visibility = v
+
+        if (!visible) {
+            // If nav is active, I never want suggestions popping up.
+            suggestionsList?.visibility = View.GONE
+        }
+        // When visible == true, filterSuggestions() will control suggestionsList visibility.
     }
 
 

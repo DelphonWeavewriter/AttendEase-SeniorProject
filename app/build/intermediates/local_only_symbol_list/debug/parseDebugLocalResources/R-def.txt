@@ -21,11 +21,16 @@ drawable card_background
 drawable final_exam_border
 drawable gradient_header
 drawable ic_back
+drawable ic_bear_left
+drawable ic_bear_right
+drawable ic_continue_straight
 drawable ic_email
 drawable ic_launcher_background
 drawable ic_launcher_foreground
 drawable ic_lock
 drawable ic_my_location
+drawable ic_turn_left
+drawable ic_turn_right
 drawable input_field_background
 drawable login_background
 drawable signin_button_background
@@ -102,6 +107,9 @@ id navDistanceText
 id navEtaText
 id navIParkedButton
 id navModeToggleGroup
+id navNextTurnContainer
+id navNextTurnIcon
+id navNextTurnText
 id navPanelContainer
 id navParkingContainer
 id navParkingText
