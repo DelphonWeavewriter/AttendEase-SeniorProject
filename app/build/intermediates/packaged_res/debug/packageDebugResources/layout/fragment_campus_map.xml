@@ -113,6 +113,53 @@
             android:text="Arrival: —"
             android:paddingBottom="8dp" />
 
+        <LinearLayout
+            android:id="@+id/navParkingContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="4dp"
+            android:gravity="center_vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/navParkingText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Parking: —"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/navChangeParkingButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Change" />
+        </LinearLayout>
+
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/navModeToggleGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:singleSelection="true">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnModeWalk"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Walk" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnModeCar"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Drive" />
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+
         <!-- Button row -->
         <LinearLayout
             android:layout_width="match_parent"

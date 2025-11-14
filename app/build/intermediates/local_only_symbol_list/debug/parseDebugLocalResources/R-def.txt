@@ -40,6 +40,8 @@ id btnEmailProfessor
 id btnFinalsSchedule
 id btnLate
 id btnManualAttendance
+id btnModeCar
+id btnModeWalk
 id btnMySchedule
 id btnNavigate
 id btnPresent
@@ -94,10 +96,14 @@ id map
 id map_container
 id navActionButton
 id navArrivalTimeText
+id navChangeParkingButton
 id navDestinationText
 id navDistanceText
 id navEtaText
+id navModeToggleGroup
 id navPanelContainer
+id navParkingContainer
+id navParkingText
 id nextClass
 id pieChart
 id profDateHeader

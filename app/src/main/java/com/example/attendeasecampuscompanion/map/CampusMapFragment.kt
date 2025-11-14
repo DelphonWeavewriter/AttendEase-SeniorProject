@@ -52,10 +52,28 @@ import com.google.android.gms.maps.model.PolylineOptions
 import java.util.Date
 import java.text.SimpleDateFormat
 import java.util.Locale
+// Rushil: Graph + routing model imports.
+import com.example.attendeasecampuscompanion.map.CampusGraph
+import com.example.attendeasecampuscompanion.map.NavNode
+import com.example.attendeasecampuscompanion.map.TravelMode
+import com.google.android.material.button.MaterialButtonToggleGroup
+import com.google.android.material.button.MaterialButton
+import androidx.appcompat.app.AlertDialog
+
+
+
+
 
 
 
 // --- NYIT (Old Westbury) key building coordinates ---
+
+//  Parking lot centroids (from Mapcarta / OSM, Fine Arts approx. 650 ft south of Midge Karr)
+private val LATLNG_PARKING_NORTH = LatLng(40.813700, -73.609410)
+private val LATLNG_PARKING_SOUTH = LatLng(40.809350, -73.604260)
+// TEAM (Rushil): Fine Arts Parking is approximated from Mapcarta as ~200m south of Midge Karr.
+// Adjust these if you find a more precise center visually in Android Studio.
+private val LATLNG_PARKING_FINE_ARTS = LatLng(40.800460, -73.598170)
 
 private val LATLNG_SEROTA   = com.google.android.gms.maps.model.LatLng(40.81033961078047, -73.6055924044658) // Serota Academic Center
 private val LATLNG_RILAND   = com.google.android.gms.maps.model.LatLng(40.80948290749356, -73.60568361897101) // Riland (NYITCOM)
@@ -102,8 +120,63 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var buildingIcon: BitmapDescriptor
     private lateinit var classroomIcon: BitmapDescriptor
 
+    // Rushil: Mode toggle buttons so user can switch between walking and driving.
+    private lateinit var navModeToggleGroup: MaterialButtonToggleGroup
+    private lateinit var walkModeButton: MaterialButton
+    private lateinit var carModeButton: MaterialButton
+
+    // Rushil: Parking UI row so the user can see/change which lot is used in car navigation.
+    private lateinit var navParkingContainer: View
+    private lateinit var navParkingText: TextView
+    private lateinit var navChangeParkingButton: Button
+
+
+
+    // TEAM (Rushil): separate icon so parking stands out from buildings on the map.
+    private var parkingIcon: BitmapDescriptor? = null
+
+
+    // Rushil: Represents one of the main campus parking lots. I keep it very simple:
+    // an id, display name, and LatLng for the lot center/entrance.
+    private data class ParkingLot(
+        val id: String,
+        val name: String,
+        val latLng: LatLng
+    )
+
+    // Rushil: Hard-coded list of the three main parking lots on the LI campus.
+// The LatLng constants were defined earlier (LATLNG_PARKING_NORTH etc.).
+    private val parkingLots: List<ParkingLot> = listOf(
+        ParkingLot(
+            id = "parking_north",
+            name = "North Parking",
+            latLng = LATLNG_PARKING_NORTH
+        ),
+        ParkingLot(
+            id = "parking_south",
+            name = "South Parking",
+            latLng = LATLNG_PARKING_SOUTH
+        ),
+        ParkingLot(
+            id = "parking_fine_arts",
+            name = "Fine Arts Parking",
+            latLng = LATLNG_PARKING_FINE_ARTS
+        )
+    )
+
+
     // Rushil: This will hold my campus path graph once I load it from JSON (Phase 2).
     private var campusGraph: CampusGraph? = null
+
+    // Rushil: While this is true, the camera will "follow" my location during navigation.
+    // Once I manually drag the map, I'll set this to false so the camera stops snapping back.
+    private var followUserDuringNav: Boolean = false
+
+    // Rushil: I'll keep a reference to the recenter FAB so I can move it when the nav panel is visible.
+    private lateinit var fabRecenter: FloatingActionButton
+
+    // Rushil: Cache of the nav panel's height in pixels so I can position the FAB just above it.
+    private var navPanelHeightPx: Int = 0
 
 
 
@@ -113,6 +186,31 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         Preview,   // Marker selected, showing "Navigate" option
         Active     // Actively navigating with a route drawn
     }
+
+    // Rushil: If null, I'll auto-pick the best lot. If non-null,
+    // I route specifically via this lot for car→parking→walk.
+    private var selectedParkingLot: ParkingLot? = null
+
+    // Rushil: Speeds in meters per second for ETA calculations.
+    // ~1.4 m/s ≈ 5 km/h (normal walking pace).
+    private val walkingSpeedMetersPerSec = 1.4
+
+    // Rushil: Campus-safe driving speed. You can tweak between 4–8 m/s depending
+    // on how optimistic you want ETAs to be. 5 m/s ≈ 18 km/h (~11 mph).
+    private val drivingSpeedMetersPerSec = 5.0
+
+
+    // Rushil: Overall navigation mode for ETA/speeds and route decisions.
+    // WALK = normal walking navigation along campus paths.
+    // CAR  = driving navigation (same route for now, but faster ETA).
+    private enum class NavMode {
+        WALK,
+        CAR
+    }
+
+    // Rushil: Default to walking mode; I can switch this to CAR from the UI later.
+    private var currentNavMode: NavMode = NavMode.WALK
+
 
     // TEAM NOTE (Rushil): Keep reference to the currently selected marker (if any).
     private var selectedMarker: Marker? = null
@@ -125,6 +223,26 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
 
     // TEAM NOTE (Rushil): Last known user location (updated from location callbacks).
     private var lastKnownLocation: Location? = null
+
+    // Rushil: Store the full polyline of the current route (user → destination).
+// This includes the start point, all graph nodes, and the final destination point.
+    private var currentRoutePoints: List<LatLng> = emptyList()
+
+    // Rushil: Cumulative distances along currentRoutePoints in meters.
+// Example: [0, 10, 25, 40] means:
+//  - point 0 at 0m
+//  - point 1 at 10m from start
+//  - point 2 at 25m from start
+//  - point 3 at 40m from start (total route length = 40m)
+    private var currentRouteCumulativeMeters: List<Double> = emptyList()
+
+    // Rushil: Convenience getter for the total route length in meters.
+    private val currentRouteTotalMeters: Double
+        get() = if (currentRouteCumulativeMeters.isNotEmpty()) {
+            currentRouteCumulativeMeters.last()
+        } else {
+            0.0
+        }
 
 
     // TEAM NOTE (Rushil): References to the nav panel views in the layout.
@@ -821,10 +939,18 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         })
 
         // Recenter FAB
-        root.findViewById<FloatingActionButton>(R.id.fabRecenter)?.setOnClickListener {
+        // Rushil: Keep a reference to the recenter FAB so I can move it relative to the nav panel.
+        fabRecenter = root.findViewById(R.id.fabRecenter)
+        fabRecenter.setOnClickListener {
             recenterToLastKnownLocation()
             suggestionsList?.visibility = View.GONE
+
+            // Rushil: If I'm navigating and hit recenter, go back into follow mode.
+            if (navigationState == NavigationState.Active) {
+                followUserDuringNav = true
+            }
         }
+
 
         // ================== NAV PANEL WIRED HERE ==================
 
@@ -835,6 +961,26 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         navEtaText = root.findViewById(R.id.navEtaText)
         navArrivalTimeText = root.findViewById(R.id.navArrivalTimeText)
         navActionButton = root.findViewById(R.id.navActionButton)
+
+        // 🅿️ Parking controls
+        navParkingContainer = root.findViewById(R.id.navParkingContainer)
+        navParkingText = root.findViewById(R.id.navParkingText)
+        navChangeParkingButton = root.findViewById(R.id.navChangeParkingButton)
+
+        // Hide by default; only show in CAR mode with a non-parking destination.
+        navParkingContainer.visibility = View.GONE
+
+        navChangeParkingButton.setOnClickListener {
+            // Only makes sense in CAR mode & when we have a destination.
+            if (currentNavMode != NavMode.CAR || selectedMarker == null || isParkingMarker(selectedMarker)) {
+                Toast.makeText(requireContext(), "Parking selection only applies to driving to buildings.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // Show a simple chooser dialog of the three parking lots.
+            showParkingLotChooser()
+        }
+
 
         // Rushil: Handle clicks on the main "Navigate / Stop" button.
         navActionButton.setOnClickListener {
@@ -853,6 +999,34 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
                 }
             }
         }
+
+        // Rushil: Hook up the Walk / Drive toggle.
+        navModeToggleGroup = root.findViewById(R.id.navModeToggleGroup)
+        walkModeButton = root.findViewById(R.id.btnModeWalk)
+        carModeButton = root.findViewById(R.id.btnModeCar)
+
+        navModeToggleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
+            if (!isChecked) return@addOnButtonCheckedListener
+
+            when (checkedId) {
+                R.id.btnModeWalk -> setNavMode(NavMode.WALK)
+                R.id.btnModeCar  -> setNavMode(NavMode.CAR)
+            }
+        }
+
+        // Rushil: Default to WALK mode visually + logically.
+        navModeToggleGroup.check(R.id.btnModeWalk)
+        setNavMode(NavMode.WALK)
+
+
+        // Rushil: Watch the nav panel layout so I can learn its height once it's visible.
+        navPanelContainer.addOnLayoutChangeListener { v, _, _, _, _, _, _, _, _ ->
+            if (v.height > 0) {
+                navPanelHeightPx = v.height
+                updateFabPositionRelativeToNavPanel()
+            }
+        }
+
 
         // ================== END NAV PANEL SECTION ==================
         // ================== PHASE 2: LOAD CAMPUS GRAPH (IF PRESENT) ==================
@@ -913,6 +1087,8 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         // 🔹 Initialize global icons here
         buildingIcon  = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)
         classroomIcon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)
+        // TEAM (Rushil): orange pin for parking lots so they are easy to spot.
+        parkingIcon   = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)
 
         // CampusMapFragment.kt (inside onMapReady)
         val ai = requireContext().packageManager.getApplicationInfo(
@@ -1003,7 +1179,30 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
                 .icon(buildingIcon)
         )
 
+        //  Campus parking lots — explicit, so we can target them in multi-leg routing later.
+        addBuildingMarkerKeepRef(
+            com.google.android.gms.maps.model.MarkerOptions()
+                .position(LATLNG_PARKING_NORTH)
+                .title("North Parking")
+                .snippet("Campus parking lot (north)")
+                .icon(parkingIcon)
+        )
 
+        addBuildingMarkerKeepRef(
+            com.google.android.gms.maps.model.MarkerOptions()
+                .position(LATLNG_PARKING_SOUTH)
+                .title("South Parking")
+                .snippet("Campus parking lot (south)")
+                .icon(parkingIcon)
+        )
+
+        addBuildingMarkerKeepRef(
+            com.google.android.gms.maps.model.MarkerOptions()
+                .position(LATLNG_PARKING_FINE_ARTS)
+                .title("Fine Arts Parking")
+                .snippet("Campus parking lot (Fine Arts)")
+                .icon(parkingIcon)
+        )
 
 
 
@@ -1152,6 +1351,19 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
             true
         }
 
+
+        // Rushil: If I manually drag/zoom the map while navigating, I don't want the camera
+        // to keep snapping back to my location. This listener turns off auto-follow on gestures.
+        map?.setOnCameraMoveStartedListener { reason ->
+            if (reason == GoogleMap.OnCameraMoveStartedListener.REASON_GESTURE &&
+                navigationState == NavigationState.Active
+            ) {
+                followUserDuringNav = false
+                // (Optional) I could show a toast once, but doing it every drag would be annoying.
+                // Toast.makeText(requireContext(), "Camera free to pan. Use recenter to follow again.", Toast.LENGTH_SHORT).show()
+            }
+        }
+
         // TEAM: Kick off permission check → enable blue dot & start updates when granted
 
         ensureLocationPermission()
@@ -1233,19 +1445,20 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         lastKnownLocation = location
 
         if (navigationState == NavigationState.Active) {
-            // Update the stats (distance, ETA, arrival time) live as user moves.
+            // Rushil: Always update stats while navigating.
             updateNavigationInfo()
 
-            // Optional: keep the camera following the user while navigating.
-            val googleMap = map ?: return
-            val userLatLng = LatLng(location.latitude, location.longitude)
-            googleMap.animateCamera(CameraUpdateFactory.newLatLng(userLatLng))
+            // Rushil: Only auto-move the camera if I'm in "follow" mode.
+            if (followUserDuringNav) {
+                val googleMap = map ?: return
+                val userLatLng = LatLng(location.latitude, location.longitude)
+                googleMap.animateCamera(CameraUpdateFactory.newLatLng(userLatLng))
+            }
         } else if (navigationState == NavigationState.Preview) {
-            // If a marker is selected but navigation hasn't started yet, we can still
-            // show rough distance from the current location.
             updateNavigationInfo()
         }
     }
+
 
 
     @SuppressLint("MissingPermission")
@@ -1297,13 +1510,18 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
 
         // Make the panel visible.
         navPanelContainer.visibility = View.VISIBLE
+
+        // Rushil: Nav panel is now visible, so move the FAB up above it.
+        updateFabPositionRelativeToNavPanel()
     }
 
 
-    // TEAM NOTE (Rushil): Phase 1 helper to compute and show distance, ETA, and arrival time.
+
+    // Rushil: Update the distance/ETA/arrival info shown in the nav panel.
+    // Phase 3.5: If I have a route, use remaining distance along the route.
+    // Otherwise fall back to simple straight-line distance.
     private fun updateNavigationInfo() {
         val marker = selectedMarker
-        val location = lastKnownLocation
 
         if (marker == null) {
             navDistanceText.text = "Distance: —"
@@ -1312,8 +1530,11 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
             return
         }
 
+        val location = lastKnownLocation
         if (location == null) {
-            // We don't know where the user is yet.
+            // Rushil: We don't know where the user is yet. If we have a route, we could
+            // show the total route distance, but for now I'll keep this simple and wait
+            // for a GPS fix.
             navDistanceText.text = "Distance: (waiting for GPS...)"
             navEtaText.text = "ETA: —"
             navArrivalTimeText.text = "Arrival: —"
@@ -1323,30 +1544,80 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         val userLatLng = LatLng(location.latitude, location.longitude)
         val destLatLng = marker.position
 
-        // Use Android's built-in distance calculation (no extra dependencies).
-        val results = FloatArray(1)
-        Location.distanceBetween(
-            userLatLng.latitude,
-            userLatLng.longitude,
-            destLatLng.latitude,
-            destLatLng.longitude,
-            results
-        )
-        val distanceMeters = results[0].toDouble()
+        val distanceMeters: Double
 
-        // TEAM NOTE (Rushil): Assume average walking speed ~1.4 m/s for ETA.
-        val walkingSpeedMetersPerSec = 1.4
-        val etaSeconds = distanceMeters / walkingSpeedMetersPerSec
+        if (currentRoutePoints.size >= 2 && currentRouteCumulativeMeters.size == currentRoutePoints.size) {
+            // Rushil: We have a route and precomputed distances. Compute remaining distance.
+
+            val results = FloatArray(1)
+
+            // 1) Find the nearest route vertex to the user's current location.
+            var bestIndex = 0
+            var bestDistToVertex = Double.MAX_VALUE
+
+            for (i in currentRoutePoints.indices) {
+                val pt = currentRoutePoints[i]
+                Location.distanceBetween(
+                    userLatLng.latitude,
+                    userLatLng.longitude,
+                    pt.latitude,
+                    pt.longitude,
+                    results
+                )
+                val d = results[0].toDouble()
+                if (d < bestDistToVertex) {
+                    bestDistToVertex = d
+                    bestIndex = i
+                }
+            }
+
+            // 2) Remaining distance from that vertex to the end of the route.
+            val remainingFromVertex = currentRouteTotalMeters - currentRouteCumulativeMeters[bestIndex]
+
+            // 3) Approximate total remaining distance as:
+            //    distance from user → nearest vertex + remaining along route.
+            distanceMeters = bestDistToVertex + remainingFromVertex
+        } else {
+            // Rushil: No route info (probably just in preview or nav hasn't started yet).
+            // Fall back to straight-line distance between user and destination.
+            val results = FloatArray(1)
+            Location.distanceBetween(
+                userLatLng.latitude,
+                userLatLng.longitude,
+                destLatLng.latitude,
+                destLatLng.longitude,
+                results
+            )
+            distanceMeters = results[0].toDouble()
+        }
+
+        // Rushil: Choose speed based on current navigation mode.
+        // For now, both WALK and CAR follow the same route geometry, but CAR uses
+        // a faster speed so ETAs feel like driving instead of walking.
+        val speedMetersPerSec = when (currentNavMode) {
+            NavMode.WALK -> walkingSpeedMetersPerSec
+            NavMode.CAR  -> drivingSpeedMetersPerSec
+        }
+
+        val etaSeconds = distanceMeters / speedMetersPerSec
         val etaMinutes = (etaSeconds / 60.0)
 
-        // Format distance as meters or km.
-        val distanceText = if (distanceMeters < 1000) {
-            "Distance: ${distanceMeters.toInt()} m"
+
+        // Rushil: Convert meters → miles for display only.
+        // 1 meter = 0.000621371 miles, 1 meter = 3.28084 feet.
+        val miles = distanceMeters * 0.000621371
+
+        val distanceText = if (miles < 0.1) {
+            // If less than ~0.1 miles, show in feet (feels more natural up close)
+            val feet = distanceMeters * 3.28084
+            "Distance: ${feet.toInt()} ft"
         } else {
-            val km = distanceMeters / 1000.0
-            "Distance: %.2f km".format(km)
+            // Otherwise display miles with 2 decimals
+            "Distance: %.2f mi".format(miles)
         }
+
         navDistanceText.text = distanceText
+
 
         // Format ETA.
         val etaText = if (etaMinutes < 1.0) {
@@ -1367,7 +1638,9 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
 
 
 
-    // TEAM NOTE (Rushil): Called when user taps "Navigate" while in preview mode.
+
+    // Rushil: Called when I tap "Navigate" in preview mode.
+    // Phase 3: Try to use the campus path graph to route along walkways; if that fails, fall back to straight line.
     private fun startNavigationFromCurrentLocation() {
         val marker = selectedMarker
         val location = lastKnownLocation
@@ -1382,7 +1655,6 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
             return
         }
 
-        // Rushil: Make sure I actually have a map instance before doing anything.
         val googleMap = map ?: run {
             Toast.makeText(requireContext(), "Map is not ready yet.", Toast.LENGTH_SHORT).show()
             return
@@ -1391,7 +1663,7 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         val userLatLng = LatLng(location.latitude, location.longitude)
         val destLatLng = marker.position
 
-        // TEAM NOTE (Rushil): Enforce "must be on campus" rule before we start nav.
+        // Rushil: Enforce "must be on/near campus" rule before starting nav.
         if (::navBounds.isInitialized && !navBounds.contains(userLatLng)) {
             Toast.makeText(
                 requireContext(),
@@ -1401,45 +1673,538 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
             return
         }
 
+        val graph = campusGraph
+        if (graph == null) {
+            // Rushil: If the graph failed to load, fall back to simple straight-line nav.
+            startStraightLineNavigation(userLatLng, destLatLng)
+            return
+        }
+
+        // Decide if we should try multi-leg routing:
+        //  - only in CAR mode
+        //  - only if the destination is NOT itself a parking lot
+        val shouldUseMultiLegCar = (currentNavMode == NavMode.CAR) && !isParkingMarker(marker)
+
+        val finalPolylinePoints: List<LatLng>
+        var viaParkingLotName: String? = null
+
+        if (shouldUseMultiLegCar) {
+            // Rushil: Try to build a car→parking→walk route.
+            // If selectedParkingLot is set, force that lot. Otherwise auto-choose best.
+            val multiLeg = buildCarThenWalkRoute(
+                userLatLng = userLatLng,
+                destLatLng = destLatLng,
+                forcedParkingLot = selectedParkingLot
+            )
+
+            if (multiLeg != null) {
+                finalPolylinePoints = multiLeg.polylinePoints
+
+                // Remember which lot was actually used, even if it was auto-chosen.
+                selectedParkingLot = multiLeg.parkingLot
+                viaParkingLotName = multiLeg.parkingLot.name
+            } else {
+                // fallback walking route...
+
+                // Rushil: If multi-leg fails (no car route to any lot, etc.),
+                // fall back to a simple walking route along paths.
+                val startNode = findNearestNode(userLatLng)
+                val endNode = findNearestNode(destLatLng)
+
+                if (startNode == null || endNode == null) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Could not snap to campus paths. Using straight-line route.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    startStraightLineNavigation(userLatLng, destLatLng)
+                    return
+                }
+
+                val pathNodeIds = graph.shortestPathNodeIds(
+                    startId = startNode.id,
+                    endId = endNode.id,
+                    allowedModes = setOf(TravelMode.WALK)
+                )
+
+                if (pathNodeIds.isEmpty()) {
+                    Toast.makeText(
+                        requireContext(),
+                        "No path found on campus network. Using straight-line route.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    startStraightLineNavigation(userLatLng, destLatLng)
+                    return
+                }
+
+                val nodeIndex: Map<Int, NavNode> = graph.nodes.associateBy { it.id }
+                val polylinePoints = mutableListOf<LatLng>()
+                polylinePoints.add(userLatLng)
+                for (nodeId in pathNodeIds) {
+                    val node = nodeIndex[nodeId] ?: continue
+                    polylinePoints.add(LatLng(node.lat, node.lng))
+                }
+                polylinePoints.add(destLatLng)
+
+                finalPolylinePoints = polylinePoints
+            }
+        } else {
+            // Rushil: WALK mode, or destination is already a parking lot.
+            // Use a single-leg walking route along the graph.
+            val startNode = findNearestNode(userLatLng)
+            val endNode = findNearestNode(destLatLng)
+
+            if (startNode == null || endNode == null) {
+                Toast.makeText(
+                    requireContext(),
+                    "Could not snap to campus paths. Using straight-line route.",
+                    Toast.LENGTH_SHORT
+                ).show()
+                startStraightLineNavigation(userLatLng, destLatLng)
+                return
+            }
+
+            val pathNodeIds = graph.shortestPathNodeIds(
+                startId = startNode.id,
+                endId = endNode.id,
+                allowedModes = setOf(TravelMode.WALK)
+            )
+
+            if (pathNodeIds.isEmpty()) {
+                Toast.makeText(
+                    requireContext(),
+                    "No path found on campus network. Using straight-line route.",
+                    Toast.LENGTH_SHORT
+                ).show()
+                startStraightLineNavigation(userLatLng, destLatLng)
+                return
+            }
+
+            val nodeIndex: Map<Int, NavNode> = graph.nodes.associateBy { it.id }
+            val polylinePoints = mutableListOf<LatLng>()
+            polylinePoints.add(userLatLng)
+            for (nodeId in pathNodeIds) {
+                val node = nodeIndex[nodeId] ?: continue
+                polylinePoints.add(LatLng(node.lat, node.lng))
+            }
+            polylinePoints.add(destLatLng)
+
+            finalPolylinePoints = polylinePoints
+        }
+
+        // Rushil: Save this route so remaining-distance/ETA uses the actual path.
+        setCurrentRoute(finalPolylinePoints)
 
         // Clear any existing route polyline.
         navigationPolyline?.remove()
 
-        // TEAM NOTE (Rushil): Phase 1 = simple straight-line route between user and destination.
         navigationPolyline = googleMap.addPolyline(
             PolylineOptions()
-                .add(userLatLng, destLatLng)
+                .addAll(finalPolylinePoints)
                 .width(12f)
-            // I am not setting color here so it uses the default; we can customize later.
         )
 
-        // Move camera to focus roughly between user and destination.
+        // Fit camera around user + destination (route will also be inside).
         val builder = LatLngBounds.builder()
             .include(userLatLng)
             .include(destLatLng)
         val bounds = builder.build()
-        val padding = 150  // TEAM NOTE (Rushil): Padding around the route in pixels.
+        val padding = 150
         googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding))
 
-        // Update panel state for active navigation.
         navigationState = NavigationState.Active
         navActionButton.text = "Stop"
-        updateNavigationInfo() // Recalculate ETA in case anything changed.
+        updateNavigationInfo()
 
+        followUserDuringNav = true
+
+        // 🅿️ Show parking row only when using car multi-leg to a non-parking destination.
+        if (shouldUseMultiLegCar && selectedParkingLot != null) {
+            navParkingContainer.visibility = View.VISIBLE
+            navParkingText.text = "Parking: ${selectedParkingLot?.name}"
+        } else {
+            navParkingContainer.visibility = View.GONE
+        }
+
+        if (viaParkingLotName != null) {
+            Toast.makeText(
+                requireContext(),
+                "Navigation started: drive to $viaParkingLotName, then walk to ${marker.title}.",
+                Toast.LENGTH_LONG
+            ).show()
+        } else {
+            Toast.makeText(
+                requireContext(),
+                "Navigation started along campus paths.",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
 
     }
+
+
+
+
+
+
+
+    // Rushil: This is my original Phase 1 behavior: draw a straight line from user to destination.
+    // I'm keeping it as a helper so I can fall back to it if the graph fails for any reason.
+    private fun startStraightLineNavigation(userLatLng: LatLng, destLatLng: LatLng) {
+        val googleMap = map ?: run {
+            Toast.makeText(requireContext(), "Map is not ready yet.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Rushil: Define the full route as just a simple 2-point line.
+        val routePoints = listOf(userLatLng, destLatLng)
+        setCurrentRoute(routePoints)
+
+        navigationPolyline?.remove()
+
+        navigationPolyline = googleMap.addPolyline(
+            PolylineOptions()
+                .addAll(routePoints)
+                .width(12f)
+        )
+
+        val builder = LatLngBounds.builder()
+            .include(userLatLng)
+            .include(destLatLng)
+        val bounds = builder.build()
+        val padding = 150
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding))
+
+        navigationState = NavigationState.Active
+        navActionButton.text = "Stop"
+        updateNavigationInfo()
+
+        Toast.makeText(requireContext(), "Navigation started (straight line fallback).", Toast.LENGTH_SHORT).show()
+    }
+
+
 
     // TEAM NOTE (Rushil): Stop navigation, remove route, and hide the panel.
     private fun stopNavigation() {
         navigationPolyline?.remove()
         navigationPolyline = null
 
+        // Rushil: Clear the current route so distance/ETA fall back to default when not navigating.
+        currentRoutePoints = emptyList()
+        currentRouteCumulativeMeters = emptyList()
+
         navigationState = NavigationState.Idle
         selectedMarker = null
+        selectedParkingLot = null   // Rushil: next nav can auto-pick again
+
+        // Rushil: Stop following user when navigation ends.
+        followUserDuringNav = false
 
         navPanelContainer.visibility = View.GONE
+        navParkingContainer.visibility = View.GONE
+        // Rushil: Nav panel is hidden again, so put the FAB back to its normal bottom margin.
+        updateFabPositionRelativeToNavPanel()
+
         Toast.makeText(requireContext(), "Navigation stopped.", Toast.LENGTH_SHORT).show()
     }
+
+    // Rushil: Given a LatLng on the map, find the closest graph node by straight-line distance.
+    // This is how I "snap" the user location and the destination building to the campus path network.
+    private fun findNearestNode(latLng: LatLng): NavNode? {
+        val graph = campusGraph ?: return null
+
+        var bestNode: NavNode? = null
+        var bestDistMeters = Double.MAX_VALUE
+
+        val results = FloatArray(1)
+
+        for (node in graph.nodes) {
+            Location.distanceBetween(
+                latLng.latitude,
+                latLng.longitude,
+                node.lat,
+                node.lng,
+                results
+            )
+            val d = results[0].toDouble()
+            if (d < bestDistMeters) {
+                bestDistMeters = d
+                bestNode = node
+            }
+        }
+
+        // Rushil: If the nearest node is super far away (e.g., user is miles off campus),
+        // I could reject it here. For now, I just return the nearest one and let my
+        // "must be on/near campus" check decide.
+        return bestNode
+    }
+
+
+    // Rushil: Helper to convert dp values to pixels so margins look consistent on all screens.
+    private fun dpToPx(dp: Int): Int {
+        return (dp * resources.displayMetrics.density).toInt()
+    }
+
+    // Rushil: Position the recenter FAB either at its normal bottom margin,
+// or bumped up above the nav panel when the panel is visible.
+    private fun updateFabPositionRelativeToNavPanel() {
+        // If for some reason the FAB isn't initialized yet, just bail.
+        if (!::fabRecenter.isInitialized) return
+
+        val params = fabRecenter.layoutParams as? ViewGroup.MarginLayoutParams ?: return
+
+        if (navPanelContainer.visibility == View.VISIBLE && navPanelHeightPx > 0) {
+            // Rushil: When the nav panel is visible, move the FAB up so it sits above the panel.
+            params.bottomMargin = navPanelHeightPx + dpToPx(16)
+        } else {
+            // Rushil: When the nav panel is hidden, use a normal bottom margin.
+            params.bottomMargin = dpToPx(16)
+        }
+
+        fabRecenter.layoutParams = params
+    }
+
+    // Rushil: When I compute a new route (graph-based or straight line), I call this
+// with all the polyline points in order. It precomputes the cumulative distances
+// so I can quickly figure out total and remaining distance during navigation.
+    private fun setCurrentRoute(points: List<LatLng>) {
+        if (points.size < 2) {
+            currentRoutePoints = emptyList()
+            currentRouteCumulativeMeters = emptyList()
+            return
+        }
+
+        currentRoutePoints = points
+
+        val cumulative = MutableList(points.size) { 0.0 }
+        var total = 0.0
+        val results = FloatArray(1)
+
+        for (i in 1 until points.size) {
+            val prev = points[i - 1]
+            val curr = points[i]
+
+            Location.distanceBetween(
+                prev.latitude,
+                prev.longitude,
+                curr.latitude,
+                curr.longitude,
+                results
+            )
+            val segment = results[0].toDouble()
+            total += segment
+            cumulative[i] = total
+        }
+
+        currentRouteCumulativeMeters = cumulative
+    }
+
+    // Rushil: Central place to change between WALK and CAR nav modes. Later I'll call
+    // this from UI buttons (e.g., "Walk" / "Drive" chips in the nav panel).
+    private fun setNavMode(mode: NavMode) {
+        currentNavMode = mode
+
+        if (mode == NavMode.WALK) {
+            navParkingContainer.visibility = View.GONE
+        }
+
+
+        // Rushil: Whenever the mode changes during an active route, recompute ETA
+        // using the same remaining distance but different speed.
+        if (navigationState == NavigationState.Active) {
+            updateNavigationInfo()
+        }
+    }
+
+    // Rushil: Simple check so I don't try to do a car→parking→walk route
+    // if the user actually tapped a parking lot as the destination.
+    private fun isParkingMarker(marker: Marker?): Boolean {
+        val title = marker?.title ?: return false
+        // TEAM: right now I'm treating any marker with "Parking" in its title
+        // as a parking destination. If I later add more detailed metadata, I
+        // can tighten this check.
+        return title.contains("parking", ignoreCase = true)
+    }
+
+    // Rushil: Given a path of node IDs and a node index, sum up the distance between
+    // consecutive nodes in meters. Used to compare car+walk candidates for parking lots.
+    private fun computePathLengthMeters(
+        pathNodeIds: List<Int>,
+        nodeIndex: Map<Int, NavNode>
+    ): Double {
+        if (pathNodeIds.size < 2) return 0.0
+
+        var total = 0.0
+        val results = FloatArray(1)
+
+        for (i in 1 until pathNodeIds.size) {
+            val a = nodeIndex[pathNodeIds[i - 1]] ?: continue
+            val b = nodeIndex[pathNodeIds[i]] ?: continue
+
+            Location.distanceBetween(
+                a.lat, a.lng,
+                b.lat, b.lng,
+                results
+            )
+            total += results[0].toDouble()
+        }
+
+        return total
+    }
+
+    // Rushil: Result of a car→parking→walk multi-leg route.
+// polylinePoints = full route from user → parking → destination along the graph.
+// parkingLot = which lot this route uses.
+    private data class MultiLegRoute(
+        val polylinePoints: List<LatLng>,
+        val parkingLot: ParkingLot
+    )
+
+    // Rushil: Build a multi-leg route:
+//  - Car: from userLatLng to some parking lot (CAR edges).
+//  - Walk: from that parking lot to destLatLng (WALK edges).
+// I try all known parking lots and pick the one with the lowest total distance.
+// If nothing works, I return null so the caller can fall back to a normal route.
+    private fun buildCarThenWalkRoute(
+        userLatLng: LatLng,
+        destLatLng: LatLng,
+        forcedParkingLot: ParkingLot? = null
+    ): MultiLegRoute? {
+        val graph = campusGraph ?: return null
+
+        // Map nodeId -> NavNode for quick lookups.
+        val nodeIndex: Map<Int, NavNode> = graph.nodes.associateBy { it.id }
+
+        // Snap user and destination to nearest graph nodes.
+        val startNode = findNearestNode(userLatLng) ?: return null
+        val destNode = findNearestNode(destLatLng) ?: return null
+
+        // Rushil: Try each parking lot, see if I can:
+        //  1) drive to it (CAR edges), and
+        //  2) walk from there to the building (WALK edges).
+        data class Candidate(
+            val parkingLot: ParkingLot,
+            val carPathNodeIds: List<Int>,
+            val walkPathNodeIds: List<Int>,
+            val carDistanceMeters: Double,
+            val walkDistanceMeters: Double,
+            val totalDistanceMeters: Double
+        )
+
+        val candidates = mutableListOf<Candidate>()
+        // If forcedParkingLot is set, only consider that one; otherwise try all.
+        val lotsToTry: List<ParkingLot> = forcedParkingLot?.let { listOf(it) } ?: parkingLots
+
+        for (lot in lotsToTry) {
+            // Snap parking lot location to nearest graph node.
+            val parkingNode = findNearestNode(lot.latLng) ?: continue
+
+            // Car leg: user -> parking (CAR edges only).
+            val carPathNodeIds = graph.shortestPathNodeIds(
+                startId = startNode.id,
+                endId = parkingNode.id,
+                allowedModes = setOf(TravelMode.CAR)
+            )
+            if (carPathNodeIds.isEmpty()) {
+                // Can't drive to this lot via the car network; skip it.
+                continue
+            }
+
+            // Walk leg: parking -> destination (WALK edges only).
+            val walkPathNodeIds = graph.shortestPathNodeIds(
+                startId = parkingNode.id,
+                endId = destNode.id,
+                allowedModes = setOf(TravelMode.WALK)
+            )
+            if (walkPathNodeIds.isEmpty()) {
+                // Can't walk from this lot to the building along paths; skip.
+                continue
+            }
+
+            val carDist = computePathLengthMeters(carPathNodeIds, nodeIndex)
+            val walkDist = computePathLengthMeters(walkPathNodeIds, nodeIndex)
+            val totalDist = carDist + walkDist
+
+            candidates.add(
+                Candidate(
+                    parkingLot = lot,
+                    carPathNodeIds = carPathNodeIds,
+                    walkPathNodeIds = walkPathNodeIds,
+                    carDistanceMeters = carDist,
+                    walkDistanceMeters = walkDist,
+                    totalDistanceMeters = totalDist
+                )
+            )
+        }
+
+        if (candidates.isEmpty()) {
+            // No valid car→parking→walk combo found.
+            return null
+        }
+
+        // Rushil: Choose the lot with the smallest combined (car + walk) distance.
+        val best = candidates.minByOrNull { it.totalDistanceMeters }!!
+
+        // Build full polyline: userLatLng -> car leg nodes -> walk leg nodes -> destLatLng.
+        val points = mutableListOf<LatLng>()
+
+        // Start exactly at the user's location.
+        points.add(userLatLng)
+
+        // Append car leg nodes along the graph.
+        for (nodeId in best.carPathNodeIds) {
+            val node = nodeIndex[nodeId] ?: continue
+            points.add(LatLng(node.lat, node.lng))
+        }
+
+        // Append walk leg nodes, skipping the first if it's the same as the last car node.
+        if (best.walkPathNodeIds.isNotEmpty()) {
+            val carLast = best.carPathNodeIds.lastOrNull()
+            val walkIds = best.walkPathNodeIds
+
+            val startIndex = if (carLast != null && walkIds.first() == carLast) 1 else 0
+
+            for (i in startIndex until walkIds.size) {
+                val node = nodeIndex[walkIds[i]] ?: continue
+                points.add(LatLng(node.lat, node.lng))
+            }
+        }
+
+        // End exactly at the destination marker.
+        points.add(destLatLng)
+
+        return MultiLegRoute(
+            polylinePoints = points,
+            parkingLot = best.parkingLot
+        )
+    }
+
+    // Rushil: Let the user manually choose which parking lot to use for car navigation.
+// When they pick one, I recalc the multi-leg route from their current location.
+    private fun showParkingLotChooser() {
+        val lots = parkingLots
+        if (lots.isEmpty()) return
+
+        val names = lots.map { it.name }.toTypedArray()
+
+        AlertDialog.Builder(requireContext())
+            .setTitle("Choose parking lot")
+            .setItems(names) { _, which ->
+                val chosen = lots[which]
+                selectedParkingLot = chosen
+                navParkingText.text = "Parking: ${chosen.name}"
+
+                // If navigation is active, immediately recompute the route from current position.
+                if (navigationState == NavigationState.Active) {
+                    // This will re-use selectedParkingLot when building the route.
+                    startNavigationFromCurrentLocation()
+                }
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+
 
 
     override fun onResume() {

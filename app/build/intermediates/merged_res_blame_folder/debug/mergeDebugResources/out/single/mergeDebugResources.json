@@ -104,16 +104,16 @@
         "source": "C:\\Users\\User\\.gradle\\daemon\\8.13\\com.example.attendeasecampuscompanion.app-main-73:\\layout\\fragment_campus_map.xml"
     },
     {
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/layout_fragment_campus_map.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/layout/fragment_campus_map.xml"
+    },
+    {
         "merged": "C:\\Users\\User\\.gradle\\daemon\\8.13\\com.example.attendeasecampuscompanion.app-debug-71:\\layout_item_event.xml.flat",
         "source": "C:\\Users\\User\\.gradle\\daemon\\8.13\\com.example.attendeasecampuscompanion.app-main-73:\\layout\\item_event.xml"
     },
     {
         "merged": "C:\\Users\\User\\.gradle\\daemon\\8.13\\com.example.attendeasecampuscompanion.app-debug-71:\\drawable_ic_email.xml.flat",
         "source": "C:\\Users\\User\\.gradle\\daemon\\8.13\\com.example.attendeasecampuscompanion.app-main-73:\\drawable\\ic_email.xml"
-    },
-    {
-        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/raw_campus_graph.json.flat",
-        "source": "com.example.attendeasecampuscompanion.app-main-73:/raw/campus_graph.json"
     },
     {
         "merged": "C:\\Users\\User\\.gradle\\daemon\\8.13\\com.example.attendeasecampuscompanion.app-debug-71:\\drawable_signin_button_background.xml.flat",

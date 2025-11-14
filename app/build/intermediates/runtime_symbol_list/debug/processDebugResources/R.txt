@@ -3331,6 +3331,8 @@ int id btnEmailProfessor 0x7f080075
 int id btnFinalsSchedule 0x7f080076
 int id btnLate 0x7f080077
 int id btnManualAttendance 0x7f080078
+int id btnModeCar 0x7f080299
+int id btnModeWalk 0x7f08029a
 int id btnMySchedule 0x7f080079
 int id btnNavigate 0x7f08007a
 int id btnPresent 0x7f08007b
@@ -3599,10 +3601,14 @@ int id mtrl_view_tag_bottom_padding 0x7f080181
 int id multiply 0x7f080182
 int id navActionButton 0x7f080293
 int id navArrivalTimeText 0x7f080294
+int id navChangeParkingButton 0x7f08029c
 int id navDestinationText 0x7f080295
 int id navDistanceText 0x7f080296
 int id navEtaText 0x7f080297
+int id navModeToggleGroup 0x7f08029b
 int id navPanelContainer 0x7f080298
+int id navParkingContainer 0x7f08029d
+int id navParkingText 0x7f08029e
 int id navigation_bar_item_active_indicator_view 0x7f080183
 int id navigation_bar_item_icon_container 0x7f080184
 int id navigation_bar_item_icon_view 0x7f080185
