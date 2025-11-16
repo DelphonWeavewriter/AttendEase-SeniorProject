@@ -35,6 +35,39 @@
             android:imeOptions="actionSearch"
             android:singleLine="true"/>
     </com.google.android.material.textfield.TextInputLayout>
+    <LinearLayout
+        android:id="@+id/navNextTurnContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#000000"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:elevation="4dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/navNextTurnIcon"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginEnd="12dp"
+            android:src="@drawable/ic_continue_straight"
+            app:tint="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/navNextTurnText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Next: —"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+    </LinearLayout>
+
 
     <!-- Suggestions dropdown (small list under the search bar) -->
     <androidx.recyclerview.widget.RecyclerView
@@ -58,4 +91,131 @@
         android:layout_margin="16dp"
         android:contentDescription="@string/recenter_map"
         app:srcCompat="@drawable/ic_my_location" />
+
+    <!-- TEAM NOTE (Rushil): Navigation info panel for basic "Phase 1" nav.
+     This sits on top of the map and stays hidden until a marker is selected. -->
+    <LinearLayout
+        android:id="@+id/navPanelContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp"
+        android:background="@android:color/white"
+        android:elevation="8dp"
+        android:visibility="gone"
+        android:layout_gravity="bottom">
+
+        <!-- Destination name -->
+        <TextView
+            android:id="@+id/navDestinationText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Destination: —"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:paddingBottom="4dp" />
+
+
+
+        <!-- Distance + ETA row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="4dp">
+
+            <TextView
+                android:id="@+id/navDistanceText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Distance: —" />
+
+            <TextView
+                android:id="@+id/navEtaText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="ETA: —" />
+        </LinearLayout>
+
+        <!-- Arrival time -->
+        <TextView
+            android:id="@+id/navArrivalTimeText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Arrival: —"
+            android:paddingBottom="8dp" />
+
+        <LinearLayout
+            android:id="@+id/navParkingContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="4dp"
+            android:gravity="center_vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/navParkingText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Parking: —"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/navIParkedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="I parked"
+                android:layout_marginEnd="8dp" />
+
+            <Button
+                android:id="@+id/navChangeParkingButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Change" />
+        </LinearLayout>
+
+
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/navModeToggleGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:singleSelection="true">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnModeWalk"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Walk" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnModeCar"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Drive" />
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+        <!-- Button row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end">
+
+            <Button
+                android:id="@+id/navActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Navigate" />
+        </LinearLayout>
+    </LinearLayout>
+
 </FrameLayout>

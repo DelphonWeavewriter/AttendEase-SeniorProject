@@ -10,27 +10,7 @@
           <theme>@style/Theme.AttendEaseCampusCompanion</theme>
         </config>
       </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/button_green.xml">
-        <config>
-          <theme>@style/Theme.AttendEaseCampusCompanion</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/button_primary.xml">
-        <config>
-          <theme>@style/Theme.AttendEaseCampusCompanion</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/button_red.xml">
-        <config>
-          <theme>@style/Theme.AttendEaseCampusCompanion</theme>
-        </config>
-      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/gradient_header.xml">
-        <config>
-          <theme>@style/Theme.AttendEaseCampusCompanion</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_back.xml">
         <config>
           <theme>@style/Theme.AttendEaseCampusCompanion</theme>
         </config>
@@ -60,21 +40,6 @@
           <theme>@style/Theme.AttendEaseCampusCompanion</theme>
         </config>
       </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_mark_attendance.xml">
-        <config>
-          <theme>@style/Theme.AttendEaseCampusCompanion</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_my_schedule.xml">
-        <config>
-          <theme>@style/Theme.AttendEaseCampusCompanion</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_professor_home.xml">
-        <config>
-          <theme>@style/Theme.AttendEaseCampusCompanion</theme>
-        </config>
-      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_student_course_detail.xml">
         <config>
           <theme>@style/Theme.AttendEaseCampusCompanion</theme>
@@ -85,22 +50,7 @@
           <theme>@style/Theme.AttendEaseCampusCompanion</theme>
         </config>
       </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_view_attendance.xml">
-        <config>
-          <theme>@style/Theme.AttendEaseCampusCompanion</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_view_courses.xml">
-        <config>
-          <theme>@style/Theme.AttendEaseCampusCompanion</theme>
-        </config>
-      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_announcement.xml">
-        <config>
-          <theme>@style/Theme.AttendEaseCampusCompanion</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_create_event.xml">
         <config>
           <theme>@style/Theme.AttendEaseCampusCompanion</theme>
         </config>
@@ -115,32 +65,7 @@
           <theme>@style/Theme.AttendEaseCampusCompanion</theme>
         </config>
       </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_attendance_report.xml">
-        <config>
-          <theme>@style/Theme.AttendEaseCampusCompanion</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_course.xml">
-        <config>
-          <theme>@style/Theme.AttendEaseCampusCompanion</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_event.xml">
-        <config>
-          <theme>@style/Theme.AttendEaseCampusCompanion</theme>
-        </config>
-      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_final_exam.xml">
-        <config>
-          <theme>@style/Theme.AttendEaseCampusCompanion</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_manual_attendance.xml">
-        <config>
-          <theme>@style/Theme.AttendEaseCampusCompanion</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_schedule.xml">
         <config>
           <theme>@style/Theme.AttendEaseCampusCompanion</theme>
         </config>
@@ -161,9 +86,21 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0a603850-d4e0-44f1-9561-6473d066f17a" name="Changes" comment="Added a SearchBar to the campusmap + accessories">
+    <list default="true" id="0a603850-d4e0-44f1-9561-6473d066f17a" name="Changes" comment="Started the implementation of Navigation (phase 4)">
+      <change beforePath="$PROJECT_DIR$/.gradle/8.13/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.13/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.13/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/attendeasecampuscompanion/AttendanceActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/attendeasecampuscompanion/AttendanceActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/apk/debug/app-debug.apk" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/apk/debug/app-debug.apk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/dex/debug/mergeProjectDexDebug/12/classes.dex" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/dex/debug/mergeProjectDexDebug/12/classes.dex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDebug/tmp/debug/dex-renamer-state.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDebug/tmp/debug/dex-renamer-state.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/local-state/build-history.bin" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/local-state/build-history.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/attendeasecampuscompanion/map/CampusMapFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/attendeasecampuscompanion/map/CampusMapFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,7 +110,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=C:\Users\User\.android\avd\Medium_Phone.avd)]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -221,11 +158,11 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Kotlin Class" />
-        <option value="layoutResourceFile" />
-        <option value="valueResourceFile" />
         <option value="resourceFile" />
         <option value="Kotlin File" />
+        <option value="layoutResourceFile" />
+        <option value="valueResourceFile" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
@@ -287,8 +224,8 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/DelphonWeavewriter/AttendEase-SeniorProject.git&quot;,
-    &quot;accountId&quot;: &quot;9b8af004-0bea-419b-ab08-138b2e409093&quot;
+    &quot;url&quot;: &quot;https://github.com/DelphonWeavewriter/AttendEase-SeniorProject&quot;,
+    &quot;accountId&quot;: &quot;d69da36f-1dce-4285-bf01-2ce80c881e76&quot;
   },
   &quot;recentNewPullRequestHead&quot;: {
     &quot;server&quot;: {
@@ -339,6 +276,7 @@
     &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;last_directory_selection&quot;: &quot;C:/Users/User/AndroidStudioProjects/AttendEaseCampusMap/app/src/main/java&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/User/AndroidStudioProjects/AttendEaseCampusMap/app/src/main/res/raw&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.17&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
@@ -346,6 +284,9 @@
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\User\AndroidStudioProjects\AttendEaseCampusMap\app\src\main\res\raw" />
+    </key>
     <key name="K2MoveDeclarationsDialog.RECENT_PACKAGE_KEY">
       <recent name="com.example.attendeasecampuscompanion.com.example.attendeasecampuscompanion" />
       <recent name="com.example.attendeasecampuscompanion.map" />
@@ -649,7 +590,55 @@
       <option name="project" value="LOCAL" />
       <updated>1762389071090</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Started the implementation of Navigation (phase 1)">
+      <option name="closed" value="true" />
+      <created>1763062801402</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1763062801402</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Started the implementation of Navigation (phase 2)">
+      <option name="closed" value="true" />
+      <created>1763066448826</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1763066448826</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Started the implementation of Navigation (phase 3 + 3.5)">
+      <option name="closed" value="true" />
+      <created>1763079723170</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1763079723170</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Started the implementation of Navigation (phase 3 + 3.5)">
+      <option name="closed" value="true" />
+      <created>1763140408330</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1763140408330</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Started the implementation of Navigation (phase 3 + 3.5)">
+      <option name="closed" value="true" />
+      <created>1763148926374</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1763148926374</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Started the implementation of Navigation (phase 4)">
+      <option name="closed" value="true" />
+      <created>1763155413656</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1763155413656</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -688,19 +677,23 @@
     <MESSAGE value="Merging master into friends" />
     <MESSAGE value="Friends Base UI" />
     <MESSAGE value="Added a SearchBar to the campusmap + accessories" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added a SearchBar to the campusmap + accessories" />
+    <MESSAGE value="Started the implementation of Navigation (phase 1)" />
+    <MESSAGE value="Started the implementation of Navigation (phase 2)" />
+    <MESSAGE value="Started the implementation of Navigation (phase 3 + 3.5)" />
+    <MESSAGE value="Started the implementation of Navigation (phase 4)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Started the implementation of Navigation (phase 4)" />
   </component>
   <component name="play_dynamic_filters_status">
     <option name="appIdToCheckInfo">
       <map>
         <entry key="com.example.attendeasecampuscompanion">
           <value>
-            <CheckInfo lastCheckTimestamp="1762990469999" />
+            <CheckInfo lastCheckTimestamp="1763141844834" />
           </value>
         </entry>
         <entry key="com.example.attendeasecampuscompanion.test">
           <value>
-            <CheckInfo lastCheckTimestamp="1762990469999" />
+            <CheckInfo lastCheckTimestamp="1763141844834" />
           </value>
         </entry>
         <entry key="edu.nyitLI.attendease">
