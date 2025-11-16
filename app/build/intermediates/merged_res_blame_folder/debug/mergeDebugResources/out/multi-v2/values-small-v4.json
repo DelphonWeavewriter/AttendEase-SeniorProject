@@ -4,7 +4,7 @@
             "outputFile": "com.example.attendeasecampuscompanion.app-mergeDebugResources-69:/values-small-v4/values-small-v4.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\User\\.gradle\\caches\\8.13\\transforms\\0f4b714816a12d2601ace17179d8b529\\transformed\\material-1.12.0\\res\\values-small-v4\\values-small-v4.xml",
+                    "source": "C:\\Users\\fenna\\.gradle\\caches\\8.13\\transforms\\1e1ad48499a3f5a1c1a927c9b5eb7093\\transformed\\material-1.12.0\\res\\values-small-v4\\values-small-v4.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",

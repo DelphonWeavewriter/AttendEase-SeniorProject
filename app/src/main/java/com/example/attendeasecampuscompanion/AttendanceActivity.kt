@@ -432,12 +432,6 @@ class AttendanceActivity : AppCompatActivity() {
             }
 
             getFullName(currentUser.uid) { fullName ->
-                db.collection("Users").document(currentUser.uid).get()
-                    .addOnSuccessListener { document ->
-                        val firstName = document.getString("firstName") ?: ""
-                        val lastName = document.getString("lastName") ?: ""
-                    }
-
                 val nfcData = hashMapOf(
                     "courseId" to courseId,
                     "date" to formattedDate,
@@ -616,42 +610,16 @@ class AttendanceActivity : AppCompatActivity() {
         }
     }
 
-//    @RequiresApi(Build.VERSION_CODES.O)
-//    fun isAttendee(currentUserId: String): Boolean {
-//        val currentEvent = getCurrentEvent(time)
-//        var currentStudent = FirebaseAuth.getInstance().currentUser.toString()
-//        db.collection("Courses").whereEqualTo(getCurrentEvent(time), currentEvent)
-//            .get()
-//            .addOnSuccessListener { documents ->
-//                Toast.makeText(this, "Current Event: $currentEvent", Toast.LENGTH_SHORT).show()
-//                Toast.makeText(this, "Current User: $currentUserId", Toast.LENGTH_SHORT).show()
-//                for (document in documents) {
-//                    val attendee = document.get("enrolledStudents")
-//                    for (student in attendee as List<*>) {
-//                        if (student == currentUserId) {
-//                            currentStudent = student.toString()
-//                            Toast.makeText(this, "Current Student: $currentStudent", Toast.LENGTH_SHORT).show()
-//                        }
-//                    }
-//                }
-//            }
-//            .addOnFailureListener { exception ->
-//                println("Error getting documents: $exception")
-//            }
-//
-//        return currentUserId == currentStudent
-//    }
-
     @RequiresApi(Build.VERSION_CODES.O)
     fun isAttendee(currentUserId: String, time: String, onResult: (Boolean) -> Unit) {
-        // First, get the current event
+        // Gets the current event
         getCurrentEvent(time) { currentEvent ->
             if (currentEvent.isEmpty()) {
                 onResult(false)
                 return@getCurrentEvent
             }
 
-            // Then check if user is enrolled in that course
+            // Check if user is enrolled in the course
             db.collection("Courses")
                 .whereEqualTo("courseId", currentEvent)
                 .get()
@@ -678,7 +646,7 @@ class AttendanceActivity : AppCompatActivity() {
     }
 
     fun getFullName(currentUserId: String, onResult: (String) -> Unit) {
-        db.collection("User")
+        db.collection("Users")
             .document(currentUserId)
             .get()
             .addOnSuccessListener { document ->
