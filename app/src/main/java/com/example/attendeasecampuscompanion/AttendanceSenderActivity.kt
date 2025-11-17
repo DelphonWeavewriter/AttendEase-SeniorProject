@@ -165,8 +165,7 @@ class AttendanceSenderActivity : AppCompatActivity() {
             this,
             callback,
             NfcAdapter.FLAG_READER_NFC_A or
-                    NfcAdapter.FLAG_READER_NFC_B or
-                    NfcAdapter.FLAG_READER_SKIP_NDEF_CHECK,
+                    NfcAdapter.FLAG_READER_NFC_B,
             null
         )
     }
@@ -246,19 +245,59 @@ class AttendanceSenderActivity : AppCompatActivity() {
         return String(hexChars)
     }
 
+//    @RequiresApi(Build.VERSION_CODES.O)
+//    private fun readNfcTag(tag: Tag) {
+//        val ndef = Ndef.get(tag)
+//
+//        if (ndef == null) {
+//            val tagId = bytesToHex(tag.id)
+//            nfcTagData = "Tag ID: $tagId"
+//            runOnUiThread {
+//                statusText.text = "NFC Tag Read:\n$nfcTagData"
+//                Toast.makeText(this, "Tag ID saved to variable", Toast.LENGTH_SHORT).show()
+//            }
+//            sendToFirebase(nfcTagData)
+//            return
+//        }
+//
+//        try {
+//            ndef.connect()
+//            val ndefMessage = ndef.ndefMessage
+//
+//            if (ndefMessage != null) {
+//                nfcTagData = parseNdefMessage(ndefMessage)
+//                runOnUiThread {
+//                    statusText.text = "NFC Tag Read:\n$nfcTagData"
+//                    Toast.makeText(this, "NFC data saved to variable", Toast.LENGTH_SHORT).show()
+//                }
+//                sendToFirebase(nfcTagData)
+//            } else {
+//                nfcTagData = "Empty tag"
+//                runOnUiThread {
+//                    statusText.text = nfcTagData
+//                }
+//            }
+//
+//            ndef.close()
+//
+//        } catch (e: Exception) {
+//            runOnUiThread {
+//                Toast.makeText(this, "Error reading NFC tag: ${e.message}", Toast.LENGTH_LONG).show()
+//            }
+//            e.printStackTrace()
+//        }
+//    }
+
     @RequiresApi(Build.VERSION_CODES.O)
     private fun readNfcTag(tag: Tag) {
         val ndef = Ndef.get(tag)
 
         if (ndef == null) {
-            val tagId = bytesToHex(tag.id)
-            nfcTagData = "Tag ID: $tagId"
             runOnUiThread {
-                statusText.text = "NFC Tag Read:\n$nfcTagData"
-                Toast.makeText(this, "Tag ID saved to variable", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Tag does not contain NDEF data", Toast.LENGTH_SHORT).show()
+                statusText.text = "Error: No NDEF data found on tag"
             }
-            sendToFirebase(nfcTagData)
-            return
+            return // Don't fall back to tag ID
         }
 
         try {
@@ -267,15 +306,23 @@ class AttendanceSenderActivity : AppCompatActivity() {
 
             if (ndefMessage != null) {
                 nfcTagData = parseNdefMessage(ndefMessage)
-                runOnUiThread {
-                    statusText.text = "NFC Tag Read:\n$nfcTagData"
-                    Toast.makeText(this, "NFC data saved to variable", Toast.LENGTH_SHORT).show()
+
+                if (nfcTagData.isEmpty()) {
+                    runOnUiThread {
+                        statusText.text = "Error: Empty NDEF message"
+                        Toast.makeText(this, "NDEF message is empty", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    runOnUiThread {
+                        statusText.text = "NFC Tag Read:\n$nfcTagData"
+                        Toast.makeText(this, "NDEF data saved: $nfcTagData", Toast.LENGTH_SHORT).show()
+                    }
+                    sendToFirebase(nfcTagData)
                 }
-                sendToFirebase(nfcTagData)
             } else {
-                nfcTagData = "Empty tag"
                 runOnUiThread {
-                    statusText.text = nfcTagData
+                    statusText.text = "Error: Tag contains no NDEF message"
+                    Toast.makeText(this, "Tag is empty or not formatted", Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -283,7 +330,8 @@ class AttendanceSenderActivity : AppCompatActivity() {
 
         } catch (e: Exception) {
             runOnUiThread {
-                Toast.makeText(this, "Error reading NFC tag: ${e.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Error reading NDEF: ${e.message}", Toast.LENGTH_LONG).show()
+                statusText.text = "Error reading NFC tag"
             }
             e.printStackTrace()
         }
@@ -327,23 +375,65 @@ class AttendanceSenderActivity : AppCompatActivity() {
 //
 //        return sb.toString().trim()
 //    }
-    private fun parseNdefMessage(message: NdefMessage): String {
-        val allText = StringBuilder()
 
-        for (record in message.records) {
-            try {
-                // Skip the first byte (status) and language code
-                val payload = record.payload
-                if (payload.size > 3) {
-                    val text = String(payload, 3, payload.size - 3, Charsets.UTF_8)
-                    allText.append(text.trim())
-                }
-            } catch (e: Exception) {
-                Log.e("AttendanceSender", "Error parsing record", e)
-            }
+    private fun parseNdefMessage(message: NdefMessage): String {
+        if (message.records.isEmpty()) {
+            Log.d("AttendanceSender", "No records in NDEF message")
+            return ""
         }
 
-        return allText.toString().trim()
+        // Get the first record (your student ID)
+        val record = message.records[0]
+
+        // Verify it's a text record
+        if (record.tnf == android.nfc.NdefRecord.TNF_WELL_KNOWN &&
+            record.type.contentEquals(android.nfc.NdefRecord.RTD_TEXT)) {
+
+            return parseTextRecord(record)
+        } else {
+            Log.d("AttendanceSender", "Unexpected record type")
+            // Fallback: try to parse anyway
+            return parseTextRecord(record)
+        }
+    }
+
+    private fun parseTextRecord(record: android.nfc.NdefRecord): String {
+        val payload = record.payload
+
+        if (payload.isEmpty()) {
+            Log.d("AttendanceSender", "Empty payload")
+            return ""
+        }
+
+        try {
+            // First byte contains the status byte (encoding + language code length)
+            val statusByte = payload[0].toInt()
+            val isUTF16 = (statusByte and 0x80) != 0
+            val languageCodeLength = statusByte and 0x3F
+
+            Log.d("AttendanceSender", "Language code length: $languageCodeLength")
+
+            val charset = if (isUTF16) Charsets.UTF_16 else Charsets.UTF_8
+
+            // Skip the status byte (1) and language code (typically 2 bytes for "en")
+            val textStart = 1 + languageCodeLength
+
+            if (textStart >= payload.size) {
+                Log.d("AttendanceSender", "Invalid payload structure")
+                return ""
+            }
+
+            // Extract the actual student ID
+            val studentId = String(payload, textStart, payload.size - textStart, charset).trim()
+
+            Log.d("AttendanceSender", "Extracted student ID: $studentId")
+
+            return studentId
+
+        } catch (e: Exception) {
+            Log.e("AttendanceSender", "Error parsing text record", e)
+            return ""
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -437,11 +527,15 @@ class AttendanceSenderActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun sendToFirebase(data: String) {
-        val currentStudent = if (nfcTagData.startsWith("Tag ID: ")) {
-            nfcTagData.substringAfter("Tag ID: ")
-        } else {
-            nfcTagData
+        val currentStudent = data.trim()
+
+        if (currentStudent.isEmpty()) {
+            runOnUiThread {
+                Toast.makeText(this, "Invalid student ID", Toast.LENGTH_SHORT).show()
+            }
+            return
         }
+
 
         val currentTime = LocalTime.now().format(DateTimeFormatter.ofPattern("hh:mm:ss a"))
 
