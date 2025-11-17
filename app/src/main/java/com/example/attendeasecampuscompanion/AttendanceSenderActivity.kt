@@ -151,6 +151,7 @@ class AttendanceSenderActivity : AppCompatActivity() {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onResume() {
         super.onResume()
         statusText.text = "Ready to be scanned...\nRoom: $selectedRoom"
@@ -189,15 +190,18 @@ class AttendanceSenderActivity : AppCompatActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun onTagDiscovered(tag: Tag?) {
         if (tag == null) return
         val nfcA = android.nfc.tech.NfcA.get(tag)
         if (nfcA == null) {
-            runOnUiThread {
-                Toast.makeText(this, "Not an NFC-A tag", Toast.LENGTH_SHORT).show()
-            }
-                return
+            Log.d("AttendanceSender", "Tag is null")
+            return
         }
+
+        Log.d("AttendnaceSender", "Tag detected: ${tag.id.contentToString()}")
+
+        readNfcTag(tag)
     }
 
 
@@ -285,43 +289,61 @@ class AttendanceSenderActivity : AppCompatActivity() {
         }
     }
 
+//    private fun parseNdefMessage(message: NdefMessage): String {
+//        val sb = StringBuilder()
+//
+//        for (record in message.records) {
+//            if (record.tnf == android.nfc.NdefRecord.TNF_WELL_KNOWN &&
+//                record.type.contentEquals(android.nfc.NdefRecord.RTD_TEXT)) {
+//
+//                val payload = record.payload
+//
+//                val languageCodeLength = payload[0].toInt() and 0x3F
+//
+//                val text = String(
+//                    payload,
+//                    languageCodeLength + 1,
+//                    payload.size - languageCodeLength - 1,
+//                    charset("UTF-8")
+//                )
+//
+//                sb.append(text).append("\n")
+//            }
+//            else if (record.tnf == android.nfc.NdefRecord.TNF_MIME_MEDIA) {
+//                try {
+//                    val text = String(record.payload, StandardCharsets.UTF_8)
+//                    sb.append(text).append("\n")
+//                } catch (e: Exception) {
+//                    val payload = String(record.payload, charset("UTF-8"))
+//                    sb.append(payload).append("\n")
+//                }
+//
+//            }
+//            else {
+//                val payload = String(record.payload, charset("UTF-8"))
+//                sb.append(payload).append("\n")
+//            }
+//        }
+//
+//        return sb.toString().trim()
+//    }
     private fun parseNdefMessage(message: NdefMessage): String {
-        val sb = StringBuilder()
+        val allText = StringBuilder()
 
         for (record in message.records) {
-            if (record.tnf == android.nfc.NdefRecord.TNF_WELL_KNOWN &&
-                record.type.contentEquals(android.nfc.NdefRecord.RTD_TEXT)) {
-
+            try {
+                // Skip the first byte (status) and language code
                 val payload = record.payload
-
-                val languageCodeLength = payload[0].toInt() and 0x3F
-
-                val text = String(
-                    payload,
-                    languageCodeLength + 1,
-                    payload.size - languageCodeLength - 1,
-                    charset("UTF-8")
-                )
-
-                sb.append(text).append("\n")
-            }
-            else if (record.tnf == android.nfc.NdefRecord.TNF_MIME_MEDIA) {
-                try {
-                    val text = String(record.payload, StandardCharsets.UTF_8)
-                    sb.append(text).append("\n")
-                } catch (e: Exception) {
-                    val payload = String(record.payload, charset("UTF-8"))
-                    sb.append(payload).append("\n")
+                if (payload.size > 3) {
+                    val text = String(payload, 3, payload.size - 3, Charsets.UTF_8)
+                    allText.append(text.trim())
                 }
-
-            }
-            else {
-                val payload = String(record.payload, charset("UTF-8"))
-                sb.append(payload).append("\n")
+            } catch (e: Exception) {
+                Log.e("AttendanceSender", "Error parsing record", e)
             }
         }
 
-        return sb.toString().trim()
+        return allText.toString().trim()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -427,7 +449,7 @@ class AttendanceSenderActivity : AppCompatActivity() {
         Log.d("AttendanceSender", "currentStudent: $currentStudent")
         Log.d("AttendanceSender", "currentTime: $currentTime")
 
-        getCurrentEvent(currentTime) { courseId ->
+        getCurrentEvent(time) { courseId ->
             Log.d("AttendanceSender", "courseId returned: '$courseId'")
 
             if(courseId.isEmpty()) {

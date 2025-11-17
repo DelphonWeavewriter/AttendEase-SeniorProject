@@ -145,7 +145,13 @@
         <activity
             android:name="com.example.attendeasecampuscompanion.AttendanceSenderActivity"
             android:exported="false"
-            android:label="Attendance Sender" />
+            android:label="Attendance Sender" >
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="androidx.compose.ui.tooling.PreviewActivity"
             android:exported="true" />
