@@ -457,7 +457,7 @@ class AttendanceActivity : AppCompatActivity() {
                             val enrolledStudents = document.get("enrolledStudents") as? List<*>
                             if (enrolledStudents?.contains(currentUser.uid) == true) {
                                 isEnrolled = true
-                                courseDocId = document.id  // Get the actual document ID
+                                courseDocId = document.id
                                 break
                             }
                         }
@@ -604,7 +604,8 @@ class AttendanceActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     fun isCurrentTimeBetween(currentTime: LocalTime, startTime: LocalTime, endTime: LocalTime): Boolean {
         return if (startTime.isBefore(endTime)) {
-            currentTime.isAfter(startTime) && currentTime.isBefore(endTime)
+            (currentTime.isAfter(startTime) || currentTime == startTime) &&
+                    (currentTime.isBefore(endTime) || currentTime == endTime)
         } else { // startTime is after endTime, meaning the range crosses midnight
             currentTime.isAfter(startTime) || currentTime.isBefore(endTime)
         }

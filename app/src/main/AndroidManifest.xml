@@ -117,7 +117,12 @@
         <activity
             android:name=".AttendanceSenderActivity"
             android:exported="false"
-            android:label="Attendance Sender" />
+            android:label="Attendance Sender" >
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
     </application>
 

@@ -86,7 +86,7 @@
 44-->[androidx.core:core:1.15.0] C:\Users\fenna\.gradle\caches\8.13\transforms\bd1fd991bef7fe0a623533ded20999d5\transformed\core-1.15.0\AndroidManifest.xml:26:22-94
 45
 46    <application
-46-->C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:20:5-122:19
+46-->C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:20:5-127:19
 47        android:allowBackup="true"
 47-->C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:21:9-35
 48        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
@@ -273,302 +273,313 @@
 144            android:exported="false" />
 144-->C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:115:13-37
 145        <activity
-145-->C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:117:9-120:49
+145-->C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:117:9-125:20
 146            android:name="com.example.attendeasecampuscompanion.AttendanceSenderActivity"
 146-->C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:118:13-53
 147            android:exported="false"
 147-->C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:119:13-37
-148            android:label="Attendance Sender" />
+148            android:label="Attendance Sender" >
 148-->C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:120:13-46
-149        <activity
-149-->[androidx.compose.ui:ui-tooling-android:1.6.6] C:\Users\fenna\.gradle\caches\8.13\transforms\632ffcf68d118edc8399b5023d6df384\transformed\ui-tooling-release\AndroidManifest.xml:23:9-25:39
-150            android:name="androidx.compose.ui.tooling.PreviewActivity"
-150-->[androidx.compose.ui:ui-tooling-android:1.6.6] C:\Users\fenna\.gradle\caches\8.13\transforms\632ffcf68d118edc8399b5023d6df384\transformed\ui-tooling-release\AndroidManifest.xml:24:13-71
-151            android:exported="true" />
-151-->[androidx.compose.ui:ui-tooling-android:1.6.6] C:\Users\fenna\.gradle\caches\8.13\transforms\632ffcf68d118edc8399b5023d6df384\transformed\ui-tooling-release\AndroidManifest.xml:25:13-36
-152        <activity
-152-->[androidx.compose.ui:ui-test-manifest:1.6.6] C:\Users\fenna\.gradle\caches\8.13\transforms\db8e8abfbd70b099c92c25a4d465a2f6\transformed\ui-test-manifest-1.6.6\AndroidManifest.xml:23:9-25:39
-153            android:name="androidx.activity.ComponentActivity"
-153-->[androidx.compose.ui:ui-test-manifest:1.6.6] C:\Users\fenna\.gradle\caches\8.13\transforms\db8e8abfbd70b099c92c25a4d465a2f6\transformed\ui-test-manifest-1.6.6\AndroidManifest.xml:24:13-63
-154            android:exported="true" />
-154-->[androidx.compose.ui:ui-test-manifest:1.6.6] C:\Users\fenna\.gradle\caches\8.13\transforms\db8e8abfbd70b099c92c25a4d465a2f6\transformed\ui-test-manifest-1.6.6\AndroidManifest.xml:25:13-36
+149            <intent-filter>
+149-->C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:121:13-124:29
+150                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+150-->C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:43:17-76
+150-->C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:43:25-74
+151
+152                <category android:name="android.intent.category.DEFAULT" />
+152-->C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:44:17-75
+152-->C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:44:27-73
+153            </intent-filter>
+154        </activity>
 155        <activity
-155-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:29:9-46:20
-156            android:name="com.google.firebase.auth.internal.GenericIdpActivity"
-156-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:30:13-80
-157            android:excludeFromRecents="true"
-157-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:31:13-46
-158            android:exported="true"
-158-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:32:13-36
-159            android:launchMode="singleTask"
-159-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:33:13-44
-160            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
-160-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:34:13-72
-161            <intent-filter>
-161-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:35:13-45:29
-162                <action android:name="android.intent.action.VIEW" />
-162-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:36:17-69
-162-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:36:25-66
-163
-164                <category android:name="android.intent.category.DEFAULT" />
-164-->C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:44:17-75
-164-->C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:44:27-73
-165                <category android:name="android.intent.category.BROWSABLE" />
-165-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:39:17-78
-165-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:39:27-75
-166
-167                <data
-167-->C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:45:17-47
-168                    android:host="firebase.auth"
-169                    android:path="/"
-170                    android:scheme="genericidp" />
-171            </intent-filter>
-172        </activity>
-173        <activity
-173-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:47:9-64:20
-174            android:name="com.google.firebase.auth.internal.RecaptchaActivity"
-174-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:48:13-79
-175            android:excludeFromRecents="true"
-175-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:49:13-46
-176            android:exported="true"
-176-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:50:13-36
-177            android:launchMode="singleTask"
-177-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:51:13-44
-178            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
-178-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:52:13-72
-179            <intent-filter>
-179-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:53:13-63:29
-180                <action android:name="android.intent.action.VIEW" />
-180-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:36:17-69
-180-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:36:25-66
-181
-182                <category android:name="android.intent.category.DEFAULT" />
-182-->C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:44:17-75
-182-->C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:44:27-73
-183                <category android:name="android.intent.category.BROWSABLE" />
-183-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:39:17-78
-183-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:39:27-75
-184
-185                <data
-185-->C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:45:17-47
-186                    android:host="firebase.auth"
-187                    android:path="/"
-188                    android:scheme="recaptcha" />
-189            </intent-filter>
-190        </activity>
-191
-192        <service
-192-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:66:9-72:19
-193            android:name="com.google.firebase.components.ComponentDiscoveryService"
-193-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:67:13-84
-194            android:directBootAware="true"
-194-->[com.google.firebase:firebase-common:21.0.0] C:\Users\fenna\.gradle\caches\8.13\transforms\f1208e241f2702efa02f5ce62a7b6999\transformed\firebase-common-21.0.0\AndroidManifest.xml:32:13-43
-195            android:exported="false" >
-195-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:68:13-37
-196            <meta-data
-196-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:69:13-71:85
-197                android:name="com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar"
-197-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:70:17-109
-198                android:value="com.google.firebase.components.ComponentRegistrar" />
-198-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:71:17-82
-199            <meta-data
-199-->[com.google.firebase:firebase-firestore-ktx:25.1.1] C:\Users\fenna\.gradle\caches\8.13\transforms\556b47a0c60d7eff777c818124ee659e\transformed\firebase-firestore-ktx-25.1.1\AndroidManifest.xml:12:13-14:85
-200                android:name="com.google.firebase.components:com.google.firebase.firestore.ktx.FirebaseFirestoreLegacyRegistrar"
-200-->[com.google.firebase:firebase-firestore-ktx:25.1.1] C:\Users\fenna\.gradle\caches\8.13\transforms\556b47a0c60d7eff777c818124ee659e\transformed\firebase-firestore-ktx-25.1.1\AndroidManifest.xml:13:17-129
-201                android:value="com.google.firebase.components.ComponentRegistrar" />
-201-->[com.google.firebase:firebase-firestore-ktx:25.1.1] C:\Users\fenna\.gradle\caches\8.13\transforms\556b47a0c60d7eff777c818124ee659e\transformed\firebase-firestore-ktx-25.1.1\AndroidManifest.xml:14:17-82
+155-->[androidx.compose.ui:ui-tooling-android:1.6.6] C:\Users\fenna\.gradle\caches\8.13\transforms\632ffcf68d118edc8399b5023d6df384\transformed\ui-tooling-release\AndroidManifest.xml:23:9-25:39
+156            android:name="androidx.compose.ui.tooling.PreviewActivity"
+156-->[androidx.compose.ui:ui-tooling-android:1.6.6] C:\Users\fenna\.gradle\caches\8.13\transforms\632ffcf68d118edc8399b5023d6df384\transformed\ui-tooling-release\AndroidManifest.xml:24:13-71
+157            android:exported="true" />
+157-->[androidx.compose.ui:ui-tooling-android:1.6.6] C:\Users\fenna\.gradle\caches\8.13\transforms\632ffcf68d118edc8399b5023d6df384\transformed\ui-tooling-release\AndroidManifest.xml:25:13-36
+158        <activity
+158-->[androidx.compose.ui:ui-test-manifest:1.6.6] C:\Users\fenna\.gradle\caches\8.13\transforms\db8e8abfbd70b099c92c25a4d465a2f6\transformed\ui-test-manifest-1.6.6\AndroidManifest.xml:23:9-25:39
+159            android:name="androidx.activity.ComponentActivity"
+159-->[androidx.compose.ui:ui-test-manifest:1.6.6] C:\Users\fenna\.gradle\caches\8.13\transforms\db8e8abfbd70b099c92c25a4d465a2f6\transformed\ui-test-manifest-1.6.6\AndroidManifest.xml:24:13-63
+160            android:exported="true" />
+160-->[androidx.compose.ui:ui-test-manifest:1.6.6] C:\Users\fenna\.gradle\caches\8.13\transforms\db8e8abfbd70b099c92c25a4d465a2f6\transformed\ui-test-manifest-1.6.6\AndroidManifest.xml:25:13-36
+161        <activity
+161-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:29:9-46:20
+162            android:name="com.google.firebase.auth.internal.GenericIdpActivity"
+162-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:30:13-80
+163            android:excludeFromRecents="true"
+163-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:31:13-46
+164            android:exported="true"
+164-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:32:13-36
+165            android:launchMode="singleTask"
+165-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:33:13-44
+166            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+166-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:34:13-72
+167            <intent-filter>
+167-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:35:13-45:29
+168                <action android:name="android.intent.action.VIEW" />
+168-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:36:17-69
+168-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:36:25-66
+169
+170                <category android:name="android.intent.category.DEFAULT" />
+170-->C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:44:17-75
+170-->C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:44:27-73
+171                <category android:name="android.intent.category.BROWSABLE" />
+171-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:39:17-78
+171-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:39:27-75
+172
+173                <data
+173-->C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:45:17-47
+174                    android:host="firebase.auth"
+175                    android:path="/"
+176                    android:scheme="genericidp" />
+177            </intent-filter>
+178        </activity>
+179        <activity
+179-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:47:9-64:20
+180            android:name="com.google.firebase.auth.internal.RecaptchaActivity"
+180-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:48:13-79
+181            android:excludeFromRecents="true"
+181-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:49:13-46
+182            android:exported="true"
+182-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:50:13-36
+183            android:launchMode="singleTask"
+183-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:51:13-44
+184            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+184-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:52:13-72
+185            <intent-filter>
+185-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:53:13-63:29
+186                <action android:name="android.intent.action.VIEW" />
+186-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:36:17-69
+186-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:36:25-66
+187
+188                <category android:name="android.intent.category.DEFAULT" />
+188-->C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:44:17-75
+188-->C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:44:27-73
+189                <category android:name="android.intent.category.BROWSABLE" />
+189-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:39:17-78
+189-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:39:27-75
+190
+191                <data
+191-->C:\Users\fenna\AndroidStudioProjects\AttendEaseCampusCompanion\app\src\main\AndroidManifest.xml:45:17-47
+192                    android:host="firebase.auth"
+193                    android:path="/"
+194                    android:scheme="recaptcha" />
+195            </intent-filter>
+196        </activity>
+197
+198        <service
+198-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:66:9-72:19
+199            android:name="com.google.firebase.components.ComponentDiscoveryService"
+199-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:67:13-84
+200            android:directBootAware="true"
+200-->[com.google.firebase:firebase-common:21.0.0] C:\Users\fenna\.gradle\caches\8.13\transforms\f1208e241f2702efa02f5ce62a7b6999\transformed\firebase-common-21.0.0\AndroidManifest.xml:32:13-43
+201            android:exported="false" >
+201-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:68:13-37
 202            <meta-data
-202-->[com.google.firebase:firebase-firestore:25.1.1] C:\Users\fenna\.gradle\caches\8.13\transforms\f7337422cdbe71416280ada1fd2558aa\transformed\firebase-firestore-25.1.1\AndroidManifest.xml:17:13-19:85
-203                android:name="com.google.firebase.components:com.google.firebase.firestore.FirebaseFirestoreKtxRegistrar"
-203-->[com.google.firebase:firebase-firestore:25.1.1] C:\Users\fenna\.gradle\caches\8.13\transforms\f7337422cdbe71416280ada1fd2558aa\transformed\firebase-firestore-25.1.1\AndroidManifest.xml:18:17-122
+202-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:69:13-71:85
+203                android:name="com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar"
+203-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:70:17-109
 204                android:value="com.google.firebase.components.ComponentRegistrar" />
-204-->[com.google.firebase:firebase-firestore:25.1.1] C:\Users\fenna\.gradle\caches\8.13\transforms\f7337422cdbe71416280ada1fd2558aa\transformed\firebase-firestore-25.1.1\AndroidManifest.xml:19:17-82
+204-->[com.google.firebase:firebase-auth:24.0.1] C:\Users\fenna\.gradle\caches\8.13\transforms\1c8a654cbb2a0399d08ca5e53d869775\transformed\firebase-auth-24.0.1\AndroidManifest.xml:71:17-82
 205            <meta-data
-205-->[com.google.firebase:firebase-firestore:25.1.1] C:\Users\fenna\.gradle\caches\8.13\transforms\f7337422cdbe71416280ada1fd2558aa\transformed\firebase-firestore-25.1.1\AndroidManifest.xml:20:13-22:85
-206                android:name="com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar"
-206-->[com.google.firebase:firebase-firestore:25.1.1] C:\Users\fenna\.gradle\caches\8.13\transforms\f7337422cdbe71416280ada1fd2558aa\transformed\firebase-firestore-25.1.1\AndroidManifest.xml:21:17-111
+205-->[com.google.firebase:firebase-firestore-ktx:25.1.1] C:\Users\fenna\.gradle\caches\8.13\transforms\556b47a0c60d7eff777c818124ee659e\transformed\firebase-firestore-ktx-25.1.1\AndroidManifest.xml:12:13-14:85
+206                android:name="com.google.firebase.components:com.google.firebase.firestore.ktx.FirebaseFirestoreLegacyRegistrar"
+206-->[com.google.firebase:firebase-firestore-ktx:25.1.1] C:\Users\fenna\.gradle\caches\8.13\transforms\556b47a0c60d7eff777c818124ee659e\transformed\firebase-firestore-ktx-25.1.1\AndroidManifest.xml:13:17-129
 207                android:value="com.google.firebase.components.ComponentRegistrar" />
-207-->[com.google.firebase:firebase-firestore:25.1.1] C:\Users\fenna\.gradle\caches\8.13\transforms\f7337422cdbe71416280ada1fd2558aa\transformed\firebase-firestore-25.1.1\AndroidManifest.xml:22:17-82
+207-->[com.google.firebase:firebase-firestore-ktx:25.1.1] C:\Users\fenna\.gradle\caches\8.13\transforms\556b47a0c60d7eff777c818124ee659e\transformed\firebase-firestore-ktx-25.1.1\AndroidManifest.xml:14:17-82
 208            <meta-data
-208-->[com.google.firebase:firebase-common-ktx:21.0.0] C:\Users\fenna\.gradle\caches\8.13\transforms\258b32771233a0eea8d324a8c6a2011d\transformed\firebase-common-ktx-21.0.0\AndroidManifest.xml:12:13-14:85
-209                android:name="com.google.firebase.components:com.google.firebase.ktx.FirebaseCommonLegacyRegistrar"
-209-->[com.google.firebase:firebase-common-ktx:21.0.0] C:\Users\fenna\.gradle\caches\8.13\transforms\258b32771233a0eea8d324a8c6a2011d\transformed\firebase-common-ktx-21.0.0\AndroidManifest.xml:13:17-116
+208-->[com.google.firebase:firebase-firestore:25.1.1] C:\Users\fenna\.gradle\caches\8.13\transforms\f7337422cdbe71416280ada1fd2558aa\transformed\firebase-firestore-25.1.1\AndroidManifest.xml:17:13-19:85
+209                android:name="com.google.firebase.components:com.google.firebase.firestore.FirebaseFirestoreKtxRegistrar"
+209-->[com.google.firebase:firebase-firestore:25.1.1] C:\Users\fenna\.gradle\caches\8.13\transforms\f7337422cdbe71416280ada1fd2558aa\transformed\firebase-firestore-25.1.1\AndroidManifest.xml:18:17-122
 210                android:value="com.google.firebase.components.ComponentRegistrar" />
-210-->[com.google.firebase:firebase-common-ktx:21.0.0] C:\Users\fenna\.gradle\caches\8.13\transforms\258b32771233a0eea8d324a8c6a2011d\transformed\firebase-common-ktx-21.0.0\AndroidManifest.xml:14:17-82
+210-->[com.google.firebase:firebase-firestore:25.1.1] C:\Users\fenna\.gradle\caches\8.13\transforms\f7337422cdbe71416280ada1fd2558aa\transformed\firebase-firestore-25.1.1\AndroidManifest.xml:19:17-82
 211            <meta-data
-211-->[com.google.firebase:firebase-common:21.0.0] C:\Users\fenna\.gradle\caches\8.13\transforms\f1208e241f2702efa02f5ce62a7b6999\transformed\firebase-common-21.0.0\AndroidManifest.xml:35:13-37:85
-212                android:name="com.google.firebase.components:com.google.firebase.FirebaseCommonKtxRegistrar"
-212-->[com.google.firebase:firebase-common:21.0.0] C:\Users\fenna\.gradle\caches\8.13\transforms\f1208e241f2702efa02f5ce62a7b6999\transformed\firebase-common-21.0.0\AndroidManifest.xml:36:17-109
+211-->[com.google.firebase:firebase-firestore:25.1.1] C:\Users\fenna\.gradle\caches\8.13\transforms\f7337422cdbe71416280ada1fd2558aa\transformed\firebase-firestore-25.1.1\AndroidManifest.xml:20:13-22:85
+212                android:name="com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar"
+212-->[com.google.firebase:firebase-firestore:25.1.1] C:\Users\fenna\.gradle\caches\8.13\transforms\f7337422cdbe71416280ada1fd2558aa\transformed\firebase-firestore-25.1.1\AndroidManifest.xml:21:17-111
 213                android:value="com.google.firebase.components.ComponentRegistrar" />
-213-->[com.google.firebase:firebase-common:21.0.0] C:\Users\fenna\.gradle\caches\8.13\transforms\f1208e241f2702efa02f5ce62a7b6999\transformed\firebase-common-21.0.0\AndroidManifest.xml:37:17-82
-214        </service>
-215
-216        <meta-data
-216-->[com.google.maps.android:android-maps-utils:3.8.2] C:\Users\fenna\.gradle\caches\8.13\transforms\3bb6ef6780fa1ff88144aa53706fc917\transformed\android-maps-utils-3.8.2\AndroidManifest.xml:8:9-10:69
-217            android:name="com.google.android.gms.version"
-217-->[com.google.maps.android:android-maps-utils:3.8.2] C:\Users\fenna\.gradle\caches\8.13\transforms\3bb6ef6780fa1ff88144aa53706fc917\transformed\android-maps-utils-3.8.2\AndroidManifest.xml:9:13-58
-218            android:value="@integer/google_play_services_version" /> <!-- Needs to be explicitly declared on P+ -->
-218-->[com.google.maps.android:android-maps-utils:3.8.2] C:\Users\fenna\.gradle\caches\8.13\transforms\3bb6ef6780fa1ff88144aa53706fc917\transformed\android-maps-utils-3.8.2\AndroidManifest.xml:10:13-66
-219        <uses-library
-219-->[com.google.android.gms:play-services-maps:19.2.0] C:\Users\fenna\.gradle\caches\8.13\transforms\02655596cb9cc6e86d6c4ec38936d852\transformed\play-services-maps-19.2.0\AndroidManifest.xml:33:7-86
-220            android:name="org.apache.http.legacy"
-220-->[com.google.android.gms:play-services-maps:19.2.0] C:\Users\fenna\.gradle\caches\8.13\transforms\02655596cb9cc6e86d6c4ec38936d852\transformed\play-services-maps-19.2.0\AndroidManifest.xml:33:21-58
-221            android:required="false" />
-221-->[com.google.android.gms:play-services-maps:19.2.0] C:\Users\fenna\.gradle\caches\8.13\transforms\02655596cb9cc6e86d6c4ec38936d852\transformed\play-services-maps-19.2.0\AndroidManifest.xml:33:59-83
-222
-223        <service
-223-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\fenna\.gradle\caches\8.13\transforms\00d8ab1a1e2825c3d0997aa4ff4bda58\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:24:9-32:19
-224            android:name="androidx.credentials.playservices.CredentialProviderMetadataHolder"
-224-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\fenna\.gradle\caches\8.13\transforms\00d8ab1a1e2825c3d0997aa4ff4bda58\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:25:13-94
-225            android:enabled="true"
-225-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\fenna\.gradle\caches\8.13\transforms\00d8ab1a1e2825c3d0997aa4ff4bda58\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:26:13-35
-226            android:exported="false" >
-226-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\fenna\.gradle\caches\8.13\transforms\00d8ab1a1e2825c3d0997aa4ff4bda58\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:27:13-37
-227            <meta-data
-227-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\fenna\.gradle\caches\8.13\transforms\00d8ab1a1e2825c3d0997aa4ff4bda58\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:29:13-31:104
-228                android:name="androidx.credentials.CREDENTIAL_PROVIDER_KEY"
-228-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\fenna\.gradle\caches\8.13\transforms\00d8ab1a1e2825c3d0997aa4ff4bda58\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:30:17-76
-229                android:value="androidx.credentials.playservices.CredentialProviderPlayServicesImpl" />
-229-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\fenna\.gradle\caches\8.13\transforms\00d8ab1a1e2825c3d0997aa4ff4bda58\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:31:17-101
-230        </service>
-231
-232        <activity
-232-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\fenna\.gradle\caches\8.13\transforms\00d8ab1a1e2825c3d0997aa4ff4bda58\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:34:9-41:20
-233            android:name="androidx.credentials.playservices.HiddenActivity"
-233-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\fenna\.gradle\caches\8.13\transforms\00d8ab1a1e2825c3d0997aa4ff4bda58\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:35:13-76
-234            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
-234-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\fenna\.gradle\caches\8.13\transforms\00d8ab1a1e2825c3d0997aa4ff4bda58\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:36:13-87
-235            android:enabled="true"
-235-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\fenna\.gradle\caches\8.13\transforms\00d8ab1a1e2825c3d0997aa4ff4bda58\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:37:13-35
-236            android:exported="false"
-236-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\fenna\.gradle\caches\8.13\transforms\00d8ab1a1e2825c3d0997aa4ff4bda58\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:38:13-37
-237            android:fitsSystemWindows="true"
-237-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\fenna\.gradle\caches\8.13\transforms\00d8ab1a1e2825c3d0997aa4ff4bda58\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:39:13-45
-238            android:theme="@style/Theme.Hidden" >
-238-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\fenna\.gradle\caches\8.13\transforms\00d8ab1a1e2825c3d0997aa4ff4bda58\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:40:13-48
-239        </activity>
-240        <activity
-240-->[com.google.android.gms:play-services-auth:20.7.0] C:\Users\fenna\.gradle\caches\8.13\transforms\030a6532ed3a2737cc70d5c48e7d2f50\transformed\play-services-auth-20.7.0\AndroidManifest.xml:23:9-27:75
-241            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
-241-->[com.google.android.gms:play-services-auth:20.7.0] C:\Users\fenna\.gradle\caches\8.13\transforms\030a6532ed3a2737cc70d5c48e7d2f50\transformed\play-services-auth-20.7.0\AndroidManifest.xml:24:13-93
-242            android:excludeFromRecents="true"
-242-->[com.google.android.gms:play-services-auth:20.7.0] C:\Users\fenna\.gradle\caches\8.13\transforms\030a6532ed3a2737cc70d5c48e7d2f50\transformed\play-services-auth-20.7.0\AndroidManifest.xml:25:13-46
-243            android:exported="false"
-243-->[com.google.android.gms:play-services-auth:20.7.0] C:\Users\fenna\.gradle\caches\8.13\transforms\030a6532ed3a2737cc70d5c48e7d2f50\transformed\play-services-auth-20.7.0\AndroidManifest.xml:26:13-37
-244            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-244-->[com.google.android.gms:play-services-auth:20.7.0] C:\Users\fenna\.gradle\caches\8.13\transforms\030a6532ed3a2737cc70d5c48e7d2f50\transformed\play-services-auth-20.7.0\AndroidManifest.xml:27:13-72
-245        <!--
-246            Service handling Google Sign-In user revocation. For apps that do not integrate with
-247            Google Sign-In, this service will never be started.
-248        -->
-249        <service
-249-->[com.google.android.gms:play-services-auth:20.7.0] C:\Users\fenna\.gradle\caches\8.13\transforms\030a6532ed3a2737cc70d5c48e7d2f50\transformed\play-services-auth-20.7.0\AndroidManifest.xml:33:9-37:51
-250            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
-250-->[com.google.android.gms:play-services-auth:20.7.0] C:\Users\fenna\.gradle\caches\8.13\transforms\030a6532ed3a2737cc70d5c48e7d2f50\transformed\play-services-auth-20.7.0\AndroidManifest.xml:34:13-89
-251            android:exported="true"
-251-->[com.google.android.gms:play-services-auth:20.7.0] C:\Users\fenna\.gradle\caches\8.13\transforms\030a6532ed3a2737cc70d5c48e7d2f50\transformed\play-services-auth-20.7.0\AndroidManifest.xml:35:13-36
-252            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION"
-252-->[com.google.android.gms:play-services-auth:20.7.0] C:\Users\fenna\.gradle\caches\8.13\transforms\030a6532ed3a2737cc70d5c48e7d2f50\transformed\play-services-auth-20.7.0\AndroidManifest.xml:36:13-107
-253            android:visibleToInstantApps="true" />
-253-->[com.google.android.gms:play-services-auth:20.7.0] C:\Users\fenna\.gradle\caches\8.13\transforms\030a6532ed3a2737cc70d5c48e7d2f50\transformed\play-services-auth-20.7.0\AndroidManifest.xml:37:13-48
-254
-255        <provider
-255-->[com.google.firebase:firebase-common:21.0.0] C:\Users\fenna\.gradle\caches\8.13\transforms\f1208e241f2702efa02f5ce62a7b6999\transformed\firebase-common-21.0.0\AndroidManifest.xml:23:9-28:39
-256            android:name="com.google.firebase.provider.FirebaseInitProvider"
-256-->[com.google.firebase:firebase-common:21.0.0] C:\Users\fenna\.gradle\caches\8.13\transforms\f1208e241f2702efa02f5ce62a7b6999\transformed\firebase-common-21.0.0\AndroidManifest.xml:24:13-77
-257            android:authorities="com.example.attendeasecampuscompanion.firebaseinitprovider"
-257-->[com.google.firebase:firebase-common:21.0.0] C:\Users\fenna\.gradle\caches\8.13\transforms\f1208e241f2702efa02f5ce62a7b6999\transformed\firebase-common-21.0.0\AndroidManifest.xml:25:13-72
-258            android:directBootAware="true"
-258-->[com.google.firebase:firebase-common:21.0.0] C:\Users\fenna\.gradle\caches\8.13\transforms\f1208e241f2702efa02f5ce62a7b6999\transformed\firebase-common-21.0.0\AndroidManifest.xml:26:13-43
-259            android:exported="false"
-259-->[com.google.firebase:firebase-common:21.0.0] C:\Users\fenna\.gradle\caches\8.13\transforms\f1208e241f2702efa02f5ce62a7b6999\transformed\firebase-common-21.0.0\AndroidManifest.xml:27:13-37
-260            android:initOrder="100" />
-260-->[com.google.firebase:firebase-common:21.0.0] C:\Users\fenna\.gradle\caches\8.13\transforms\f1208e241f2702efa02f5ce62a7b6999\transformed\firebase-common-21.0.0\AndroidManifest.xml:28:13-36
-261
-262        <activity
-262-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\fenna\.gradle\caches\8.13\transforms\f39ccec686c198d1df6c43635279ccc4\transformed\play-services-base-18.5.0\AndroidManifest.xml:5:9-173
-263            android:name="com.google.android.gms.common.api.GoogleApiActivity"
-263-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\fenna\.gradle\caches\8.13\transforms\f39ccec686c198d1df6c43635279ccc4\transformed\play-services-base-18.5.0\AndroidManifest.xml:5:19-85
-264            android:exported="false"
-264-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\fenna\.gradle\caches\8.13\transforms\f39ccec686c198d1df6c43635279ccc4\transformed\play-services-base-18.5.0\AndroidManifest.xml:5:146-170
-265            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-265-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\fenna\.gradle\caches\8.13\transforms\f39ccec686c198d1df6c43635279ccc4\transformed\play-services-base-18.5.0\AndroidManifest.xml:5:86-145
-266
-267        <provider
-267-->[androidx.emoji2:emoji2:1.3.0] C:\Users\fenna\.gradle\caches\8.13\transforms\35a0bd45bdd3fb490b6035837e49a99b\transformed\emoji2-1.3.0\AndroidManifest.xml:24:9-32:20
-268            android:name="androidx.startup.InitializationProvider"
-268-->[androidx.emoji2:emoji2:1.3.0] C:\Users\fenna\.gradle\caches\8.13\transforms\35a0bd45bdd3fb490b6035837e49a99b\transformed\emoji2-1.3.0\AndroidManifest.xml:25:13-67
-269            android:authorities="com.example.attendeasecampuscompanion.androidx-startup"
-269-->[androidx.emoji2:emoji2:1.3.0] C:\Users\fenna\.gradle\caches\8.13\transforms\35a0bd45bdd3fb490b6035837e49a99b\transformed\emoji2-1.3.0\AndroidManifest.xml:26:13-68
-270            android:exported="false" >
-270-->[androidx.emoji2:emoji2:1.3.0] C:\Users\fenna\.gradle\caches\8.13\transforms\35a0bd45bdd3fb490b6035837e49a99b\transformed\emoji2-1.3.0\AndroidManifest.xml:27:13-37
-271            <meta-data
-271-->[androidx.emoji2:emoji2:1.3.0] C:\Users\fenna\.gradle\caches\8.13\transforms\35a0bd45bdd3fb490b6035837e49a99b\transformed\emoji2-1.3.0\AndroidManifest.xml:29:13-31:52
-272                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-272-->[androidx.emoji2:emoji2:1.3.0] C:\Users\fenna\.gradle\caches\8.13\transforms\35a0bd45bdd3fb490b6035837e49a99b\transformed\emoji2-1.3.0\AndroidManifest.xml:30:17-75
-273                android:value="androidx.startup" />
-273-->[androidx.emoji2:emoji2:1.3.0] C:\Users\fenna\.gradle\caches\8.13\transforms\35a0bd45bdd3fb490b6035837e49a99b\transformed\emoji2-1.3.0\AndroidManifest.xml:31:17-49
-274            <meta-data
-274-->[androidx.lifecycle:lifecycle-process:2.8.7] C:\Users\fenna\.gradle\caches\8.13\transforms\8fbc16033d0dbb67731c4d6e212a0851\transformed\lifecycle-process-2.8.7\AndroidManifest.xml:29:13-31:52
-275                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-275-->[androidx.lifecycle:lifecycle-process:2.8.7] C:\Users\fenna\.gradle\caches\8.13\transforms\8fbc16033d0dbb67731c4d6e212a0851\transformed\lifecycle-process-2.8.7\AndroidManifest.xml:30:17-78
-276                android:value="androidx.startup" />
-276-->[androidx.lifecycle:lifecycle-process:2.8.7] C:\Users\fenna\.gradle\caches\8.13\transforms\8fbc16033d0dbb67731c4d6e212a0851\transformed\lifecycle-process-2.8.7\AndroidManifest.xml:31:17-49
+213-->[com.google.firebase:firebase-firestore:25.1.1] C:\Users\fenna\.gradle\caches\8.13\transforms\f7337422cdbe71416280ada1fd2558aa\transformed\firebase-firestore-25.1.1\AndroidManifest.xml:22:17-82
+214            <meta-data
+214-->[com.google.firebase:firebase-common-ktx:21.0.0] C:\Users\fenna\.gradle\caches\8.13\transforms\258b32771233a0eea8d324a8c6a2011d\transformed\firebase-common-ktx-21.0.0\AndroidManifest.xml:12:13-14:85
+215                android:name="com.google.firebase.components:com.google.firebase.ktx.FirebaseCommonLegacyRegistrar"
+215-->[com.google.firebase:firebase-common-ktx:21.0.0] C:\Users\fenna\.gradle\caches\8.13\transforms\258b32771233a0eea8d324a8c6a2011d\transformed\firebase-common-ktx-21.0.0\AndroidManifest.xml:13:17-116
+216                android:value="com.google.firebase.components.ComponentRegistrar" />
+216-->[com.google.firebase:firebase-common-ktx:21.0.0] C:\Users\fenna\.gradle\caches\8.13\transforms\258b32771233a0eea8d324a8c6a2011d\transformed\firebase-common-ktx-21.0.0\AndroidManifest.xml:14:17-82
+217            <meta-data
+217-->[com.google.firebase:firebase-common:21.0.0] C:\Users\fenna\.gradle\caches\8.13\transforms\f1208e241f2702efa02f5ce62a7b6999\transformed\firebase-common-21.0.0\AndroidManifest.xml:35:13-37:85
+218                android:name="com.google.firebase.components:com.google.firebase.FirebaseCommonKtxRegistrar"
+218-->[com.google.firebase:firebase-common:21.0.0] C:\Users\fenna\.gradle\caches\8.13\transforms\f1208e241f2702efa02f5ce62a7b6999\transformed\firebase-common-21.0.0\AndroidManifest.xml:36:17-109
+219                android:value="com.google.firebase.components.ComponentRegistrar" />
+219-->[com.google.firebase:firebase-common:21.0.0] C:\Users\fenna\.gradle\caches\8.13\transforms\f1208e241f2702efa02f5ce62a7b6999\transformed\firebase-common-21.0.0\AndroidManifest.xml:37:17-82
+220        </service>
+221
+222        <meta-data
+222-->[com.google.maps.android:android-maps-utils:3.8.2] C:\Users\fenna\.gradle\caches\8.13\transforms\3bb6ef6780fa1ff88144aa53706fc917\transformed\android-maps-utils-3.8.2\AndroidManifest.xml:8:9-10:69
+223            android:name="com.google.android.gms.version"
+223-->[com.google.maps.android:android-maps-utils:3.8.2] C:\Users\fenna\.gradle\caches\8.13\transforms\3bb6ef6780fa1ff88144aa53706fc917\transformed\android-maps-utils-3.8.2\AndroidManifest.xml:9:13-58
+224            android:value="@integer/google_play_services_version" /> <!-- Needs to be explicitly declared on P+ -->
+224-->[com.google.maps.android:android-maps-utils:3.8.2] C:\Users\fenna\.gradle\caches\8.13\transforms\3bb6ef6780fa1ff88144aa53706fc917\transformed\android-maps-utils-3.8.2\AndroidManifest.xml:10:13-66
+225        <uses-library
+225-->[com.google.android.gms:play-services-maps:19.2.0] C:\Users\fenna\.gradle\caches\8.13\transforms\02655596cb9cc6e86d6c4ec38936d852\transformed\play-services-maps-19.2.0\AndroidManifest.xml:33:7-86
+226            android:name="org.apache.http.legacy"
+226-->[com.google.android.gms:play-services-maps:19.2.0] C:\Users\fenna\.gradle\caches\8.13\transforms\02655596cb9cc6e86d6c4ec38936d852\transformed\play-services-maps-19.2.0\AndroidManifest.xml:33:21-58
+227            android:required="false" />
+227-->[com.google.android.gms:play-services-maps:19.2.0] C:\Users\fenna\.gradle\caches\8.13\transforms\02655596cb9cc6e86d6c4ec38936d852\transformed\play-services-maps-19.2.0\AndroidManifest.xml:33:59-83
+228
+229        <service
+229-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\fenna\.gradle\caches\8.13\transforms\00d8ab1a1e2825c3d0997aa4ff4bda58\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:24:9-32:19
+230            android:name="androidx.credentials.playservices.CredentialProviderMetadataHolder"
+230-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\fenna\.gradle\caches\8.13\transforms\00d8ab1a1e2825c3d0997aa4ff4bda58\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:25:13-94
+231            android:enabled="true"
+231-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\fenna\.gradle\caches\8.13\transforms\00d8ab1a1e2825c3d0997aa4ff4bda58\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:26:13-35
+232            android:exported="false" >
+232-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\fenna\.gradle\caches\8.13\transforms\00d8ab1a1e2825c3d0997aa4ff4bda58\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:27:13-37
+233            <meta-data
+233-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\fenna\.gradle\caches\8.13\transforms\00d8ab1a1e2825c3d0997aa4ff4bda58\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:29:13-31:104
+234                android:name="androidx.credentials.CREDENTIAL_PROVIDER_KEY"
+234-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\fenna\.gradle\caches\8.13\transforms\00d8ab1a1e2825c3d0997aa4ff4bda58\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:30:17-76
+235                android:value="androidx.credentials.playservices.CredentialProviderPlayServicesImpl" />
+235-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\fenna\.gradle\caches\8.13\transforms\00d8ab1a1e2825c3d0997aa4ff4bda58\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:31:17-101
+236        </service>
+237
+238        <activity
+238-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\fenna\.gradle\caches\8.13\transforms\00d8ab1a1e2825c3d0997aa4ff4bda58\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:34:9-41:20
+239            android:name="androidx.credentials.playservices.HiddenActivity"
+239-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\fenna\.gradle\caches\8.13\transforms\00d8ab1a1e2825c3d0997aa4ff4bda58\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:35:13-76
+240            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+240-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\fenna\.gradle\caches\8.13\transforms\00d8ab1a1e2825c3d0997aa4ff4bda58\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:36:13-87
+241            android:enabled="true"
+241-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\fenna\.gradle\caches\8.13\transforms\00d8ab1a1e2825c3d0997aa4ff4bda58\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:37:13-35
+242            android:exported="false"
+242-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\fenna\.gradle\caches\8.13\transforms\00d8ab1a1e2825c3d0997aa4ff4bda58\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:38:13-37
+243            android:fitsSystemWindows="true"
+243-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\fenna\.gradle\caches\8.13\transforms\00d8ab1a1e2825c3d0997aa4ff4bda58\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:39:13-45
+244            android:theme="@style/Theme.Hidden" >
+244-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\fenna\.gradle\caches\8.13\transforms\00d8ab1a1e2825c3d0997aa4ff4bda58\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:40:13-48
+245        </activity>
+246        <activity
+246-->[com.google.android.gms:play-services-auth:20.7.0] C:\Users\fenna\.gradle\caches\8.13\transforms\030a6532ed3a2737cc70d5c48e7d2f50\transformed\play-services-auth-20.7.0\AndroidManifest.xml:23:9-27:75
+247            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+247-->[com.google.android.gms:play-services-auth:20.7.0] C:\Users\fenna\.gradle\caches\8.13\transforms\030a6532ed3a2737cc70d5c48e7d2f50\transformed\play-services-auth-20.7.0\AndroidManifest.xml:24:13-93
+248            android:excludeFromRecents="true"
+248-->[com.google.android.gms:play-services-auth:20.7.0] C:\Users\fenna\.gradle\caches\8.13\transforms\030a6532ed3a2737cc70d5c48e7d2f50\transformed\play-services-auth-20.7.0\AndroidManifest.xml:25:13-46
+249            android:exported="false"
+249-->[com.google.android.gms:play-services-auth:20.7.0] C:\Users\fenna\.gradle\caches\8.13\transforms\030a6532ed3a2737cc70d5c48e7d2f50\transformed\play-services-auth-20.7.0\AndroidManifest.xml:26:13-37
+250            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+250-->[com.google.android.gms:play-services-auth:20.7.0] C:\Users\fenna\.gradle\caches\8.13\transforms\030a6532ed3a2737cc70d5c48e7d2f50\transformed\play-services-auth-20.7.0\AndroidManifest.xml:27:13-72
+251        <!--
+252            Service handling Google Sign-In user revocation. For apps that do not integrate with
+253            Google Sign-In, this service will never be started.
+254        -->
+255        <service
+255-->[com.google.android.gms:play-services-auth:20.7.0] C:\Users\fenna\.gradle\caches\8.13\transforms\030a6532ed3a2737cc70d5c48e7d2f50\transformed\play-services-auth-20.7.0\AndroidManifest.xml:33:9-37:51
+256            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
+256-->[com.google.android.gms:play-services-auth:20.7.0] C:\Users\fenna\.gradle\caches\8.13\transforms\030a6532ed3a2737cc70d5c48e7d2f50\transformed\play-services-auth-20.7.0\AndroidManifest.xml:34:13-89
+257            android:exported="true"
+257-->[com.google.android.gms:play-services-auth:20.7.0] C:\Users\fenna\.gradle\caches\8.13\transforms\030a6532ed3a2737cc70d5c48e7d2f50\transformed\play-services-auth-20.7.0\AndroidManifest.xml:35:13-36
+258            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION"
+258-->[com.google.android.gms:play-services-auth:20.7.0] C:\Users\fenna\.gradle\caches\8.13\transforms\030a6532ed3a2737cc70d5c48e7d2f50\transformed\play-services-auth-20.7.0\AndroidManifest.xml:36:13-107
+259            android:visibleToInstantApps="true" />
+259-->[com.google.android.gms:play-services-auth:20.7.0] C:\Users\fenna\.gradle\caches\8.13\transforms\030a6532ed3a2737cc70d5c48e7d2f50\transformed\play-services-auth-20.7.0\AndroidManifest.xml:37:13-48
+260
+261        <provider
+261-->[com.google.firebase:firebase-common:21.0.0] C:\Users\fenna\.gradle\caches\8.13\transforms\f1208e241f2702efa02f5ce62a7b6999\transformed\firebase-common-21.0.0\AndroidManifest.xml:23:9-28:39
+262            android:name="com.google.firebase.provider.FirebaseInitProvider"
+262-->[com.google.firebase:firebase-common:21.0.0] C:\Users\fenna\.gradle\caches\8.13\transforms\f1208e241f2702efa02f5ce62a7b6999\transformed\firebase-common-21.0.0\AndroidManifest.xml:24:13-77
+263            android:authorities="com.example.attendeasecampuscompanion.firebaseinitprovider"
+263-->[com.google.firebase:firebase-common:21.0.0] C:\Users\fenna\.gradle\caches\8.13\transforms\f1208e241f2702efa02f5ce62a7b6999\transformed\firebase-common-21.0.0\AndroidManifest.xml:25:13-72
+264            android:directBootAware="true"
+264-->[com.google.firebase:firebase-common:21.0.0] C:\Users\fenna\.gradle\caches\8.13\transforms\f1208e241f2702efa02f5ce62a7b6999\transformed\firebase-common-21.0.0\AndroidManifest.xml:26:13-43
+265            android:exported="false"
+265-->[com.google.firebase:firebase-common:21.0.0] C:\Users\fenna\.gradle\caches\8.13\transforms\f1208e241f2702efa02f5ce62a7b6999\transformed\firebase-common-21.0.0\AndroidManifest.xml:27:13-37
+266            android:initOrder="100" />
+266-->[com.google.firebase:firebase-common:21.0.0] C:\Users\fenna\.gradle\caches\8.13\transforms\f1208e241f2702efa02f5ce62a7b6999\transformed\firebase-common-21.0.0\AndroidManifest.xml:28:13-36
+267
+268        <activity
+268-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\fenna\.gradle\caches\8.13\transforms\f39ccec686c198d1df6c43635279ccc4\transformed\play-services-base-18.5.0\AndroidManifest.xml:5:9-173
+269            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+269-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\fenna\.gradle\caches\8.13\transforms\f39ccec686c198d1df6c43635279ccc4\transformed\play-services-base-18.5.0\AndroidManifest.xml:5:19-85
+270            android:exported="false"
+270-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\fenna\.gradle\caches\8.13\transforms\f39ccec686c198d1df6c43635279ccc4\transformed\play-services-base-18.5.0\AndroidManifest.xml:5:146-170
+271            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+271-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\fenna\.gradle\caches\8.13\transforms\f39ccec686c198d1df6c43635279ccc4\transformed\play-services-base-18.5.0\AndroidManifest.xml:5:86-145
+272
+273        <provider
+273-->[androidx.emoji2:emoji2:1.3.0] C:\Users\fenna\.gradle\caches\8.13\transforms\35a0bd45bdd3fb490b6035837e49a99b\transformed\emoji2-1.3.0\AndroidManifest.xml:24:9-32:20
+274            android:name="androidx.startup.InitializationProvider"
+274-->[androidx.emoji2:emoji2:1.3.0] C:\Users\fenna\.gradle\caches\8.13\transforms\35a0bd45bdd3fb490b6035837e49a99b\transformed\emoji2-1.3.0\AndroidManifest.xml:25:13-67
+275            android:authorities="com.example.attendeasecampuscompanion.androidx-startup"
+275-->[androidx.emoji2:emoji2:1.3.0] C:\Users\fenna\.gradle\caches\8.13\transforms\35a0bd45bdd3fb490b6035837e49a99b\transformed\emoji2-1.3.0\AndroidManifest.xml:26:13-68
+276            android:exported="false" >
+276-->[androidx.emoji2:emoji2:1.3.0] C:\Users\fenna\.gradle\caches\8.13\transforms\35a0bd45bdd3fb490b6035837e49a99b\transformed\emoji2-1.3.0\AndroidManifest.xml:27:13-37
 277            <meta-data
-277-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:29:13-31:52
-278                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
-278-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:30:17-85
+277-->[androidx.emoji2:emoji2:1.3.0] C:\Users\fenna\.gradle\caches\8.13\transforms\35a0bd45bdd3fb490b6035837e49a99b\transformed\emoji2-1.3.0\AndroidManifest.xml:29:13-31:52
+278                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+278-->[androidx.emoji2:emoji2:1.3.0] C:\Users\fenna\.gradle\caches\8.13\transforms\35a0bd45bdd3fb490b6035837e49a99b\transformed\emoji2-1.3.0\AndroidManifest.xml:30:17-75
 279                android:value="androidx.startup" />
-279-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:31:17-49
-280        </provider>
-281
-282        <receiver
-282-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:34:9-52:20
-283            android:name="androidx.profileinstaller.ProfileInstallReceiver"
-283-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:35:13-76
-284            android:directBootAware="false"
-284-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:36:13-44
-285            android:enabled="true"
-285-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:37:13-35
-286            android:exported="true"
-286-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:38:13-36
-287            android:permission="android.permission.DUMP" >
-287-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:39:13-57
-288            <intent-filter>
-288-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:40:13-42:29
-289                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
-289-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:41:17-91
-289-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:41:25-88
-290            </intent-filter>
-291            <intent-filter>
-291-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:43:13-45:29
-292                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
-292-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:44:17-85
-292-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:44:25-82
-293            </intent-filter>
+279-->[androidx.emoji2:emoji2:1.3.0] C:\Users\fenna\.gradle\caches\8.13\transforms\35a0bd45bdd3fb490b6035837e49a99b\transformed\emoji2-1.3.0\AndroidManifest.xml:31:17-49
+280            <meta-data
+280-->[androidx.lifecycle:lifecycle-process:2.8.7] C:\Users\fenna\.gradle\caches\8.13\transforms\8fbc16033d0dbb67731c4d6e212a0851\transformed\lifecycle-process-2.8.7\AndroidManifest.xml:29:13-31:52
+281                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+281-->[androidx.lifecycle:lifecycle-process:2.8.7] C:\Users\fenna\.gradle\caches\8.13\transforms\8fbc16033d0dbb67731c4d6e212a0851\transformed\lifecycle-process-2.8.7\AndroidManifest.xml:30:17-78
+282                android:value="androidx.startup" />
+282-->[androidx.lifecycle:lifecycle-process:2.8.7] C:\Users\fenna\.gradle\caches\8.13\transforms\8fbc16033d0dbb67731c4d6e212a0851\transformed\lifecycle-process-2.8.7\AndroidManifest.xml:31:17-49
+283            <meta-data
+283-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:29:13-31:52
+284                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+284-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:30:17-85
+285                android:value="androidx.startup" />
+285-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:31:17-49
+286        </provider>
+287
+288        <receiver
+288-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:34:9-52:20
+289            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+289-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:35:13-76
+290            android:directBootAware="false"
+290-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:36:13-44
+291            android:enabled="true"
+291-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:37:13-35
+292            android:exported="true"
+292-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:38:13-36
+293            android:permission="android.permission.DUMP" >
+293-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:39:13-57
 294            <intent-filter>
-294-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:46:13-48:29
-295                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
-295-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:47:17-88
-295-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:47:25-85
+294-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:40:13-42:29
+295                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+295-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:41:17-91
+295-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:41:25-88
 296            </intent-filter>
 297            <intent-filter>
-297-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:49:13-51:29
-298                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
-298-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:50:17-95
-298-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:50:25-92
+297-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:43:13-45:29
+298                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+298-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:44:17-85
+298-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:44:25-82
 299            </intent-filter>
-300        </receiver> <!-- The activities will be merged into the manifest of the hosting app. -->
-301        <activity
-301-->[com.google.android.play:core-common:2.0.3] C:\Users\fenna\.gradle\caches\8.13\transforms\e1b4455dc31a32e6c96f44b8479d6ea8\transformed\core-common-2.0.3\AndroidManifest.xml:14:9-18:65
-302            android:name="com.google.android.play.core.common.PlayCoreDialogWrapperActivity"
-302-->[com.google.android.play:core-common:2.0.3] C:\Users\fenna\.gradle\caches\8.13\transforms\e1b4455dc31a32e6c96f44b8479d6ea8\transformed\core-common-2.0.3\AndroidManifest.xml:15:13-93
-303            android:exported="false"
-303-->[com.google.android.play:core-common:2.0.3] C:\Users\fenna\.gradle\caches\8.13\transforms\e1b4455dc31a32e6c96f44b8479d6ea8\transformed\core-common-2.0.3\AndroidManifest.xml:16:13-37
-304            android:stateNotNeeded="true"
-304-->[com.google.android.play:core-common:2.0.3] C:\Users\fenna\.gradle\caches\8.13\transforms\e1b4455dc31a32e6c96f44b8479d6ea8\transformed\core-common-2.0.3\AndroidManifest.xml:17:13-42
-305            android:theme="@style/Theme.PlayCore.Transparent" />
-305-->[com.google.android.play:core-common:2.0.3] C:\Users\fenna\.gradle\caches\8.13\transforms\e1b4455dc31a32e6c96f44b8479d6ea8\transformed\core-common-2.0.3\AndroidManifest.xml:18:13-62
-306    </application>
-307
-308</manifest>
+300            <intent-filter>
+300-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:46:13-48:29
+301                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+301-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:47:17-88
+301-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:47:25-85
+302            </intent-filter>
+303            <intent-filter>
+303-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:49:13-51:29
+304                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+304-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:50:17-95
+304-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\fenna\.gradle\caches\8.13\transforms\9775beddf269c291a416e0365616259c\transformed\profileinstaller-1.4.0\AndroidManifest.xml:50:25-92
+305            </intent-filter>
+306        </receiver> <!-- The activities will be merged into the manifest of the hosting app. -->
+307        <activity
+307-->[com.google.android.play:core-common:2.0.3] C:\Users\fenna\.gradle\caches\8.13\transforms\e1b4455dc31a32e6c96f44b8479d6ea8\transformed\core-common-2.0.3\AndroidManifest.xml:14:9-18:65
+308            android:name="com.google.android.play.core.common.PlayCoreDialogWrapperActivity"
+308-->[com.google.android.play:core-common:2.0.3] C:\Users\fenna\.gradle\caches\8.13\transforms\e1b4455dc31a32e6c96f44b8479d6ea8\transformed\core-common-2.0.3\AndroidManifest.xml:15:13-93
+309            android:exported="false"
+309-->[com.google.android.play:core-common:2.0.3] C:\Users\fenna\.gradle\caches\8.13\transforms\e1b4455dc31a32e6c96f44b8479d6ea8\transformed\core-common-2.0.3\AndroidManifest.xml:16:13-37
+310            android:stateNotNeeded="true"
+310-->[com.google.android.play:core-common:2.0.3] C:\Users\fenna\.gradle\caches\8.13\transforms\e1b4455dc31a32e6c96f44b8479d6ea8\transformed\core-common-2.0.3\AndroidManifest.xml:17:13-42
+311            android:theme="@style/Theme.PlayCore.Transparent" />
+311-->[com.google.android.play:core-common:2.0.3] C:\Users\fenna\.gradle\caches\8.13\transforms\e1b4455dc31a32e6c96f44b8479d6ea8\transformed\core-common-2.0.3\AndroidManifest.xml:18:13-62
+312    </application>
+313
+314</manifest>
