@@ -1,112 +1,111 @@
 import csv
-import os
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 from datetime import datetime
+from typing import Dict, Any
 
-# --- Configuration ---
-# this is where the csv is, adjust once we have a hosting location on backend
-CSV_FILE_PATH = r"C:\Users\bramc\Downloads\coursesTest.csv"
-
-# the service account key that is what decides if steve pays 300000 usd in overage fees
+#This would be different in actual use, since this is my own filepath for things to work
+CSV_FILE_PATH = r"C:\Users\bramc\Downloads\coursesNew.csv"
 SERVICE_ACCOUNT_KEY_PATH = r"C:\Users\bramc\Downloads\attendease-1004d-firebase-adminsdk-fbsvc-db016e4167.json"
 
-# name of the collection to upload to
 COLLECTION_NAME = 'Courses'
-
-# what the document is named, currently takes from the class id, but if you wanna go by names just adjust to the name of that col
 DOCUMENT_ID_KEY = 'Class'
 
-
 def initialize_firebase():
-    key = credentials.Certificate(SERVICE_ACCOUNT_KEY_PATH)
-
-    if not firebase_admin._apps:
-        firebase_admin.initialize_app(key)
-        print("Firebase Admin SDK successfully initialized.")
-    return firestore.client()
-
-
-def calculate_semester(date_string):
-    """Calculate semester based on the date (e.g., '5/16/2025' -> 'Spring 2025')"""
     try:
-        date_obj = datetime.strptime(date_string, '%m/%d/%Y')
+        key = credentials.Certificate(SERVICE_ACCOUNT_KEY_PATH)
+
+        if not firebase_admin._apps:
+            firebase_admin.initialize_app(key)
+            print("Firebase Admin SDK successfully initialized.")
+        return firestore.client()
+    except Exception as e:
+        print(f"Failed to initialize Firebase: {e}")
+        return None
+
+#Calculate semester from date
+def calculate_semester(date_string: str) -> str:
+    try:
+        date_obj = datetime.strptime(date_string.strip(), '%m/%d/%Y')
         month = date_obj.month
         year = date_obj.year
 
-        if month in [2, 3, 4, 5, 6]:
+        if 2 <= month <= 6:
             return f"Spring {year}"
-        elif month in [7, 8]:
+        elif 7 <= month <= 8:
             return f"Summer {year}"
-        elif month in [9, 10, 11, 12]:
+        elif 9 <= month <= 12:
             return f"Fall {year}"
-        else:  # January
+        else:
             return f"Spring {year}"
     except:
         return ''
 
-
-def is_cycle_format(session_value):
-    """Check if session is in 'Cycle X' format, not 'Season Year' format"""
-    if not session_value:
-        return False
-
-    session_lower = session_value.lower().strip()
-
-    # check if it contains season keywords
-    seasons = ['spring', 'summer', 'fall', 'winter']
-    for season in seasons:
-        if season in session_lower:
-            return False
-
-    # check if it contains 'cycle' since nyit cant make a consistent final exam file
-    if 'cycle' in session_lower:
-        return True
-
-    return False
-
-
-def map_row_to_document(row):
+#One CSV row = one course
+def map_row_to_document(row: Dict[str, str]) -> Dict[str, Any]:
     # split building and room since its stored in one 'cell' but has a comma for delineation
     full_location = row.get('Building & Room', '')
-    building_id = full_location.strip()
-    room_id = ''  # in case theres no room listed (such as an online class) / asynch or w/e
+    building = full_location.strip()
+    room = '' #in case theres no room listed (such as an online class) / asynch or w/e
 
     if ',' in full_location:
         piece = full_location.rsplit(',', 1)
-        building_id = piece[0].strip()
-        room_id = piece[1].strip()
+        building = piece[0].strip()
+        room = piece[1].strip()
 
-    # Calculate semester from date
-    date_value = row.get('Date', '')
-    semester = calculate_semester(date_value)
+    start_date = row.get('Start Date', '').strip()
+    end_date = row.get('End Date', '').strip()
 
-    # only use session col if it's in "Cycle X" format, not "Season Year" format since again nyit is not consistent
-    # only 4 rows have the cycle format, but hey maybe the future will be different we haven't a clue
-    session_value = row.get('Session', '')
-    session_id = session_value if is_cycle_format(session_value) else ''
+    #Calculate semester from date
+    semester_name = row.get('Semester', '')
+    if not semester_name and start_date:
+        semester_name = calculate_semester(start_date)
 
-    # map where things go, adjust if we ever change the names of attributes or collections
-    document_data = {
-        'Semester': semester,
-        'buildingId': building_id,
-        'campus': row.get('Campus', ''),
-        'courseId': row.get('Class', ''),
-        'courseName': row.get('Course Title', ''),
-        'endTime': row.get('End Time', ''),
-        'professorId': row.get('Instructor', ''),
-        'roomId': room_id,
-        'sessionId': session_id,
-        'startTime': row.get('Start Time', ''),
+    schedule_entry = {
+        'building': building,
+        'dayOfWeek': row.get('Day', '').strip(),
+        'endTime': row.get('End Time', '').strip(),
+        'room': room,
+        'startTime': row.get('Start Time', '').strip(),
     }
+
+    #convert numbers in csv from string to int, defaults to 0.
+    try:
+        credits = int(row.get('Credits', 0))
+    except ValueError:
+        credits = 0
+
+    try:
+        max_capacity = int(row.get('Max Capacity', 0))
+    except ValueError:
+        max_capacity = 0
+
+    #enrolled students stays empty on creation
+    enrolled_students = []
+
+    document_data = {
+        'campus': row.get('Campus', '').strip(),
+        'courseId': row.get('Class', '').strip(),
+        'courseName': row.get('Course Title', '').strip(),
+        'credits': credits,
+        'department': row.get('Department', '').strip(),
+        'enrolledStudents': enrolled_students,
+        'maxCapacity': max_capacity,
+        'professorId': row.get('Instructor', '').strip(),
+        'professorName': row.get('Professor Name', '').strip(),
+        'schedule': [schedule_entry],
+        'semester': row.get('Semester', '').strip(),
+        'semesterStart': row.get('Start Date', '').strip(),
+        'semesterEnd': row.get('End Date', '').strip()
+    }
+
     return document_data
 
 
-# actually uploading it
 def upload_csv_to_firestore(db, csv_file_path, collection_name, document_id_key):
     with open(csv_file_path, mode='r', encoding='utf-8') as file:
-        # use DictReader to automatically map rows to dictionaries using the header
+        #use DictReader to automatically map rows to dictionaries using the header
         reader = csv.DictReader(file)
 
         print(f"Uploading to: '{collection_name}'...")
@@ -116,7 +115,7 @@ def upload_csv_to_firestore(db, csv_file_path, collection_name, document_id_key)
 
         for row in reader:
             document_data = map_row_to_document(row)
-            # Let Firestore generate the UUID by not specifying a document ID
+            #Let Firestore generate the UUID by not specifying a document ID
             doc_ref = db.collection(collection_name).document()
             doc_ref.set(document_data)
 
