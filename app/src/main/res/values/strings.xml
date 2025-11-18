@@ -30,5 +30,8 @@
     <string name="nfc_tag_read">NFC Tag Read:</string>
     <string name="hce_service_description">AttendEase HCE Service</string>
     <string name="hce_attendance_description">AttendEase HCE Attendance</string>
+    <string name="friend_id">Friend ID</string>
+    <string name="friends">Friends</string>
+    <string name="add_friend">Add Friend</string>
 
 </resources>

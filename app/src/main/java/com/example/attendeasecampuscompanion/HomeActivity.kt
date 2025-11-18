@@ -40,8 +40,10 @@ class HomeActivity : ComponentActivity() {
             startActivity(Intent(this, MyScheduleActivity::class.java))
         }
 
+
         findViewById<Button>(R.id.btnSocial).setOnClickListener {
             Toast.makeText(this, "Opening SocialEaze...", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, FriendsListImplementation::class.java))
         }
 
         findViewById<Button>(R.id.btnCampusMap).setOnClickListener {

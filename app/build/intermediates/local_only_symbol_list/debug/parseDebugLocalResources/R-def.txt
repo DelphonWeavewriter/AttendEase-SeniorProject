@@ -29,6 +29,8 @@ drawable ic_my_location
 drawable input_field_background
 drawable login_background
 drawable signin_button_background
+id addFriendButton
+id addFriendTextField
 id appLogo
 id attendanceRate
 id barChart
@@ -84,7 +86,9 @@ id etMessage
 id fabCreateEvent
 id fabRecenter
 id forgotPassword
+id friendsList
 id headerSection
+id headerTitle
 id layoutCharts
 id layoutDetailContent
 id layoutStats
@@ -184,6 +188,7 @@ layout dialog_announcement
 layout dialog_create_event
 layout dialog_student_detail
 layout fragment_campus_map
+layout friends
 layout item_announcement
 layout item_attendance_report
 layout item_course
@@ -196,10 +201,13 @@ layout signin_layout
 mipmap ic_launcher
 mipmap ic_launcher_round
 raw campus_graph
+string add_friend
 string app_name
 string email_hint
 string email_required
 string forgot_password
+string friend_id
+string friends
 string gcm_defaultSenderId
 string google_api_key
 string google_app_id

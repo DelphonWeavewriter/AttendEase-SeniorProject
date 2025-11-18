@@ -71,6 +71,10 @@
             android:exported="false"/>
 
         <activity
+            android:name=".FriendsListImplementation"
+            android:exported="false"/>
+
+        <activity
             android:name=".StudentCourseDetailActivity"
             android:exported="false" />
 
