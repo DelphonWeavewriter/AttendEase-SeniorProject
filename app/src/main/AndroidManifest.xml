@@ -15,7 +15,11 @@
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN"/>
     <uses-permission android:name="android.permission.NEARBY_WIFI_DEVICES"/>
     <uses-permission android:name="android.permission.NFC"/>
-    <uses-permission android:name="android.harware.nfc" android:required="true" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -123,6 +127,26 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".SocialActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".FriendsListActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".FriendRequestsActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".CommentsActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".NotificationsActivity"
+            android:exported="false" />
 
     </application>
 
