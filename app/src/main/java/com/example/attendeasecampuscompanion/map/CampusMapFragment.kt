@@ -173,6 +173,8 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var navParkingContainer: View
     private lateinit var navParkingText: TextView
     private lateinit var navChangeParkingButton: Button
+    private lateinit var navClassInfoText: TextView
+
 
     private lateinit var navIParkedButton: Button
 
@@ -1287,6 +1289,10 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         navArrivalTimeText = root.findViewById(R.id.navArrivalTimeText)
         navActionButton = root.findViewById(R.id.navActionButton)
 
+        // NEW: class info line under the destination.
+        navClassInfoText = root.findViewById(R.id.navClassInfoText)
+        navClassInfoText.visibility = View.GONE
+
 
 
         //  Parking controls
@@ -1658,9 +1664,16 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
 
                         if (normalizedBuilding.isBlank()) continue
 
-                        val room = slot["room"] as? String ?: ""
-                        val start = slot["startTime"] as? String ?: ""
-                        val end = slot["endTime"] as? String ?: ""
+                        // Rushil: Be defensive here in case the field names change slightly.
+                        val room =
+                            (slot["room"] ?: slot["roomNumber"] ?: slot["room_number"]) as? String ?: ""
+
+                        val start =
+                            (slot["startTime"] ?: slot["start_time"]) as? String ?: ""
+
+                        val end =
+                            (slot["endTime"] ?: slot["end_time"]) as? String ?: ""
+
 
                         val list = buildingToClasses.getOrPut(normalizedBuilding) { mutableListOf() }
                         list += CourseMeetingInfo(
@@ -1744,6 +1757,80 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         return "$hm $ampm"
     }
 
+
+
+    /**
+     * TEAM NOTE:
+     * When I tap one of my class markers, I want the bottom nav panel to show:
+     *  - Class name
+     *  - Room
+     *  - Time range (e.g. 2:45 PM - 4:24 PM)
+     *
+     * This does NOT start navigation yet – it just pre-fills the panel with schedule info.
+     */
+
+    // Rushil: Show class name, room, and time on a dedicated line in the nav panel.
+    // This line only appears for my blue "class" markers.
+    private fun showClassInfoInNavPanel(loc: ClassBuildingLocation) {
+        val firstClass = loc.classes.firstOrNull()
+
+        if (firstClass != null) {
+            val timeRange =
+                if (firstClass.startTime.isNotBlank() && firstClass.endTime.isNotBlank()) {
+                    "${formatTime(firstClass.startTime)} - ${formatTime(firstClass.endTime)}"
+                } else {
+                    ""
+                }
+
+            val roomPart =
+                if (firstClass.room.isNotBlank()) "Room ${firstClass.room}" else ""
+
+            val infoText = buildString {
+                append(firstClass.courseName)
+                if (roomPart.isNotBlank()) {
+                    append(" • ")
+                    append(roomPart)
+                }
+                if (timeRange.isNotBlank()) {
+                    append(" • ")
+                    append(timeRange)
+                }
+            }
+
+            navClassInfoText.text = infoText
+            navClassInfoText.visibility = View.VISIBLE
+
+        } else {
+            // Fallback: hide the line if we somehow don't have class details.
+            navClassInfoText.text = ""
+            navClassInfoText.visibility = View.GONE
+        }
+    }
+
+
+
+    /**
+     * TEAM NOTE:
+     * This keeps all my old marker behavior (buildings, parking, etc.)
+     * separate from the new "class markers" flow.
+     *
+     * Take whatever logic I previously had in setOnMarkerClickListener
+     * and paste it inside this function.
+     */
+    private fun handleNonClassMarkerClick(marker: Marker): Boolean {
+        // TODO Rushil: Paste your OLD marker-click logic here.
+        // Example (pseudo-code):
+        //
+        // selectedMarker = marker
+        // updateNavPanelForDestination(marker)
+        // return true
+        //
+        // For now, as a safe default, we'll just select and show the panel.
+        selectedMarker = marker
+        navDestinationText.text = marker.title ?: "Destination"
+        navPanelContainer.visibility = View.VISIBLE
+        return true
+    }
 
 
 
@@ -2118,15 +2205,25 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         )
 // TEAM NOTE (Rushil): When the user taps any building marker, enter navigation preview mode.
         googleMap.setOnMarkerClickListener { marker ->
-            // If you have special markers (like "user location" or debug markers) that
-            // should not trigger navigation, you can early-return here based on marker.tag.
-
             selectedMarker = marker
             enterNavigationPreview(marker)
-            // Return true to consume the click and prevent default behavior (info window),
-            // or false if you still want the info window to show. I'm using true for now.
+
+            val classLoc = marker.tag as? ClassBuildingLocation
+
+            if (classLoc != null) {
+                // Blue class marker → show class line
+                showClassInfoInNavPanel(classLoc)
+            } else {
+                // Any other marker → hide the class line
+                navClassInfoText.text = ""
+                navClassInfoText.visibility = View.GONE
+            }
+
             true
         }
+
+
+
         // Rushil: If I'm just previewing (with or without route), tapping empty map cancels nav.
         googleMap.setOnMapClickListener {
             if (navigationState == NavigationState.Preview ||
@@ -3382,29 +3479,33 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         return (dp * resources.displayMetrics.density).toInt()
     }
 
-    // Rushil: Position the recenter FAB either at its normal bottom margin,
-// or bumped up above the nav panel when the panel is visible.
+    // Rushil: Position the recenter FAB & switch either at its normal bottom margin,
+    // or bumped up above the nav panel when the panel is visible.
     private fun updateFabPositionRelativeToNavPanel() {
-        // If for some reason the FAB or switch isn't initialized yet, just bail.
-        if (!::fabRecenter.isInitialized || !::classMarkersSwitchContainer.isInitialized) return
+        // If the FAB isn't initialized yet, just bail.
+        if (!::fabRecenter.isInitialized) return
 
-        val fabParams = fabRecenter.layoutParams as? ViewGroup.MarginLayoutParams ?: return
-        val switchParams = classMarkersSwitchContainer.layoutParams as? ViewGroup.MarginLayoutParams ?: return
+        val params = fabRecenter.layoutParams as? ViewGroup.MarginLayoutParams ?: return
 
-        val newBottomMargin =
-            if (navPanelContainer.visibility == View.VISIBLE && navPanelHeightPx > 0) {
-                // Rushil: When the nav panel is visible, move both controls up so they sit above the panel.
-                navPanelHeightPx + dpToPx(16)
-            } else {
-                // Rushil: When the nav panel is hidden, use a normal bottom margin.
-                dpToPx(16)
-            }
+        if (navPanelContainer.visibility == View.VISIBLE && navPanelHeightPx > 0) {
+            // Rushil: When the nav panel is visible, move the FAB up so it sits above the panel.
+            params.bottomMargin = navPanelHeightPx + dpToPx(16)
+        } else {
+            // Rushil: When the nav panel is hidden, use a normal bottom margin.
+            params.bottomMargin = dpToPx(16)
+        }
 
-        fabParams.bottomMargin = newBottomMargin
-        switchParams.bottomMargin = newBottomMargin
+        fabRecenter.layoutParams = params
 
-        fabRecenter.layoutParams = fabParams
-        classMarkersSwitchContainer.layoutParams = switchParams
+        // Rushil: Move the switch vertically with the nav panel too.
+        if (::classMarkersSwitchContainer.isInitialized) {
+            classMarkersSwitchContainer.translationY =
+                if (navPanelContainer.visibility == View.VISIBLE && navPanelHeightPx > 0) {
+                    -navPanelHeightPx.toFloat()
+                } else {
+                    0f
+                }
+        }
     }
 
 

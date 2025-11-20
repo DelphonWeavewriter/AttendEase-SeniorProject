@@ -3608,6 +3608,7 @@ int id multiply 0x7f080185
 int id navActionButton 0x7f080186
 int id navArrivalTimeText 0x7f080187
 int id navChangeParkingButton 0x7f080188
+int id navClassInfoText 0x7f0802a5
 int id navDestinationText 0x7f080189
 int id navDistanceText 0x7f08018a
 int id navEtaText 0x7f08018b

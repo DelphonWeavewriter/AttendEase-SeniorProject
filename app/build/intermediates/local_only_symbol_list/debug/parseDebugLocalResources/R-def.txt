@@ -103,6 +103,7 @@ id map_container
 id navActionButton
 id navArrivalTimeText
 id navChangeParkingButton
+id navClassInfoText
 id navDestinationText
 id navDistanceText
 id navEtaText
