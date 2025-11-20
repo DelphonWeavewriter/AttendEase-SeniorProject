@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary_blue"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="←"
+            android:textSize="32sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Explore"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/white" />
+
+        <ImageButton
+            android:id="@+id/notificationButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_toStartOf="@id/profileAvatar"
+            android:layout_marginEnd="12dp"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_popup_reminder"
+            app:tint="@color/white"
+            android:contentDescription="Notifications" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profileAvatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_profile_placeholder"
+            android:clickable="true"
+            android:focusable="true"
+            app:civ_border_width="2dp"
+            app:civ_border_color="@color/white" />
+
+    </RelativeLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/createPostCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/topBar"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        app:strokeWidth="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:gravity="center_vertical">
+
+            <EditText
+                android:id="@+id/postInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="What's happening?"
+                android:background="@null"
+                android:maxLength="280"
+                android:maxLines="4"
+                android:inputType="textMultiLine|textCapSentences"
+                android:textSize="16sp"
+                android:textColor="@color/black" />
+
+            <ImageButton
+                android:id="@+id/sendPostButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/circle_button_bg"
+                android:src="@android:drawable/ic_menu_send"
+                app:tint="@color/white"
+                android:contentDescription="Send Post" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/postsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/createPostCard"
+        android:paddingHorizontal="16dp"
+        android:clipToPadding="false" />
+
+    <TextView
+        android:id="@+id/emptyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="No posts yet. Be the first to post!"
+        android:textSize="16sp"
+        android:textColor="#666666"
+        android:visibility="gone" />
+
+</RelativeLayout>
