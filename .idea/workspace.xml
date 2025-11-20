@@ -221,7 +221,11 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0a603850-d4e0-44f1-9561-6473d066f17a" name="Changes" comment="Updated gradle build files + json" />
+    <list default="true" id="0a603850-d4e0-44f1-9561-6473d066f17a" name="Changes" comment="Local workspace update to sync, build, and test">
+      <change beforePath="$PROJECT_DIR$/.gradle/8.13/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -855,7 +859,15 @@
       <option name="project" value="LOCAL" />
       <updated>1763669770134</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="Local workspace update to sync, build, and test">
+      <option name="closed" value="true" />
+      <created>1763669948413</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1763669948413</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -909,7 +921,8 @@
     <MESSAGE value="Home activity path set for student upon tapping socialease" />
     <MESSAGE value="Updated Manifest for socialease" />
     <MESSAGE value="Updated gradle build files + json" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated gradle build files + json" />
+    <MESSAGE value="Local workspace update to sync, build, and test" />
+    <option name="LAST_COMMIT_MESSAGE" value="Local workspace update to sync, build, and test" />
   </component>
   <component name="play_dynamic_filters_status">
     <option name="appIdToCheckInfo">
