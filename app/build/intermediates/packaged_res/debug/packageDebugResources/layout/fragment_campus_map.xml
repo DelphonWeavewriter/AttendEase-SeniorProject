@@ -92,6 +92,24 @@
         android:contentDescription="@string/recenter_map"
         app:srcCompat="@drawable/ic_my_location" />
 
+    <LinearLayout
+        android:id="@+id/classMarkersSwitchContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_margin="16dp">
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switchClassMarkers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show my class locations"
+            android:checked="true"
+            android:textColor="@android:color/white"
+            app:useMaterialThemeColors="true" />
+    </LinearLayout>
+
+
     <!-- TEAM NOTE (Rushil): Navigation info panel for basic "Phase 1" nav.
      This sits on top of the map and stays hidden until a marker is selected. -->
     <LinearLayout

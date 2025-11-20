@@ -4,7 +4,7 @@
             "outputFile": "com.example.attendeasecampuscompanion.app-mergeDebugResources-69:/values-v18/values-v18.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\fenna\\.gradle\\caches\\8.13\\transforms\\4fcec0279e3371e9b70f1513bbb16fdf\\transformed\\appcompat-1.6.1\\res\\values-v18\\values-v18.xml",
+                    "source": "C:\\Users\\User\\.gradle\\caches\\8.13\\transforms\\4fcec0279e3371e9b70f1513bbb16fdf\\transformed\\appcompat-1.6.1\\res\\values-v18\\values-v18.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

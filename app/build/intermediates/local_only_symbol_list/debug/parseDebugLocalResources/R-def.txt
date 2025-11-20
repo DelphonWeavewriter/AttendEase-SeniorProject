@@ -68,6 +68,7 @@ id cardCheckIn
 id cardManualAttendance
 id chipSchedule
 id chipSemester
+id classMarkersSwitchContainer
 id courseCode
 id courseName
 id creditsDetails
@@ -143,6 +144,7 @@ id statusText
 id studentId
 id studentName
 id suggestionsList
+id switchClassMarkers
 id textView
 id timeRange
 id tvAbsentCount
