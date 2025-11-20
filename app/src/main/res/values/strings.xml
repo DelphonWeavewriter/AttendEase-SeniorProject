@@ -33,5 +33,8 @@
     <string name="friend_id">Friend ID</string>
     <string name="friends">Friends</string>
     <string name="add_friend">Add Friend</string>
+    <string name="friend_name">Friend Name</string>
+    <string name="go">Go</string>
+    <string name="message_button">Message Button</string>
 
 </resources>

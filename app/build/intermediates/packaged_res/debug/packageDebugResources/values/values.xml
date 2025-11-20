@@ -18,8 +18,10 @@
     <string name="email_required">Email is required</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="friend_id">Friend ID</string>
+    <string name="friend_name">Friend Name</string>
     <string name="friends">Friends</string>
     <string name="gcm_defaultSenderId" translatable="false">831725238352</string>
+    <string name="go">Go</string>
     <string name="google_api_key" translatable="false">AIzaSyBXX1ldftBG69tY3BsXeZxnlq56sChq87M</string>
     <string name="google_app_id" translatable="false">1:831725238352:android:2c62f6221a6cfc376eb955</string>
     <string name="google_crash_reporting_api_key" translatable="false">AIzaSyBXX1ldftBG69tY3BsXeZxnlq56sChq87M</string>
@@ -29,6 +31,7 @@
     <string name="invalid_credentials">Invalid email or password</string>
     <string name="login_failed">Login failed. Please try again.</string>
     <string name="login_subtitle">Sign in with your school email to continue</string>
+    <string name="message_button">Message Button</string>
     <string name="nfc_tag_read">NFC Tag Read:</string>
     <string name="password_hint">Password</string>
     <string name="password_required">Password is required</string>

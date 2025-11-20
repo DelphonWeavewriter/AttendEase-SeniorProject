@@ -28,6 +28,10 @@
         "source": "com.example.attendeasecampuscompanion.app-main-73:/drawable/ic_my_location.xml"
     },
     {
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/drawable_message_img.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/drawable/message_img.xml"
+    },
+    {
         "merged": "com.example.attendeasecampuscompanion.app-debug-71:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
         "source": "com.example.attendeasecampuscompanion.app-main-73:/mipmap-xxhdpi/ic_launcher_round.webp"
     },
@@ -206,6 +210,10 @@
     {
         "merged": "com.example.attendeasecampuscompanion.app-debug-71:/layout_activity_map.xml.flat",
         "source": "com.example.attendeasecampuscompanion.app-main-73:/layout/activity_map.xml"
+    },
+    {
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/layout_friend_list_item.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/layout/friend_list_item.xml"
     },
     {
         "merged": "com.example.attendeasecampuscompanion.app-debug-71:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",

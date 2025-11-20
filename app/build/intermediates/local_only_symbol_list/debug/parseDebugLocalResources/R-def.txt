@@ -28,8 +28,10 @@ drawable ic_lock
 drawable ic_my_location
 drawable input_field_background
 drawable login_background
+drawable message_img
 drawable signin_button_background
 id addFriendButton
+id addFriendContainer
 id addFriendTextField
 id appLogo
 id attendanceRate
@@ -86,7 +88,10 @@ id etMessage
 id fabCreateEvent
 id fabRecenter
 id forgotPassword
-id friendsList
+id friendButton
+id friendName
+id friendSwitch
+id friendsRecycler
 id headerSection
 id headerTitle
 id layoutCharts
@@ -129,6 +134,7 @@ id searchLayout
 id semesterDetails
 id sendButton
 id shareButton
+id shareLocationLabel
 id signInButton
 id spinnerCourse
 id spinnerCourses
@@ -138,6 +144,7 @@ id statusText
 id studentId
 id studentName
 id suggestionsList
+id switchStatus
 id textView
 id timeRange
 id tvAbsentCount
@@ -188,6 +195,7 @@ layout dialog_announcement
 layout dialog_create_event
 layout dialog_student_detail
 layout fragment_campus_map
+layout friend_list_item
 layout friends
 layout item_announcement
 layout item_attendance_report
@@ -207,8 +215,10 @@ string email_hint
 string email_required
 string forgot_password
 string friend_id
+string friend_name
 string friends
 string gcm_defaultSenderId
+string go
 string google_api_key
 string google_app_id
 string google_crash_reporting_api_key
@@ -218,6 +228,7 @@ string hce_service_description
 string invalid_credentials
 string login_failed
 string login_subtitle
+string message_button
 string nfc_tag_read
 string password_hint
 string password_required
