@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.attendeasecampuscompanion.app-mergeDebugResources-70:/values-da/values-da.xml",
+            "outputFile": "com.example.attendeasecampuscompanion.app-mergeDebugResources-71:/values-da/values-da.xml",
             "map": [
                 {
                     "source": "/Users/steven/.gradle/caches/8.13/transforms/bd1fd991bef7fe0a623533ded20999d5/transformed/core-1.15.0/res/values-da/values-da.xml",

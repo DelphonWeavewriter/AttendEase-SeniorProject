@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import de.hdodenhof.circleimageview.CircleImageView
 
 class FriendsAdapter(
@@ -20,6 +21,13 @@ class FriendsAdapter(
         fun bind(friend: Friend) {
             nameText.text = friend.friendName
             majorText.text = friend.friendMajor
+
+            if (friend.friendProfilePic.isNotEmpty()) {
+                Glide.with(itemView.context)
+                    .load(friend.friendProfilePic)
+                    .placeholder(R.drawable.ic_profile_placeholder)
+                    .into(profileImage)
+            }
 
             itemView.setOnClickListener {
                 onItemClick(friend)

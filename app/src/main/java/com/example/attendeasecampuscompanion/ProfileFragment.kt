@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import de.hdodenhof.circleimageview.CircleImageView
+import com.bumptech.glide.Glide
 import java.util.*
 
 class ProfileFragment : Fragment() {
@@ -156,6 +157,13 @@ class ProfileFragment : Fragment() {
                         emailText.text = user.email
                         majorText.text = user.major
                         bioText.text = if (user.bio.isEmpty()) "No bio yet" else user.bio
+
+                        if (user.profilePictureUrl.isNotEmpty()) {
+                            Glide.with(requireContext())
+                                .load(user.profilePictureUrl)
+                                .placeholder(R.drawable.ic_profile_placeholder)
+                                .into(profileImage)
+                        }
 
                         val settings = user.settings
                         notificationSwitch.isChecked = settings["notificationsEnabled"] as? Boolean ?: true

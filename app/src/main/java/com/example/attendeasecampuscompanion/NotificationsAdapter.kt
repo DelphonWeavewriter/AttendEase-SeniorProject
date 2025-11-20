@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import de.hdodenhof.circleimageview.CircleImageView
 import java.text.SimpleDateFormat
 import java.util.*
@@ -22,6 +23,13 @@ class NotificationsAdapter(
         fun bind(notification: Notification) {
             message.text = notification.message
             timestamp.text = getTimeAgo(notification.timestamp)
+
+            if (notification.fromUserProfilePic.isNotEmpty()) {
+                Glide.with(itemView.context)
+                    .load(notification.fromUserProfilePic)
+                    .placeholder(R.drawable.ic_profile_placeholder)
+                    .into(userImage)
+            }
         }
     }
 

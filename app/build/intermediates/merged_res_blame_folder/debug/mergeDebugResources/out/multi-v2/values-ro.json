@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.attendeasecampuscompanion.app-mergeDebugResources-70:/values-ro/values-ro.xml",
+            "outputFile": "com.example.attendeasecampuscompanion.app-mergeDebugResources-71:/values-ro/values-ro.xml",
             "map": [
                 {
                     "source": "/Users/steven/.gradle/caches/8.13/transforms/be6aae7b01821c275e5833c0a31ee27a/transformed/ui-release/res/values-ro/values-ro.xml",

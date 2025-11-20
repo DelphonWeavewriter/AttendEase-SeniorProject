@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import de.hdodenhof.circleimageview.CircleImageView
 import java.text.SimpleDateFormat
 import java.util.*
@@ -41,6 +42,13 @@ class PostsAdapter(
             content.text = post.content
             likeCount.text = post.likeCount.toString()
             commentCount.text = post.commentCount.toString()
+
+            if (post.userProfilePic.isNotEmpty()) {
+                Glide.with(itemView.context)
+                    .load(post.userProfilePic)
+                    .placeholder(R.drawable.ic_profile_placeholder)
+                    .into(userImage)
+            }
 
             if (post.likes.contains(currentUserId)) {
                 likeIcon.setImageResource(android.R.drawable.star_big_on)

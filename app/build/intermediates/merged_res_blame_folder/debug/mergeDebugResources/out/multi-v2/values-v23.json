@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.attendeasecampuscompanion.app-mergeDebugResources-70:/values-v23/values-v23.xml",
+            "outputFile": "com.example.attendeasecampuscompanion.app-mergeDebugResources-71:/values-v23/values-v23.xml",
             "map": [
                 {
                     "source": "/Users/steven/.gradle/caches/8.13/transforms/4fdcf4cdba1b82a9d5f863d34cd3eee3/transformed/cardview-1.0.0/res/values-v23/values-v23.xml",

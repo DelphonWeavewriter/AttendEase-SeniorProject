@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.attendeasecampuscompanion.app-mergeDebugResources-70:/values-sr/values-sr.xml",
+            "outputFile": "com.example.attendeasecampuscompanion.app-mergeDebugResources-71:/values-sr/values-sr.xml",
             "map": [
                 {
                     "source": "/Users/steven/.gradle/caches/8.13/transforms/23349eb664923cf248db8d7a978be8e2/transformed/play-services-basement-18.4.0/res/values-sr/values.xml",

@@ -36,6 +36,7 @@ MERGED from [androidx.activity:activity-ktx:1.11.0] /Users/steven/.gradle/caches
 MERGED from [androidx.activity:activity-compose:1.11.0] /Users/steven/.gradle/caches/8.13/transforms/f28467332807bf496a5527f1cc25097b/transformed/activity-compose-1.11.0/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.compose.ui:ui-android:1.6.6] /Users/steven/.gradle/caches/8.13/transforms/be6aae7b01821c275e5833c0a31ee27a/transformed/ui-release/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.compose.ui:ui-test-manifest:1.6.6] /Users/steven/.gradle/caches/8.13/transforms/db8e8abfbd70b099c92c25a4d465a2f6/transformed/ui-test-manifest-1.6.6/AndroidManifest.xml:17:1-28:12
+MERGED from [com.github.bumptech.glide:glide:4.16.0] /Users/steven/.gradle/caches/8.13/transforms/8eb4ff44b2a8ef436981fa8f6e79d619/transformed/glide-4.16.0/AndroidManifest.xml:2:1-9:12
 MERGED from [com.google.maps.android:android-maps-utils:3.8.2] /Users/steven/.gradle/caches/8.13/transforms/3bb6ef6780fa1ff88144aa53706fc917/transformed/android-maps-utils-3.8.2/AndroidManifest.xml:2:1-13:12
 MERGED from [com.google.android.gms:play-services-maps:19.2.0] /Users/steven/.gradle/caches/8.13/transforms/02655596cb9cc6e86d6c4ec38936d852/transformed/play-services-maps-19.2.0/AndroidManifest.xml:16:1-35:12
 MERGED from [com.google.android.gms:play-services-location:21.3.0] /Users/steven/.gradle/caches/8.13/transforms/ea6faddb7c1cd3b7f878b989dcbb34d4/transformed/play-services-location-21.3.0/AndroidManifest.xml:2:1-8:12
@@ -103,6 +104,8 @@ MERGED from [com.github.PhilJay:MPAndroidChart:v3.1.0] /Users/steven/.gradle/cac
 MERGED from [androidx.profileinstaller:profileinstaller:1.4.0] /Users/steven/.gradle/caches/8.13/transforms/9775beddf269c291a416e0365616259c/transformed/profileinstaller-1.4.0/AndroidManifest.xml:17:1-55:12
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/steven/.gradle/caches/8.13/transforms/1d7e5521c98845bbb8d8741359948816/transformed/cursoradapter-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.cardview:cardview:1.0.0] /Users/steven/.gradle/caches/8.13/transforms/4fdcf4cdba1b82a9d5f863d34cd3eee3/transformed/cardview-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [com.github.bumptech.glide:gifdecoder:4.16.0] /Users/steven/.gradle/caches/8.13/transforms/b70f17a5d2ba488006e14c461179dfaa/transformed/gifdecoder-4.16.0/AndroidManifest.xml:2:1-9:12
+MERGED from [androidx.exifinterface:exifinterface:1.3.6] /Users/steven/.gradle/caches/8.13/transforms/2ace99a7318ada0bc097773db2b6cb69/transformed/exifinterface-1.3.6/AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.firebase:firebase-components:18.0.0] /Users/steven/.gradle/caches/8.13/transforms/c30750837eff149d0183ca71e3bed68b/transformed/firebase-components-18.0.0/AndroidManifest.xml:15:1-20:12
 MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/steven/.gradle/caches/8.13/transforms/f0dd374dc4b4a9581732cc4855d9f4a7/transformed/startup-runtime-1.1.1/AndroidManifest.xml:17:1-33:12
 MERGED from [androidx.tracing:tracing:1.2.0] /Users/steven/.gradle/caches/8.13/transforms/7f863e1628b58caa1c7f35b688248c0a/transformed/tracing-1.2.0/AndroidManifest.xml:17:1-22:12
@@ -536,6 +539,8 @@ MERGED from [androidx.compose.ui:ui-android:1.6.6] /Users/steven/.gradle/caches/
 MERGED from [androidx.compose.ui:ui-android:1.6.6] /Users/steven/.gradle/caches/8.13/transforms/be6aae7b01821c275e5833c0a31ee27a/transformed/ui-release/AndroidManifest.xml:5:5-44
 MERGED from [androidx.compose.ui:ui-test-manifest:1.6.6] /Users/steven/.gradle/caches/8.13/transforms/db8e8abfbd70b099c92c25a4d465a2f6/transformed/ui-test-manifest-1.6.6/AndroidManifest.xml:20:5-44
 MERGED from [androidx.compose.ui:ui-test-manifest:1.6.6] /Users/steven/.gradle/caches/8.13/transforms/db8e8abfbd70b099c92c25a4d465a2f6/transformed/ui-test-manifest-1.6.6/AndroidManifest.xml:20:5-44
+MERGED from [com.github.bumptech.glide:glide:4.16.0] /Users/steven/.gradle/caches/8.13/transforms/8eb4ff44b2a8ef436981fa8f6e79d619/transformed/glide-4.16.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.github.bumptech.glide:glide:4.16.0] /Users/steven/.gradle/caches/8.13/transforms/8eb4ff44b2a8ef436981fa8f6e79d619/transformed/glide-4.16.0/AndroidManifest.xml:5:5-7:41
 MERGED from [com.google.maps.android:android-maps-utils:3.8.2] /Users/steven/.gradle/caches/8.13/transforms/3bb6ef6780fa1ff88144aa53706fc917/transformed/android-maps-utils-3.8.2/AndroidManifest.xml:5:5-44
 MERGED from [com.google.maps.android:android-maps-utils:3.8.2] /Users/steven/.gradle/caches/8.13/transforms/3bb6ef6780fa1ff88144aa53706fc917/transformed/android-maps-utils-3.8.2/AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-maps:19.2.0] /Users/steven/.gradle/caches/8.13/transforms/02655596cb9cc6e86d6c4ec38936d852/transformed/play-services-maps-19.2.0/AndroidManifest.xml:26:5-43
@@ -670,6 +675,10 @@ MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/steven/.gradle/c
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/steven/.gradle/caches/8.13/transforms/1d7e5521c98845bbb8d8741359948816/transformed/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.cardview:cardview:1.0.0] /Users/steven/.gradle/caches/8.13/transforms/4fdcf4cdba1b82a9d5f863d34cd3eee3/transformed/cardview-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.cardview:cardview:1.0.0] /Users/steven/.gradle/caches/8.13/transforms/4fdcf4cdba1b82a9d5f863d34cd3eee3/transformed/cardview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.github.bumptech.glide:gifdecoder:4.16.0] /Users/steven/.gradle/caches/8.13/transforms/b70f17a5d2ba488006e14c461179dfaa/transformed/gifdecoder-4.16.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.github.bumptech.glide:gifdecoder:4.16.0] /Users/steven/.gradle/caches/8.13/transforms/b70f17a5d2ba488006e14c461179dfaa/transformed/gifdecoder-4.16.0/AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.exifinterface:exifinterface:1.3.6] /Users/steven/.gradle/caches/8.13/transforms/2ace99a7318ada0bc097773db2b6cb69/transformed/exifinterface-1.3.6/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.exifinterface:exifinterface:1.3.6] /Users/steven/.gradle/caches/8.13/transforms/2ace99a7318ada0bc097773db2b6cb69/transformed/exifinterface-1.3.6/AndroidManifest.xml:20:5-22:41
 MERGED from [com.google.firebase:firebase-components:18.0.0] /Users/steven/.gradle/caches/8.13/transforms/c30750837eff149d0183ca71e3bed68b/transformed/firebase-components-18.0.0/AndroidManifest.xml:18:5-44
 MERGED from [com.google.firebase:firebase-components:18.0.0] /Users/steven/.gradle/caches/8.13/transforms/c30750837eff149d0183ca71e3bed68b/transformed/firebase-components-18.0.0/AndroidManifest.xml:18:5-44
 MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/steven/.gradle/caches/8.13/transforms/f0dd374dc4b4a9581732cc4855d9f4a7/transformed/startup-runtime-1.1.1/AndroidManifest.xml:21:5-23:41

@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.attendeasecampuscompanion.app-mergeDebugResources-70:/values-h720dp-v13/values-h720dp-v13.xml",
+            "outputFile": "com.example.attendeasecampuscompanion.app-mergeDebugResources-71:/values-h720dp-v13/values-h720dp-v13.xml",
             "map": [
                 {
                     "source": "/Users/steven/.gradle/caches/8.13/transforms/4fcec0279e3371e9b70f1513bbb16fdf/transformed/appcompat-1.6.1/res/values-h720dp-v13/values-h720dp-v13.xml",

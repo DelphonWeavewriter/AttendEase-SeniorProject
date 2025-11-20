@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import de.hdodenhof.circleimageview.CircleImageView
 
 class FriendRequestsAdapter(
@@ -24,6 +25,13 @@ class FriendRequestsAdapter(
         fun bind(request: FriendRequest) {
             nameText.text = request.fromUserName
             majorText.text = request.fromUserMajor
+
+            if (request.fromUserProfilePic.isNotEmpty()) {
+                Glide.with(itemView.context)
+                    .load(request.fromUserProfilePic)
+                    .placeholder(R.drawable.ic_profile_placeholder)
+                    .into(profileImage)
+            }
 
             acceptButton.setOnClickListener {
                 onAccept(request)
