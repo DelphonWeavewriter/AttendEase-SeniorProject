@@ -14,7 +14,6 @@ val MAPS_API_KEY: String =
 
 
 secrets {
-    // This file is committed with placeholder values so CI/teammates can build
     defaultPropertiesFileName = "local.defaults.properties"
 }
 
@@ -39,7 +38,6 @@ android {
                 println("Using SHARED debug keystore: ${storeFile?.absolutePath}")
             } else {
                 println("Shared keystore NOT found → falling back to DEFAULT debug.keystore")
-                // Leave fields unset so AGP uses ~/.android/debug.keystore
             }
         }
     }
@@ -57,7 +55,6 @@ android {
     buildTypes {
 
         getByName("debug") {
-            // Make sure the debug type uses the debug signing config above
             signingConfig = signingConfigs.getByName("debug")
         }
         release {
@@ -91,17 +88,23 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.constraintlayout)
-    implementation(libs.firebase.auth)
-    implementation(libs.firebase.firestore)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
-    implementation("com.google.android.gms:play-services-maps:19.2.0") //Google Maps
-    implementation("com.google.android.gms:play-services-location:21.3.0")    // blue dot/geolocation:
+
+    implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-firestore-ktx")
+    implementation("com.google.firebase:firebase-storage-ktx")
+
+    implementation("com.google.android.gms:play-services-maps:19.2.0")
+    implementation("com.google.android.gms:play-services-location:21.3.0")
     implementation("com.google.android.material:material:1.12.0")
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("com.google.maps.android:android-maps-utils:3.8.2")
+    implementation("de.hdodenhof:circleimageview:3.1.0")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

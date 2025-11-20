@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.attendeasecampuscompanion.app-mergeDebugResources-69:/values-watch-v20/values-watch-v20.xml",
+            "outputFile": "com.example.attendeasecampuscompanion.app-mergeDebugResources-70:/values-watch-v20/values-watch-v20.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\fenna\\.gradle\\caches\\8.13\\transforms\\4fcec0279e3371e9b70f1513bbb16fdf\\transformed\\appcompat-1.6.1\\res\\values-watch-v20\\values-watch-v20.xml",
+                    "source": "/Users/steven/.gradle/caches/8.13/transforms/4fcec0279e3371e9b70f1513bbb16fdf/transformed/appcompat-1.6.1/res/values-watch-v20/values-watch-v20.xml",
                     "from": {
                         "startLines": "2,5,8",
                         "startColumns": "4,4,4",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\fenna\\.gradle\\caches\\8.13\\transforms\\030a6532ed3a2737cc70d5c48e7d2f50\\transformed\\play-services-auth-20.7.0\\res\\values-watch-v20\\values.xml",
+                    "source": "/Users/steven/.gradle/caches/8.13/transforms/030a6532ed3a2737cc70d5c48e7d2f50/transformed/play-services-auth-20.7.0/res/values-watch-v20/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11",
                         "startColumns": "0,0,0,0,0,0,0,0",

@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.attendeasecampuscompanion.app-mergeDebugResources-69:/values-port/values-port.xml",
+            "outputFile": "com.example.attendeasecampuscompanion.app-mergeDebugResources-70:/values-port/values-port.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\fenna\\.gradle\\caches\\8.13\\transforms\\4fcec0279e3371e9b70f1513bbb16fdf\\transformed\\appcompat-1.6.1\\res\\values-port\\values-port.xml",
+                    "source": "/Users/steven/.gradle/caches/8.13/transforms/4fcec0279e3371e9b70f1513bbb16fdf/transformed/appcompat-1.6.1/res/values-port/values-port.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

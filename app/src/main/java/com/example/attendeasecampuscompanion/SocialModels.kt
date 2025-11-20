@@ -40,3 +40,38 @@ data class Message(
     val timestamp: Long = 0L,
     val read: Boolean = false
 )
+
+data class Post(
+    val postId: String = "",
+    val userId: String = "",
+    val userName: String = "",
+    val userProfilePic: String = "",
+    val userMajor: String = "",
+    val content: String = "",
+    val timestamp: Long = 0L,
+    val likes: List<String> = emptyList(),
+    val likeCount: Int = 0,
+    val commentCount: Int = 0
+)
+
+data class Comment(
+    val commentId: String = "",
+    val postId: String = "",
+    val userId: String = "",
+    val userName: String = "",
+    val userProfilePic: String = "",
+    val content: String = "",
+    val timestamp: Long = 0L
+)
+
+data class Notification(
+    val notificationId: String = "",
+    val type: String = "",
+    val fromUserId: String = "",
+    val fromUserName: String = "",
+    val fromUserProfilePic: String = "",
+    val postId: String = "",
+    val message: String = "",
+    val timestamp: Long = 0L,
+    val read: Boolean = false
+)
