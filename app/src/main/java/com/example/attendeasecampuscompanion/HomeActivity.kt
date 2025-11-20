@@ -41,7 +41,7 @@ class HomeActivity : ComponentActivity() {
         }
 
         findViewById<Button>(R.id.btnSocial).setOnClickListener {
-            Toast.makeText(this, "Opening SocialEaze...", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, SocialActivity::class.java))
         }
 
         findViewById<Button>(R.id.btnCampusMap).setOnClickListener {
