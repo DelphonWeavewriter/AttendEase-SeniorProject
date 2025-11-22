@@ -89,7 +89,7 @@
         <activity
             android:name=".AttendanceActivity"
             android:exported="false"
-            android:label="Attendance" >
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.SEND"/>
                 <category android:name="android.intent.category.DEFAULT"/>
@@ -104,11 +104,11 @@
 
         <activity
             android:name=".MarkAttendanceActivity"
-            android:exported="false" />
+            android:exported="false"/>
 
         <activity
             android:name=".ViewAttendanceActivity"
-            android:exported="false" />
+            android:exported="false"/>
 
         <activity
             android:name=".ViewAnnouncementsActivity"
@@ -117,7 +117,7 @@
         <activity
             android:name=".AttendanceSenderActivity"
             android:exported="false"
-            android:label="Attendance Sender" >
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
                 <category android:name="android.intent.category.DEFAULT" />

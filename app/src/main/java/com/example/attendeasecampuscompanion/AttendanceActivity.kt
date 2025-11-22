@@ -10,11 +10,13 @@ import android.nfc.tech.IsoDep
 import android.nfc.tech.Ndef
 import android.os.Build
 import android.os.Bundle
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import android.widget.TextView
+import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
 import java.nio.charset.StandardCharsets
 import java.time.LocalTime
@@ -32,7 +34,10 @@ class AttendanceActivity : AppCompatActivity() {
 //    private var nfcTagData: String = ""
 
     private var receivedData: String = ""
-    private lateinit var textView: TextView
+    private lateinit var statusText: TextView
+    private lateinit var statusDescription: TextView
+    private lateinit var btnBack: TextView
+    private lateinit var timeSet: EditText
     private lateinit var db: FirebaseFirestore
     private var currentRoom: String = "235"
     private var time: String = "11:45:00 AM"
@@ -59,13 +64,15 @@ class AttendanceActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_attendance)
 
-        // Optional: show a back arrow in the top bar
-        supportActionBar?.apply {
-            setDisplayHomeAsUpEnabled(true)
-            title = getString(R.string.app_name) + " • Attendance"
-        }
+        statusText = findViewById(R.id.statusText)
+        statusDescription = findViewById(R.id.statusDescription)
 
-        textView = findViewById(R.id.textView)
+        timeSet = findViewById(R.id.timeSet)
+
+
+        btnBack = findViewById(R.id.btnBack)
+        btnBack.setOnClickListener { onBackPressedDispatcher.onBackPressed() }
+
 
         // Firestore Initialized
         db = FirebaseFirestore.getInstance()
@@ -74,40 +81,21 @@ class AttendanceActivity : AppCompatActivity() {
 
         if (nfcAdapter == null) {
             Toast.makeText(this, "This device is not NFC-capable", Toast.LENGTH_LONG).show()
-            textView.text = "NFC is not available on this device"
+            statusText.text = "Unable to scan"
+            statusDescription.text = "This device is not NFC-capapble"
             finish()
             return
         }
 
         if (!nfcAdapter!!.isEnabled) {
-            textView.text = "NFC is disabled. Please enable it in the settings."
+            statusText.text = "Unable to scan"
+            statusDescription.text = "NFC is disabled. Please enable it in the settings."
             Toast.makeText(this, "Please enable NFC", Toast.LENGTH_SHORT).show()
         } else {
-            textView.text = "NFC is enabled, ready to scan"
+            statusText.text = "Ready to scan"
+            statusDescription.text = "Bring your device close to the in-class scanner"
         }
-//
-//        pendingIntent = PendingIntent.getActivity(
-//            this, 0,
-//            Intent(this, javaClass).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP),
-//            PendingIntent.FLAG_MUTABLE
-//        )
-//
-//        // Setup intent filters for NFC discovery
-//        val ndefDetected = IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED)
-//        try {
-//            ndefDetected.addDataType("*/*")
-//        } catch (e: IntentFilter.MalformedMimeTypeException) {
-//            throw RuntimeException("Failed to add MIME type.", e)
-//        }
-//
-//        intentFiltersArray = arrayOf(ndefDetected)
 
-    }
-
-    // Make the action-bar back arrow work
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressedDispatcher.onBackPressed()
-        return true
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -128,7 +116,7 @@ class AttendanceActivity : AppCompatActivity() {
             null
         )
 
-        runOnUiThread { textView.text = "Scanning for HCE device..." }
+        //runOnUiThread { textView.text = "Scanning for HCE device..." }
     }
 
     override fun onPause() {
@@ -172,14 +160,16 @@ class AttendanceActivity : AppCompatActivity() {
                     receivedData = String(dataBytes, StandardCharsets.UTF_8)
 
                     runOnUiThread {
-                        textView.text = "Received Data:\n$receivedData"
+                        statusText.text = "Received Data"
+                        statusDescription.text = "Received Data:\n$receivedData"
                         Toast.makeText(this, "Data received successfully!", Toast.LENGTH_SHORT).show()
                     }
 
                     sendToFirebase(receivedData)
                 } else {
                     runOnUiThread {
-                        textView.text = "Failed to read data (status code error)"
+                        statusText.text = "Failed to read data"
+                        statusDescription.text = "Communication error"
                         Toast.makeText(this, "Communication error", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -189,7 +179,9 @@ class AttendanceActivity : AppCompatActivity() {
 
         } catch (e: Exception) {
             runOnUiThread {
-                textView.text = "Error: ${e.message}"
+                statusText.text = "Error"
+                statusDescription.text = "Error: ${e.message}"
+
                 Toast.makeText(this, "Error reading HCE: ${e.message}", Toast.LENGTH_LONG).show()
             }
             e.printStackTrace()
@@ -206,53 +198,6 @@ class AttendanceActivity : AppCompatActivity() {
         }
         return data
     }
-
-//
-//    override fun onNewIntent(intent: Intent) {
-//        super.onNewIntent(intent)
-//
-//        handleNfcIntent(intent)
-//
-//        // Check if the intent contains NFC tag data
-////        if (NfcAdapter.ACTION_NDEF_DISCOVERED == intent.action ||
-////            NfcAdapter.ACTION_TAG_DISCOVERED == intent.action ||
-////            NfcAdapter.ACTION_TECH_DISCOVERED == intent.action) {
-////
-////            val tag: Tag? = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG)
-////            tag?.let {
-////                readNfcTag(it)
-////            }
-////        }
-//    }
-//
-//    private fun handleNfcIntent(intent: Intent) {
-//        if (intent == null) return
-//
-//        if (NfcAdapter.ACTION_NDEF_DISCOVERED == intent.action ||
-//            NfcAdapter.ACTION_TAG_DISCOVERED == intent.action ||
-//            NfcAdapter.ACTION_TECH_DISCOVERED == intent.action) {
-//
-//            val rawMessages = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)
-//            if (rawMessages != null && rawMessages.isNotEmpty()) {
-//                val ndefMessage = rawMessages[0] as NdefMessage
-//                val text = parseNdefMessage(ndefMessage)
-//                if (text.isNotEmpty()) {
-//                    nfcTagData = text
-//                    textView.text = "NFC Tag Read:\n$nfcTagData"
-//                    Toast.makeText(this, "NFC data saved to variable", Toast.LENGTH_SHORT).show()
-//                    sendToFirebase(nfcTagData)
-//                    return
-//                }
-//            }
-//
-//            val tag: Tag? = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG)
-//            tag?.let {
-//                readNfcTag(it)
-//            }
-//
-//        }
-//
-//    }
 
     private fun parseNdefMessage(message: NdefMessage): String {
         val sb = StringBuilder()
@@ -293,88 +238,6 @@ class AttendanceActivity : AppCompatActivity() {
         return sb.toString().trim()
     }
 
-
-//    private fun readNfcTag(tag: Tag) {
-//        val ndef = Ndef.get(tag)
-//
-//        if (ndef == null) {
-//            // Try to read raw tag ID if NDEF is not available
-//            val tagId = bytesToHex(tag.id)
-//            nfcTagData = "Tag ID: $tagId"
-//            textView.text = "NFC Tag Read:\n$nfcTagData"
-//            Toast.makeText(this, "Tag ID saved to variable", Toast.LENGTH_SHORT).show()
-//
-//            // Send Attendance Record to Firebase
-//            sendToFirebase(nfcTagData)
-//            return
-//        }
-//
-//        try {
-//            ndef.connect()
-//            val ndefMessage = ndef.ndefMessage
-//
-////            if (ndefMessage != null) {
-////                val records = ndefMessage.records
-////                val sb = StringBuilder()
-////
-////                for (record in records) {
-////                    // Check if this is a text record
-////                    if (record.tnf == android.nfc.NdefRecord.TNF_WELL_KNOWN &&
-////                        record.type.contentEquals(android.nfc.NdefRecord.RTD_TEXT)) {
-////
-////                        val payload = record.payload
-////
-////                        // First byte contains the language code length
-////                        val languageCodeLength = payload[0].toInt() and 0x3F
-////
-////                        val text = String(
-////                            payload,
-////                            languageCodeLength + 1,
-////                            payload.size - languageCodeLength - 1,
-////                            charset("UTF-8")
-////                        )
-////
-////                        sb.append(text).append("\n")
-////                    } else {
-////                        // If for some reason the NFC data is not text, convert as plain string
-////                        val payload = String(record.payload, charset("UTF-8"))
-////                        sb.append(payload).append("\n")
-////                    }
-////                }
-////
-////                // Save data to variable
-////                nfcTagData = sb.toString().trim()
-////
-////                // Display the data
-////                textView.text = "NFC Tag Read:\n$nfcTagData"
-////                Toast.makeText(this, "NFC data saved to variable", Toast.LENGTH_SHORT).show()
-////
-////                // Send Attendance Record to Firebase
-////                sendToFirebase(nfcTagData)
-////            } else {
-////                nfcTagData = "Empty tag"
-////                textView.text = nfcTagData
-////            }
-//
-//            if (ndefMessage != null) {
-//                nfcTagData = parseNdefMessage(ndefMessage)
-//                textView.text = "NFC Tag Read:\n$nfcTagData"
-//                Toast.makeText(this,"NFC data saved to variable", Toast.LENGTH_SHORT).show()
-//                sendToFirebase(nfcTagData)
-//            } else {
-//                nfcTagData = "Empty tag"
-//                textView.text = nfcTagData
-//            }
-//
-//            ndef.close()
-//
-//        } catch (e: Exception) {
-//            Toast.makeText(this, "Error reading NFC tag: ${e.message}", Toast.LENGTH_LONG).show()
-//            e.printStackTrace()
-//        }
-//
-//    }
-
     // Function to send NFC data to the database
     @RequiresApi(Build.VERSION_CODES.O)
     private fun sendToFirebase(data: String) {
@@ -385,47 +248,14 @@ class AttendanceActivity : AppCompatActivity() {
             return
         }
 
-        val currentTime = LocalTime.now().format(DateTimeFormatter.ofPattern("hh:mm:ss a"))
+        // Would be used for getting the current time in practical use, but will not be used for the sake of demonstration purposes
+        // val currentTime = LocalTime.now().format(DateTimeFormatter.ofPattern("hh:mm:ss a"))
+
+        // The setTime value will be used instead
+        val currentTime = timeSet.getText().toString()
 
 
-//        val nfcData = hashMapOf(
-//            "nfcString" to data,
-//            "timestamp" to System.currentTimeMillis(),
-//            "userId" to currentUser.uid,
-//            "userName" to currentUser.displayName,
-//            "userEmail" to currentUser.email,
-//        )
-
-//        isAttendee(currentUser.uid, time) { isEnrolled ->
-//            if (isEnrolled) {
-//
-//
-//                db.collection("Courses").whereEqualTo("courseId", currentEvent)
-//                    .collection("AttendanceRecords")
-//                    .add(nfcData)
-//                    .addOnSuccessListener { documentReference ->
-//                        Toast.makeText(
-//                            this, "Data saved to Firebase: ${documentReference.id}",
-//                            Toast.LENGTH_SHORT
-//                        ).show()
-//                    }
-//                    .addOnFailureListener { e ->
-//                        Toast.makeText(
-//                            this,
-//                            "Error saving to Firebase: ${e.message}",
-//                            Toast.LENGTH_LONG
-//                        ).show()
-//                    }
-//            } else {
-//                Toast.makeText(
-//                    this,
-//                    "You are not enrolled in this course",
-//                    Toast.LENGTH_LONG
-//                ).show()
-//            }
-//        }
-
-        getCurrentEvent(time) { courseId ->
+        getCurrentEvent(currentTime) { courseId ->
             if (courseId.isEmpty()) {
                 Toast.makeText(this, "No active class in this room", Toast.LENGTH_SHORT).show()
                 return@getCurrentEvent
@@ -500,47 +330,6 @@ class AttendanceActivity : AppCompatActivity() {
                     }
             }
         }
-    }
-
-    // Helper function to convert byte array to hex string
-    private fun bytesToHex(bytes: ByteArray): String {
-        val hexChars = CharArray(bytes.size * 2)
-        for (i in bytes.indices) {
-            val v = bytes[i].toInt() and 0xFF
-            hexChars[i * 2] = "0123456789ABCDEF"[v ushr 4]
-            hexChars[i * 2 + 1] = "0123456789ABCDEF"[v and 0x0F]
-        }
-        return String(hexChars)
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun getCurrentEventOld(time: String): String {
-        val roomRef = db.collection("Courses")
-        var courseId = ""
-        roomRef.get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    val arrayField = document.get("schedule") as? List<*>
-
-                    val scheduleMap = arrayField?.get(0) as? Map<*, *>
-                    val room = scheduleMap?.get("room")
-                    if (room == currentRoom) {
-                        val startTime = scheduleMap["startTime"]
-                        val endTime = scheduleMap["endTime"]
-                        //Toast.makeText(this, "startTime: $startTime endTime: $endTime", Toast.LENGTH_SHORT).show()
-                        if (isCurrentTimeBetween(timeToLocalTime(time), timeToLocalTime(startTime.toString()), timeToLocalTime(endTime.toString()))) {
-                            courseId = document.get("courseId").toString()
-                            //Toast.makeText(this, "Current Event: $courseId", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                }
-            }
-            .addOnFailureListener { exception ->
-                println("Error getting documents: $exception")
-            }
-
-
-        return courseId
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

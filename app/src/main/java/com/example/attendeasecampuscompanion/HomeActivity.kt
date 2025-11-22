@@ -33,7 +33,6 @@ class HomeActivity : ComponentActivity() {
         findViewById<Button>(R.id.btnCheckIn).setOnClickListener {
             Toast.makeText(this, "Starting NFC Scanning...", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, AttendanceActivity::class.java))
-            finish()
         }
 
         findViewById<Button>(R.id.btnSchedule).setOnClickListener {

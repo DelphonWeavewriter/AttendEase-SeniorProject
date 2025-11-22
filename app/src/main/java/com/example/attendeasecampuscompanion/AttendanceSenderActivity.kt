@@ -30,9 +30,10 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class AttendanceSenderActivity : AppCompatActivity() {
-    private lateinit var editText: EditText
+    private lateinit var timeSet: EditText
     private lateinit var statusText: TextView
     private lateinit var roomSpinner: Spinner
+    private lateinit var btnBack: TextView
     private var nfcAdapter: NfcAdapter? = null
     private var cardEmulation: CardEmulation? = null
     private var time: String = "11:45:00 AM"
@@ -49,14 +50,26 @@ class AttendanceSenderActivity : AppCompatActivity() {
 
     private var nfcTagData: String = ""
 
+    private var curretMode: NfcMode = NfcMode.NONE
+
+    enum class NfcMode {
+        NONE,
+        READER,
+        HCE
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_attendance_sender)
 
-        editText = findViewById(R.id.editText)
+        timeSet = findViewById(R.id.timeSet)
         statusText = findViewById(R.id.statusText)
         val setButton: Button = findViewById(R.id.sendButton)
         roomSpinner = findViewById(R.id.roomSpinner)
+        btnBack = findViewById(R.id.btnBack)
+        btnBack.setOnClickListener { onBackPressedDispatcher.onBackPressed()}
+
 
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)
 
@@ -77,7 +90,7 @@ class AttendanceSenderActivity : AppCompatActivity() {
         // Load rooms from Firebase (with fallback)
         loadRoomsFromFirebase()
 
-        editText.setText(HCEService.dataToSend)
+
         statusText.text = "Ready to be scanned...\nRoom: $selectedRoom"
 
         setButton.setOnClickListener {
@@ -85,7 +98,7 @@ class AttendanceSenderActivity : AppCompatActivity() {
                 Toast.makeText(this, "Select a room", Toast.LENGTH_SHORT).show()
             } else {
                 HCEService.dataToSend = selectedRoom
-                statusText.text = "Ready to scan for room: $selectedRoom\n\nHold near student's phone..."
+                statusText.text = "Ready to scan for room: $selectedRoom"
                 Toast.makeText(this, "Broadcasting room: $selectedRoom", Toast.LENGTH_SHORT).show()
             }
         }
@@ -543,7 +556,7 @@ class AttendanceSenderActivity : AppCompatActivity() {
         Log.d("AttendanceSender", "currentStudent: $currentStudent")
         Log.d("AttendanceSender", "currentTime: $currentTime")
 
-        getCurrentEvent(time) { courseId ->
+        getCurrentEvent(timeSet.getText().toString()) { courseId ->
             Log.d("AttendanceSender", "courseId returned: '$courseId'")
 
             if(courseId.isEmpty()) {

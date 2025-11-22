@@ -120,7 +120,7 @@
         <activity
             android:name="com.example.attendeasecampuscompanion.AttendanceActivity"
             android:exported="false"
-            android:label="Attendance" >
+            android:theme="@style/Theme.AppCompat.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 
@@ -145,7 +145,7 @@
         <activity
             android:name="com.example.attendeasecampuscompanion.AttendanceSenderActivity"
             android:exported="false"
-            android:label="Attendance Sender" >
+            android:theme="@style/Theme.AppCompat.NoActionBar" >
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
 
