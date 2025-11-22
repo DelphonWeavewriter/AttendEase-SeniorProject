@@ -33,6 +33,7 @@ class HomeActivity : ComponentActivity() {
         findViewById<Button>(R.id.btnCheckIn).setOnClickListener {
             Toast.makeText(this, "Starting NFC Scanning...", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, AttendanceActivity::class.java))
+            finish()
         }
 
         findViewById<Button>(R.id.btnSchedule).setOnClickListener {
@@ -40,7 +41,7 @@ class HomeActivity : ComponentActivity() {
         }
 
         findViewById<Button>(R.id.btnSocial).setOnClickListener {
-            Toast.makeText(this, "Opening SocialEaze...", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, SocialActivity::class.java))
         }
 
         findViewById<Button>(R.id.btnCampusMap).setOnClickListener {

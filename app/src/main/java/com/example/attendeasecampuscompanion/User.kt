@@ -10,5 +10,13 @@ data class User(
     val department: String = "",
     val major: String = "",
     val phoneNum: String = "",
-    val enrolledCourses: List<String> = emptyList()
+    val enrolledCourses: List<String> = emptyList(),
+    val profilePictureUrl: String = "",
+    val bio: String = "",
+    val settings: Map<String, Any> = mapOf(
+        "notificationsEnabled" to true,
+        "locationSharingEnabled" to false,
+        "profilePrivacy" to "public"
+    ),
+    val lastSeen: Long = 0L
 )

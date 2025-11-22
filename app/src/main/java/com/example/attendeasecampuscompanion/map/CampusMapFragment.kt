@@ -66,12 +66,6 @@ import com.google.android.gms.maps.model.PatternItem
 import com.google.android.gms.maps.model.CameraPosition
 import android.widget.ImageView
 import kotlin.math.absoluteValue
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.tasks.await
-import com.google.android.material.switchmaterial.SwitchMaterial
-
-
 
 
 
@@ -119,34 +113,6 @@ private lateinit var navBounds: LatLngBounds
 
 
 class CampusMapFragment : Fragment(), OnMapReadyCallback {
-
-    private val TAG = "ClassMarkersDebug"
-
-
-    // TEAM NOTE:
-    // Firebase handles all of our DB reads — this feature is READ-ONLY.
-    // We never modify Courses or Locations.
-    private val firestore: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
-    private val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
-
-    // Stores last loaded class locations so we can re-show them when toggling
-    private var lastClassLocations: List<ClassBuildingLocation> = emptyList()
-
-    // Controls whether markers are currently visible
-    private var classMarkersVisible: Boolean = true
-    private lateinit var switchClassMarkers: SwitchMaterial
-
-    // Rushil: Container that holds the "Show my class locations" switch.
-    private lateinit var classMarkersSwitchContainer: View
-
-
-
-
-
-    // TEAM NOTE:
-    // These store ONLY the dynamically created class markers.
-    // This allows us to clear/update them cleanly.
-    private val classMarkers = mutableListOf<Marker>()
     companion object {
         private const val RENDER_MARGIN_METERS = 150.0        // you can tune to 200 if needed
         private const val OUT_OF_BOUNDS_TOLERANCE_DEG = 1e-5  // tiny tolerance to avoid edge jitter
@@ -173,8 +139,6 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var navParkingContainer: View
     private lateinit var navParkingText: TextView
     private lateinit var navChangeParkingButton: Button
-    private lateinit var navClassInfoText: TextView
-
 
     private lateinit var navIParkedButton: Button
 
@@ -1260,24 +1224,6 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
             }
         }
 
-        // ===== CLASS MARKERS SWITCH =====
-        // Rushil: Switch to show/hide my personalized class locations.
-        switchClassMarkers = root.findViewById(R.id.switchClassMarkers)
-        classMarkersVisible = true
-        switchClassMarkers.isChecked = true
-
-        switchClassMarkers.setOnCheckedChangeListener { _, isChecked ->
-            classMarkersVisible = isChecked
-
-            if (isChecked) {
-                // Turn ON → re-draw markers from the last loaded list.
-                showClassMarkers(lastClassLocations)
-            } else {
-                // Turn OFF → clear markers but keep the data cached.
-                clearClassMarkers()
-            }
-        }
-        // ===== END CLASS MARKERS SWITCH =====
 
         // ================== NAV PANEL WIRED HERE ==================
 
@@ -1288,10 +1234,6 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         navEtaText = root.findViewById(R.id.navEtaText)
         navArrivalTimeText = root.findViewById(R.id.navArrivalTimeText)
         navActionButton = root.findViewById(R.id.navActionButton)
-
-        // NEW: class info line under the destination.
-        navClassInfoText = root.findViewById(R.id.navClassInfoText)
-        navClassInfoText.visibility = View.GONE
 
 
 
@@ -1497,341 +1439,6 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    /**
-     * TEAM NOTE:
-     * Converts the schedule.building code (e.g., "HJSH", "AARH", "EDHL")
-     * into the full building name stored in Firestore "Locations".
-     *
-     * ALL codes were extracted from the Fall 2024 Final Exam PDF.
-     * Only Long Island campus codes are included.
-     */
-    private fun normalizeBuildingForLocations(code: String): String {
-        return when (code.uppercase()) {
-
-            // Anna Rubin Hall
-            "AARH" -> "Anna Rubin Hall"
-
-            // Education Hall
-            "EDHL" -> "Education Hall"
-
-            // Harry J. Schure Hall
-            "HJSH" -> "Harry J. Schure Hall"
-
-            // Midge Karr Art Center
-            "MKAC" -> "Midge Karr Art Center"
-
-
-            // John J. Theobald Hall
-            "JJTH" -> "Theobald Science Center"
-
-            // Wisser Library (formerly FHSB)
-            "FHSB" -> "Wisser Memorial Library"
-
-            // Riland Health Care Center
-            "RILAND" -> "Riland Health Care Center"
-
-            // Ignore off-site clinical locations
-            "OFF-SITE", "OFFSITE" -> ""
-
-            // Ignore online classes
-            "ZOOM" -> ""
-
-            // Default (fallback)
-            else -> code
-        }
-    }
-
-
-    /**
-     * TEAM NOTE:
-     * Removes only OUR dynamically created class markers.
-     * We DO NOT clear building polygons, nav markers, or user location pins.
-     */
-    private fun clearClassMarkers() {
-        classMarkers.forEach { it.remove() }
-        classMarkers.clear()
-    }
-
-    /**
-     * TEAM NOTE:
-     * Takes a list of ClassBuildingLocation objects and generates
-     * our dynamic blue classroom markers using classroomIcon.
-     */
-    /**
-     * TEAM NOTE:
-     * Draws the blue markers for all buildings that contain my classes.
-     * The marker info window shows:
-     *   - class name
-     *   - room number
-     *   - start/end time (e.g. "2:45 PM - 4:24 PM")
-     */
-    private fun showClassMarkers(locations: List<ClassBuildingLocation>) {
-        // Remember last result so the toggle FAB can re-show markers
-        lastClassLocations = locations
-
-        // Clear any existing class markers first
-        clearClassMarkers()
-
-        // If the user has the toggle OFF, don't draw anything
-        if (!classMarkersVisible) return
-
-        locations.forEach { loc ->
-            val firstClass = loc.classes.firstOrNull()
-            val title = firstClass?.courseName ?: loc.building
-
-            // Build a multi-line snippet in case there are multiple classes
-            val snippet = if (loc.classes.isEmpty()) {
-                loc.building
-            } else {
-                loc.classes.joinToString("\n") { c ->
-                    val timeRange =
-                        if (c.startTime.isNotBlank() && c.endTime.isNotBlank()) {
-                            "${formatTime(c.startTime)} - ${formatTime(c.endTime)}"
-                        } else {
-                            ""
-                        }
-
-                    buildString {
-                        append(c.courseName)
-                        if (c.room.isNotBlank()) append(" — Room ${c.room}")
-                        if (timeRange.isNotBlank()) append(" — $timeRange")
-                    }
-                }
-            }
-
-            val marker = map?.addMarker(
-                MarkerOptions()
-                    .position(loc.position)
-                    .icon(classroomIcon)
-                    .title(title)
-                    .snippet(snippet)
-            )
-
-            if (marker != null) {
-                // Store the full data in case we want to use tag later
-                marker.tag = loc
-                classMarkers += marker
-            }
-        }
-    }
-
-
-    /**
-     * TEAM NOTE:
-     * This is the MAIN entry function for this feature.
-     *
-     * Steps:
-     * 1. Get current user UID
-     * 2. Read ALL Courses where:
-     *      enrolledStudents contains the user
-     *      campus == "Long Island"
-     * 3. Extract building codes from schedule[] & course info
-     * 4. Normalize codes → full names
-     * 5. Query Locations for matching buildings
-     * 6. Convert coordinates → LatLng
-     * 7. Render markers
-     */
-    private fun loadClassBuildingMarkersForCurrentUser() {
-        val user = auth.currentUser ?: return
-
-        Log.d(TAG, "Loading class markers for uid=${user.uid}")
-
-        firestore.collection("Courses")
-            .whereArrayContains("enrolledStudents", user.uid)
-            .whereEqualTo("campus", "Long Island")
-            .get()
-            .addOnSuccessListener { courseSnapshot ->
-                Log.d(TAG, "Course query success. docs=${courseSnapshot.size()}")
-
-                // TEAM NOTE:
-                // Map buildingName -> list of classes in that building
-                val buildingToClasses = mutableMapOf<String, MutableList<CourseMeetingInfo>>()
-
-                for (course in courseSnapshot.documents) {
-                    val courseName =
-                        course.getString("courseName")
-                            ?: course.getString("courseId")
-                            ?: "Class"
-
-                    @Suppress("UNCHECKED_CAST")
-                    val schedule = course.get("schedule") as? List<Map<String, Any?>> ?: emptyList()
-
-                    Log.d(TAG, "  Course ${course.id} schedule entries=${schedule.size}")
-
-                    for (slot in schedule) {
-                        val rawBuilding = slot["building"] as? String ?: continue
-                        val normalizedBuilding = normalizeBuildingForLocations(rawBuilding)
-
-                        if (normalizedBuilding.isBlank()) continue
-
-                        // Rushil: Be defensive here in case the field names change slightly.
-                        val room =
-                            (slot["room"] ?: slot["roomNumber"] ?: slot["room_number"]) as? String ?: ""
-
-                        val start =
-                            (slot["startTime"] ?: slot["start_time"]) as? String ?: ""
-
-                        val end =
-                            (slot["endTime"] ?: slot["end_time"]) as? String ?: ""
-
-
-                        val list = buildingToClasses.getOrPut(normalizedBuilding) { mutableListOf() }
-                        list += CourseMeetingInfo(
-                            courseName = courseName,
-                            room = room,
-                            startTime = start,
-                            endTime = end
-                        )
-
-                        Log.d(
-                            TAG,
-                            "    Added class for building=$normalizedBuilding course=$courseName room=$room"
-                        )
-                    }
-                }
-
-                val buildingNames = buildingToClasses.keys
-                Log.d(TAG, "Collected buildingNames=$buildingNames")
-
-                if (buildingNames.isEmpty()) {
-                    clearClassMarkers()
-                    return@addOnSuccessListener
-                }
-
-                firestore.collection("Locations")
-                    .whereIn("building", buildingNames.toList())
-                    .get()
-                    .addOnSuccessListener { locSnapshot ->
-                        Log.d(TAG, "Locations query success. docs=${locSnapshot.size()}")
-
-                        val results = mutableListOf<ClassBuildingLocation>()
-
-                        for (doc in locSnapshot.documents) {
-                            val building = doc.getString("building") ?: continue
-                            val coordString = doc.getString("coordinates") ?: continue
-
-                            val parts = coordString.split(",")
-                            if (parts.size != 2) continue
-
-                            val lat = parts[0].trim().toDoubleOrNull() ?: continue
-                            val lng = parts[1].trim().toDoubleOrNull() ?: continue
-
-                            val classesForBuilding =
-                                buildingToClasses[building]?.toList().orEmpty()
-
-                            results += ClassBuildingLocation(
-                                building = building,
-                                position = LatLng(lat, lng),
-                                classes = classesForBuilding
-                            )
-                        }
-
-                        Log.d(TAG, "Parsed ${results.size} ClassBuildingLocation objects.")
-                        showClassMarkers(results)
-                    }
-                    .addOnFailureListener { e ->
-                        Log.e(TAG, "Locations query FAILED", e)
-                    }
-            }
-            .addOnFailureListener { e ->
-                Log.e(TAG, "Course query FAILED", e)
-            }
-    }
-
-
-
-
-    /**
-     * TEAM NOTE:
-     * Firestore times are like "2:45:00 PM".
-     * For the map snippet I only want "2:45 PM".
-     */
-    private fun formatTime(raw: String): String {
-        val parts = raw.split(" ")
-        if (parts.size != 2) return raw
-
-        val timePart = parts[0]              // "2:45:00"
-        val ampm = parts[1]                  // "PM" / "AM"
-        val hm = timePart.split(":").take(2).joinToString(":") // "2:45"
-
-        return "$hm $ampm"
-    }
-
-
-
-    /**
-     * TEAM NOTE:
-     * When I tap one of my class markers, I want the bottom nav panel to show:
-     *  - Class name
-     *  - Room
-     *  - Time range (e.g. 2:45 PM - 4:24 PM)
-     *
-     * This does NOT start navigation yet – it just pre-fills the panel with schedule info.
-     */
-
-    // Rushil: Show class name, room, and time on a dedicated line in the nav panel.
-    // This line only appears for my blue "class" markers.
-    private fun showClassInfoInNavPanel(loc: ClassBuildingLocation) {
-        val firstClass = loc.classes.firstOrNull()
-
-        if (firstClass != null) {
-            val timeRange =
-                if (firstClass.startTime.isNotBlank() && firstClass.endTime.isNotBlank()) {
-                    "${formatTime(firstClass.startTime)} - ${formatTime(firstClass.endTime)}"
-                } else {
-                    ""
-                }
-
-            val roomPart =
-                if (firstClass.room.isNotBlank()) "Room ${firstClass.room}" else ""
-
-            val infoText = buildString {
-                append(firstClass.courseName)
-                if (roomPart.isNotBlank()) {
-                    append(" • ")
-                    append(roomPart)
-                }
-                if (timeRange.isNotBlank()) {
-                    append(" • ")
-                    append(timeRange)
-                }
-            }
-
-            navClassInfoText.text = infoText
-            navClassInfoText.visibility = View.VISIBLE
-
-        } else {
-            // Fallback: hide the line if we somehow don't have class details.
-            navClassInfoText.text = ""
-            navClassInfoText.visibility = View.GONE
-        }
-    }
-
-
-
-    /**
-     * TEAM NOTE:
-     * This keeps all my old marker behavior (buildings, parking, etc.)
-     * separate from the new "class markers" flow.
-     *
-     * Take whatever logic I previously had in setOnMarkerClickListener
-     * and paste it inside this function.
-     */
-    private fun handleNonClassMarkerClick(marker: Marker): Boolean {
-        // TODO Rushil: Paste your OLD marker-click logic here.
-        // Example (pseudo-code):
-        //
-        // selectedMarker = marker
-        // updateNavPanelForDestination(marker)
-        // return true
-        //
-        // For now, as a safe default, we'll just select and show the panel.
-        selectedMarker = marker
-        navDestinationText.text = marker.title ?: "Destination"
-        navPanelContainer.visibility = View.VISIBLE
-        return true
-    }
-
 
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -2001,7 +1608,28 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
                 .snippet("Library & lounges")
         )
 
-
+        // Classrooms (anchored at their building for now)
+        map?.addMarker(
+            com.google.android.gms.maps.model.MarkerOptions()
+                .position(LATLNG_ROOM_ANNARUBIN_306)
+                .icon(classroomIcon)
+                .title("Anna Rubin — Room 306")
+                .snippet("Classroom")
+        )
+        map?.addMarker(
+            com.google.android.gms.maps.model.MarkerOptions()
+                .position(LATLNG_ROOM_ANNARUBIN_303)
+                .icon(classroomIcon)
+                .title("Anna Rubin — Room 303")
+                .snippet("Classroom")
+        )
+        map?.addMarker(
+            com.google.android.gms.maps.model.MarkerOptions()
+                .position(LATLNG_ROOM_SCHURE_227)
+                .icon(classroomIcon)
+                .title("Harry J. Schure — Room 227")
+                .snippet("Classroom")
+        )
 
         addBuildingMarkerKeepRef(
             com.google.android.gms.maps.model.MarkerOptions()
@@ -2205,25 +1833,15 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         )
 // TEAM NOTE (Rushil): When the user taps any building marker, enter navigation preview mode.
         googleMap.setOnMarkerClickListener { marker ->
+            // If you have special markers (like "user location" or debug markers) that
+            // should not trigger navigation, you can early-return here based on marker.tag.
+
             selectedMarker = marker
             enterNavigationPreview(marker)
-
-            val classLoc = marker.tag as? ClassBuildingLocation
-
-            if (classLoc != null) {
-                // Blue class marker → show class line
-                showClassInfoInNavPanel(classLoc)
-            } else {
-                // Any other marker → hide the class line
-                navClassInfoText.text = ""
-                navClassInfoText.visibility = View.GONE
-            }
-
+            // Return true to consume the click and prevent default behavior (info window),
+            // or false if you still want the info window to show. I'm using true for now.
             true
         }
-
-
-
         // Rushil: If I'm just previewing (with or without route), tapping empty map cancels nav.
         googleMap.setOnMapClickListener {
             if (navigationState == NavigationState.Preview ||
@@ -2246,8 +1864,6 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
                 // Toast.makeText(requireContext(), "Camera free to pan. Use recenter to follow again.", Toast.LENGTH_SHORT).show()
             }
         }
-
-        loadClassBuildingMarkersForCurrentUser()
 
         // TEAM: Kick off permission check → enable blue dot & start updates when granted
 
@@ -3479,10 +3095,10 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         return (dp * resources.displayMetrics.density).toInt()
     }
 
-    // Rushil: Position the recenter FAB & switch either at its normal bottom margin,
-    // or bumped up above the nav panel when the panel is visible.
+    // Rushil: Position the recenter FAB either at its normal bottom margin,
+// or bumped up above the nav panel when the panel is visible.
     private fun updateFabPositionRelativeToNavPanel() {
-        // If the FAB isn't initialized yet, just bail.
+        // If for some reason the FAB isn't initialized yet, just bail.
         if (!::fabRecenter.isInitialized) return
 
         val params = fabRecenter.layoutParams as? ViewGroup.MarginLayoutParams ?: return
@@ -3496,18 +3112,7 @@ class CampusMapFragment : Fragment(), OnMapReadyCallback {
         }
 
         fabRecenter.layoutParams = params
-
-        // Rushil: Move the switch vertically with the nav panel too.
-        if (::classMarkersSwitchContainer.isInitialized) {
-            classMarkersSwitchContainer.translationY =
-                if (navPanelContainer.visibility == View.VISIBLE && navPanelHeightPx > 0) {
-                    -navPanelHeightPx.toFloat()
-                } else {
-                    0f
-                }
-        }
     }
-
 
     // Rushil: When I compute a new route (graph-based or straight line), I call this
 // with all the polyline points in order. It precomputes the cumulative distances

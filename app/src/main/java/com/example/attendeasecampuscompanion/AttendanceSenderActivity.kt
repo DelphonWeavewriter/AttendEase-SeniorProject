@@ -30,10 +30,9 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class AttendanceSenderActivity : AppCompatActivity() {
-    private lateinit var timeSet: EditText
+    private lateinit var editText: EditText
     private lateinit var statusText: TextView
     private lateinit var roomSpinner: Spinner
-    private lateinit var btnBack: TextView
     private var nfcAdapter: NfcAdapter? = null
     private var cardEmulation: CardEmulation? = null
     private var time: String = "11:45:00 AM"
@@ -50,27 +49,14 @@ class AttendanceSenderActivity : AppCompatActivity() {
 
     private var nfcTagData: String = ""
 
-    private var currentMode: NfcMode = NfcMode.NONE
-
-    enum class NfcMode {
-        NONE,
-        READER,
-        HCE
-    }
-
-
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_attendance_sender)
 
-        timeSet = findViewById(R.id.timeSet)
+        editText = findViewById(R.id.editText)
         statusText = findViewById(R.id.statusText)
         val setButton: Button = findViewById(R.id.sendButton)
         roomSpinner = findViewById(R.id.roomSpinner)
-        btnBack = findViewById(R.id.btnBack)
-        btnBack.setOnClickListener { onBackPressedDispatcher.onBackPressed()}
-
 
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)
 
@@ -91,7 +77,7 @@ class AttendanceSenderActivity : AppCompatActivity() {
         // Load rooms from Firebase (with fallback)
         loadRoomsFromFirebase()
 
-
+        editText.setText(HCEService.dataToSend)
         statusText.text = "Ready to be scanned...\nRoom: $selectedRoom"
 
         setButton.setOnClickListener {
@@ -99,7 +85,7 @@ class AttendanceSenderActivity : AppCompatActivity() {
                 Toast.makeText(this, "Select a room", Toast.LENGTH_SHORT).show()
             } else {
                 HCEService.dataToSend = selectedRoom
-                statusText.text = "Ready to scan for room: $selectedRoom"
+                statusText.text = "Ready to scan for room: $selectedRoom\n\nHold near student's phone..."
                 Toast.makeText(this, "Broadcasting room: $selectedRoom", Toast.LENGTH_SHORT).show()
             }
         }
@@ -111,17 +97,6 @@ class AttendanceSenderActivity : AppCompatActivity() {
                 "Please set this app as default for NFC in settings",
                 Toast.LENGTH_LONG
             ).show()
-        }
-
-        val readerModeButton: Button = findViewById(R.id.readerModeButton)
-        val hceModeButton: Button = findViewById(R.id.hceModeButton)
-
-        readerModeButton.setOnClickListener {
-            switchToReaderMode()
-        }
-
-        hceModeButton.setOnClickListener {
-            switchToHceMode()
         }
     }
 
@@ -172,34 +147,27 @@ class AttendanceSenderActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-
-        when (currentMode) {
-            NfcMode.READER -> nfcAdapter?.disableReaderMode(this)
-            NfcMode.HCE -> { /* HCE continues in background */ }
-            NfcMode.NONE -> { }
-        }
+        nfcAdapter?.disableReaderMode(this)
     }
 
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onResume() {
         super.onResume()
-        setupNfcForCurrentMode()
+        statusText.text = "Ready to be scanned...\nRoom: $selectedRoom"
 
-//        statusText.text = "Ready to be scanned...\nRoom: $selectedRoom"
-//
-//        val callback = NfcAdapter.ReaderCallback { tag ->
-//            onTagDiscovered(tag)
-//        }
-//
-//        // Enable foreground dispatch to intercept NFC intents
-//        nfcAdapter?.enableReaderMode(
-//            this,
-//            callback,
-//            NfcAdapter.FLAG_READER_NFC_A or
-//                    NfcAdapter.FLAG_READER_NFC_B,
-//            null
-//        )
+        val callback = NfcAdapter.ReaderCallback { tag ->
+            onTagDiscovered(tag)
+        }
+
+        // Enable foreground dispatch to intercept NFC intents
+        nfcAdapter?.enableReaderMode(
+            this,
+            callback,
+            NfcAdapter.FLAG_READER_NFC_A or
+                    NfcAdapter.FLAG_READER_NFC_B,
+            null
+        )
     }
 
 
@@ -575,7 +543,7 @@ class AttendanceSenderActivity : AppCompatActivity() {
         Log.d("AttendanceSender", "currentStudent: $currentStudent")
         Log.d("AttendanceSender", "currentTime: $currentTime")
 
-        getCurrentEvent(timeSet.getText().toString()) { courseId ->
+        getCurrentEvent(time) { courseId ->
             Log.d("AttendanceSender", "courseId returned: '$courseId'")
 
             if(courseId.isEmpty()) {
@@ -669,74 +637,6 @@ class AttendanceSenderActivity : AppCompatActivity() {
                             ).show()
                         }
                     }
-            }
-        }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun switchToReaderMode() {
-        currentMode = NfcMode.READER
-        statusText.text = "Reader Mode Active\nReady to scan student cards"
-        Toast.makeText(this, "Switched to Reader Mode", Toast.LENGTH_SHORT).show()
-
-        // Restart the activity to apply new mode
-        setupNfcForCurrentMode()
-
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun switchToHceMode() {
-        currentMode = NfcMode.HCE
-        HCEService.dataToSend = selectedRoom
-        statusText.text = "HCE Mode Active\nReady to broadcast room: $selectedRoom"
-        Toast.makeText(this, "Switched to HCE Mode - Hold device to scanner", Toast.LENGTH_SHORT).show()
-
-        // Restart the activity to apply new mode
-        setupNfcForCurrentMode()
-
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun setupNfcForCurrentMode() {
-        when (currentMode) {
-            NfcMode.READER -> {
-                // Disable any foreground dispatch first
-                nfcAdapter?.disableForegroundDispatch(this)
-
-                // Setup Reader Mode
-                val callback = NfcAdapter.ReaderCallback { tag ->
-                    onTagDiscovered(tag)
-                }
-
-                nfcAdapter?.enableReaderMode(
-                    this,
-                    callback,
-                    NfcAdapter.FLAG_READER_NFC_A or NfcAdapter.FLAG_READER_NFC_B,
-                    null
-                )
-            }
-
-            NfcMode.HCE -> {
-                // Disable reader mode first
-                nfcAdapter?.disableReaderMode(this)
-
-                // HCE is passive - just ensure the service is set as default
-                val component = ComponentName(this, HCEService::class.java)
-                if (!cardEmulation!!.isDefaultServiceForCategory(
-                        component,
-                        CardEmulation.CATEGORY_OTHER
-                    )) {
-                    Toast.makeText(
-                        this,
-                        "Please set this app as default for NFC in settings",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            }
-
-            NfcMode.NONE -> {
-                nfcAdapter?.disableReaderMode(this)
-                nfcAdapter?.disableForegroundDispatch(this)
             }
         }
     }
