@@ -62,8 +62,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/scannerTitle" />
 
+            <!-- MODE SELECTION CARD -->
             <androidx.cardview.widget.CardView
-                android:id="@+id/configCard"
+                android:id="@+id/modeSelectionCard"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
@@ -75,6 +76,93 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/scannerSubtitle">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="24dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Select Mode"
+                        android:textColor="#333333"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="16dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Choose how you want to use this device:"
+                        android:textColor="#666666"
+                        android:textSize="14sp"
+                        android:layout_marginBottom="16dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+                        <Button
+                            android:id="@+id/readerModeButton"
+                            android:layout_width="0dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/signin_button_background"
+                            android:text="📖\nReader Mode\n\nScan Student Cards"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:gravity="center" />
+
+                        <Button
+                            android:id="@+id/hceModeButton"
+                            android:layout_width="0dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="1"
+                            android:layout_marginStart="8dp"
+                            android:background="@drawable/signin_button_background"
+                            android:text="📡\nBroadcast Mode\n\nEmulate Room Card"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:gravity="center" />
+                    </LinearLayout>
+
+                    <!-- Current Mode Indicator -->
+                    <TextView
+                        android:id="@+id/currentModeText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="Current Mode: None"
+                        android:textColor="#666666"
+                        android:textSize="14sp"
+                        android:textStyle="italic"
+                        android:layout_gravity="center" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- CONFIGURATION CARD -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/configCard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/modeSelectionCard">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -109,44 +197,79 @@
                         android:paddingEnd="16dp"
                         android:layout_marginBottom="20dp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Select Time"
-                        android:textColor="#666666"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="8dp" />
-
-                    <EditText
-                        android:id="@+id/timeSet"
+                    <!-- Reader Mode Only Section -->
+                    <LinearLayout
+                        android:id="@+id/readerModeSection"
                         android:layout_width="match_parent"
-                        android:layout_height="56dp"
-                        android:background="@drawable/input_field_background"
-                        android:hint="Enter time in HH:MM:SS XM format"
-                        android:inputType="text"
-                        android:paddingStart="16dp"
-                        android:paddingEnd="16dp"
-                        android:textColor="#333333"
-                        android:textColorHint="#888888"
-                        android:textSize="16sp"
-                        android:layout_marginBottom="16dp" />
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Manual Time Override (Optional)"
+                            android:textColor="#666666"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="8dp" />
+
+                        <EditText
+                            android:id="@+id/timeSet"
+                            android:layout_width="match_parent"
+                            android:layout_height="56dp"
+                            android:background="@drawable/input_field_background"
+                            android:hint="Leave empty to use current time"
+                            android:inputType="text"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:textColor="#333333"
+                            android:textColorHint="#888888"
+                            android:textSize="16sp"
+                            android:layout_marginBottom="16dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="📝 Reader Mode will scan student ID cards and automatically record attendance for the current class in this room."
+                            android:textColor="#888888"
+                            android:textSize="12sp"
+                            android:layout_marginBottom="16dp" />
+                    </LinearLayout>
+
+                    <!-- HCE Mode Only Section -->
+                    <LinearLayout
+                        android:id="@+id/hceModeSection"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="📡 Broadcast Mode will make this device act as a room card. Hold it near another device's NFC reader to transmit the room number."
+                            android:textColor="#888888"
+                            android:textSize="12sp"
+                            android:layout_marginBottom="16dp" />
+                    </LinearLayout>
 
                     <Button
                         android:id="@+id/sendButton"
                         android:layout_width="match_parent"
                         android:layout_height="56dp"
                         android:background="@drawable/signin_button_background"
-                        android:text="Set Configuration"
+                        android:text="Activate Selected Mode"
                         android:textColor="#FFFFFF"
                         android:textSize="16sp"
                         android:textStyle="bold"
-                        android:layout_marginBottom="12dp" />
+                        android:enabled="false" />
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
+            <!-- STATUS CARD -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/statusCard"
                 android:layout_width="0dp"
@@ -154,6 +277,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:layout_marginBottom="32dp"
                 app:cardBackgroundColor="#80FFFFFF"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="8dp"
@@ -172,21 +296,12 @@
                         android:id="@+id/statusText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Status: Ready"
+                        android:text="Status: Select a mode to begin"
                         android:textColor="#333333"
                         android:textSize="18sp"
                         android:textStyle="bold"
+                        android:gravity="center"
                         android:layout_marginBottom="0dp" />
-
-<!--                    <Button-->
-<!--                        android:id="@+id/shareButton"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="56dp"-->
-<!--                        android:background="@drawable/signin_button_background"-->
-<!--                        android:text="🚀 Activate Scanner (HCE)"-->
-<!--                        android:textColor="#FFFFFF"-->
-<!--                        android:textSize="16sp"-->
-<!--                        android:textStyle="bold" />-->
 
                 </LinearLayout>
 

@@ -16,12 +16,12 @@
         "source": "C:\\Users\\fenna\\.gradle\\daemon\\8.13\\com.example.attendeasecampuscompanion.app-main-73:\\mipmap-xxxhdpi\\ic_launcher.webp"
     },
     {
-        "merged": "C:\\Users\\fenna\\.gradle\\daemon\\8.13\\com.example.attendeasecampuscompanion.app-debug-71:\\drawable_background_gradient.xml.flat",
-        "source": "C:\\Users\\fenna\\.gradle\\daemon\\8.13\\com.example.attendeasecampuscompanion.app-main-73:\\drawable\\background_gradient.xml"
-    },
-    {
         "merged": "C:\\Users\\fenna\\.gradle\\daemon\\8.13\\com.example.attendeasecampuscompanion.app-debug-71:\\layout_activity_attendance_sender.xml.flat",
         "source": "C:\\Users\\fenna\\.gradle\\daemon\\8.13\\com.example.attendeasecampuscompanion.app-main-73:\\layout\\activity_attendance_sender.xml"
+    },
+    {
+        "merged": "C:\\Users\\fenna\\.gradle\\daemon\\8.13\\com.example.attendeasecampuscompanion.app-debug-71:\\drawable_background_gradient.xml.flat",
+        "source": "C:\\Users\\fenna\\.gradle\\daemon\\8.13\\com.example.attendeasecampuscompanion.app-main-73:\\drawable\\background_gradient.xml"
     },
     {
         "merged": "C:\\Users\\fenna\\.gradle\\daemon\\8.13\\com.example.attendeasecampuscompanion.app-debug-71:\\layout_item_attendance_report.xml.flat",
@@ -198,6 +198,10 @@
     {
         "merged": "C:\\Users\\fenna\\.gradle\\daemon\\8.13\\com.example.attendeasecampuscompanion.app-debug-71:\\layout_map_test.xml.flat",
         "source": "C:\\Users\\fenna\\.gradle\\daemon\\8.13\\com.example.attendeasecampuscompanion.app-main-73:\\layout\\map_test.xml"
+    },
+    {
+        "merged": "com.example.attendeasecampuscompanion.app-debug-71:/layout_activity_attendance_sender.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-73:/layout/activity_attendance_sender.xml"
     },
     {
         "merged": "C:\\Users\\fenna\\.gradle\\daemon\\8.13\\com.example.attendeasecampuscompanion.app-debug-71:\\drawable_button_green.xml.flat",

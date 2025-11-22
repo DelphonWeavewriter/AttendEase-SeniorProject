@@ -75,6 +75,7 @@ id configCard
 id courseCode
 id courseName
 id creditsDetails
+id currentModeText
 id dateHeader
 id dateText
 id departmentDetails
@@ -92,6 +93,8 @@ id etMessage
 id fabCreateEvent
 id fabRecenter
 id forgotPassword
+id hceModeButton
+id hceModeSection
 id headerSection
 id layoutCharts
 id layoutDetailContent
@@ -102,6 +105,7 @@ id locationDetails
 id loginSubtitle
 id map
 id map_container
+id modeSelectionCard
 id navActionButton
 id navArrivalTimeText
 id navChangeParkingButton
@@ -124,6 +128,8 @@ id professorId
 id professorName
 id progressBar
 id progressBarDetail
+id readerModeButton
+id readerModeSection
 id recyclerViewCourses
 id recyclerViewSchedule
 id recyclerViewStudents

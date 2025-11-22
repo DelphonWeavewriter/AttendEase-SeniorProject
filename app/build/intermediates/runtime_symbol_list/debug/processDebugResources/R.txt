@@ -3403,6 +3403,7 @@ int id courseCode 0x7f0800b8
 int id courseName 0x7f0800b9
 int id cradle 0x7f0800ba
 int id creditsDetails 0x7f0800bb
+int id currentModeText 0x7f0802ad
 int id currentState 0x7f0800bc
 int id custom 0x7f0800bd
 int id customPanel 0x7f0800be
@@ -3497,6 +3498,8 @@ int id graph_wrap 0x7f080117
 int id group_divider 0x7f080118
 int id grouping 0x7f080119
 int id groups 0x7f08011a
+int id hceModeButton 0x7f0802ae
+int id hceModeSection 0x7f0802af
 int id headerSection 0x7f08011b
 int id header_title 0x7f08011c
 int id hide_ime_id 0x7f08011d
@@ -3576,6 +3579,7 @@ int id matrix 0x7f080166
 int id message 0x7f080167
 int id middle 0x7f080168
 int id mini 0x7f080169
+int id modeSelectionCard 0x7f0802b0
 int id month_grid 0x7f08016a
 int id month_navigation_bar 0x7f08016b
 int id month_navigation_fragment_toggle 0x7f08016c
@@ -3687,6 +3691,8 @@ int id progress_circular 0x7f0801d5
 int id progress_horizontal 0x7f0801d6
 int id radio 0x7f0801d7
 int id ratio 0x7f0801d8
+int id readerModeButton 0x7f0802b1
+int id readerModeSection 0x7f0802b2
 int id rectangles 0x7f0801d9
 int id recyclerViewCourses 0x7f0801da
 int id recyclerViewSchedule 0x7f0801db
