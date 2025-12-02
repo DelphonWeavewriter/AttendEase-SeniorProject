@@ -1,12 +1,13 @@
-#Thu Nov 27 13:40:37 EST 2025
-base.0=C\:\\Users\\User\\AndroidStudioProjects\\AttendEaseCampusMap\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
-base.1=C\:\\Users\\User\\AndroidStudioProjects\\AttendEaseCampusMap\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
-base.2=C\:\\Users\\User\\AndroidStudioProjects\\AttendEaseCampusMap\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\12\\classes.dex
-base.3=C\:\\Users\\User\\AndroidStudioProjects\\AttendEaseCampusMap\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\3\\classes.dex
-base.4=C\:\\Users\\User\\AndroidStudioProjects\\AttendEaseCampusMap\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\5\\classes.dex
-base.5=C\:\\Users\\User\\AndroidStudioProjects\\AttendEaseCampusMap\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes2.dex
-base.6=C\:\\Users\\User\\AndroidStudioProjects\\AttendEaseCampusMap\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes3.dex
-base.7=C\:\\Users\\User\\AndroidStudioProjects\\AttendEaseCampusMap\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes4.dex
+#Mon Dec 01 23:34:04 EST 2025
+base.0=/Users/samuelrashad/AndroidStudioProjects/AttendEase-SeniorProject/app/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex
+base.1=/Users/samuelrashad/AndroidStudioProjects/AttendEase-SeniorProject/app/build/intermediates/dex/debug/mergeProjectDexDebug/0/classes.dex
+base.2=/Users/samuelrashad/AndroidStudioProjects/AttendEase-SeniorProject/app/build/intermediates/dex/debug/mergeProjectDexDebug/12/classes.dex
+base.3=/Users/samuelrashad/AndroidStudioProjects/AttendEase-SeniorProject/app/build/intermediates/dex/debug/mergeProjectDexDebug/3/classes.dex
+base.4=/Users/samuelrashad/AndroidStudioProjects/AttendEase-SeniorProject/app/build/intermediates/dex/debug/mergeProjectDexDebug/5/classes.dex
+base.5=/Users/samuelrashad/AndroidStudioProjects/AttendEase-SeniorProject/app/build/intermediates/dex/debug/mergeExtDexDebug/classes2.dex
+base.6=/Users/samuelrashad/AndroidStudioProjects/AttendEase-SeniorProject/app/build/intermediates/dex/debug/mergeExtDexDebug/classes3.dex
+base.7=/Users/samuelrashad/AndroidStudioProjects/AttendEase-SeniorProject/app/build/intermediates/dex/debug/mergeExtDexDebug/classes4.dex
+base.8=/Users/samuelrashad/AndroidStudioProjects/AttendEase-SeniorProject/app/build/intermediates/dex/debug/mergeProjectDexDebug/2/classes.dex
 path.0=classes.dex
 path.1=0/classes.dex
 path.2=12/classes.dex
@@ -15,6 +16,7 @@ path.4=5/classes.dex
 path.5=classes2.dex
 path.6=classes3.dex
 path.7=classes4.dex
+path.8=2/classes.dex
 renamed.0=classes.dex
 renamed.1=classes2.dex
 renamed.2=classes3.dex
@@ -23,3 +25,4 @@ renamed.4=classes5.dex
 renamed.5=classes6.dex
 renamed.6=classes7.dex
 renamed.7=classes8.dex
+renamed.8=classes9.dex

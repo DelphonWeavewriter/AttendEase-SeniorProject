@@ -133,6 +133,12 @@
         <activity
             android:name=".NotificationsActivity"
             android:exported="false" />
+        <activity
+            android:name=".FriendsListImplementation"
+            android:exported="false" />
+        <activity
+            android:name=".MessageActivity"
+            android:exported="false" />
 
         <activity
             android:name=".AttendanceSenderActivity"

@@ -158,6 +158,12 @@
             android:name="com.example.attendeasecampuscompanion.NotificationsActivity"
             android:exported="false" />
         <activity
+            android:name="com.example.attendeasecampuscompanion.FriendsListImplementation"
+            android:exported="false" />
+        <activity
+            android:name="com.example.attendeasecampuscompanion.MessageActivity"
+            android:exported="false" />
+        <activity
             android:name="com.example.attendeasecampuscompanion.AttendanceSenderActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar" >

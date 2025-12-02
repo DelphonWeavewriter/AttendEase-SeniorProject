@@ -18,6 +18,8 @@ color warning_yellow
 color white
 drawable app_logo
 drawable background_gradient
+drawable bubble_left
+drawable bubble_right
 drawable button_green
 drawable button_primary
 drawable button_red
@@ -40,9 +42,12 @@ drawable ic_turn_left
 drawable ic_turn_right
 drawable input_field_background
 drawable login_background
+drawable message_img
+drawable rounded_card_bg
 drawable signin_button_background
 id acceptButton
 id addFriendButton
+id addFriendContainer
 id appLogo
 id attendanceRate
 id attendanceSubtitle
@@ -83,6 +88,7 @@ id calendarView
 id cardAnnouncement
 id cardCheckIn
 id cardManualAttendance
+id chatRecycler
 id chipSchedule
 id chipSemester
 id classMarkersSwitchContainer
@@ -125,14 +131,19 @@ id fabCreateEvent
 id fabRecenter
 id forgotPassword
 id fragmentContainer
+id friendButton
 id friendCountText
 id friendMajorText
+id friendName
 id friendNameText
 id friendProfileImage
+id friendSwitch
+id friendsRecycler
 id friendsRecyclerView
 id hceModeButton
 id hceModeSection
 id headerSection
+id headerTitle
 id layoutCharts
 id layoutDetailContent
 id layoutStats
@@ -151,6 +162,10 @@ id mapContentContainer
 id mapHeaderContainer
 id mapTitle
 id map_container
+id messageInput
+id messageTextLeft
+id messageTextRight
+id messagingRecycler
 id messagingTitle
 id modeSelectionCard
 id nameText
@@ -231,6 +246,7 @@ id studentId
 id studentName
 id suggestionsList
 id switchClassMarkers
+id switchStatus
 id timeColumn
 id timeRange
 id timeSet
@@ -281,6 +297,7 @@ layout activity_friends_list
 layout activity_home
 layout activity_map
 layout activity_mark_attendance
+layout activity_message
 layout activity_my_schedule
 layout activity_notifications
 layout activity_professor_home
@@ -296,6 +313,8 @@ layout fragment_campus_map
 layout fragment_explore
 layout fragment_messaging
 layout fragment_profile
+layout friend_list_item
+layout friends
 layout item_announcement
 layout item_attendance_report
 layout item_comment
@@ -305,6 +324,8 @@ layout item_final_exam
 layout item_friend
 layout item_friend_request
 layout item_manual_attendance
+layout item_message_left
+layout item_message_right
 layout item_notification
 layout item_post
 layout item_schedule
