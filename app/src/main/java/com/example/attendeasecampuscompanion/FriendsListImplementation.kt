@@ -1,48 +1,37 @@
 package com.example.attendeasecampuscompanion
 
-import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.attendeasecampuscompanion.adapters.FriendAdapter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class FriendsListImplementation : ComponentActivity() {
 
-    private val db = FirebaseFirestore.getInstance()
-    private val auth = FirebaseAuth.getInstance()
-
     private lateinit var recyclerView: RecyclerView
     private lateinit var addFriendTextField: EditText
     private lateinit var addFriendButton: Button
+    private lateinit var adapter: FriendsAdapter
 
-    private val friendsArray = ArrayList<FriendMSG>()
-    private lateinit var adapter: FriendAdapter
+    private val friendsList = ArrayList<Friend>()
+    private val db = FirebaseFirestore.getInstance()
+    private val auth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.friends)
 
         recyclerView = findViewById(R.id.friendsRecycler)
+
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        adapter = FriendAdapter(
-            friendsArray,
-            onSwitchToggle = { friend, isOn ->
-                Toast.makeText(this, "Location for ${friend.fullName}: $isOn", Toast.LENGTH_SHORT).show()
-            },
-            onButtonClick = { friend ->
-                val intent = Intent(this, MessageActivity::class.java)
-                intent.putExtra("FRIEND_UID", friend.uid)
-                intent.putExtra("FRIEND_NAME", friend.fullName)
-                startActivity(intent)
-            }
-        )
+        adapter = FriendsAdapter(friendsList) { friend ->
+            // Optional: navigate to chat or profile
+        }
 
         recyclerView.adapter = adapter
 
@@ -50,34 +39,41 @@ class FriendsListImplementation : ComponentActivity() {
 
         addFriendButton.setOnClickListener {
             val uid = addFriendTextField.text.toString().trim()
-            if (uid.isNotEmpty()) {
-                addFriend(uid)
-            } else {
-                Toast.makeText(this, "Enter a UID", Toast.LENGTH_SHORT).show()
-            }
+            if (uid.isNotEmpty()) addFriend(uid)
         }
     }
 
     private fun loadFriends() {
         val currentUserId = auth.currentUser?.uid ?: return
 
-        db.collection("Users").document(currentUserId)
-            .collection("FriendsList")
+        db.collection("Users")
+            .document(currentUserId)
+            .collection("Friends")
             .get()
             .addOnSuccessListener { result ->
-                friendsArray.clear()
+                friendsList.clear()
 
-                for (document in result) {
-                    val first = document.getString("firstName") ?: "Unknown"
-                    val last = document.getString("lastName") ?: ""
-                    val uid = document.getString("userId") ?: ""
+                for (doc in result) {
+                    val friendId = doc.getString("userId") ?: ""
+                    val first = doc.getString("firstName") ?: ""
+                    val last = doc.getString("lastName") ?: ""
+                    val major = doc.getString("major") ?: ""
+                    val profilePic = doc.getString("profilePic") ?: ""
 
-                    friendsArray.add(
-                        FriendMSG("$first $last", uid)
+                    val friend = Friend(
+                        friendId = friendId,
+                        friendName = "$first $last",
+                        friendMajor = major,
+                        friendProfilePic = profilePic
                     )
+
+                    friendsList.add(friend)
                 }
 
                 adapter.notifyDataSetChanged()
+            }
+            .addOnFailureListener { e ->
+                Log.e("FriendsList", "Error loading friends: ${e.message}")
             }
     }
 
@@ -87,21 +83,22 @@ class FriendsListImplementation : ComponentActivity() {
         db.collection("Users")
             .whereEqualTo("userId", friendUid)
             .get()
-            .addOnSuccessListener { qs ->
-                if (!qs.isEmpty) {
-                    val friendData = qs.documents[0].data!!
-
-                    db.collection("Users")
-                        .document(currentUserId)
-                        .collection("FriendsList")
-                        .document(friendUid)
-                        .set(friendData)
-
-                    Toast.makeText(this, "Friend added!", Toast.LENGTH_SHORT).show()
-                    loadFriends()
-                } else {
-                    Toast.makeText(this, "User not found", Toast.LENGTH_SHORT).show()
+            .addOnSuccessListener { snapshot ->
+                if (snapshot.isEmpty) {
+                    Log.e("FriendsList", "No user found with UID $friendUid")
+                    return@addOnSuccessListener
                 }
+
+                val friendData = snapshot.documents[0].data ?: return@addOnSuccessListener
+
+                db.collection("Users")
+                    .document(currentUserId)
+                    .collection("Friends")
+                    .document(friendUid)
+                    .set(friendData)
+                    .addOnSuccessListener {
+                        loadFriends()
+                    }
             }
     }
 }

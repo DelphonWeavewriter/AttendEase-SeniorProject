@@ -3,56 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white">
+    android:padding="16dp">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/messagingTitle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/primary_blue"
-        android:padding="16dp">
+        android:text="Messages"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:paddingBottom="12dp"
+        android:textColor="#000" />
 
-        <TextView
-            android:id="@+id/backButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="←"
-            android:textSize="32sp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:clickable="true"
-            android:focusable="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="Messages"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="@color/white" />
-
-    </RelativeLayout>
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/messagingRecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <TextView
-            android:id="@+id/messagingTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Messages"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:paddingBottom="12dp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/messagingRecycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </LinearLayout>
+        android:overScrollMode="never"
+        android:paddingTop="4dp" />
 
 </LinearLayout>

@@ -1,55 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="12dp"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="4dp"
-    app:strokeWidth="0dp">
+    android:orientation="horizontal"
+    android:padding="12dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/friendProfileImage"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:src="@drawable/ic_profile_placeholder" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp"
-        android:gravity="center_vertical">
+        android:layout_marginStart="12dp">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/friendProfileImage"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/ic_profile_placeholder"
-            app:civ_border_width="2dp"
-            app:civ_border_color="@color/primary_blue" />
-
-        <LinearLayout
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/friendNameText"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="16dp"
-            android:orientation="vertical">
+            android:text="Friend Name"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/friendNameText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Friend Name"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/black" />
-
-            <TextView
-                android:id="@+id/friendMajorText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Major"
-                android:textSize="14sp"
-                android:textColor="#666666" />
-
-        </LinearLayout>
+        <TextView
+            android:id="@+id/friendMajorText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Major"
+            android:textSize="14sp"
+            android:textColor="#888" />
 
     </LinearLayout>
-
-</com.google.android.material.card.MaterialCardView>
+</LinearLayout>
