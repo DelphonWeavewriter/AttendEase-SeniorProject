@@ -1,19 +1,24 @@
 package com.example.attendeasecampuscompanion
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.attendeasecampuscompanion.adapters.ChatAdapter
-import com.example.attendeasecampuscompanion.ChatMessage
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class MessageActivity : ComponentActivity() {
 
+    private lateinit var chatId: String
+    private lateinit var friendName: String
     private lateinit var adapter: ChatAdapter
+
     private val messages = ArrayList<ChatMessage>()
 
     private lateinit var chatRecycler: RecyclerView
@@ -23,21 +28,29 @@ class MessageActivity : ComponentActivity() {
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
 
-    private lateinit var currentUserId: String
-    private lateinit var friendUid: String
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_message)
 
-        currentUserId = auth.currentUser!!.uid
-        friendUid = intent.getStringExtra("FRIEND_UID")!!
+        chatId = intent.getStringExtra("CHAT_ID") ?: ""
+        friendName = intent.getStringExtra("FRIEND_NAME") ?: ""
+
+        findViewById<ImageButton>(R.id.backButton).setOnClickListener {
+            finish()
+        }
+
+        findViewById<TextView>(R.id.chatTitle).text = friendName
+
+        if (chatId.isEmpty()) {
+            finish()
+            return
+        }
 
         chatRecycler = findViewById(R.id.chatRecycler)
         messageInput = findViewById(R.id.messageInput)
         sendButton = findViewById(R.id.sendButton)
 
-        adapter = ChatAdapter(currentUserId, messages)
+        adapter = ChatAdapter(auth.uid!!, messages)
         chatRecycler.layoutManager = LinearLayoutManager(this)
         chatRecycler.adapter = adapter
 
@@ -51,29 +64,32 @@ class MessageActivity : ComponentActivity() {
 
     private fun sendMessage(text: String) {
         val msg = ChatMessage(
-            senderId = currentUserId,
-            receiverId = friendUid,
+            senderId = auth.uid!!,
             message = text,
             timestamp = System.currentTimeMillis()
         )
 
-        val senderPath = db.collection("Users").document(currentUserId)
-            .collection("Messages").document(friendUid)
+        val msgRef = db.collection("Chats")
+            .document(chatId)
             .collection("Messages")
+            .document()
 
-        val receiverPath = db.collection("Users").document(friendUid)
-            .collection("Messages").document(currentUserId)
-            .collection("Messages")
+        msgRef.set(msg)
 
-        senderPath.add(msg)
-        receiverPath.add(msg)
+        // Update chat preview
+        db.collection("Chats").document(chatId).update(
+            mapOf(
+                "lastMessage" to text,
+                "lastMessageTimestamp" to msg.timestamp,
+                "lastMessageSenderId" to auth.uid!!
+            )
+        )
 
         messageInput.setText("")
     }
 
     private fun loadMessages() {
-        db.collection("Users").document(currentUserId)
-            .collection("Messages").document(friendUid)
+        db.collection("Chats").document(chatId)
             .collection("Messages")
             .orderBy("timestamp")
             .addSnapshotListener { snap, _ ->

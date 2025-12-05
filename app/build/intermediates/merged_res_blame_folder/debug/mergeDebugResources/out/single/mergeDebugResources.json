@@ -8,10 +8,6 @@
         "source": "/Users/samuelrashad/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-75:/layout/activity_map.xml"
     },
     {
-        "merged": "com.example.attendeasecampuscompanion.app-debug-73:/layout_fragment_messaging.xml.flat",
-        "source": "com.example.attendeasecampuscompanion.app-main-75:/layout/fragment_messaging.xml"
-    },
-    {
         "merged": "/Users/samuelrashad/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-73:/color_show_classes_thumb.xml.flat",
         "source": "/Users/samuelrashad/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-75:/color/show_classes_thumb.xml"
     },
@@ -74,6 +70,10 @@
     {
         "merged": "/Users/samuelrashad/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-73:/mipmap-xxxhdpi_ic_launcher.webp.flat",
         "source": "/Users/samuelrashad/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-main-75:/mipmap-xxxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.attendeasecampuscompanion.app-debug-73:/layout_activity_message.xml.flat",
+        "source": "com.example.attendeasecampuscompanion.app-main-75:/layout/activity_message.xml"
     },
     {
         "merged": "/Users/samuelrashad/.gradle/daemon/8.13/com.example.attendeasecampuscompanion.app-debug-73:/mipmap-hdpi_ic_launcher.webp.flat",

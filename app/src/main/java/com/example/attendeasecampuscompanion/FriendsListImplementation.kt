@@ -44,6 +44,7 @@ class FriendsListImplementation : ComponentActivity() {
     }
 
     private fun loadFriends() {
+
         val currentUserId = auth.currentUser?.uid ?: return
 
         db.collection("Users")
@@ -60,12 +61,15 @@ class FriendsListImplementation : ComponentActivity() {
                     val major = doc.getString("major") ?: ""
                     val profilePic = doc.getString("profilePic") ?: ""
 
+
+
                     val friend = Friend(
                         friendId = friendId,
                         friendName = "$first $last",
                         friendMajor = major,
                         friendProfilePic = profilePic
                     )
+
 
                     friendsList.add(friend)
                 }

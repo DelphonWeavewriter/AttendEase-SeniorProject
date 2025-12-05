@@ -89,6 +89,7 @@ id cardAnnouncement
 id cardCheckIn
 id cardManualAttendance
 id chatRecycler
+id chatTitle
 id chipSchedule
 id chipSemester
 id classMarkersSwitchContainer
@@ -162,10 +163,10 @@ id mapContentContainer
 id mapHeaderContainer
 id mapTitle
 id map_container
+id messageButton
 id messageInput
 id messageTextLeft
 id messageTextRight
-id messagingRecycler
 id messagingTitle
 id modeSelectionCard
 id nameText

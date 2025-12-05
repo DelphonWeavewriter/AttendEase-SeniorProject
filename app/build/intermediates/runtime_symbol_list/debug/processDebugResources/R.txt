@@ -3397,6 +3397,7 @@ int id chain 0x7f0800a2
 int id chain2 0x7f0800a3
 int id chains 0x7f0800a4
 int id chatRecycler 0x7f0802fd
+int id chatTitle 0x7f08030a
 int id checkbox 0x7f0800a5
 int id checked 0x7f0800a6
 int id chipSchedule 0x7f0800a7
@@ -3639,10 +3640,10 @@ int id material_timepicker_view 0x7f08018e
 int id material_value_index 0x7f08018f
 int id matrix 0x7f080190
 int id message 0x7f080191
+int id messageButton 0x7f080309
 int id messageInput 0x7f080303
 int id messageTextLeft 0x7f080304
 int id messageTextRight 0x7f080305
-int id messagingRecycler 0x7f080307
 int id messagingTitle 0x7f080192
 int id middle 0x7f080193
 int id mini 0x7f080194

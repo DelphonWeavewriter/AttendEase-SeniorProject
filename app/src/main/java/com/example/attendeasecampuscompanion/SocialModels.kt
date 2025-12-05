@@ -18,8 +18,9 @@ data class Friend(
     val friendMajor: String = "",
     val friendProfilePic: String = "",
     val status: String = "active",
-    val becameFriendsAt: Long = 0L
+    val becameFriendsAt: Any? = null
 )
+
 
 data class Chat(
     val chatId: String = "",
